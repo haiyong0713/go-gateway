@@ -1,0 +1,35 @@
+[httpClient]
+    key = "6aa4286456d16b97"
+    secret = "351cf022e1ae8296109c3c524faafcc8"
+    dial = "100ms"
+    timeout = "350ms"
+    keepAlive = "60s"
+    timer = 1000
+
+[host]
+    data = "http://data.bilibili.co"
+    api = "http://api.bilibili.co"
+    manager = "http://uat-manager.bilibili.co"
+
+[cron]
+    #WebTop = "0 */10 * * * *"
+    #RankIndex = "0 */10 * * * *"
+    #RankRecommend = "0 */10 * * * *"
+    #RankRegion = "0 */10 * * * *"
+    #OnlineList = "0 */5 * * * *"
+    #NewList = "0 */5 * * * *"
+    ArcType = "0 */10 * * * *"
+    Popular = "0 */10 * * * *"
+    RegionList = "@every 1m"
+    PopularSeries = "@every 5s"
+    LpRankRecommend = "@every 30s"
+
+[RankRids]
+    recommend = [1, 3, 4, 5, 36, 119, 129, 155, 160, 181, 188, 202]
+    Offline = []
+    landingPage = ["vup"]
+
+[PopularAct]
+    Activity = "14979"
+    Counter = "14979_ss_410_ss_3_2_T"
+    RankSwitch = true

@@ -1,0 +1,73 @@
+syntax = "proto3";
+package activity.service;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "bwsonline";
+
+message Piece {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    string title = 2 [(gogoproto.jsontag) = "title"];
+    string token = 3 [(gogoproto.jsontag) = "unit"];
+    int64 ctime = 4 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime = 5 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message Print {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    string title = 2 [(gogoproto.jsontag) = "title"];
+    string image = 3 [(gogoproto.jsontag) = "image"];
+    int64 piece_id = 4 [(gogoproto.jsontag) = "piece_id"];
+    string jump_url = 5 [(gogoproto.jsontag) = "jump_url"];
+    int32 level = 6 [(gogoproto.jsontag) = "level"];
+    int64 package_id = 7 [(gogoproto.jsontag) = "package_id"];
+    string intro = 8 [(gogoproto.jsontag) = "intro"];
+    int64 ctime = 9 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime = 10 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 bid = 11 [(gogoproto.jsontag) = "-"];
+}
+
+message Dress {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    string title = 2 [(gogoproto.jsontag) = "title"];
+    string image = 3 [(gogoproto.jsontag) = "image"];
+    int64 pos = 4 [(gogoproto.jsontag) = "pos"];
+    string key = 5 [(gogoproto.jsontag) = "key"];
+    int64 ctime = 6 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime = 7 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 groupID = 8 [(gogoproto.jsontag) = "group_id"];
+}
+
+message UserDress {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    int64 mid = 2 [(gogoproto.jsontag) = "mid"];
+    int64 dress_id = 3 [(gogoproto.jsontag) = "dress_id"];
+    int32 state = 4 [(gogoproto.jsontag) = "state"];
+    int64 ctime = 5 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime = 6 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message AwardPackage {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    string title = 2 [(gogoproto.jsontag) = "title"];
+    string intro = 3 [(gogoproto.jsontag) = "intro"];
+    int64 price = 4 [(gogoproto.jsontag) = "price"];
+    int64 type_id = 5 [(gogoproto.jsontag) = "type_id"];
+    repeated int64 award_ids = 6 [(gogoproto.jsontag) = "-"];
+    int64 ctime = 7 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime = 8 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 bid = 9 [(gogoproto.jsontag) = "-"];
+}
+
+message Award {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    string title = 2 [(gogoproto.jsontag) = "title"];
+    string intro = 3 [(gogoproto.jsontag) = "intro"];
+    string image = 4 [(gogoproto.jsontag) = "image"];
+    int32 type_id = 5 [(gogoproto.jsontag) = "type_id"];
+    int64 num = 6 [(gogoproto.jsontag) = "num"];
+    string token = 7 [(gogoproto.jsontag) = "-"];
+    int64 expire = 8 [(gogoproto.jsontag) = "-"];
+    int64 ctime = 9 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime = 10 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}

@@ -1,0 +1,551 @@
+// 定义项目 API 的 proto 文件 可以同时描述 gRPC 和 HTTP API
+// protobuf 文件参考:
+//  - https://developers.google.com/protocol-buffers/
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+// package 命名使用 {appid}.{version} 的方式, version 形如 v1, v2 ..
+package up.archive.service.v1;
+
+option go_package = "api";
+option (gogoproto.goproto_getters_all) = false;
+
+service UpArchive {
+    rpc Ping(.google.protobuf.Empty) returns (.google.protobuf.Empty);
+    // ArcPassed 投稿列表接口分页模式
+    rpc ArcPassed(ArcPassedReq) returns (ArcPassedReply) {
+      option (google.api.http) = {
+        get: "/x/internal/up/archive/arc/passed"
+      };
+    };
+    // ArcPassedTotal 投稿列表总投稿数接口
+    rpc ArcPassedTotal(ArcPassedTotalReq) returns (ArcPassedTotalReply) {
+      option (google.api.http) = {
+        get: "/x/internal/up/archive/arc/passed/total"
+      };
+    };
+    // ArcPassedCursor 投稿列表游标接口score模式
+    rpc ArcPassedCursor(ArcPassedCursorReq) returns (ArcPassedCursorReply);
+    // ArcPassedStory story模式专供接口
+    rpc ArcPassedStory(ArcPassedStoryReq) returns (ArcPassedStoryReply);
+    // ArcsPassed 批量投稿列表接口分页模式
+    rpc ArcsPassed(ArcsPassedReq) returns (ArcsPassedReply);
+    // ArcsPassedTotal 批量投稿列表总投稿数接口
+    rpc ArcsPassedTotal(ArcsPassedTotalReq) returns (ArcsPassedTotalReply);
+    // ArcPassedByAid 通过aid获取UP主稿件
+    rpc ArcPassedByAid(ArcPassedByAidReq) returns (ArcPassedByAidReply);
+    // UpsPassed 多个up主的按分布时间排序的aid接口
+    rpc UpsPassed(UpsArcsReq) returns (UpsAidPubTimeReply);
+    // ArcPassedSearch 投稿列表稿件搜索
+    rpc ArcPassedSearch(ArcPassedSearchReq) returns (ArcPassedSearchReply);
+    // ArcsPassedSort 批量投稿列表，包含多种维度排序
+    rpc ArcsPassedSort(ArcsPassedSortReq) returns (ArcsPassedSortReply);
+    // ArcPassedExist 稿件是否在列表中存在
+    rpc ArcPassedExist(ArcPassedExistReq) returns (ArcPassedExistReply);
+}
+
+enum SearchOrder {
+    // pubtime 稿件发布时间
+    pubtime = 0;
+    // click 稿件点击(播放)数
+    click = 1;
+    // fav 稿件收藏数
+    fav = 2;
+    // share 稿件分享数
+    share = 3;
+    // reply 稿件评论数
+    reply = 4;
+    // coin 稿件投币数
+    coin = 5;
+    // dm 稿件弹幕数
+    dm = 6;
+    // likes 稿件点赞数
+    likes = 7;
+}
+
+enum Sort {
+    // desc:降序
+    desc = 0;
+    // asc:升序
+    asc = 1;
+}
+
+enum KwField {
+    // title 标题
+    title = 0;
+    // content 描述
+    content = 1;
+}
+
+enum Without {
+    // 什么都不去除
+    none = 0;
+    // staff 去除联合投稿
+    staff = 1;
+    // live_playback 去除直播回放
+    live_playback = 2;
+    // no_space 去除空间禁止
+    no_space = 3;
+}
+
+message ArcPassedReq {
+    // mid 用户id 必传
+    int64 mid = 1 [(gogoproto.moretags) = 'form:"mid" validate:"min=1"'];
+    // pn 第几页
+    int64 pn = 2 [(gogoproto.moretags) = 'form:"pn" validate:"min=1"'];
+    // ps 分页大小
+    int64 ps = 3 [(gogoproto.moretags) = 'form:"ps" validate:"min=1,max=50"'];
+    // sort 排序方式 非必传 desc:降序 asc:升序 (默认降序)
+    string sort = 4 [(gogoproto.moretags) = 'form:"sort"'];
+    // Deprecated: 废弃，请使用without
+    bool without_staff = 5 [(gogoproto.moretags) = 'form:"without_staff"'];
+    // order 排序字段 非必传 (默认稿件发布时间)
+    SearchOrder order = 6 [(gogoproto.moretags) = 'form:"order"'];
+    // without 去除特定类型稿件
+    repeated Without without = 7 [(gogoproto.moretags) = 'form:"without"'];
+}
+
+message ArcPassedReply {
+    // archives 稿件信息列表
+    repeated Arc archives = 1 [(gogoproto.jsontag) = "archives", json_name = "archives"];
+    // total 稿件总数
+    int64 total = 2 [(gogoproto.jsontag) = "total", json_name = "total"];
+}
+
+message Arc {
+    int64 Aid = 1 [(gogoproto.jsontag) = "aid", json_name = "aid"];
+    // 稿件一共有多少分P
+    int64 Videos = 2 [(gogoproto.jsontag) = "videos", json_name = "videos"];
+    // 分区ID
+    int32 TypeID = 3 [(gogoproto.jsontag) = "tid", json_name = "tid"];
+    // 分区名
+    string TypeName = 4 [(gogoproto.jsontag) = "tname", json_name = "tname"];
+    // 是否转载  1=原创  2=转载 0=历史上可能遗留的脏数据
+    int32 Copyright = 5 [(gogoproto.jsontag) = "copyright", json_name = "copyright"];
+    // 稿件封面图地址，绝对地址 如 http://i0.hdslb.com/bfs/xxx.jpg
+    string Pic = 6 [(gogoproto.jsontag) = "pic", json_name = "pic"];
+    // 稿件标题
+    string Title = 7 [(gogoproto.jsontag) = "title", json_name = "title"];
+    // 稿件发布时间 对外展示的标准时间  时间戳格式
+    int64 PubDate = 8 [(gogoproto.jsontag) = "pubdate", json_name = "pubdate", (gogoproto.casttype) = "go-common/library/time.Time"];
+    // 用户提交稿件的时间 一般不对外展示 时间戳格式
+    int64 Ctime = 9 [(gogoproto.jsontag) = "ctime", json_name = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    // 稿件简介
+    string Desc = 10 [(gogoproto.jsontag) = "desc", json_name = "desc"];
+    // 稿件状态，>=0为前台用户可见状态，其他值详见 http://info.bilibili.co/pages/viewpage.action?pageId=3686597#id-%E7%A8%BF%E4%BB%B6%E5%AD%97%E6%AE%B5%E6%9E%9A%E4%B8%BE%E5%80%BC%E5%B1%9E%E6%80%A7%E8%AF%B4%E6%98%8E-%E7%A8%BF%E4%BB%B6%E7%8A%B6%E6%80%81state&access
+    int32 State = 11 [(gogoproto.jsontag) = "state", json_name = "state"];
+    // 稿件访问属性 0=全员可见 10000=登录用户可见（极少)
+    int32 Access = 12 [(gogoproto.jsontag) = "access,omitempty", json_name = "access"];
+    // 稿件属性 详见State字段的文档
+    int32 Attribute = 13 [(gogoproto.jsontag) = "attribute,omitempty", json_name = "attribute"];
+    // 废弃字段
+    string Tag = 14 [(gogoproto.jsontag) = "-"];
+    // 废弃字段
+    repeated string Tags = 15 [(gogoproto.jsontag) = "tags,omitempty", json_name = "tags"];
+    // 稿件总时长（所有分P加起来的） 单位=秒
+    int64 Duration = 16 [(gogoproto.jsontag) = "duration", json_name = "duration"];
+    // 稿件绑定的活动id
+    int64 MissionID = 17 [(gogoproto.jsontag) = "mission_id,omitempty", json_name = "mission_id"];
+    // 稿件绑定的商单id
+    int64 OrderID = 18 [(gogoproto.jsontag) = "order_id,omitempty", json_name = "order_id"];
+    // 稿件后台设置的强制跳转地址，如果该值不为空，则必须调转到它对应的页面上
+    string RedirectURL = 19 [(gogoproto.jsontag) = "redirect_url,omitempty", json_name = "redirect_url"];
+    int64 Forward = 20 [(gogoproto.jsontag) = "forward,omitempty", json_name = "forward"];
+    // 见Rights字段说明
+    Rights Rights = 21 [(gogoproto.jsontag) = "rights", json_name = "rights", (gogoproto.nullable) = false];
+    // 稿件作者信息，详见Author字段说明
+    Author Author = 22 [(gogoproto.jsontag) = "owner", json_name = "owner", (gogoproto.nullable) = false];
+    // 稿件计数信息，详见Stat字段说明
+    Stat Stat = 23 [(gogoproto.jsontag) = "stat", json_name = "stat", (gogoproto.nullable) = false];
+    string ReportResult = 24 [(gogoproto.jsontag) = "report_result,omitempty", json_name = "report_result"];
+    // 发布稿件时Up主设置的动态描述（仅在动态展示）
+    string Dynamic = 25 [(gogoproto.jsontag) = "dynamic", json_name = "dynamic"];
+    // 稿件第一P的cid，供秒开使用
+    int64 FirstCid = 26 [(gogoproto.jsontag) = "cid,omitempty", json_name = "cid"];
+    // 稿件第一P的分辨率，详见Dimession字段说明
+    Dimension Dimension = 27 [(gogoproto.jsontag) = "dimension,omitempty", json_name = "dimension", (gogoproto.nullable) = false];
+    // 联合投稿信息，内部使用，详见StaffInfo说明
+    repeated StaffInfo StaffInfo  = 28 [(gogoproto.jsontag) = "-"];
+    // 剧集ID
+    int64 SeasonID = 29 [(gogoproto.jsontag) = "season_id,omitempty", json_name = "season_id"];
+    // 新版attibute属性，老业务的int32已经用完
+    int64 AttributeV2 = 30 [(gogoproto.jsontag) = "attribute_v2,omitempty", json_name = "attribute_v2"];
+    // 活动合集主题色（仅在 Arcs、ArcsWithPlayurl、Views 接口会赋值）
+    SeasonTheme season_theme = 31;
+    // 短链
+    string short_link = 32;
+    // 投稿来源(仅22-直播回放有效)
+    int32 up_from = 33;
+}
+
+// 活动合集主题色
+message SeasonTheme{
+    // 背景色
+    string bg_color = 1;
+    // 选中背景色
+    string selected_bg_color = 2;
+    // 字色
+    string text_color = 3;
+}
+
+message StaffInfo {
+    // 联合投稿的成员Up主id
+    int64 Mid = 1 [(gogoproto.jsontag) = "mid", json_name = "mid"];
+    // 联合投稿的成员角色（如 声优、字幕）
+    string Title = 2 [(gogoproto.jsontag) = "title", json_name = "title"];
+    // 属性位（文档见https://info.bilibili.co/pages/viewpage.action?pageId=83773767）
+    int64 Attribute = 3 ;
+}
+
+// Dimension 视频分辨率
+message Dimension {
+    // 宽 如 1920
+    int64 Width = 1 [(gogoproto.jsontag) = "width", json_name = "width"];
+    // 高 如 1080
+    int64 Height = 2 [(gogoproto.jsontag) = "height", json_name = "height"];
+    // 是否翻转 0=否 1=是
+    int64 Rotate = 3 [(gogoproto.jsontag) = "rotate", json_name = "rotate"];
+}
+
+// Rights 稿件各常用属性 0=否 1=是
+message Rights {
+    // 老版是否付费
+    int32 Bp = 1 [(gogoproto.jsontag) = "bp", json_name = "bp"];
+    // 是否支持充电 （不可直接使用，网关层请求业务方后才有值）
+    int32 Elec = 2 [(gogoproto.jsontag) = "elec", json_name = "elec"];
+    // 是否下载（不可直接使用，网关层请求业务方后才有值）
+    int32 Download = 3 [(gogoproto.jsontag) = "download", json_name = "download"];
+    // 是否电影
+    int32 Movie = 4 [(gogoproto.jsontag) = "download", json_name = "download"];
+    // 是否PGC付费
+    int32 Pay = 5 [(gogoproto.jsontag) = "pay", json_name = "pay"];
+    // 无用
+    int32 HD5 = 6 [(gogoproto.jsontag) = "hd5", json_name = "hd5"];
+    // 是否允许转发
+    int32 NoReprint = 7 [(gogoproto.jsontag) = "no_reprint", json_name = "no_reprint"];
+    // 是否可以自动播放
+    int32 Autoplay = 8 [(gogoproto.jsontag) = "autoplay", json_name = "autoplay"];
+    // 是否UGC付费
+    int32 UGCPay = 9 [(gogoproto.jsontag) = "ugc_pay", json_name = "ugc_pay"];
+    // 是否联合投稿
+    int32 IsCooperation = 10 [(gogoproto.jsontag) = "is_cooperation", json_name = "is_cooperation"];
+    // 是否有UGC付费预览
+    int32 UGCPayPreview = 11 [(gogoproto.jsontag) = "ugc_pay_preview", json_name = "ugc_pay_preview"];
+    // 是否禁止后台播放
+    int32 NoBackground = 12  [(gogoproto.jsontag) = "no_background", json_name = "no_background"];
+    // 是否付费稿件(attribute_v2 右移13位为付费时)
+    int32 ArcPay = 13 [(gogoproto.jsontag) = "arc_pay", json_name = "arc_pay"];
+    // 是否付费稿件可免费观看, 0无法观看, 1合集内免费观看
+    int32 ArcPayFreeWatch = 14 [(gogoproto.jsontag) = "pay_free_watch", json_name = "pay_free_watch"];
+}
+
+// Author 稿件作者信息
+message Author {
+    // Up主mid
+    int64 Mid = 1 [(gogoproto.jsontag) = "mid", json_name = "mid"];
+    // Up主名称
+    string Name = 2 [(gogoproto.jsontag) = "name", json_name = "name"];
+    // Up主头像地址 绝对地址
+    string Face = 3 [(gogoproto.jsontag) = "face", json_name = "face"];
+}
+
+// Stat 稿件的所有计数信息
+message Stat {
+    int64 Aid = 1 [(gogoproto.jsontag) = "aid", json_name = "aid"];
+    // 播放数
+    int32 View = 2 [(gogoproto.jsontag) = "view", json_name = "view"];
+    // 弹幕数
+    int32 Danmaku = 3 [(gogoproto.jsontag) = "danmaku", json_name = "danmaku"];
+    // 评论数
+    int32 Reply = 4 [(gogoproto.jsontag) = "reply", json_name = "reply"];
+    // 收藏数
+    int32 Fav = 5 [(gogoproto.jsontag) = "favorite", json_name = "favorite"];
+    // 投币数
+    int32 Coin = 6 [(gogoproto.jsontag) = "coin", json_name = "coin"];
+    // 分享数
+    int32 Share = 7 [(gogoproto.jsontag) = "share", json_name = "share"];
+    // 当前排名
+    int32 NowRank = 8 [(gogoproto.jsontag) = "now_rank", json_name = "now_rank"];
+    // 历史最高排名
+    int32 HisRank = 9 [(gogoproto.jsontag) = "his_rank", json_name = "his_rank"];
+    // 点赞数
+    int32 Like = 10 [(gogoproto.jsontag) = "like", json_name = "like"];
+    // 点踩数 已取消前台展示，现在均返回0
+    int32 DisLike = 11 [(gogoproto.jsontag) = "dislike", json_name = "dislike"];
+    // 追番数 内部冗余数据，请勿使用
+    int32 Follow = 12 [(gogoproto.jsontag) = "-"];
+}
+
+message ArcPassedTotalReq {
+    // mid 用户id 必传
+    int64 mid = 1 [(gogoproto.moretags) = 'form:"mid" validate:"min=1"'];
+    // Deprecated: 废弃，请使用without
+    bool without_staff = 2 [(gogoproto.moretags) = 'form:"without_staff"'];
+    // without 去除特定类型稿件
+    repeated Without without = 3 [(gogoproto.moretags) = 'form:"without"'];
+    // tid 一级分区ID
+    int64 tid = 4 [(gogoproto.moretags) = 'form:"tid" validate:"min=0"'];
+}
+
+message ArcPassedTotalReply {
+    // total 稿件总数
+    int64 total = 2 [(gogoproto.jsontag) = "total", json_name = "total"];
+}
+
+message ArcPassedCursorReq {
+    // mid 用户id 必传
+    int64 mid = 1 [(gogoproto.moretags) = 'form:"mid" validate:"min=1"'];
+    // 上次请求最后一项数据score值
+    int64 score = 2 [(gogoproto.moretags) = 'form:"score"'];
+    // ps 请求个数
+    int64 ps = 3 [(gogoproto.moretags) = 'form:"ps" validate:"min=1,max=50"'];
+    // sort 排序方式 非必传 desc:降序 asc:升序 (默认降序)
+    string sort = 4 [(gogoproto.moretags) = 'form:"sort"'];
+    // Deprecated: 废弃，请使用without
+    bool without_staff = 5 [(gogoproto.moretags) = 'form:"without_staff"'];
+    // without 去除特定类型稿件
+    repeated Without without = 6 [(gogoproto.moretags) = 'form:"without"'];
+}
+
+message ArcPassedCursorReply {
+    // archives 稿件信息列表
+    repeated ArcPassed list = 1 [(gogoproto.jsontag) = "list", json_name = "list"];
+}
+
+message ArcPassed {
+    // 稿件aid
+    int64 aid = 1 [(gogoproto.jsontag) = "aid", json_name = "aid"];
+    // 稿件score
+    int64 score = 2 [(gogoproto.jsontag) = "score", json_name = "score"];
+}
+
+message ArcPassedStoryReq {
+    // mid 用户id 必传
+    int64 mid = 1 [(gogoproto.moretags) = 'form:"mid" validate:"min=1"'];
+    // aid 稿件aid
+    int64 aid = 2 [(gogoproto.moretags) = 'form:"aid"'];
+    // sort 排序方式 非必传 desc:降序 asc:升序 (默认降序)
+    string sort = 3 [(gogoproto.moretags) = 'form:"sort"'];
+    // prev_count 是否需要aid排序前的稿件，和next_count两个必传一个
+    int64 prev_count = 4 [(gogoproto.moretags) = 'form:"prev_count"'];
+    // next_count 是否需要aid排序后的稿件，和prev_count两个必传一个
+    int64 next_count = 5 [(gogoproto.moretags) = 'form:"next_count"'];
+    // rank aid在当前排序下rank值，从1开始
+    int64 rank = 6 [(gogoproto.moretags) = 'form:"rank"'];
+}
+
+message ArcPassedStoryReply {
+    // 请求aid是第几个稿件，从1开始
+    int64 rank = 1 [(gogoproto.jsontag) = "rank", json_name = "rank"];
+    // 列表总稿件数
+    int64 total = 2 [(gogoproto.jsontag) = "total", json_name = "total"];
+    // 请求aid前的列表
+    repeated StoryArcs prev_arcs = 3 [(gogoproto.jsontag) = "prev_aids", json_name = "prev_aids"];
+    // 请求aid后的列表
+    repeated StoryArcs next_arcs = 4 [(gogoproto.jsontag) = "next_aids", json_name = "next_aids"];
+}
+
+message StoryArcs {
+    // aid
+    int64 aid = 1 [(gogoproto.jsontag) = "aid", json_name = "aid"];
+    // aid在当前排序规则下rank值，从1开始
+    int64 rank = 2 [(gogoproto.jsontag) = "rank", json_name = "rank"];
+}
+
+message ArcsPassedReq {
+    // mids 用户id 必传
+    repeated int64 mids = 1 [(gogoproto.moretags) = 'form:"mids,split" validate:"min=1,max=100,dive,gt=0"'];
+    // pn 第几页
+    int64 pn = 2 [(gogoproto.moretags) = 'form:"pn" validate:"min=1"'];
+    // ps 分页大小
+    int64 ps = 3 [(gogoproto.moretags) = 'form:"ps" validate:"min=1,max=50"'];
+    // sort 排序方式 非必传 desc:降序 asc:升序 (默认降序)
+    string sort = 4 [(gogoproto.moretags) = 'form:"sort"'];
+    // without_staff 是否去除联合投稿稿件
+    bool without_staff = 5 [(gogoproto.moretags) = 'form:"without_staff"'];
+}
+
+message ArcsPassedReply {
+    map<int64, ArcPassedReply> archives = 1 [(gogoproto.jsontag) = "archives", json_name = "archives"];
+}
+
+message ArcsPassedTotalReq {
+    // mids 用户id 必传
+    repeated int64 mids = 1 [(gogoproto.moretags) = 'form:"mids,split" validate:"min=1,max=100,dive,gt=0"'];
+    // without_staff 不带联合投稿稿件
+    bool without_staff = 2 [(gogoproto.moretags) = 'form:"without_staff"'];
+}
+
+message ArcsPassedTotalReply {
+    // total 稿件总数
+    map<int64, int64> total = 1 [(gogoproto.jsontag) = "total", json_name = "total"];
+}
+
+message ArcPassedByAidReq {
+    // mid 用户id 必传
+    int64 mid = 1 [(gogoproto.moretags) = 'form:"mid" validate:"min=1"'];
+    // aid 为0，或者传递了错误的aid，则默认从第一页开始
+    int64 aid = 2 [(gogoproto.moretags) = 'form:"aid" validate:"min=0"'];
+    // ps 请求个数
+    int64 ps = 3 [(gogoproto.moretags) = 'form:"ps" validate:"min=1,max=100"'];
+    // sort 排序方式 非必传 desc:降序 asc:升序 (默认降序)
+    string sort = 4 [(gogoproto.moretags) = 'form:"sort"'];
+    // Deprecated: 废弃，请使用without
+    bool without_staff = 5 [(gogoproto.moretags) = 'form:"without_staff"'];
+    // without 去除特定类型稿件
+    repeated Without without = 6 [(gogoproto.moretags) = 'form:"without"'];
+    // tid 一级分区ID
+    int64 tid = 7 [(gogoproto.moretags) = 'form:"tid" validate:"min=0"'];
+    // order 排序字段 非必传 (默认稿件发布时间)
+    SearchOrder order = 8 [(gogoproto.moretags) = 'form:"order"'];
+}
+
+message ArcPassedWithIndex {
+    // archives 稿件信息列表
+    ArcPassed archive = 1 [(gogoproto.jsontag) = "archive", json_name = "archive"];
+    // rank
+    int64 rank = 2 [(gogoproto.jsontag) = "rank", json_name = "rank"];
+}
+
+// ArcPassedByAidReply 单个up主的稿件aid列表通过aid拉取的返回结果
+message ArcPassedByAidReply {
+    // aids 稿件aid列表
+    repeated ArcPassedWithIndex archives = 1 [(gogoproto.jsontag) = "archives", json_name = "archives"];
+    // total 稿件总数
+    int64 total = 2 [(gogoproto.jsontag) = "total", json_name = "total"];
+    CursorReply cursor = 3 [(gogoproto.jsontag) = "cursor", json_name = "cursor"];;
+}
+
+message CursorReply {
+    // 是否还有数据
+    bool has_more = 1 [(gogoproto.jsontag) = 'has_more', json_name = "has_more"];
+}
+
+// UpsArcsReq 多个up主的稿件列表信息请求参数
+message UpsArcsReq {
+    // mids 多个用户id 必传 最大100个
+    repeated int64 mids = 1 [(gogoproto.moretags) ='form:"mids,split" validate:"min=1,max=100"'];
+    // pn 第几页
+    int64 pn = 2 [(gogoproto.moretags) = 'form:"pn" validate:"min=1"'];
+    // ps 分页大小
+    int64 ps = 3 [(gogoproto.moretags) = 'form:"ps" validate:"min=1,max=50"'];
+    // without_staff 是否去除联合投稿稿件
+    bool without_staff = 4 [(gogoproto.moretags) = 'form:"without_staff"'];
+}
+
+// UpsAidPubTimeReply 按发布时间的多个up的稿件aid的返回值
+message UpsAidPubTimeReply {
+    // archives 稿件信息列表
+    map<int64, UpAidPubTimeReply> archives = 1 [(gogoproto.jsontag) = "archives", json_name = "archives"];
+}
+
+// UpAidPubTimeReply 按发布时间的单个up的稿件aid的返回值
+message UpAidPubTimeReply {
+    // archives 稿件信息列表
+    repeated AidPubTime archives = 1 [(gogoproto.jsontag) = "archives", json_name = "archives"];
+}
+
+// AidPubTime 发布时间的稿件aid的信息
+message AidPubTime {
+    // aid 稿件aid
+    int64 aid = 1 [(gogoproto.jsontag) = "aid", json_name = "aid"];
+    // pubdate 发布时间
+    int64 pubdate = 2 [
+        (gogoproto.jsontag) = "pubdate", json_name = "pubdate",
+        (gogoproto.casttype) = "go-common/library/time.Time"
+    ];
+    // copyright 版权来源
+    int32 copyright = 3 [(gogoproto.jsontag) = "copyright", json_name = "copyright"];
+}
+
+message ArcPassedSearchReq {
+    // mid 用户id 必传
+    int64 mid = 1 [(gogoproto.moretags) = 'form:"mid" validate:"min=1"'];
+    // tid 一级分区ID
+    int64 tid = 2 [(gogoproto.moretags) = 'form:"tid" validate:"min=0"'];
+    // keyword 搜索关键字
+    string keyword = 3 [(gogoproto.moretags) = 'form:"keyword" validate:"max=50"'];
+    // highlight 高亮
+    bool highlight = 4 [(gogoproto.moretags) = 'form:"highlight"'];
+    // pn 第几页 默认1
+    int64 pn = 5 [(gogoproto.moretags) = 'form:"pn" validate:"min=1"'];
+    // ps 分页大小 最大100
+    int64 ps = 6 [(gogoproto.moretags) = 'form:"ps" validate:"min=1,max=100"'];
+    // order 排序字段 非必传 (默认稿件发布时间)
+    SearchOrder order = 7 [(gogoproto.moretags) = 'form:"order"'];
+    // sort 排序方式 非必传 desc:降序 asc:升序 (默认降序)
+    string sort = 8 [(gogoproto.moretags) = 'form:"sort"'];
+    // hasTags 是否需要稿件标签列表
+    bool hasTags = 9 [(gogoproto.moretags) = 'form:"has_tags"'];
+    // kw_fields 搜索关键字匹配哪些字段 (默认标题和描述都匹配)
+    repeated KwField kw_fields = 10 [(gogoproto.moretags) = 'form:"kw_fields"'];
+    // without 去除特定类型稿件
+    repeated Without without = 11 [(gogoproto.moretags) = 'form:"without"'];
+}
+
+message ArcPassedSearchReply {
+    // tags 稿件标签列表
+    repeated Tag tags = 1 [(gogoproto.jsontag) = "tags", json_name = "tags"];
+    // archives 稿件信息列表
+    repeated Arc archives = 2 [(gogoproto.jsontag) = "archives", json_name = "archives"];
+    // total 列表总稿件数
+    int64 total = 3 [(gogoproto.jsontag) = "total", json_name = "total"];
+}
+
+message Tag {
+    // tid 一级分区ID
+    int64 tid = 1 [(gogoproto.jsontag) = "tid", json_name = "tid"];
+    // name 一级分区名
+    string name = 2 [(gogoproto.jsontag) = "name", json_name = "name"];
+    // count 同一分区的稿件数
+    int64 count = 3 [(gogoproto.jsontag) = "count", json_name = "count"];
+}
+
+message ArcsPassedSortReq {
+    // mid 用户id 必传
+    repeated int64 mids = 1 [(gogoproto.moretags) = 'form:"mids,split" validate:"min=1,max=10,dive,gt=0"'];
+    // tid 一级分区ID
+    int64 tid = 2 [(gogoproto.moretags) = 'form:"tid" validate:"min=0"'];
+    // ps 请求个数 最大50
+    int64 ps = 3 [(gogoproto.moretags) = 'form:"ps" validate:"min=1,max=50"'];
+    // order 排序字段 非必传 (默认稿件发布时间)
+    SearchOrder order = 4 [(gogoproto.moretags) = 'form:"order"'];
+    // sort 排序方式 非必传 desc:降序 asc:升序 (默认降序)
+    Sort sort = 5 [(gogoproto.moretags) = 'form:"sort"'];
+}
+
+message ArcsPassedSortReply {
+    // archives 稿件信息列表
+    map<int64, ArcPassedSortReply> archives = 1 [(gogoproto.jsontag) = "archives", json_name = "archives"];
+}
+
+message ArcPassedSortReply {
+    // arhives 稿件信息列表
+    repeated SortArc archive = 1 [(gogoproto.jsontag) = "archive", json_name = "archive"];
+}
+
+message SortArc {
+    // aid 稿件ID
+    int64 Aid = 1 [(gogoproto.jsontag) = "aid", json_name = "aid"];
+}
+
+message ArcPassedExistReq {
+    // mid 用户id 必传
+    int64 mid = 1 [(gogoproto.moretags) = 'form:"mid" validate:"min=1"'];
+    // aid 为0，或者传递了错误的aid，则默认从第一页开始
+    int64 aid = 2 [(gogoproto.moretags) = 'form:"aid" validate:"min=1"'];
+    // without 去除特定类型稿件
+    repeated Without without = 3 [(gogoproto.moretags) = 'form:"without"'];
+    // tid 一级分区ID
+    int64 tid = 4 [(gogoproto.moretags) = 'form:"tid" validate:"min=0"'];
+    // order 排序字段 非必传 (默认稿件发布时间)
+    SearchOrder order = 5 [(gogoproto.moretags) = 'form:"order"'];
+}
+
+message ArcPassedExistReply {
+    // 是否存在
+    bool Exist = 1 [(gogoproto.jsontag) = "exist", json_name = "exist"];
+}

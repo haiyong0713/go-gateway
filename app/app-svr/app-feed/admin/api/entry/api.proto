@@ -1,0 +1,222 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/empty.proto";
+
+package main.feed.admin.entry.api;
+
+option go_package = "entry";
+
+option (gogoproto.goproto_enum_prefix_all) = false;
+option (gogoproto.goproto_getters_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+
+
+service Entry {
+  rpc Ping(.google.protobuf.Empty) returns (.google.protobuf.Empty);
+  // 创建入口
+  rpc CreateEntry(CreateEntryReq) returns (.google.protobuf.Empty);
+  // 删除入口
+  rpc DeleteEntry(DeleteEntryReq) returns (.google.protobuf.Empty);
+  // 编辑入口
+  rpc EditEntry(EditEntryReq) returns (.google.protobuf.Empty);
+  // 入口上/下线
+  rpc ToggleEntry(ToggleEntryOnlineStatusReq) returns (.google.protobuf.Empty);
+  // 获取入口列表
+  rpc GetEntryList(GetEntryListReq) returns (GetEntryListRep);
+  // 获取当前生效的入口状态
+  rpc GetAppEntryState(GetAppEntryStateReq) returns (GetAppEntryStateRep);
+  // 设置下一个生效状态
+  rpc SetNextState(SetNextStateReq) returns (.google.protobuf.Empty);
+  // 获取时间配置列表
+  rpc GetTimeSettingList(GetTimeSettingListReq) returns (GetTimeSettingListRep);
+}
+
+// --------------------------- 请求和返回的定义 ----------------------------
+message CreateEntryReq {
+  string entryName = 1 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "entry_name"];
+  repeated AppEntryState states = 2 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "states"];
+  int64 stime = 3 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 etime = 4 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  repeated EffectivePlatform platforms = 5  [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "platforms"];
+  string createdBy = 6 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "created_by"];
+  int32  totalLoop = 7 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "total_loop"];
+}
+
+message DeleteEntryReq {
+  int32 id = 1 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "id"];
+}
+
+message EditEntryReq {
+  int32 id = 1 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "id"];
+  string entryName = 2 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "entry_name"];
+  repeated AppEntryState states = 3 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "states"];
+  int64 stime = 4 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 etime = 5 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  repeated EffectivePlatform platforms = 6  [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "platforms"];
+  string createdBy = 7 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "created_by"];
+  int32  totalLoop = 8 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "total_loop"];
+}
+
+message ToggleEntryOnlineStatusReq {
+  int32 id = 1 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "id"];
+  OnlineStatus onlineStatus = 2 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "online_status"];
+}
+
+message GetEntryListReq {
+  int32 pageNum = 1  [(gogoproto.jsontag) = "pn"];
+  int32 pageSize = 2  [(gogoproto.jsontag) = "ps"];
+}
+
+message GetEntryListRep {
+  Page page = 1 [(gogoproto.jsontag) = "page"];;
+  repeated AppEntry items = 2 [(gogoproto.jsontag) = "items"];;
+}
+
+message GetAppEntryStateReq {
+  // 系统平台
+  int32 plat = 1[(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "plat", json_name = "plat"];
+  // 端版本
+  int32 build = 2[(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "build", json_name = "build"];
+}
+
+message GetAppEntryStateRep {
+  // 常驻入口状态id
+  int32 stateID = 1 [(gogoproto.jsontag) = "state_id", json_name = "state_id"];
+  // 常驻入口状态名
+  string stateName = 2 [(gogoproto.jsontag) = "state_name", json_name = "state_name"];
+  // 跳转url
+  string url = 3 [(gogoproto.jsontag) = "url", json_name = "url"];
+  // 静态icon，兜底
+  string staticIcon = 4 [(gogoproto.jsontag) = "static_icon", json_name = "static_icon"];
+  // 动态icon
+  string dynamicIcon = 5 [(gogoproto.jsontag) = "dynamic_icon", json_name = "dynamic_icon"];
+  // 动态icon循环次数
+  int32 loopCount = 6 [(gogoproto.jsontag) = "loop_count", json_name = "loop_count"];
+  // 状态配置生效时间
+  int64 sTime = 7 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time", json_name = "stime"];
+  // 入口总配置结束时间
+  int64 eTime = 8 [(gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time", json_name = "etime"];
+  // 入口名称
+  string entryName = 9 [(gogoproto.jsontag) = "entry_name", json_name = "entry_name"];
+  // 时间配置ID
+  int32 ID = 10 [(gogoproto.jsontag) = "id", json_name = "id"];
+}
+
+message SetNextStateReq {
+  int32 entryID = 1 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "entry_id"];
+  int32 stateID = 2 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "state_id"];
+  int64 stime = 3 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  string createdBy = 4 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "created_by"];
+}
+
+message GetTimeSettingListReq {
+  int32 entryID = 1 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "entry_id"];
+}
+
+message GetTimeSettingListRep {
+  repeated AppEntryTimeSetting items = 1[(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "items"];
+}
+
+
+// --------------------------- 调用对象和枚举类型的定义 ----------------------------
+message AppEntry {
+  int32 id = 1 [(gogoproto.jsontag) = "id"];
+  string entryName = 2 [(gogoproto.jsontag) = "entry_name"];
+  OnlineStatus onlineStatus = 3  [(gogoproto.jsontag) = "online_status"];
+  repeated AppEntryState states = 4 [(gogoproto.jsontag) = "states"];
+  int64 sTime = 5 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 eTime = 6 [(gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  repeated EffectivePlatform platforms = 7 [(gogoproto.jsontag) = "platforms"];
+  string createdBy = 8 [(gogoproto.jsontag) = "created_by"];
+  int32 currentState = 9 [(gogoproto.jsontag) = "current_state"];
+  int32 totalLoop = 10 [(gogoproto.jsontag) = "total_loop"];
+  int32 sentLoop = 11 [(gogoproto.jsontag) = "sent_loop"];
+}
+
+// 单独状态配置
+message AppEntryState {
+  int32 id = 1 [(gogoproto.jsontag) = "id"];
+  string stateName = 2 [(gogoproto.jsontag) = "state_name"];
+  string url = 3 [(gogoproto.jsontag) = "url"];
+  string staticIcon = 4 [(gogoproto.jsontag) = "static_icon"];
+  string dynamicIcon = 5 [(gogoproto.jsontag) = "dynamic_icon"];
+  int32  loopCount = 6 [(gogoproto.jsontag) = "loop_count"];
+  //  int32 entryId = 6 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "entry_id"];
+}
+
+
+message AppEntryTimeSetting {
+  int32 id = 1 [(gogoproto.jsontag) = "id"];
+  string stateName = 2 [(gogoproto.jsontag) = "state_name"];
+  int32 entryId = 3 [(gogoproto.jsontag) = "entry_id"];
+  int32 stateId = 4 [(gogoproto.jsontag) = "state_id"];
+  int64 sTime = 5 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  string createdBy = 6 [(gogoproto.jsontag) = "created_by"];
+  int64 pushTime = 7 [(gogoproto.jsontag) = "push_time", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 cTime = 8 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int32 isDeprecated = 9 [(gogoproto.jsontag) = "is_deprecated"];
+}
+
+
+message EffectivePlatform {
+  // 生效平台
+  int32 platform = 1[(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "plat"];
+  // 版本运算符
+  string condition = 2[(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "conditions"];
+  // 平台版本
+  int32 build = 3[(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "build"];
+}
+
+enum OnlineStatus {
+  Offline = 0;
+  Online = 1;
+}
+
+message Page {
+  int32 total = 1[(gogoproto.jsontag) = "total"];
+  int32 pageNum = 2[(gogoproto.jsontag) = "num"];
+  int32 pageSize = 3[(gogoproto.jsontag) = "size"];
+}
+
+//message EffectiveState {
+//  string stateID = 1 [(gogoproto.jsontag) = "state_name"];
+//  string url = 2 [(gogoproto.jsontag) = "url"];
+//  string staticIcon = 3 [(gogoproto.jsontag) = "static_icon"];
+//  string dynamicIcon = 4 [(gogoproto.jsontag) = "dynamic_icon"];
+//  int64 eTime = 5 [(gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+//}
+
+//message TimeSettingHistoryRecord {
+//  int32 id = 1 [(gogoproto.jsontag) = "id"];
+//  string stateName = 2 [(gogoproto.jsontag) = "state_name"];
+//  int64 sTime = 3 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+//
+//}
+
+message AppEntryForDataBus {
+  // 常驻入口状态id
+  int32 stateID = 1 [(gogoproto.jsontag) = "state_id", json_name = "state_id"];
+  // 常驻入口状态名
+  string stateName = 2 [(gogoproto.jsontag) = "state_name", json_name = "state_name"];
+  // 跳转url
+  string url = 3 [(gogoproto.jsontag) = "url", json_name = "url"];
+  // 静态icon，兜底
+  string staticIcon = 4 [(gogoproto.jsontag) = "static_icon", json_name = "static_icon"];
+  // 动态icon
+  string dynamicIcon = 5 [(gogoproto.jsontag) = "dynamic_icon", json_name = "dynamic_icon"];
+  // 动态icon循环次数
+  int32 loopCount = 6 [(gogoproto.jsontag) = "loop_count", json_name = "loop_count"];
+  // 状态配置生效时间
+  int64 sTime = 7 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time", json_name = "stime"];
+  // 入口总配置结束时间
+  int64 eTime = 8 [(gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time", json_name = "etime"];
+  // 生效平台
+  repeated EffectivePlatform platforms = 9  [(gogoproto.jsontag) = "platforms", json_name = "platforms"];
+  // 时间配置ID
+  int32 ID = 10 [(gogoproto.jsontag) = "id", json_name = "id"];
+  // 入口名称
+  string entryName = 11 [(gogoproto.jsontag) = "entry_name", json_name = "entry_name"];
+}

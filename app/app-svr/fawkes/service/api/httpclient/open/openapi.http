@@ -1,0 +1,55 @@
+POST {{baseUrl}}/openapi/config/add
+fawkes-token: {{Token}}
+Content-Type: application/json
+
+{
+  "app_key": "w19e",
+  "env": "test",
+  "group_name": "dieyi",
+  "description": "test222222",
+  "items": [
+    {
+      "group": "dieyi",
+      "key": "aaa",
+      "value": "---",
+      "description": "测试openapi",
+      "type": -1
+    }
+  ]
+}
+
+###
+
+GET {{baseUrl}}/openapi/ci/info?app_key=w19e&build_id=146416&gl_job_id=
+Accept: application/json
+x1-bilispy-user:main.app-svr.app-test
+fawkes-token:{{Token}}
+fawkes-user:luweidan
+
+###
+
+GET {{baseUrl}}/openapi/ci/info?app_key=w19e2&build_id=146416&gl_job_id=
+Accept: application/json
+x1-bilispy-user:main.app-svr.app-test
+fawkes-token:eyJwcm9qZWN0X25hbWUiOiJ0ZXN0bCIsInRpbWVfc3RhbXAiOiIyMDIxLTA5LTIzVDE5OjA1OjU1Ljk5NzQ5KzA4OjAwIn0=
+
+###
+
+POST {{baseUrl}}/openapi/apm/event/app/relation/add
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json
+x1-bilispy-user:main.app-svr.app-test
+fawkes-token:eyJwcm9qZWN0X25hbWUiOiJzaGFrZXNwZWFyZSIsInRpbWVfc3RhbXAiOiIyMDIxLTA5LTI3VDE0OjM0OjIyLjg2OTI2MyswODowMCJ9
+
+
+app_key=99&event_id=1
+
+###
+
+GET {{baseUrl}}/openapi/app?app_key=iphone
+Accept: application/json
+Accept: application/json
+x1-bilispy-user:main.app-svr.app-test
+fawkes-token:
+
+###

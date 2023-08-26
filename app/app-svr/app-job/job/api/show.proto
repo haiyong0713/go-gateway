@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package app.job.v1;;
+
+option go_package = "v1";
+
+message Head {
+    // 模块头部 ID
+    int32 id = 1;
+    // 模块头部 平台
+    int32 plat = 2;
+    // 模块头部 参数
+    string param = 3;
+    // 模块类型
+    string type = 4;
+    // 模块显示类型
+    string style = 5;
+    // 模块数据名称
+    string title = 6;
+    // 排行榜
+    int32 rank = 7;
+    // build号
+    int32 build = 8;
+   // 状态字段
+   string condition = 9;
+   // 使用语言
+   string language = 10;
+}
+
+message Item {
+    // sid
+    int32 sid = 1;
+    // 类型名称
+    string title = 2;
+    // 封面
+    string cover = 3;
+    // 参数
+    string param = 4;
+    // 随机数
+    int32 random = 5;
+}
+
+message ShowHdMap {
+    int32 key = 1;
+    repeated Head heads = 2;
+}
+
+message ShowHdmReply {
+    repeated ShowHdMap hdm = 1;
+}
+
+message ShowItMap {
+    int32 key = 1;
+    repeated Item items = 2;
+}
+
+message ShowItmReply {
+    repeated ShowItMap itm = 1;
+}
+
+message ArticleCard {
+    // 卡id
+    int64 id = 1;
+    // 文章id
+    int64 article_id = 2;
+    // 封面
+    string cover = 3;
+}
+
+message ArticleCardMap {
+    int64 key = 1;
+    ArticleCard card = 2;
+}
+
+message ArticleCardMapReply {
+    repeated ArticleCardMap cardm = 1;
+}
+
+

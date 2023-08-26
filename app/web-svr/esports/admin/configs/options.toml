@@ -1,0 +1,5 @@
+Base = "go-gateway/app/web-svr/esports/admin/"
+[Options]
+    [Options.Switch]
+
+    [Options.CloseAfter]

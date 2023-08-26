@@ -1,0 +1,2 @@
+ALTER TABLE es_teams ADD COLUMN region_id tinyint(4) UNSIGNED NOT NULL DEFAULT 0 comment 'team region';
+ALTER TABLE es_contests_data ADD COLUMN av_cid bigint(20) UNSIGNED NOT NULL DEFAULT 0 comment 'av cid';

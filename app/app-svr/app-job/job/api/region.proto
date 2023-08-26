@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+// use {app_id}.{version} as package name
+package app.job.v1;
+
+option go_package = "v1";
+
+message Region {
+    // region ID
+    int64 id = 1;
+    // 一级分区ID
+    int32 rid = 2;
+    // 父级ID
+    int32 reid = 3;
+    // 分区名
+    string name = 4;
+    // 图片地址
+    string logo = 5;
+    // 默认为av
+    string goto = 6;
+    // 数据参数
+    string param = 7;
+    // 排行榜
+    string rank = 8;
+    // 客户端平台
+    int32 plat = 9;
+    // 区域
+    string area = 10;
+    // 使用语言
+    string language = 11;
+    // build号
+    int32 build = 12;
+    // 状态字段
+    string condition = 13;
+    // uri
+    string uri = 14;
+    // logo确认
+    int32 is_logo = 15;
+    // 分区类型
+    int32 rtype = 16;
+    // 业务id
+    int32 entrance = 17;
+}
+
+message RegionReply {
+    // []*v1.Region
+    repeated Region regions = 1;
+}
+
+message Limit {
+    // limit Id
+    int64 id = 1;
+    // 区域id
+    int64 rid = 2;
+    // build号
+    int32 build = 3;
+    // 状态字段
+    string condition = 4;
+}
+
+message RegionLtMap {
+    int64 key = 1;
+    repeated Limit limits = 2;
+}
+
+message RegionLtmReply {
+    repeated RegionLtMap ltm = 1;
+}
+
+message Config {
+    // config Id
+    int64 id = 1;
+    // 区域id
+    int64 rid = 2;
+    // 场景id
+    int32 scenes_id = 3;
+    // 展示场景（白名单）
+    string scenes_name = 4;
+    // 展示样式
+    string scenes_type = 5;
+}
+
+message RegionCfgMap {
+    int64 key = 1;
+    repeated Config configs = 2;
+}
+
+message RegionCfgmReply {
+    repeated RegionCfgMap cfgm = 1;
+}
+

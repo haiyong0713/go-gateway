@@ -1,0 +1,156 @@
+syntax = "proto3";
+package activity.service;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "like";
+option (gogoproto.goproto_enum_prefix_all) = false;
+option (gogoproto.goproto_getters_all) = false;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+
+message SubjectItem {
+    int64 ID =  1 [(gogoproto.jsontag) ="id"];
+    int64 Oid =  2 [(gogoproto.jsontag) ="oid"];
+    int64 Type =  3 [(gogoproto.jsontag) ="type"];
+    int64 State =  4 [(gogoproto.jsontag) ="state"];
+    int64 Stime = 5 [(gogoproto.jsontag) ="stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Etime = 6 [(gogoproto.jsontag) ="etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Ctime = 7 [(gogoproto.jsontag) ="ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Mtime = 8 [(gogoproto.jsontag) ="mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    string Name =  9 [(gogoproto.jsontag) ="name"];
+    string Author =  10 [(gogoproto.jsontag) ="author"];
+    string ActURL =  11 [(gogoproto.jsontag) ="act_url"];
+    int64 Lstime = 12 [(gogoproto.jsontag) ="lstime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Letime = 13 [(gogoproto.jsontag) ="letime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    string Cover =  14 [(gogoproto.jsontag) ="cover"];
+    string Dic =  15 [(gogoproto.jsontag) ="dic"];
+    int64 Flag =  16 [(gogoproto.jsontag) ="flag"];
+    int64 Uetime = 17 [(gogoproto.jsontag) ="uetime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Ustime = 18 [(gogoproto.jsontag) ="ustime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Level =  19 [(gogoproto.jsontag) ="level"];
+    string H5_cover =  20 [(gogoproto.jsontag) ="h5_cover"];
+    int64 Rank =  21 [(gogoproto.jsontag) ="rank"];
+    int64 LikeLimit = 22 [(gogoproto.jsontag) ="like_limit"];
+    string AndroidURL = 23 [(gogoproto.jsontag) = "android_url"];
+    string IosURL = 24 [(gogoproto.jsontag) = "ios_url"];
+    int64 DailyLikeLimit = 25 [(gogoproto.jsontag) ="daily_like_limit"];
+    int64 DailySingleLikeLimit = 26 [(gogoproto.jsontag) ="daily_single_like_limit"];
+    int64 UpLevel = 27 [(gogoproto.jsontag) ="up_level"];
+    int64 UpScore = 28 [(gogoproto.jsontag) ="up_score"];
+    int64 UpUetime = 29 [(gogoproto.jsontag) ="up_uetime",(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 UpUstime = 30 [(gogoproto.jsontag) ="up_ustime",(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 FanLimitMax = 31 [(gogoproto.jsontag) ="fan_limit_max"];
+    int64 FanLimitMin = 32 [(gogoproto.jsontag) ="fan_limit_min"];
+    int64 MonthScore = 33 [(gogoproto.jsontag) ="month_score"];
+    int64 YearScore = 34 [(gogoproto.jsontag) ="year_score"];
+    string ChildSids = 35 [(gogoproto.jsontag) ="child_sids"];
+    int64 UpFigureScore = 36 [(gogoproto.jsontag) ="up_figure_score"];
+    int64 ShieldFlag = 37 [(gogoproto.jsontag) ="sheild_flag"];
+    int64 RelationID = 38 [(gogoproto.jsontag) ="relation_id"];
+    string Calendar = 39 [(gogoproto.jsontag) ="calendar"];
+    string AuditPlatform = 40 [(gogoproto.jsontag) ="-"];
+}
+
+message Info {
+    string Title = 1[(gogoproto.jsontag)="title"];
+    string Stime = 2[(gogoproto.jsontag)="stime"];
+    string Etime = 3[(gogoproto.jsontag)="etime"];
+    string Remarks = 4[(gogoproto.jsontag)="remarks"];
+    string JumpUrl = 5[(gogoproto.jsontag)="jump_url"];
+    string ButtonToast = 6[(gogoproto.jsontag)="button_toast"];
+}
+
+message LikeContent {
+    int64 ID =  1 [(gogoproto.jsontag) ="id"];
+    string Message =  2 [(gogoproto.jsontag) ="message"];
+    int64 IP =  3 [(gogoproto.jsontag) ="ip"];
+    int64 Plat =  4 [(gogoproto.jsontag) ="plat"];
+    int64 Device =  5 [(gogoproto.jsontag) ="device"];
+    int64 Ctime = 6 [(gogoproto.jsontag) ="ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Mtime = 7 [(gogoproto.jsontag) ="mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    string Image =  8 [(gogoproto.jsontag) ="image"];
+    string Reply =  9 [(gogoproto.jsontag) ="reply"];
+    string Link =  10 [(gogoproto.jsontag) ="link"];
+    string ExName =  11 [(gogoproto.jsontag) ="ex_name"];
+    bytes IPv6 = 12 [(gogoproto.jsontag) ="ipv6"];
+}
+
+message ActSubjectProtocol {
+    int64 ID =  1 [(gogoproto.jsontag) ="id"];
+    int64 Sid =  2 [(gogoproto.jsontag) ="sid"];
+    string Protocol =  3 [(gogoproto.jsontag) ="protocol"];
+    int64 Mtime = 4 [(gogoproto.jsontag) ="mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Ctime = 5 [(gogoproto.jsontag) ="ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    string Types =  6 [(gogoproto.jsontag) ="types"];
+    string Tags =  7 [(gogoproto.jsontag) ="tags"];
+    int64 Pubtime = 8 [(gogoproto.jsontag) ="pubtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Deltime = 9 [(gogoproto.jsontag) ="deltime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Editime = 10 [(gogoproto.jsontag) ="editime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Hot =  11 [(gogoproto.jsontag) ="hot"];
+    int64 BgmID =  12 [(gogoproto.jsontag) ="bgm_id"];
+    int64 PasterID =  13 [(gogoproto.jsontag) ="paster_id"];
+    string Oids =  14 [(gogoproto.jsontag) ="oids"];
+    int64 ScreenSet =  15 [(gogoproto.jsontag) ="screen_set"];
+    string PriorityRegion = 16 [(gogoproto.jsontag) ="priority_region"];
+    int32 RegionWeight = 17 [(gogoproto.jsontag) ="region_weight"];
+    int32 GlobalWeight = 18 [(gogoproto.jsontag) ="global_weight"];
+    int64 WeightStime = 19 [(gogoproto.jsontag) ="weight_stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 weightEtime = 20 [(gogoproto.jsontag) ="weight_etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 InstepID = 21 [(gogoproto.jsontag) ="instep_id"];
+    int64 TagShowPlatform = 22 [(gogoproto.jsontag) ="tag_show_platform"];
+    string Award = 23 [(gogoproto.jsontag) ="award"];
+    string AwardURL = 24 [(gogoproto.jsontag) ="award_url"];
+}
+
+
+message HasReserve {
+    int64 ID = 1 [ (gogoproto.jsontag) = "id" ];
+    int32 state = 2  [ (gogoproto.jsontag) = "state" ];
+    int32 num = 3  [ (gogoproto.jsontag) = "num" ];
+    int64 mtime = 4  [ (gogoproto.jsontag) = "mtime",(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 ctime = 5  [ (gogoproto.jsontag) = "ctime",(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 order = 6  [ (gogoproto.jsontag) = "order" ];
+}
+
+message AwardSubject {
+    int64 ID = 1 [ (gogoproto.jsontag) = "id" ];
+    string name = 2 [ (gogoproto.jsontag) = "name" ];
+    int64 etime = 3 [(gogoproto.jsontag) ="etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 sid = 4 [ (gogoproto.jsontag) = "sid" ];
+    int64 type = 5 [ (gogoproto.jsontag) = "type" ];
+    string source_id = 6 [ (gogoproto.jsontag) = "source_id" ];
+    int64 source_expire = 7 [ (gogoproto.jsontag) = "source_expire" ];
+    int64 state = 8 [(gogoproto.jsontag) = "state" ];
+    int64 ctime = 9 [(gogoproto.jsontag) ="ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime = 10 [(gogoproto.jsontag) ="mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 sid_type = 11 [(gogoproto.jsontag) = "sid_type"];
+    string other_sids = 12 [(gogoproto.jsontag) = "other_sids"];
+    int64 taskID = 13 [(gogoproto.jsontag) = "task_id"];
+}
+
+message SubjectRule {
+    int64 ID = 1 [ (gogoproto.jsontag) = "id" ];
+    int64 sid = 2 [ (gogoproto.jsontag) = "sid" ];
+    int64 type = 3 [(gogoproto.jsontag) ="type"];
+    string type_ids = 4 [ (gogoproto.jsontag) = "type_ids" ];
+    string tags = 5 [ (gogoproto.jsontag) = "tags" ];
+    int64 state = 8 [(gogoproto.jsontag) = "state" ];
+    int64 attribute = 9 [(gogoproto.jsontag) = "attribute" ];
+    int64 ctime = 10 [(gogoproto.jsontag) ="ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime = 11 [(gogoproto.jsontag) ="mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 taskID = 12 [(gogoproto.jsontag) = "task_id"];
+    string rule_name = 13 [(gogoproto.jsontag) = "rule_name"];
+    string sids = 14 [(gogoproto.jsontag) = "sids"];
+    string coefficient = 15 [(gogoproto.jsontag) = "coefficient"];
+    string aid_source = 16 [(gogoproto.jsontag) = "aid_source"];
+    int64 aid_source_type = 17 [(gogoproto.jsontag) = "aid_source_type"];
+    int64 stime = 18 [(gogoproto.jsontag) ="stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 etime = 19 [(gogoproto.jsontag) ="etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message UpActReserveWhiteList {
+    int64 Mid = 1 [(gogoproto.jsontag) = "oid"];
+    int64 Type = 2 [(gogoproto.jsontag) = "type"];
+}

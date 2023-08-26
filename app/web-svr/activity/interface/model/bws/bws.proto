@@ -1,0 +1,215 @@
+syntax = "proto3";
+package activity.service;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "bws";
+option (gogoproto.goproto_enum_prefix_all) = false;
+option (gogoproto.goproto_getters_all) = false;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+
+message Users {
+    int64  ID = 1 [(gogoproto.jsontag) = "id"];
+    int64  Mid = 2 [(gogoproto.jsontag) = "mid"];
+    string Key = 3 [(gogoproto.jsontag) = "key"];
+    int64  Ctime = 4 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64  Mtime = 5 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64  Bid = 6 [(gogoproto.jsontag) = "bid"];
+}
+
+message VipUsersToken {
+    int64  ID = 1 [(gogoproto.jsontag) = "id"];
+    int64  Mid = 2 [(gogoproto.jsontag) = "mid"];
+    string VipKey = 3 [(gogoproto.jsontag) = "vip_key"];
+    int64  Ctime = 4 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64  Mtime = 5 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64  Bid = 6 [(gogoproto.jsontag) = "bid"];
+    string  BwsDate = 7 [(gogoproto.jsontag) = "bws_date"];
+}
+
+message Point {
+    int64  ID = 1 [(gogoproto.jsontag) = "id"];
+    string Name = 2 [(gogoproto.jsontag) = "name"];
+    string Icon = 3 [(gogoproto.jsontag) = "icon"];
+    int64  Fid = 4 [(gogoproto.jsontag) = "fid"];
+    string Image = 5 [(gogoproto.jsontag) = "image"];
+    int64  Unlocked = 6 [(gogoproto.jsontag) = "unlocked"];
+    int64  LockType = 7 [(gogoproto.jsontag) = "lockType"];
+    string Dic = 8 [(gogoproto.jsontag) = "dic"];
+    string Rule = 9 [(gogoproto.jsontag) = "rule"];
+    int64  Bid = 10 [(gogoproto.jsontag) = "bid"];
+    int64  LoseUnlocked = 11 [(gogoproto.jsontag) = "lose_unlocked"];
+    string OtherIp = 12 [(gogoproto.jsontag) = "other_ip"];
+    int64  Ower = 13 [(gogoproto.jsontag) = "ower"];
+    int64  Ctime = 14 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64  Mtime = 15 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message Points {
+    repeated Point points = 1;
+}
+
+message Achievement {
+    int64  ID = 1 [(gogoproto.jsontag) = "id"];
+    string Name = 2 [(gogoproto.jsontag) = "name"];
+    string Icon = 3 [(gogoproto.jsontag) = "icon"];
+    string Dic = 4 [(gogoproto.jsontag) = "dic"];
+    int64  LockType = 5 [(gogoproto.jsontag) = "lockType"];
+    int64  Unlock = 6 [(gogoproto.jsontag) = "unlock"];
+    int64  Bid = 7 [(gogoproto.jsontag) = "bid"];
+    string IconBig = 8 [(gogoproto.jsontag) = "icon_big"];
+    string IconActive = 9 [(gogoproto.jsontag) = "icon_active"];
+    string IconActiveBig = 10 [(gogoproto.jsontag) = "icon_active_big"];
+    int64  Award = 11 [(gogoproto.jsontag) = "award"];
+    int64  UserCount = 12 [(gogoproto.jsontag) = "user_count"];
+    int64  Ctime = 13 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64  Mtime = 14 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    string Image = 15 [(gogoproto.jsontag) = "image"];
+    int64  SuitID = 16 [(gogoproto.jsontag) = "suit_id"];
+    int64 AchievePoint = 17 [(gogoproto.jsontag) = "achieve_point"];
+    int32 Level = 18 [(gogoproto.jsontag) = "level"];
+    int32 ExtraType = 19 [(gogoproto.jsontag) = "extra_type"];
+}
+
+message Achievements {
+    repeated Achievement achievements = 1;
+}
+
+message PointsLevel {
+    int64  ID = 1 [(gogoproto.jsontag) = "id"];
+    int64  Bid = 2 [(gogoproto.jsontag) = "bid"];
+    int64  Pid = 3 [(gogoproto.jsontag) = "pid"];
+    int64  Ctime = 4 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64  Mtime = 5 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int32  Level = 6 [(gogoproto.jsontag) = "level"];
+    int64  Points = 7 [(gogoproto.jsontag) = "points"];
+    int32  Unlock = 8 [(gogoproto.jsontag) = "unlock"];
+    int32  IsDelete = 9 [(gogoproto.jsontag) = "is_delete"];
+}
+
+message PointsAward {
+    int64  ID = 1 [(gogoproto.jsontag) = "id"];
+    int64  Bid = 2 [(gogoproto.jsontag) = "bid"];
+    int64  PlID = 3 [(gogoproto.jsontag) = "pl_id"];
+    int64  Ctime = 4 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64  Mtime = 5 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    string Name = 6 [(gogoproto.jsontag) = "name"];
+    string Icon = 7 [(gogoproto.jsontag) = "icon"];
+    int64  Amount = 8 [(gogoproto.jsontag) = "amount"];
+    int32  IsDelete = 9 [(gogoproto.jsontag) = "is_delete"];
+}
+
+message PointSign {
+    int64  ID = 1 [(gogoproto.jsontag) = "id"];
+    int64  Bid = 2 [(gogoproto.jsontag) = "bid"];
+    int64  Pid= 3 [(gogoproto.jsontag) = "pid"];
+    int64  Ctime = 4 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64  Mtime = 5 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Stime = 6 [(gogoproto.jsontag) = "stime"];
+    int64 Etime = 7 [(gogoproto.jsontag) = "etime"];
+    int32 State = 8 [(gogoproto.jsontag) = "state"];
+    int64  Points = 9 [(gogoproto.jsontag) = "points"];
+    int64  ProvidePoints = 10 [(gogoproto.jsontag) = "provide_points"];
+    int64  SignPoints = 11 [(gogoproto.jsontag) = "sign_points"];
+    int32  IsDelete = 12 [(gogoproto.jsontag) = "is_delete"];
+}
+
+message ActField {
+    int64  ID = 1 [(gogoproto.jsontag) = "id"];
+    string  Name = 2 [(gogoproto.jsontag) = "name"];
+    string  Area= 3 [(gogoproto.jsontag) = "area"];
+    int64  Ctime = 4 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64  Mtime = 5 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int32 del = 6 [(gogoproto.jsontag) = "del"];
+    int64 bid = 7 [(gogoproto.jsontag) = "bid"];
+    string image = 8 [(gogoproto.jsontag) = "image"];
+}
+
+message ActFields {
+    repeated ActField actField = 1;
+}
+
+message Task {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    string title = 2 [(gogoproto.jsontag) = "title"];
+    string cate = 3 [(gogoproto.jsontag) = "cate"];
+    int64 finish_count = 4 [(gogoproto.jsontag) = "finish_count"];
+    repeated int64 rule_ids = 5 [(gogoproto.jsontag) = "rule_ids"];
+    int64 order_num = 6 [(gogoproto.jsontag) = "order_num"];
+    int64  ctime = 7 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64  mtime = 8 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message Award {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    string title = 2 [(gogoproto.jsontag) = "title"];
+    string image = 3 [(gogoproto.jsontag) = "image"];
+    string intro = 4 [(gogoproto.jsontag) = "intro"];
+    string cate = 5 [(gogoproto.jsontag) = "cate"];
+    int64 is_online = 6  [(gogoproto.jsontag) = "is_online"];
+    int64 owner = 7 [(gogoproto.jsontag) = "owner"];
+    string stage = 8 [(gogoproto.jsontag) = "stage"];
+    int64 stock = 9 [(gogoproto.jsontag) = "stock"];
+    int64 ctime = 10 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime = 11 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message UserAward {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    string user_token = 2 [(gogoproto.jsontag) = "user_token"];
+    int64 award_id = 3 [(gogoproto.jsontag) = "award_id"];
+    string state = 4 [(gogoproto.jsontag) = "state"];
+    int64 ctime = 5 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime = 6 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message BluetoothUpList {
+    repeated BluetoothUp list = 1;
+}
+
+message BluetoothUp {
+    int64 id = 1;
+    int64 bid = 2;
+    int64 mid = 3;
+    string key = 4;
+    string desc = 5;
+    int64 ctime = 6 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime = 7 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message CatchUser {
+    int64 mid = 1;
+    string key = 2;
+    int64 ctime = 3 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime = 4 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message BluetoothUpInfo {
+    int64 mid = 1;
+    string name = 2;
+    string face = 3;
+    string key = 4;
+    string desc = 5;
+}
+
+
+message UserDetail {
+    int64 id = 1 [(gogoproto.jsontag) = "id"];
+    int64 mid = 2 [(gogoproto.jsontag) = "mid"];
+    int64 bid = 3 [(gogoproto.jsontag) = "bid"];
+    int64 heart = 4 [(gogoproto.jsontag) = "heart"];
+    int64 star = 5 [(gogoproto.jsontag) = "star"];
+    int64 starInRank = 6 [(gogoproto.jsontag) = "star_in_rank"];
+    int64 lottery_used = 7 [(gogoproto.jsontag) = "lottery_used"];
+    string star_detail = 8 [(gogoproto.jsontag) = "star_detail"];
+    string bws_date = 9 [(gogoproto.jsontag) = "bws_date"];
+    int64 state = 10 [(gogoproto.jsontag) = "state"];
+    int64 star_last_time = 11 [(gogoproto.jsontag) = "star_last_time"];
+    int64 ups = 12 [(gogoproto.jsontag) = "ups"];
+    int64 ctime = 13 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime = 14 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 PlayTimes = 15 [(gogoproto.jsontag) = "play_times"];
+    int64 PlaySuccessTimes = 16 [(gogoproto.jsontag) = "play_success_times"];
+}

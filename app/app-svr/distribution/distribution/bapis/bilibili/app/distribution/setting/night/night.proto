@@ -1,0 +1,15 @@
+syntax = "proto3";
+package bilibili.app.distribution.night.v1;
+import "bilibili/app/distribution/distribution.proto";
+import "bilibili/app/distribution/options.proto";
+
+option go_package = "git.bilibili.co/bapis/bapis-go/bilibili/app/distribution/setting/night;night";
+option java_package = "com.bapis.bilibili.app.distribution.setting.night";
+option java_multiple_files = true;
+option objc_class_prefix = "BAPIAppDistributionSettingNight";
+option (bilibili.app.distribution.v1.preference) = "NightSettingsConfig";
+
+message NightSettingsConfig {
+    // 深色跟随系统
+    bilibili.app.distribution.v1.BoolValue isNightFollowSystem = 1;
+}

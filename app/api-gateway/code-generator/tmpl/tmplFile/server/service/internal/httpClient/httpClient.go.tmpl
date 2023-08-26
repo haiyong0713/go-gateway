@@ -1,0 +1,28 @@
+package httpClient
+
+import (
+    "go-common/library/conf/paladin"
+    bm "go-common/library/net/http/blademaster"
+    "os"
+)
+
+func New() (httpClient *bm.Client, err error){
+    var (
+        ct  paladin.Map
+    )
+
+    if err = paladin.Get("httpClient.toml").Unmarshal(&ct); err != nil {
+        return
+    }
+
+    httpClientConfig := "httpClientUat"
+    deployEnv := os.Getenv("DEPLOY_ENV")
+    if deployEnv == "prod" {
+        httpClientConfig = "httpClientProd"
+    }
+    var httpConfig bm.ClientConfig
+    if err = ct.Get(httpClientConfig).UnmarshalTOML(&httpConfig); err != nil {
+        return
+    }
+    return bm.NewClient(&httpConfig), nil
+}

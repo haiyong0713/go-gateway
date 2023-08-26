@@ -1,0 +1,10 @@
+
+    - name: <<repo>>-<<dir_alias>>-jenkins-build
+      always_run: true
+      optional: true
+      cluster: jsy
+      agent: jenkins
+      trusted_labels:
+        - area/<<dir>>
+      untrusted_labels:
+        - do-not-merge/work-in-progress

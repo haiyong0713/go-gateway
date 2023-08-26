@@ -1,0 +1,23 @@
+[Server]
+    addr = "0.0.0.0:6683"
+    timeout = "1s"
+
+[bfs]
+key    = "fed7d6b5948c614f"
+secret = "280e9140721cff3879cd13f59fc28a"
+host   = "http://uat-bfs.bilibili.co"
+timeout = 1000
+
+[danceClient]
+    key    = "dance"
+    secret = "vodZcTxp3J0mVQxVUl6qiWzT8ev6XxAo"
+    dial      = "500ms"
+    timeout   = "2s"
+    keepAlive = "60s"
+    timer = 10
+    [httpClient.breaker]
+        window  = "10s"
+        sleep   = "100ms"
+        bucket  = 10
+        ratio   = 0.5
+        request = 100

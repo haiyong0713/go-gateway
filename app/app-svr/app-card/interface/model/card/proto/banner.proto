@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package bilibili.app.card.v1;
+option go_package = "api";
+option java_multiple_files = true;
+option java_package = "com.bapis.bilibili.app.card.v1";
+option objc_class_prefix = "BAPICardV1Card";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+message BannerItem {
+    int64 id = 1;
+    string title = 2;
+    string image = 3;
+    string hash = 4;
+    string uri = 5;
+    string request_id = 6;
+    int32 creative_id = 7;
+    int32 src_id = 8;
+    bool is_ad = 9;
+    bool is_ad_loc = 10;
+    string ad_cb = 11;
+    string show_url = 12;
+    string click_url = 13;
+    string client_ip = 14;
+    int32 server_type = 15;
+    int32 resource_id = 16;
+    int32 index = 17;
+    int32 cm_mark = 18;
+    bytes extra = 19 [(gogoproto.casttype) = "encoding/json.RawMessage"];
+}

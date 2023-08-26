@@ -1,0 +1,140 @@
+#[xlog]
+#dir = "/data/log/app-car-job"
+
+[httpDuertv]
+key = "6a29f8ed87407c11"
+secret = "d3c5a85f5b895a03735b5d20a273bc57"
+dial      = "150ms"
+timeout   = "700ms"
+keepAlive = "60s"
+timer     = 128
+
+[httpPGC]
+key = "6a29f8ed87407c11"
+secret = "d3c5a85f5b895a03735b5d20a273bc57"
+dial      = "150ms"
+timeout   = "700ms"
+keepAlive = "60s"
+timer     = 128
+
+[HTTPData]
+key = "6a29f8ed87407c11"
+secret = "d3c5a85f5b895a03735b5d20a273bc57"
+dial      = "150ms"
+timeout   = "700ms"
+keepAlive = "60s"
+timer     = 128
+
+[bm]
+[bm.inner]
+addr = "0.0.0.0:8311"
+timeout = "1s"
+
+[host]
+bangumi     = "http://bangumi.bilibili.co"
+duertv     = "http://duertv.baidu.com"
+
+[custom]
+pushBagumiAll = false
+
+[cron]
+pushBagumiCron = "@every 1h" #每小时执行一次
+
+[duertv]
+key = "kgximtlO9_yem8Zz"
+partner = "bilibili"
+
+[ArchiveRailGun]
+    [ArchiveRailGun.Databus]
+        key = "8e27ab7e39270b59"
+        secret = "477df6a068d7332a163f95abbad2079c"
+        group = "ArchiveNotify-MainAppSvr-AppCarjob-S"
+        topic = "ArchiveNotify-T"
+        action = "sub"
+        name = "ArchiveNotify/sub"
+    [ArchiveRailGun.SingleConfig]
+        worker = 50
+
+[PGCRailGun]
+    [PGCRailGun.Databus]
+        key = "8e27ab7e39270b59"
+        secret = "477df6a068d7332a163f95abbad2079c"
+        appid = "main.app-svr.app-car-job"
+        token = "3e797da87e98c1a43b34e1f6e91f8296"
+        group = "MediaStatusChange-Uat-MainAppSvr-S"
+        topic = "MediaStatusChange-Uat-T"
+        action = "sub"
+        name = "MediaStatusChange/sub"
+    [PGCRailGun.SingleConfig]
+        worker = 50
+
+[DuertvBangumiGun]
+    [DuertvBangumiGun.CronInputer]
+        Spec = "@every 3m"
+
+[RegionGun]
+    [RegionGun.CronInputer]
+        Spec = "@every 1m"
+
+[DuertvUGCGun]
+    [DuertvUGCGun.CronInputer]
+        Spec = "@every 1m"
+
+[mysql]
+    [mysql.show]
+        addr   = "app-show-2687-w-3439.dbdns.bilibili.co:3439"
+        dsn    = "root:@tcp(127.0.0.1:3306)/test?timeout=1s&readTimeout=1s&writeTimeout=1s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+        active = 20
+        idle   = 5
+        idleTimeout ="4h"
+        queryTimeout = "200ms"
+        execTimeout = "200ms"
+        tranTimeout = "200ms"
+        [mysql.show.breaker]
+            window = "3s"
+            sleep = "100ms"
+            bucket = 10
+            ratio = 0.5
+            request = 100
+    [mysql.car]
+        addr = "main-app-car-shwgq-5691-write.dbdns.bilibili.co:5691"
+        dsn = "root:@tcp(127.0.0.1:3306)/test?timeout=1s&readTimeout=1s&writeTimeout=1s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+        active = 20
+        idle = 5
+        idleTimeout ="1h"
+        queryTimeout = "200ms"
+        execTimeout = "300ms"
+        tranTimeout = "400ms"
+
+[redis]
+    [redis.Entrance]
+        name   = "app-car/car"
+        proto  = "tcp"
+        addr   = "127.0.0.1:6379"
+        active = 5000
+        idle   = 1000
+        dialTimeout  = "80ms"
+        readTimeout  = "150ms"
+        writeTimeout = "150ms"
+        idleTimeout  = "80s"
+    [redis.EntranceJd]
+        name   = "app-car/car"
+        proto  = "tcp"
+        addr   = "127.0.0.1:6379"
+        active = 5000
+        idle   = 1000
+        dialTimeout  = "80ms"
+        readTimeout  = "150ms"
+        writeTimeout = "150ms"
+        idleTimeout  = "80s"
+
+[FmSeasonGun]
+    [FmSeasonGun.Cfg]
+        quotaID = "uat.sh001.main.app-svr.app-car-job|kafka|fm_season|consume"
+    [FmSeasonGun.KafkaCfg]
+        topic = "test_fm_season_01"
+        group = "main.app-car-job.FmSeasonKafka-01"
+        brokers = ["10.221.51.174:9092","10.221.50.145:9092","10.221.50.131:9092","127.0.0.1:9092","10.23.36.20:9092"]
+    [FmSeasonGun.SingleConfig]
+        worker = 1
+        buffer = 2048

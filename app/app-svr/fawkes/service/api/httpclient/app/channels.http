@@ -1,0 +1,36 @@
+
+GET {{baseUrl}}/app/channels/group/update?app_key=w19e&env=test&pn=1&ps=20
+Accept: application/json
+Cookie: {{Cookie}}
+
+###
+
+POST {{baseUrl}}/app/channels/group/update
+Content-Type: application/x-www-form-urlencoded
+Cookie: {{Cookie}}
+
+id=18&name=test-batch&auto_push_cdn=1&qa_owner=luweidan&market_owner=sunzhiyong01&is_auto_gen=true&description=渠道包自动构建
+
+###
+
+POST {{baseUrl}}/app/channels/group/update
+Content-Type: application/x-www-form-urlencoded
+Cookie: {{Cookie}}
+
+id=4&name=测试&auto_push_cdn=1&qa_owner=luweidan&&is_auto_gen=true
+
+###
+
+GET {{baseUrl}}/app/channels/group/list?app_key=w19e
+Accept: application/json
+Cookie: {{Cookie}}
+
+###
+
+POST {{baseUrl}}/app/cd/config/pack/steadystate/set
+Content-Type: application/x-www-form-urlencoded
+Cookie: {{Cookie}}
+
+app_key=w19e&build_id=5187174&steady_state=1&auto_gen_channel_pack=true&description=自动上传渠道包
+
+###

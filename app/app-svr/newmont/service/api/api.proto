@@ -1,0 +1,249 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+package newmont.service.v1;
+
+
+option go_package = "api";
+option (gogoproto.goproto_getters_all) = false;
+
+service Newmont {
+  // 获取首页模块配置
+  rpc HomeSections(HomeSectionsRequest) returns (HomeSectionsReply) {};
+  // 获取我的页模块配置
+  rpc MineSections(MineSectionsRequest) returns (MineSectionsReply) {};
+  // 获取入口是否屏蔽
+  rpc SectionIsHidden(SectionIsHiddenRequest) returns (SectionIsHiddenReply) {};
+  // 获取模块icon资源配置
+  rpc MngIcon(MngIconRequest) returns (MngIconReply) {};
+}
+
+message MineSectionsRequest {
+  int32 plat     = 1;
+  int32 build    = 2;
+  int64 mid      = 3;
+  string lang    = 4;
+  string channel = 5;
+  string ip      = 6;
+  // 是否为up主
+  bool is_uploader = 7;
+  // 是否为已开播主播
+  bool is_live_host = 8;
+  // 历史粉丝数峰值
+  int64 fans_count = 9;
+  // buvid
+  string buvid = 10;
+}
+
+message MineSectionsReply {
+  repeated Section sections = 1;
+}
+
+// 首页的模块
+message HomeSectionsRequest {
+  // 平台
+  int32 plat = 1;
+  // 版本
+  int32 build = 2;
+  // 用户mid
+  int64 mid = 3;
+  // 语言
+  string lang = 4;
+  // 渠道
+  string channel = 5;
+  // ip地址
+  string ip = 6;
+  // buvid
+  string buvid = 7;
+}
+
+message HomeSectionsReply {
+  repeated Section sections = 1;
+}
+
+message Section {
+  int64 id                   = 1;
+  string title               = 2;
+  int32 style                = 3;
+  string button_name         = 4;
+  string button_url          = 5;
+  string button_icon         = 6;
+  int32 button_style         = 7;
+  string title_color         = 8;
+  string subtitle            = 9;
+  string subtitle_url        = 10;
+  string subtitle_color      = 11;
+  string background          = 12;
+  string background_color    = 13;
+  repeated SectionItem items = 14;
+  int32 audit_show           = 15;
+  int32 is_mng               = 16;
+  // 运营位样式：当style为3时，此字段有意义，0-通用运营位，1-投稿引导强化卡
+  int32 op_style_type = 17;
+}
+
+message SectionItem {
+  int64 id             = 1;
+  string title         = 2;
+  string uri           = 3;
+  string icon          = 4;
+  int32 need_login     = 5;
+  int32 red_dot        = 6;
+  int32 global_red_dot = 7;
+  int32 display        = 8;
+  MngIcon mng_icon     = 9;
+  bool red_dot_for_new = 10;
+  // 运营位标题
+  string op_title = 11;
+  // 运营位副标题
+  string op_sub_title = 12;
+  // 运营位标题图标
+  string op_title_icon = 13;
+  // 运营位链接文案
+  string op_link_text = 14;
+  // 运营位链接图标
+  string op_link_icon = 15;
+  // 运营位链接类型
+  SectionItemOpLinkType.Enum op_link_type = 16;
+  // tab id
+  string tab_id = 17;
+  // animate
+  string animate = 18;
+  // 底部tab选中后的图标样式
+  string logo_selected = 19;
+  // 判定红点的url
+  string red_dot_url = 20;
+  // 运营位标题颜色
+  string op_title_color = 21;
+  // 运营位背景颜色
+  string op_background_color = 22;
+  // 运营位跳链颜色
+  string op_link_container_color = 23;
+}
+
+message SectionItemOpLinkType {
+  enum Enum {
+    // 按钮
+    BUTTON = 0;
+    // 跳链有文案
+    LINK_WITH_TEXT = 1;
+    // 跳链无文案
+    LINK_WITHOUT_TEXT = 2;
+    // 弹窗触发器
+    DIALOG_OPENER = 3;
+    // NA页面id，需要在下发时，在param上做拼接
+    NA_PAGE_ID = 4;
+    // 运营条公告类型
+    NOTICE = 5;
+  }
+}
+
+message MngIcon {
+  // 自增id
+  int64 id = 1;
+  // icon地址
+  string icon = 2;
+  // 全局红点 1-是 0-否
+  int32 global_red = 3;
+  // 影响范围 1-全部用户 2-登录用户 3-指定名单用户
+  int32 effect_group = 4;
+  // 影响用户获取接口 （如effect_group=3 则由业务方提供接口判断）
+  string effect_url = 5;
+  // 配置模块
+  repeated IconModule module = 6;
+  // 开始时间
+  int64 stime = 7 [(gogoproto.casttype) = "go-common/library/time.Time"];
+  // 结束时间
+  int64 etime = 8 [(gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message IconModule {
+  int32 plat = 1;
+  int64 oid  = 2;
+}
+
+message SectionIsHiddenRequest {
+  // 数据id 首页入口对应sid 分区入口对应rid 【我的】页入口对应cid
+  repeated int64 oids = 1;
+  // 数据类型 0:首页入口 1:分区入口 2:【我的】页入口 3:一级模块入口 4:动态
+  int32 otype = 2;
+  // build号
+  int64 build = 3;
+  // 平台：0:Android 1:iphone 5:iphone_i 8:Android_i'
+  int32 plat = 4;
+  // 渠道 如xiaomi,oppo
+  string channel = 5 [(gogoproto.moretags) = 'validate:"required"'];
+  // 647之后使用map来传数据类型和数据id
+  map<int64, OidList> oid_items = 6;
+}
+
+message OidList {
+  repeated int64 oids = 1;
+}
+
+message SectionIsHiddenReply {
+  // 二级模块的屏蔽信息
+  map<int64, bool> Infos = 1;
+  // 一级模块的屏蔽信息
+  map<int64, bool> ModuleInfos = 2;
+  // 动态是否屏蔽
+  bool HideDynamic = 3;
+}
+
+// MngIconRequest
+message MngIconRequest {
+  // 数据id
+  repeated int64 oids = 1 [(gogoproto.moretags) = 'validate:"required,dive,gt=0"'];
+  // 平台：0:Android 1:iphone 5:iphone_i 8:Android_i'
+  int32 plat = 2;
+  // 登录用户mid
+  int64 mid = 3;
+}
+
+// MngIconReply
+message MngIconReply {
+  map<int64, MngIcon> info = 1;
+}
+
+// Hidden is
+message Hidden {
+  int64 id = 1;
+  // 首页顶bar入口 对应sidebar.id
+  int64 sid = 2;
+  // 分区入口 对应region_copy.id
+  int64 rid = 3;
+  // 渠道id 逗号分隔
+  string channel = 4;
+  // 渠道id map
+  map<string, string> channel_map = 5;
+  // 屏蔽策略id
+  int64 pid   = 6;
+  int64 stime = 7 [(gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 etime = 8 [(gogoproto.casttype) = "go-common/library/time.Time"];
+  // 【我的】页入口 对应sidebar.id
+  int64 cid = 9;
+  //渠道屏蔽的条件
+  string hidden_condition = 10;
+  // 一级模块id
+  int64 module_id = 11;
+  // 模糊匹配渠道id list
+  repeated string channel_fuzzy = 12;
+  //动态是否屏蔽(0-否 1-是)
+  int64 hide_dynamic = 13;
+}
+
+// HiddenLimit is
+message HiddenLimit {
+  int64 id          = 1;
+  int64 oid         = 2;
+  string conditions = 3;
+  int64 build       = 4;
+  // 平台：0:Android 1:iphone 5:iphone_i 8:Android_i
+  int32 plat = 5;
+}
+
+message HiddenInfo {
+  Hidden info                = 1;
+  repeated HiddenLimit limit = 2;
+}

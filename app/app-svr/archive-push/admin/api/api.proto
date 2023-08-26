@@ -1,0 +1,103 @@
+// 定义项目 API 的 proto 文件 可以同时描述 gRPC 和 HTTP API
+// protobuf 文件参考:
+//  - https://developers.google.com/protocol-buffers/
+syntax = "proto3";
+
+package archive.push.admin.v1;
+
+option go_package = "api";
+
+service ArchivePush {
+}
+
+// ArchiveStatus 稿件状态
+message ArchiveStatus {
+  enum Enum {
+    UNKNOWN = 0;
+    NOT_EXISTS = -1;
+    NOT_OPEN = -2;
+    FORMAT_INVALID = -3;
+    OPEN = 1;
+    WITHDRAW = 2;
+  }
+}
+
+// ArchivePushBatchPushStatus 稿件推送批次状态
+message ArchivePushBatchPushStatus {
+  enum Enum {
+    TO_PUSH = 0;
+    PUSHING = 1;
+    SUCCESS = 2;
+    FAIL = 3;
+    FAIL_PARTIAL = 4;
+  }
+}
+
+// ArchivePushDetailPushStatus 稿件推送详情状态
+message ArchivePushDetailPushStatus {
+  enum Enum {
+    UNKNOWN = 0;
+    SUCCESS = 1;
+    INNER_FAIL = 2;
+    OUTER_FAIL = 3;
+  }
+}
+
+// ArchivePushEventName 稿件推送事件
+message ArchivePushEventName {
+  enum Enum {
+    UNKNOWN = 0;
+    PUSH_UP = 1;
+    PUSH_DOWN = 2;
+    BACKFLOW = 3;
+  }
+}
+
+// ArchivePushType 稿件推送类型
+message ArchivePushType {
+  enum Enum {
+    UNKNOWN = 0;
+    BVID = 1;
+    AUTHOR = 2;
+  }
+}
+
+// AuthorAuthorizationStatus 作者授权状态
+message AuthorAuthorizationStatus {
+  enum Enum {
+    UNAUTHORIZED = 0;
+    AUTHORIZED = 1;
+    CANCELED = -1;
+  }
+}
+
+// AuthorBindStatus 作者绑定状态
+message AuthorBindStatus {
+  enum Enum {
+    UNBINDED = 0;
+    BINDED = 1;
+    CANCELED = -1;
+  }
+}
+
+// AuthorVerificationStatus 作者认证状态
+message AuthorVerificationStatus {
+  enum Enum {
+    UNVERIFIED = 0;
+    VERIFYING = 1;
+    VERIFIED = 2;
+    FAILED = -1;
+    CANCELED = -2;
+  }
+}
+
+// AuthorPushStatus 稿件作者推送状态
+message AuthorPushStatus {
+  enum Enum {
+    UNPUSHED = 0;
+    EFFECTIVE = 1;
+    CANCELED = -1;
+  }
+}
+
+

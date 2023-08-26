@@ -1,0 +1,383 @@
+# This is a TOML document. Boom.
+[dynamicGRPC]
+timeout = "450ms"
+
+[dynamicLocGRPC]
+timeout = "350ms"
+
+[grayscale]
+[grayscale.tab]
+key = "tab"
+switch = false
+flowType = "mid"
+bucket = 100
+salt = "ha"
+midlist = [111005924]
+buvidlist = ["test12356789"]
+[[grayscale.tab.flow]]
+low = 0
+high = 100
+[grayscale.city]
+key = "city"
+switch = true
+flowType = "buvid"
+bucket = 10
+salt = "456"
+midlist = [111005924]
+buvidlist = ["test12356789"]
+[[grayscale.city.flow]]
+low = 10
+high = 10
+[[grayscale.city.flow]]
+low = 0
+high = 9
+[grayscale.statShow]
+key = "statShow"
+switch = true
+flowType = "mid"
+bucket = 10
+salt = ""
+midlist = []
+buvidlist = []
+[[grayscale.statShow.flow]]
+low = 2
+high = 4
+[[grayscale.statShow.flow]]
+low = 4
+high = 6
+[[grayscale.statShow.flow]]
+low = 6
+high = 8
+[[grayscale.statShow.flow]]
+low = 8
+high = 10
+[grayscale.UplistMore]
+key = "UplistMore"
+switch = true
+flowType = "mid"
+bucket = 100
+salt = ""
+midlist = []
+buvidlist = []
+[[grayscale.UplistMore.flow]]
+low = 50
+high = 69
+[grayscale.ShowInPersonal]
+key = "ShowInPersonal"
+switch = true
+flowType = "mid"
+bucket = 100
+salt = ""
+midlist = []
+buvidlist = []
+[[grayscale.ShowInPersonal.flow]]
+low = 60
+high = 69
+[grayscale.ShowPlayIcon]
+key = "ShowPlayIcon"
+switch = true
+flowType = "mid"
+bucket = 100
+salt = ""
+midlist = []
+buvidlist = []
+[[grayscale.ShowPlayIcon.flow]]
+low = 80
+high = 84
+
+[log]
+#dir = "/data/log/app-dynamic/"
+
+[bm]
+[bm.outer]
+addr = "0.0.0.0:8111"
+timeout = "1s"
+
+[httpClient]
+key = "fb06a25c6338edbc"
+secret = "fd10bd177559780c2e4a44f1fa47fa83"
+dial = "100ms"
+timeout = "1s"
+keepAlive = "60s"
+timer = 128
+[httpClient.breaker]
+window = "3s"
+sleep = "100ms"
+bucket = 10
+ratio = 0.5
+request = 100
+[httpClient.url]
+[httpClient.url."http://api.vc.bilibili.co/topic_svr/v0/topic_svr/gw_hot_entry"]
+timeout = "450ms"
+
+[cmHttpClient]
+key = "fb06a25c6338edbc"
+secret = "fd10bd177559780c2e4a44f1fa47fa83"
+dial = "100ms"
+timeout = "1s"
+keepAlive = "60s"
+timer = 128
+[cmHttpClient.breaker]
+window = "3s"
+sleep = "100ms"
+bucket = 10
+ratio = 0.5
+request = 100
+
+[httpClientLongTimeOut]
+key = "fb06a25c6338edbc"
+secret = "fd10bd177559780c2e4a44f1fa47fa83"
+dial = "100ms"
+timeout = "1s"
+keepAlive = "60s"
+timer = 128
+[httpClientLongTimeOut.breaker]
+window = "3s"
+sleep = "100ms"
+bucket = 10
+ratio = 0.5
+request = 100
+
+[hosts]
+apiCo = "http://api.bilibili.co"
+vcCo = "http://api.vc.bilibili.co"
+vcCom = "http://api.vc.bilibili.com"
+mallCo = "http://uat-mall.bilibili.co"
+searchCo = "http://s.search.bilibili.co"
+data = "http://data.bilibili.co"
+cmCom = "http://cm.bilibili.com"
+comic = "http://manga.bilibili.co"
+game = "http://uat-game-center-open-api.bilibili.co"
+liveCo = "http://api.live.bilibili.co"
+
+[tick]
+bv = "5s"
+bvCron = "0/5 * * * * *"
+rcmdCron = "0/5 * * * * *"
+loadHotVideo = "@every 1m"
+
+[resource]
+lbsIcon = "http://i0.hdslb.com/bfs/app/38193fb357ed4f3b93b313807eea6dd070f41df1.png"
+topicIcon = "http://i0.hdslb.com/bfs/app/2cd0c5acf84185a5b532d807e12c611bb9318532.png"
+hotIcon = "https://i0.hdslb.com/bfs/album/4afb1d524cbd1aa8d4ac97f61e599d067169d646.png"
+gameIcon = "http://i0.hdslb.com/bfs/app/8d5f95552e43bb71f52af783f223bb42a6d1fad3.png"
+hotURI = "bilibili://pegasus/hotpage"
+likeDisplay = "赞了"
+foldPublishForward = "1m"
+FoldPublishOther = "30m"
+UplistMore = "http://uat-i0.hdslb.com/bfs/feed-admin/925ea7d54836064672b925af6a7e0226a8730cf9.png"
+TopicSquareMoreIcon = "http://uat-i0.hdslb.com/bfs/feed-admin/2feec05e30fe78e7f521d79ce18f0353e040d63c.png"
+ThreePointDislikeIcon = "http://uat-i0.hdslb.com/bfs/feed-admin/86e989ccd0d454106a19e3222729e4342da68971.png"
+PlayIcon = "TODO"
+AdditionGoodIcon = "http://uat-i0.hdslb.com/bfs/feed-admin/3ac25959e29285fa56c378844a978841661adf78.png"
+WeightIcon = "http://i0.hdslb.com/bfs/feed-admin/2565c84eaf2f20853444eaa8ff810c62281b71ea.png"
+[resource.text]
+DynMixTopicSquareMore = "查看更多"
+DynMixUnfollowTitle = "推荐用户"
+DynMixUnfollowButtonUncheck = "+ 关注"
+DynMixUnfollowButtonCheck = "已关注"
+DynMixLowfollowTitle = "你可能感兴趣的UP主"
+DynMixLowfollowButtonUncheck = "+ 关注"
+DynMixLowfollowButtonCheck = "已关注"
+ThreePointWaitAddition = "已经添加至稍后再看"
+ThreePointWaitNotAddition = "稍后再看"
+ThreePointAutoPlayOpenV1 = "关闭WiFi/免流环境下自动播放"
+ThreePointAutoPlayCloseV1 = "开启WiFi/免流环境下自动播放"
+ThreePointAutoPlayOpenIPADV1 = "关闭WiFi下自动播放"
+ThreePointAutoPlayCloseIPADV1 = "开启WiFi下自动播放"
+ThreePointAutoPlayOpenV2 = "开启自动播放"
+ThreePointAutoPlayCloseV2 = "关闭自动播放"
+ThreePointAutoPlayOnly = "仅WiFi/免流下自动播放"
+ThreePointDislike = "不感兴趣"
+ThreePointBackground = "使用此卡片背景"
+ThreePointShare = "分享"
+ThreePointFollow = "取消关注"
+ThreePointFollowCancel = "关注"
+ThreePointReport = "举报"
+ThreePointDeleted = "删除"
+ModuleAuthorPublishLabelArchive = "视频转码中 仅自己可见"
+ModuleDynamicForwardDefaultTips = "原动态不见了…"
+ModuleDynamicLiveBadgeFinish = "直播结束"
+ModuleDynamicLiveBadgeLiving = "直播中"
+ModuleDynamicMedialistBadge = "收藏"
+ModuleAdditionalAttachedPromoHeadText = "相关活动"
+ModuleAdditionalAttachedPromoButton = "去看看"
+ModuleAdditionalMatchHeadText = "相关赛事"
+ModuleAdditionalMatchButtonUncheck = "订阅"
+ModuleAdditionalMatchButtonCheck = "已订阅"
+ModuleAdditionalMatchStartedButtonLiveing = "直播中"
+ModuleAdditionalMatchStartedButtonPlayback = "回放"
+ModuleAdditionalGameHeadText = "相关游戏"
+ModuleAdditionalMangaHeadText = "相关漫画作品"
+ModuleAdditionalMangaButtonUncheck = "追漫"
+ModuleAdditionalMangaButtonCheck = "已追漫"
+ModuleAdditionalDecorateHeadText = "相关装扮"
+ModuleAdditionalDecorateOn = "去看看"
+ModuleAdditionalDecorateOff = "查看"
+ModuleAdditionalPUGVHeadText = "相关付费课程"
+ModuleAdditionalVoteTips = "投票删除"
+ModuleAdditionalVoteOpen = "去投票"
+ModuleAdditionalVoteClose = "去查看"
+ModuleAdditionalVoteVoted = "已投票"
+ModuleAdditionalUgcHeadText = "相关视频"
+ModuleExtendBBQTitle = "轻视频—B站官方小视频APP"
+ModuleExtendHotTitle = "热门"
+ModuleStatNoComment = "这条动态已被封印，当前不可评论╮(๑•́ ₃•̀๑)╭"
+ModuleStatNoForward = "这条动态已被封印，当前不可转发╮(๑•́ ₃•̀๑)╭"
+ModuleAdditionalTopicHeadText = "推荐活动"
+ModuleAdditionalTopicButtonText = "参加"
+ThreePointTopText = "置顶"
+ThreePointTopCannlText = "取消置顶"
+ModuleExtendDuversionTitle = "必减红包"
+ModuleExtendDuversionText = "投稿领取"
+[resource.others]
+ModuleExtendBBQURI = "https://bbq.bilibili.com/download/?channel=dynamic_share"
+ModuleExtendHotURI = "bilibili://pegasus/hotpage"
+[resource.others.ModuleDynamicMedialistBadge]
+Text = "收藏"
+TextColor = "#FFFFFF"
+TextColorNight = "#FFFFFF"
+BgColor = "#FB7299"
+BgColorNight = "#FB7299"
+BorderColor = "#FB7299"
+BorderColorNight = "#FB7299"
+BgStyle = 1
+[resource.others.ModuleDynamicCommonBadge]
+TextColor = "#FFFFFF"
+TextColorNight = "#FFFFFF"
+BgStyle = 1
+[resource.others.ModuleDynamicSubscriptionBadge]
+TextColor = "#FFFFFF"
+TextColorNight = "#FFFFFF"
+BgStyle = 1
+[resource.others.ModuleAdditionalMatchTeam]
+TextColor = "#505050"
+TextColorNight = "#B5B5B5"
+[resource.others.ModuleAdditionalMatchState]
+TextColor = "#212121"
+TextColorNight = "#E1E1E1"
+[resource.others.ModuleAdditionalMatchVS]
+Text = "VS"
+TextColor = "#505050"
+TextColorNight = "#B5B5B5"
+[resource.others.ModuleAdditionalMatching]
+Text = "进行中"
+TextColor = "#FB7299"
+TextColorNight = "#EB7093"
+[resource.others.ModuleAdditionalMatchOver]
+Text = "已结束"
+TextColor = "#212121"
+TextColorNight = "#E1E1E1"
+[resource.others.ModuleAdditionalMatchDard]
+TextColor = "#505050"
+TextColorNight = "#B5B5B5"
+[resource.others.ModuleAdditionalMatchLight]
+TextColor = "#999999"
+TextColorNight = "#727272"
+[resource.others.ModuleAdditionalMatchMiddle]
+Text = ":"
+TextColor = "#505050"
+TextColorNight = "#B5B5B5"
+[resource.icon]
+DynMixUplistMore = "http://uat-i0.hdslb.com/bfs/feed-admin/925ea7d54836064672b925af6a7e0226a8730cf9.png"
+DynMixTopicSquareMore = "http://uat-i0.hdslb.com/bfs/feed-admin/2feec05e30fe78e7f521d79ce18f0353e040d63c.png"
+ThreePointDislike = "http://uat-i0.hdslb.com/bfs/feed-admin/86e989ccd0d454106a19e3222729e4342da68971.png"
+ThreePointWait = "http://uat-i0.hdslb.com/bfs/album/de81a42978c1afbe2d2625e1f0ffa6f181852ca8.png"
+ThreePointWaitView = "http://i0.hdslb.com/bfs/feed-admin/cd2c0336016c2a1b44dc7b2d1a30f51ac2e75974.png"
+ThreePointAutoPlayClose = "http://uat-i0.hdslb.com/bfs/album/bbcfe9c0d2b0d2482ac8a4fd8ed7bfa04ccdb27d.png"
+ThreePointAutoPlayOpen = "http://uat-i0.hdslb.com/bfs/album/661555f2e93c240a3a84abe8535b3c4c7bb23534.png"
+ThreePointBackground = "http://uat-i0.hdslb.com/bfs/album/d965940ffa4202eead070e1bc6cdb6dff00ca864.png"
+ThreePointShare = "http://uat-i0.hdslb.com/bfs/album/ee5902a63bbe4a0d78646d11036b062ea60573f6.png"
+ThreePointFollow = "http://uat-i0.hdslb.com/bfs/album/21db6bf12bc4ff9eeced847355114dfc6bae3a81.png"
+ThreePointFollowCancel = "http://uat-i0.hdslb.com/bfs/album/27c54345860a1d2941a0ab32dc012fffb984e521.png"
+ThreePointReport = "http://uat-i0.hdslb.com/bfs/album/d2a0449e705dcdeac1d2ac1e9da7e05d06b73dee.png"
+ThreePointDeleted = "http://uat-i0.hdslb.com/bfs/album/9163a7b29964cb84cb5fc35e4f7b899151cf2afc.png"
+ThreePointDeletedView = "http://i0.hdslb.com/bfs/feed-admin/b480ea5f7de71190269c02d8c5c615d25af4b9f2.png"
+ModuleDynamicPlayIcon = "TODO"
+ModuleAdditionalGoods = "http://uat-i0.hdslb.com/bfs/feed-admin/3ac25959e29285fa56c378844a978841661adf78.png"
+ModuleAdditionalManga = "https://i0.hdslb.com/bfs/bangumi/154b6898d2b2c20c21ccef9e41fcf809b518ebb4.png"
+ModuleExtendBiliCut = "http://i0.hdslb.com/bfs/album/969bfb96b77f12acb2e36068fa03de3b418b2219.png"
+ModuleExtendLBS = "https://i0.hdslb.com/bfs/album/38193fb357ed4f3b93b313807eea6dd070f41df1.png"
+ModuleExtendBBQ = "https://i0.hdslb.com/bfs/activity-plat/static/IFRNneSLL.png"
+ModuleExtendGameTopic = "http://i0.hdslb.com/bfs/album/e8613d8debe7fd70737fc5ce59b543e89b0cce31.png"
+ModuleExtendTopic = "https://i0.hdslb.com/bfs/album/4c1880a3e9d5fd2c72b339929a73a4b83d2bab93.png"
+ModuleExtendHot = "https://i0.hdslb.com/bfs/album/4afb1d524cbd1aa8d4ac97f61e599d067169d646.png"
+ThreePointTopIcon = "http://i0.hdslb.com/bfs/feed-admin/1b82e64b4638adbc77ea50f141cbc7ee7448d2cb.png"
+ThreePointTopCannlIcon = "http://i0.hdslb.com/bfs/feed-admin/485e4093c716801ac2ddc81723f1f4d641f15307.png"
+[resource.reserveShare]
+Name = "分享预约"
+Image = "http://i0.hdslb.com/bfs/feed-admin/34a728e2ebc83dd68a399f8de447af7b141dd0fb.png"
+Channel = "RESERVE"
+QrCodeIcon = "http://i0.hdslb.com/bfs/archive/f5b7dae25cce338e339a655ac0e4a7d20d66145c.png"
+QrCodeUrl = "https://t.bilibili.com/%d?bsource=dynamic_reserve"
+QrCodeText = "扫码预约"
+DescAv = "视频预约"
+DescLive = "直播"
+
+[bottomConfig]
+[[bottomConfig.topicJumpLinks]]
+relatedTopic = [
+    "#方舟指令#",
+    "#神话养成姬战手游#",
+    "#FZZL#",
+    "#誓灵#",
+    "#小舟酱#"
+]
+Display = "方舟指令"
+URL = "bilibili://game_center/detail?id=101968&sourceFrom=179"
+[[bottomConfig.topicJumpLinks]]
+relatedTopic = [
+    "#神代梦华谭#"
+]
+Display = "神代梦华谭"
+URL = "bilibili://game_center/detail?id=79&sourceFrom=179"
+[[bottomConfig.topicJumpLinks]]
+relatedTopic = [
+    "#春节vlog#"
+]
+Display = "春节vlog"
+URL = "bilibili://game_center/detail?id=79&sourceFrom=179"
+
+[foldPublishList]
+white = [88895137]
+
+[infoc]
+SvideoLogID = "003329"
+
+[iconRes]
+AutoPlayOpen  = "http://uat-i0.hdslb.com/bfs/album/661555f2e93c240a3a84abe8535b3c4c7bb23534.png"
+AutoPlayClose = "http://uat-i0.hdslb.com/bfs/album/bbcfe9c0d2b0d2482ac8a4fd8ed7bfa04ccdb27d.png"
+Background    = "http://uat-i0.hdslb.com/bfs/album/d965940ffa4202eead070e1bc6cdb6dff00ca864.png"
+Deleted       = "http://uat-i0.hdslb.com/bfs/album/9163a7b29964cb84cb5fc35e4f7b899151cf2afc.png"
+Follow        = "http://uat-i0.hdslb.com/bfs/album/21db6bf12bc4ff9eeced847355114dfc6bae3a81.png"
+FollowCancel  = "http://uat-i0.hdslb.com/bfs/album/27c54345860a1d2941a0ab32dc012fffb984e521.png"
+Report        = "http://uat-i0.hdslb.com/bfs/album/d2a0449e705dcdeac1d2ac1e9da7e05d06b73dee.png"
+Share         = "http://uat-i0.hdslb.com/bfs/album/ee5902a63bbe4a0d78646d11036b062ea60573f6.png"
+Wait          = "http://uat-i0.hdslb.com/bfs/album/de81a42978c1afbe2d2625e1f0ffa6f181852ca8.png"
+
+[HTTPClientGame]
+key    = "ixoaem55h9ljpiqd"
+secret = "tq3ntf82rixzzu9s49nkkyydb04vvia0"
+dial      = "30ms"
+timeout   = "800ms"
+keepAlive = "60s"
+
+[BuildLimit]
+NewReplyIOS = 999999999
+NewReplyAndroid = 999999999
+
+[mogul]
+mids = [111005921]
+[mogul.Databus]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "Mogul-MainAppSvr-P"
+    topic = "Mogul-T"
+    action = "pub"
+    name = "app-card/mogul"
+    active = 30
+    idle = 5
+    dialTimeout = "200ms"
+    readTimeout = "500ms"
+    writeTimeout = "800ms"
+    idleTimeout = "80s" 

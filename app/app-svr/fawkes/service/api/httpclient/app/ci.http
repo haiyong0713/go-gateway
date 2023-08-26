@@ -1,0 +1,260 @@
+POST {{baseUrl}}/app/ci/version/info
+Connection: keep-alive
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"
+x1-bilispy-user: fawkes_luweidan
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
+sec-ch-ua-platform: "macOS"
+Accept: */*
+Origin: https://fawkes.bilibili.co
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://fawkes.bilibili.co/?api=v2/
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7
+Cookie: {{Cookie}}
+Content-Type: application/json
+
+{"app_key":"w19e","gitlab_job_id":[5072197]}
+
+###
+
+
+GET {{baseUrl}}/app/cd/config/upgrad?app_key=android&env=test&version_id=2164
+Connection: keep-alive
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"
+x1-bilispy-user: fawkes_luweidan
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
+sec-ch-ua-platform: "macOS"
+Accept: */*
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://fawkes.bilibili.co/?api=v2/
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7
+Cookie: {{Cookie}}
+
+###
+
+POST {{baseUrl}}/app/ci/parse/mainbbr
+Cookie: {{Cookie}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="app_key"
+
+android
+--WebAppBoundary
+Content-Disposition: form-data; name="build_id"
+
+186583
+--WebAppBoundary
+Content-Disposition: form-data; name="exclude_filter"
+
+class,mapping,resource,manifest
+--WebAppBoundary--
+Content-Disposition: form-data; name="feature"
+
+default
+
+###
+
+### 新构建
+
+# curl 'http://fawkes.bilibili.co/x/admin/fawkes/v2/app/ci/common/add'
+#  -H 'Proxy-Connection: keep-alive'
+#  -H 'x1-bilispy-user: caijian'
+#  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'
+#  -H 'Content-Type: application/x-www-form-urlencoded;charset=UTF-8'
+#  -H 'Accept: */*'
+#  -H 'Origin: http://cj.bilibili.co'
+#  -H 'Referer: http://cj.bilibili.co/?api=v2&fawkes-debug'
+#  -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8'
+#  -H 'Cookie: username=caijian; X-CSRF=$2b$10$o2C1M.n8fDbHG5i3wwQXwec0C910qziUw9MKGZPkRcRxCJlvJ3QGW; _AJSESSIONID=8e7cb3ce9fe555706965dcba4588481d; b_nut=1629547438; fingerprint=59105dd73ebd3be68dcb0b3ae21a917d; mng-go=135134d0d1a16810d0c1d8855b43058e10fd9a21f01a265b5d7b2dd6fa048991'
+#  --data-raw 'app_key=w19e&env_var=%7B%7D&git_type=0&git_name=infra%2Ftribe2%2Faccess_tribe_livestream&pkg_type=2&pkg_types=&description=%E6%B5%8B%E8%AF%95&dep_gitlab_job_id=6190800'
+#  --compressed
+POST {{baseUrl}}/app/ci/common/add
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36
+Accept: */*
+Origin: http://cj.bilibili.co
+Referer: http://cj.bilibili.co/?api=v2&fawkes-debug
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+Cookie: {{Cookie}}
+Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+
+app_key=android&git_type=0&git_name=feature/09/test_tribe_bundles&pkg_type=2&pkg_types=&description=%E6%B5%8B%E8%AF%95&trigger_tribe_id=160&dep_gitlab_job_id=6492568
+
+###
+
+# upload file
+#curl POST                         -F "tribe_build_pack_id=3"                         -F "status=0"                         -F "file=@/Users/wdlu/Downloads/费用报销流程-饮冰室主任_1734720210719171545.zip"                         -F "unzip=true"                         -F "md5=b7a3d8103f7d21a166a7a4e569ab49f2"                         -F "change_log=08-12 17:16 3fb9cbbb780 wangyaodong: add bbr repo
+#08-12 18:40 fa6ca7d2c8f wangyaodong: fix script
+#08-12 21:33 386ab0e00cc wangyaodong: fix api
+#08-12 22:37 73e6a87704f wangyaodong: v40
+#08-13 11:35 c2b62543912 wangyaodong: white list
+#08-13 13:30 5b8c7e70fb7 wangyaodong: fix tribe api
+#08-13 14:42 2b1caaa8866 wangyaodong: fix  bundle api
+#08-16 18:36 e8033e80bf9 wangyaodong: fix bundles script
+#08-18 14:15 71c421b0190 wangyaodong: fix typo
+#08-18 14:32 4ef61f2ad5e wangyaodong: validate env param"                         -F "apk_path=/home/gitlab-runner/builds/nXLsEgUX/0/android/wt-infra-tribe2-access-tribe-livestream/bundles/live-stream/build/tribe/outputs/apk/debug/out/main.apk"                         -F "mapping_path=/home/gitlab-runner/builds/nXLsEgUX/0/android/wt-infra-tribe2-access-tribe-livestream/bundles/live-stream/build/tribe/outputs/mapping/debug/out/mapping.txt"                         -F "bbr_path=/home/gitlab-runner/builds/nXLsEgUX/0/android/wt-infra-tribe2-access-tribe-livestream/bundles/live-stream/build/tribe/outputs/bbr/debug/out/main.bbr"                         -F "build_end_time=1629288826"                         -F "compatible_version=0"                         "localhost:7981/x/admin/fawkes/business/tribe/ci/pkg/update"
+POST {{baseUrl}}/app/ci/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="build_id"
+
+108817
+--WebAppBoundary
+Content-Disposition: form-data; name="status"
+
+0
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="费用报销流程-饮冰室主任_1734720210719171545.zip"
+
+< /Users/wdlu/Downloads/费用报销流程-饮冰室主任_1734720210719171545.zip
+--WebAppBoundary
+Content-Disposition: form-data; name="unzip"
+
+true
+--WebAppBoundary
+Content-Disposition: form-data; name="md5"
+
+07a8d2be8a28add3d1f8de03b366df33
+--WebAppBoundary
+Content-Disposition: form-data; name="change_log"
+
+08-12 17:16 3fb9cbbb780 wangyaodong: add bbr repo
+08-12 18:40 fa6ca7d2c8f wangyaodong: fix script
+08-12 21:33 386ab0e00cc wangyaodong: fix api
+08-12 22:37 73e6a87704f wangyaodong: v40
+08-13 11:35 c2b62543912 wangyaodong: white list
+08-13 13:30 5b8c7e70fb7 wangyaodong: fix tribe api
+08-13 14:42 2b1caaa8866 wangyaodong: fix  bundle api
+08-16 18:36 e8033e80bf9 wangyaodong: fix bundles script
+08-18 14:15 71c421b0190 wangyaodong: fix typo
+08-18 14:32 4ef61f2ad5e wangyaodong: validate env param
+--WebAppBoundary
+Content-Disposition: form-data; name="pkg_name"
+
+/滴滴电子发票.pdf
+--WebAppBoundary
+Content-Disposition: form-data; name="mapping_path"
+
+/home/gitlab-runner/builds/nXLsEgUX/0/android/wt-infra-tribe2-access-tribe-livestream/bundles/live-stream/build/tribe/outputs/mapping/debug/out/mapping.txt
+--WebAppBoundary
+Content-Disposition: form-data; name="bbr_name"
+
+extra/main.bbr
+--WebAppBoundary
+Content-Disposition: form-data; name="build_end_time"
+
+1629288826
+--WebAppBoundary
+Content-Disposition: form-data; name="compatible_version"
+
+0
+--WebAppBoundary--
+
+###
+
+
+POST {{baseUrl}}/app/ci/upload/mobile/ep/business
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="dirname"
+
+reportv1
+--WebAppBoundary
+Content-Disposition: form-data; name="business"
+
+test_bussiness
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="artifacts.zip"
+
+< /Users/wdlu/Desktop/artifacts.zip
+--WebAppBoundary
+Content-Disposition: form-data; name="unzip"
+
+true
+--WebAppBoundary
+Content-Disposition: form-data; name="md5"
+
+07a8d2be8a28add3d1f8de03b366df33
+--WebAppBoundary
+Content-Disposition: form-data; name="app_key"
+
+w19e
+--WebAppBoundary
+Content-Disposition: form-data; name="pkg_name"
+
+/滴滴电子发票.pdf
+--WebAppBoundary
+Content-Disposition: form-data; name="mapping_path"
+
+/home/gitlab-runner/builds/nXLsEgUX/0/android/wt-infra-tribe2-access-tribe-livestream/bundles/live-stream/build/tribe/outputs/mapping/debug/out/mapping.txt
+--WebAppBoundary
+Content-Disposition: form-data; name="build_end_time"
+
+1629288826
+--WebAppBoundary
+Content-Disposition: form-data; name="compatible_version"
+
+0
+--WebAppBoundary--
+
+###
+
+POST {{baseUrl}}/app/ci/record
+Content-Type: application/x-www-form-urlencoded
+
+app_key=w19e&gl_job_id=1111&pkg_type=1&git_type=1&git_name=test&commit=dafdfasdg&version=11&version_code=11111&operator=lulu@bilibili.co
+
+###
+
+GET {{baseUrl}}/app/ci/list?app_key=w19e&ps=10&pn=1&bbr_url=true
+Accept: application/json
+Cookie: {{Cookie}}
+
+###
+
+POST {{baseUrl}}/app/ci/common/add
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36
+Accept: */*
+Origin: http://cj.bilibili.co
+Referer: http://cj.bilibili.co/?api=v2&fawkes-debug
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+Cookie: {{Cookie}}
+Content-Type: application/json
+
+{
+  "app_key": "w19e",
+  "git_type": 0,
+  "git_name": "infra/tribe2/access_tribe_livestream",
+  "pkg_type": 2,
+  "description": "test",
+  "dep_gitlab_job_id": 6190800,
+  "trigger_tribe_id": [
+    129,
+    150
+  ]
+}
+
+###
+
+POST {{baseUrl}}/app/ci/version/info
+Content-Type: application/x-www-form-urlencoded
+Cookie: {{Cookie}}
+
+app_key=w19e&gitlab_job_id=5072197
+
+###
+
+GET {{baseUrl}}/app/ci/info?app_key=w19e&gl_job_id=5072197
+Content-Type: application/x-www-form-urlencoded
+Cookie: {{Cookie}}
+
+
+
+###

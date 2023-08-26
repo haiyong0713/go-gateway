@@ -1,0 +1,10 @@
+[S10PointCostMC]
+    name = "activity-service"
+    proto = "tcp"
+    addr = "127.0.0.1:20626"
+    idle = 64
+    active = 1024
+    dialTimeout = "30ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"

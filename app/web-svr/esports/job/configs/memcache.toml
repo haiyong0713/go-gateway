@@ -1,0 +1,10 @@
+[memcache]
+    name = "esport/s10"
+    proto = "tcp"
+    addr = "10.23.4.117:11211"
+    idle = 64
+    active = 1024
+    dialTimeout = "30ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"

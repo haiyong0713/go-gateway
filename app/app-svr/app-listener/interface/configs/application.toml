@@ -1,0 +1,32 @@
+[Res]
+  [Res.Icon]
+    PickHeaderBtn = "http://i0.hdslb.com/bfs/feed-admin/b3fd93c23515640cd1c28aae57168d2e32bb858f.png"
+    PickSeeMoreBtn = "http://i0.hdslb.com/bfs/feed-admin/f8074961ee619fa37a91e306d6f2d9a1917a2fa7.png"
+
+
+  [Res.Text]
+    FavBatchAdd = "收藏成功"
+    FavBatchDel = "取消收藏"
+    FavBatch = "操作成功"
+    AddFav = "添加收藏"
+    DelFav = "取消收藏"
+    CreateFavFolder = "创建收藏夹"
+    DeleteFavFolder = "删除收藏夹"
+
+    ThumbUp = "点赞成功"
+    ThumbCancel = "取消点赞"
+    CoinOK = "投币成功"
+
+	PickHeaderBtn = "播放全部"
+	PickHeaderDetailBtn = "播放全部"
+	PickHeaderDesc = "%d个内容，共%s"
+	PickSeeMoreBtn = "查看更多"
+
+    MsgArchiveInvalid = "稿件已失效"
+    MsgUnsupported = "暂不支持该类型稿件"
+    MsgUnsupportedAudio = "暂不支持音频稿件"
+    MsgUnsupportedSteinsGate = "暂不支持互动视频稿件"
+    MsgCopyrightBanPlay = "解析播放地址失败" # 版权禁播
+
+
+

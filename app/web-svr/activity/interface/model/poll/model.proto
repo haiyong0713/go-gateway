@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option go_package = "poll";
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+message PollOption {
+  int64 id = 1 [ (gogoproto.jsontag) = "id" ];
+  int64 poll_id = 2 [ (gogoproto.jsontag) = "poll_id" ];
+  string title = 3 [ (gogoproto.jsontag) = "title" ];
+  string image = 4 [ (gogoproto.jsontag) = "image" ];
+  string group = 5 [ (gogoproto.jsontag) = "group" ];
+  bool is_deleted = 6 [ (gogoproto.jsontag) = "is_deleted" ];
+}
+
+message PollOptionStat {
+  int64 id = 1 [ (gogoproto.jsontag) = "id" ];
+  int64 poll_id = 2 [ (gogoproto.jsontag) = "poll_id" ];
+  int64 poll_option_id = 3 [ (gogoproto.jsontag) = "poll_option_id" ];
+  int64 ticket_sum = 4 [ (gogoproto.jsontag) = "ticket_sum" ];
+  int64 vote_sum = 5 [ (gogoproto.jsontag) = "vote_sum" ];
+}
+
+message PollMeta {
+  int64 id = 1 [ (gogoproto.jsontag) = "id" ];
+  string title = 2 [ (gogoproto.jsontag) = "title" ];
+  bool unique_table = 3 [ (gogoproto.jsontag) = "unique_table" ];
+  bool repeatable = 4 [ (gogoproto.jsontag) = "repeatable" ];
+  int64 daily_chance = 5 [ (gogoproto.jsontag) = "daily_chance" ];
+  int64 vote_maximum = 6 [ (gogoproto.jsontag) = "vote_maximum" ];
+  int64 end_at = 7 [ (gogoproto.jsontag) = "end_at" ];
+}
+
+message PollVote {
+  int64 id = 1 [ (gogoproto.jsontag) = "id" ];
+  int64 poll_id = 2 [ (gogoproto.jsontag) = "poll_id" ];
+  int64 mid = 3 [ (gogoproto.jsontag) = "mid" ];
+  int64 poll_option_id = 4 [ (gogoproto.jsontag) = "poll_option_id" ];
+  int64 ticket_count = 5 [ (gogoproto.jsontag) = "ticket_count" ];
+  int64 vote_at = 6 [ (gogoproto.jsontag) = "vote_at" ];
+}
+
+message PollVoteUserStat {
+  int64 id = 1 [ (gogoproto.jsontag) = "id" ];
+  int64 mid = 2 [ (gogoproto.jsontag) = "mid" ];
+  int64 poll_id = 3 [ (gogoproto.jsontag) = "poll_id" ];
+  int64 date = 4 [
+    (gogoproto.jsontag) = "date",
+    (gogoproto.casttype) = "go-common/library/time.Time"
+  ];
+  int64 vote_count = 5 [ (gogoproto.jsontag) = "vote_count" ];
+}

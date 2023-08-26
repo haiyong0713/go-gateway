@@ -1,0 +1,11 @@
+[SteinsGate]
+    name   = "app-job/graph"
+    proto  = "tcp"
+    addr   = "172.22.33.117:11214"
+    active = 1024
+    idle   = 64
+    dialTimeout  = "30ms"
+    readTimeout  = "800ms"
+    writeTimeout = "800ms"
+    idleTimeout  = "80s"
+    expireMaxAid = "48h"

@@ -1,0 +1,27 @@
+[ArchiveNotifySub]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "ArchiveNotify-MainAppSvr-UpArchive-S"
+    topic = "ArchiveNotify-T"
+    action = "sub"
+
+[ArchiveSub]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "Archive-MainAppSvr-S"
+    topic = "Archive-T"
+    action = "sub"
+
+[UpArchiveSub]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "UpArchive-MainAppSvr-S"
+    topic = "UpArchive-T"
+    action = "sub"
+
+[ArchiveFlowControlSub]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "ArchiveFlowControl-MainAppSvr-S"
+    topic = "ArchiveFlowControl-T"
+    action = "sub"

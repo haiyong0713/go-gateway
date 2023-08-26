@@ -1,0 +1,9 @@
+[client]
+    addr = "172.22.34.101"
+    dsn = "space:hC0WPEpsaQhOpLqZaWKbc6fNcRdMiouC@tcp(127.0.0.1:3306)/space?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+    idle = 2
+    idleTimeout = "4h"
+    queryTimeout = "150ms"
+    execTimeout = "150ms"
+    tranTimeout = "300ms"

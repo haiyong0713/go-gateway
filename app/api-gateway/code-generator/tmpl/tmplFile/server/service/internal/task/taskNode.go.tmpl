@@ -1,0 +1,106 @@
+package task
+
+import (
+    "context"
+    "errors"
+    "fmt"
+    {{range $pbAlias, $pbPath := .ImportPb -}}
+    {{$pbAlias}} "{{$pbPath}}"
+    {{end}}
+    bm "go-common/library/net/http/blademaster"
+    "git.bilibili.co/platform/{{.ProjectName}}/app/{{.ServicePath}}/service/internal/rpcClient"
+    "go-common/library/log"
+    "runtime"
+    "sync"
+)
+
+type TaskFlow struct {
+    TaskResultMap map[string]*TaskResult
+    Lock          sync.RWMutex
+    WaitGroupMap  map[string]*sync.WaitGroup
+    RpcClient     *rpcClient.Rpc
+    HttpClient    *bm.Client
+}
+
+type TaskResult struct {
+    res interface{}
+    err error
+}
+
+func (p *TaskFlow) __readResult(ctx context.Context, taskName string) (res interface{}, err error) {
+    p.Lock.RLock()
+    defer p.Lock.RUnlock()
+    result, ok := p.TaskResultMap[taskName]
+    if !ok {
+        return nil, errors.New(fmt.Sprintf("can not read %s result", taskName))
+    }
+    res = result.res
+    err = result.err
+    return
+}
+
+func (p *TaskFlow) __writeResult(ctx context.Context, taskName string, output interface{}, err error) {
+    p.Lock.Lock()
+    defer p.Lock.Unlock()
+    p.TaskResultMap[taskName] = &TaskResult{
+        res: output,
+        err: err,
+    }
+}
+
+func (p *TaskFlow) __getRpcClient(ctx context.Context, discoveryId string) (res interface{}) {
+    return p.RpcClient.RpcClientMap[discoveryId]
+}
+
+{{range $listId, $taskInfo := .TaskFlowInfo.TaskList}}
+func (p *TaskFlow) __taskNode{{$taskInfo.Name}}(ctx context.Context) {
+    defer func() {
+        if r := recover(); r != nil {
+            buf := make([]byte, 64<<10)
+            buf = buf[:runtime.Stack(buf, false)]
+            log.Error("panic in {{$taskInfo.Name}} proc, err: %v, stack: %s", r, buf)
+        }
+    }()
+
+    defer p.WaitGroupMap["{{$taskInfo.Name}}"].Done()
+    {{if $taskInfo.OutputInfo.IsResponse -}}
+    defer p.WaitGroupMap[".response"].Done()
+    {{ end -}}
+
+    {{range $listId, $taskInputInfo := $taskInfo.InputList -}}
+    {{ if eq $taskInputInfo.ValueFrom "task" -}}
+    p.WaitGroupMap["{{$taskInputInfo.Value}}"].Wait()
+    {{ end -}}
+    {{ end -}}
+
+    {{range $listId, $taskInputInfo := $taskInfo.InputList -}}
+    {{$taskInputInfo.Name}}, err := p.__readResult(ctx, "{{$taskInputInfo.Value}}")
+    {{ if not $taskInputInfo.Ignore -}}
+    if err != nil {
+        p.__writeResult(ctx, "{{$taskInfo.Name}}", nil, err)
+        {{if $taskInfo.OutputInfo.IsResponse -}}
+        p.__writeResult(ctx, ".response", nil, err)
+        {{end -}}
+        return
+    }
+    {{ end -}}
+    {{ end }}
+    log.Infoc(ctx, "task: %s start", "{{$taskInfo.Name}}")
+
+    output, err := p.{{$taskInfo.Name}}(ctx
+    {{- range $listId, $taskInputInfo := $taskInfo.InputList -}}
+    , {{$taskInputInfo.Name}}.(*{{$taskInputInfo.ParamType}})
+    {{- end -}}
+    )
+    if err != nil {
+        log.Errorc(ctx, "task: %s return err %v", "{{$taskInfo.Name}}", err)
+    }
+    log.Infoc(ctx, "task: %s finish", "{{$taskInfo.Name}}")
+
+    p.__writeResult(ctx, "{{$taskInfo.Name}}", output, err)
+    {{if $taskInfo.OutputInfo.IsResponse -}}
+    p.__writeResult(ctx, ".response", output, err)
+    {{end}}
+}
+{{end}}
+

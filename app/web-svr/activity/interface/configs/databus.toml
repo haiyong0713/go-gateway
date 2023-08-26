@@ -1,0 +1,227 @@
+
+[dataBus]
+   [dataBus.nativePub]
+        key = "9765cdac5894f2ba"
+        secret = "f4237d712c3ed1e7fab0137b81418b14"
+        group = "ActivityNative-MainWebSvr-P"
+        topic = "ActivityNative-T"
+        action = "pub"
+        dialTimeout = "1s"
+        readTimeout = "1s"
+        writeTimeout = "1s"
+    [dataBus.liveItemPub]
+       key = "9765cdac5894f2ba"
+       secret = "f4237d712c3ed1e7fab0137b81418b14"
+       group = "LiveReward-MainWebSvr-P"
+       topic = "LiveReward-T"
+       action = "pub"
+       dialTimeout = "1s"
+       readTimeout = "60s"
+       writeTimeout = "1s"
+       idleTimeout = "10s"
+    [dataBus.bnjpub]
+        key = "9765cdac5894f2ba"
+        secret = "f4237d712c3ed1e7fab0137b81418b14"
+        group = "ActBnjPreview-MainWebSvr-P"
+        topic = "ActBnjPreview-T"
+        action = "pub"
+        idle = 100
+        active = 100
+        dialTimeout = "1s"
+        readTimeout = "60s"
+        writeTimeout = "1s"
+        idleTimeout = "10s"
+    [dataBus.bnjAwardpub]
+        key = "9765cdac5894f2ba"
+        secret = "f4237d712c3ed1e7fab0137b81418b14"
+        group = "ActBnjAward-MainWebSvr-P"
+        topic = "ActBnjAward-T"
+        action = "pub"
+        idle = 100
+        active = 100
+        dialTimeout = "1s"
+        readTimeout = "60s"
+        writeTimeout = "300ms"
+        idleTimeout = "10s"
+    [dataBus.StatViewPub]
+        key = "8e27ab7e39270b59"
+        secret = "477df6a068d7332a163f95abbad2079c"
+        group = "StatView-MainWebSvr-P"
+        topic = "StatView-T"
+        action = "pub"
+        active = 100
+        idle = 100
+        dialTimeout = "1s"
+        readTimeout = "60s"
+        writeTimeout = "1s"
+        idleTimeout = "10s"
+    [dataBus.SignedInPub]
+        key = "9765cdac5894f2ba"
+        secret = "f4237d712c3ed1e7fab0137b81418b14"
+        group = "ActPlat-S10Main-MainWebSvr-P"
+        topic = "ActPlat-S10Main-T"
+        action = "pub"
+        active = 100
+        idle = 100
+        dialTimeout = "1s"
+        readTimeout = "60s"
+        writeTimeout = "1s"
+        idleTimeout = "10s"
+    [dataBus.ActPlatPub]
+        key = "9765cdac5894f2ba"
+        secret = "f4237d712c3ed1e7fab0137b81418b14"
+        group = "ActPlatActivityPoints-MainWebSvr-P"
+        topic = "ActPlatActivityPoints-T"
+        action = "pub"
+        dialTimeout = "1s"
+        readTimeout = "1s"
+        writeTimeout = "1s"
+        idleTimeout = "60s"
+    [dataBus.FreeFlowPub]
+        key = "9765cdac5894f2ba"
+        secret = "f4237d712c3ed1e7fab0137b81418b14"
+        group = "ActivityFreeFlow-MainWebSvr-P"
+        topic = "ActivityFreeFlow-T"
+        action = "pub"
+        dialTimeout = "60ms"
+        readTimeout = "200ms"
+        writeTimeout = "300ms"
+        idleTimeout = "10s"
+    [dataBus.NewYear2021Pub]
+        key = "9765cdac5894f2ba"
+        secret = "f4237d712c3ed1e7fab0137b81418b14"
+        group = "ActivityFreeFlow-MainWebSvr-P"
+        topic = "ActPlatActivityPoints-T"
+        action = "pub"
+        dialTimeout = "60ms"
+        readTimeout = "200ms"
+        writeTimeout = "300ms"
+        idleTimeout = "10s"
+    [dataBus.RewardsAwardSendingPub]
+        key = "9765cdac5894f2ba"
+        secret = "f4237d712c3ed1e7fab0137b81418b14"
+        group = "ActivityRewardsSending-MainWebSvr-P"
+        topic = "ActivityRewardsSending-T"
+        action = "pub"
+        dialTimeout = "5s"
+        readTimeout = "5s"
+        writeTimeout = "5s"
+        idleTimeout = "10s"
+
+[asyncReservePub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ActivityReserve-MainWebSvr-P"
+    #topic = "ActivityReserve-T"
+    action = "pub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[asyncReserveSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ActivityReserve-MainWebSvr-S"
+    topic = "ActivityReserve-T"
+    action = "sub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[doRelationPub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "DoRelation-MainWebSvr-P"
+    topic = "DoRelation-T"
+    action = "pub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[bnj_2021_ar_pub]
+    target = "discovery://default/infra.databus.v2"
+    app_id = "activity.service"
+    token = "0464149f8f51718228ff5eb8ed922ea4"
+    topic = "Bnj-2021-AR-T"
+
+[bnj_2021_live_lottery_rec]
+    target = "discovery://default/infra.databus.v2"
+    app_id = "activity.service"
+    token = "0464149f8f51718228ff5eb8ed922ea4"
+    topic = "Live-Lottery-Rec-T"
+
+[bnj_2021_live_draw_ar_coupon]
+    target = "discovery://default/infra.databus.v2"
+    app_id = "activity.service"
+    token = "0464149f8f51718228ff5eb8ed922ea4"
+    topic = "Live-ARDraw-Coupon-T"
+
+[AsyncReserveConfig]
+    topic = "ActivityReserve-T"
+    switch = 0
+    concurrency = 1
+[ActPlatConfig]
+    topic = "ActPlatActivityPoints-T"
+[MainWebSvrActivity]
+    target = "discovery://default/infra.databus.v2"
+    app_id = "main.web-svr.activity"
+    token = "ec2564b79a63bd47045ed70288bbfdec"
+
+[StockServerSyncPubConfig]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "StockServerSyncOrder-MainWebSvr-P"
+    topic = "StockServerSyncOrder-T"
+    action = "pub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+
+[rewards_award_sending_pub_v2]
+    target = "discovery://default/infra.databus.v2"
+    app_id = "main.web-svr.activity"
+    token = "ec2564b79a63bd47045ed70288bbfdec"
+    topic = "ActivityRewardsSending-T"
+
+
+[UpActReserveConfig]
+    topic = "UpActReserver-Uat-T"
+[CardsComposeConfig]
+    topic = "CardCompose-Uat-T"
+[MainWebSvrJob]
+    target = "discovery://default/infra.databus.v2"
+    app_id = "main.web-svr.activity-job"
+    token = "f41603f13e6ef016d3ff6a21a31071e9"
+
+
+[ManuScriptAuditPub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ActManuScriptAuditMaterial-MainWebSvr-P"
+    topic = "ActManuScriptAuditMaterial-T"
+    action = "pub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[ActGuessPub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group= "ActivityGuess-MainWebSvr-P"
+    topic= "ActivityGuess-T"
+    action="pub"
+    name = "activity/guess-pub"
+    proto = "tcp"
+    addr = ""
+    idle = 100
+    active = 100
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"

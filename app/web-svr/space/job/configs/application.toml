@@ -1,0 +1,22 @@
+TopPhotoArcExpire = "12h"
+
+[HTTPClient]
+    key = "364a740488811396"
+    secret = "995a63b0bae95afd7d1b0b892d0e14d2"
+    dial = "30ms"
+    timeout = "300ms"
+    keepAlive = "60s"
+    timer = 1000
+
+[Host]
+    Dynamic = "http://api.vc.bilibili.co"
+
+[msg]
+    SenderUID = 12076317
+    NotifyMsg = "你配置的手机端空间头图视频已失效，请进入空间重新设置"
+
+[livePlayback]
+    whitelistURL = "http://i0.hdslb.com/bfs/live/LiveRecordVideoShowNotInSubmitListUidList"
+
+[spec]
+    livePlaybackWhitelist = "@every 10s"

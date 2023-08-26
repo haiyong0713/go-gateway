@@ -1,0 +1,1 @@
+ALTER TABLE es_archives ADD INDEX idx_archive_aid (aid);

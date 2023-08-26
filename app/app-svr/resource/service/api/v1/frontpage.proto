@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package resource.service.v1;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "v1";
+
+message FrontPage {
+  int64 id = 1 [(gogoproto.jsontag) = 'id', json_name = "id"]; // 版头id
+  string title = 2 [(gogoproto.jsontag) = 'title', json_name = "title"]; // 版头配置标题
+  int32 pos = 3 [(gogoproto.jsontag) = 'pos', json_name = "pos"]; // 版头配置位置
+  string logo = 4 [(gogoproto.jsontag) = 'log', json_name = "log"]; // 版头log图片地址
+  string litpic = 5 [(gogoproto.jsontag) = 'litpic', json_name = "litpic"]; // 配置图片地址
+  string jump_url = 6 [(gogoproto.jsontag) = 'jump_url', json_name = "jump_url"]; // 跳转链接
+  int32 state = 7 [(gogoproto.jsontag) = 'state', json_name = "state"]; // 版头状态，0-生效或者待生效，1-已下线，-1-已删除
+  int64 stime = 8 [(gogoproto.jsontag) = 'stime', (gogoproto.casttype) = "go-common/library/time.Time", json_name = "stime"]; // 上线时间
+  int64 etime = 9 [(gogoproto.jsontag) = 'etime', (gogoproto.casttype) = "go-common/library/time.Time", json_name = "etime"]; // 下线时间
+  int32 is_split_layer = 10 [(gogoproto.jsontag) = 'is_split_layer', json_name = "is_split_layer"]; // 错层效果状态，0-不启用，1-启用
+  string split_layer = 11 [(gogoproto.jsontag) = 'split_layer', json_name = "split_layer"]; // 错层配置
+  int32 style = 12 [(gogoproto.jsontag) = 'style', json_name = "style"]; // 顶栏颜色，0-白色，1-黑色
+  int64 resource_id = 13 [(gogoproto.jsontag) = 'resource_id', json_name = "resource_id"];  // 分区id
+}
+
+message FrontPageReq {
+  int64 resource_id = 1[(gogoproto.jsontag) = "resource_id", json_name = "resource_id"]; // 分区id
+}
+
+
+message FrontPageResp {
+  FrontPage default = 1 [(gogoproto.jsontag) = 'default', json_name = "default"]; // 默认底图
+  repeated FrontPage online = 2 [(gogoproto.jsontag) = 'online', json_name = "online"]; // 在线版头
+  repeated FrontPage hidden = 3 [(gogoproto.jsontag) = 'hidden', json_name = "hidden"]; // 待排期版头
+}
+
+
+

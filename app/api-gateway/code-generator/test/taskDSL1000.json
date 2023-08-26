@@ -1,0 +1,73 @@
+{
+  "taskList": [
+    {
+      "name": "task0",
+      "type": "udf",
+      "input": [
+        {
+          "value": "$service.request",
+          "type": "servicePb.HelloReq"
+        }
+      ],
+      "output": {
+        "type": "WorldResp"
+      }
+    },
+    {
+      "name": "task1",
+      "type": "udf",
+      "input": [
+        {
+          "value": "$task.task0",
+          "type": "servicePb.HelloReq"
+        }
+      ],
+      "output": {
+        "type": "WorldResp"
+      }
+    },
+    {
+      "name": "task2",
+      "type": "udf",
+      "input": [
+        {
+          "value": "$task.task0",
+          "type": "WorldResp"
+        }
+      ],
+      "output": {
+        "type": "WorldResp"
+      }
+    },
+    {
+      "name": "task3",
+      "type": "udf",
+      "input": [
+        {
+          "value": "$task.task2",
+          "type": "WorldResp"
+        }
+      ],
+      "output": {
+        "type": "WorldResp"
+      }
+    },
+    {
+      "name": "task4",
+      "type": "udf",
+      "input": [
+        {
+          "value": "$task.task1",
+          "type": "WorldResp"
+        },
+        {
+          "value": "$task.task3",
+          "type": "WorldResp"
+        }
+      ],
+      "output": {
+        "type": "servicePb.HelloResp"
+      }
+    }
+  ]
+}

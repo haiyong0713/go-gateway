@@ -1,0 +1,13 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+- liweijia
+- yujia
+- zhoujiahui
+labels:
+- area/app-svr/app-card/interface
+- area/app-svr/app-feed/interface
+- area/app-svr/app-intl/interface
+- area/app-svr/app-channel/interface
+- area/app-svr
+

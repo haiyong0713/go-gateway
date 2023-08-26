@@ -1,0 +1,23 @@
+
+[server]
+    addr = "0.0.0.0:8000"
+    timeout = "1s"
+
+[videoClient]
+    key = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial = "80ms"
+    timeout = "500ms"
+    keepAlive = "60s"
+    timer = 1000
+
+[wechatClient]
+    key = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial = "100ms"
+    timeout = "800ms"
+    keepAlive = "60s"
+    timer = 1000
+[host]
+    videoUp = "http://archive.api.bilibili.co"
+    bvc = "http://172.16.38.189:7086"

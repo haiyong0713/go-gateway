@@ -1,0 +1,1492 @@
+default:
+  labels:
+  - name: approved
+    color: 0ffa16
+    description: Indicates a PR has been approved by an approver from all required
+      OWNERS files.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: area/api-gateway
+    color: 0033CC
+    description: Categorizes an issue or PR as relevant to area/api-gateway
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/api-gateway/api-manager
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/api-gateway/api-manager
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/api-gateway/code-generator
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/api-gateway/code-generator
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/api-gateway/code-generator/tmpl/tmplFile/server/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/api-gateway/code-generator/tmpl/tmplFile/server/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr
+    color: 0033CC
+    description: Categorizes an issue or PR as relevant to area/app-svr
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-admin/admin
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-admin/admin
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-car/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-car/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-car/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-car/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-card/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-card/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-channel/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-channel/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-dynamic/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-dynamic/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-feed/admin
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-feed/admin
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-feed/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-feed/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-feed/interface-ng
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-feed/interface-ng
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-feed/ng-clarify-job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-feed/ng-clarify-job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-free/admin
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-free/admin
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-free/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-free/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-gw/baas
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-gw/baas
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-gw/gateway
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-gw/gateway
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-gw/management
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-gw/management
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-gw/management-job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-gw/management-job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-gw/peat-moss
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-gw/peat-moss
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-interface/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-interface/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-intl/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-intl/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-job/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-job/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-player/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-player/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-player/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-player/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-resource/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-resource/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-show/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-show/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-tag/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-tag/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-thirdsdk/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-thirdsdk/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-view/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-view/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-wall/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-wall/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/app-wall/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/app-wall/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/archive-honor/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/archive-honor/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/archive-inspect/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/archive-inspect/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/archive-push
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/archive-push
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/archive-push/admin
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/archive-push/admin
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/archive-shjd/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/archive-shjd/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/archive/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/archive/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/archive/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/archive/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/distribution/distribution
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/distribution/distribution
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/fawkes/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/fawkes/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/fawkes/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/fawkes/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/feature-service/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/feature-service/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/feature/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/feature/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/hkt-note/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/hkt-note/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/hkt-note/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/hkt-note/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/hkt-note/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/hkt-note/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/kvo/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/kvo/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/kvo/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/kvo/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/macross/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/macross/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/misaka/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/misaka/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/native-act/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/native-act/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/ott/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/ott/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/playurl/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/playurl/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/resource/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/resource/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/resource/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/resource/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/siri-ext/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/siri-ext/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/stat/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/stat/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/steins-gate/admin
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/steins-gate/admin
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/steins-gate/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/steins-gate/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/steins-gate/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/steins-gate/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/ugc-season/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/ugc-season/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/ugc-season/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/ugc-season/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/up-archive/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/up-archive/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/app-svr/up-archive/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/app-svr/up-archive/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr
+    color: 0033CC
+    description: Categorizes an issue or PR as relevant to area/web-svr
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/activity/admin
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/activity/admin
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/activity/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/activity/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/activity/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/activity/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/activity/tools
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/activity/tools
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/appstatic/admin
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/appstatic/admin
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/appstatic/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/appstatic/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/dance-taiko
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/dance-taiko
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/dance-taiko/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/dance-taiko/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/dance-taiko/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/dance-taiko/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/datasource-ng/admin
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/datasource-ng/admin
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/datasource-ng/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/datasource-ng/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/dynamic/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/dynamic/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/esports/admin
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/esports/admin
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/esports/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/esports/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/esports/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/esports/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/esports/service
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/esports/service
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/native-page/admin
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/native-page/admin
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/native-page/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/native-page/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/native-page/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/native-page/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/player/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/player/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/playlist/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/playlist/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/playlist/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/playlist/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/space/admin
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/space/admin
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/space/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/space/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/space/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/space/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/web-goblin/admin
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/web-goblin/admin
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/web-goblin/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/web-goblin/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/web-goblin/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/web-goblin/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/web-show/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/web-show/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/web/interface
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/web/interface
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: area/web-svr/web/job
+    color: 428BCA
+    description: Categorizes an issue or PR as relevant to area/web-svr/web/job
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: cherrypick-approved
+    color: fef2c0
+    description: Indicates a cherrypick PR into a release branch has been approved
+      by the release branch manager.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: cherrypick-candidate
+    color: fef2c0
+    description: Denotes a PR to master as a candidate for cherry picking into a release
+      branch.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: 'cncf-cla: no'
+    color: e11d21
+    description: Indicates the PR's author has not signed the CNCF CLA.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: 'cncf-cla: yes'
+    color: bfe5bf
+    description: Indicates the PR's author has signed the CNCF CLA.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: committee/conduct
+    color: c0ff4a
+    description: Denotes an issue or PR intended to be handled by the code of conduct
+      committee.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: committee/steering
+    color: c0ff4a
+    description: Denotes an issue or PR intended to be handled by the steering committee.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: do-not-merge
+    color: e11d21
+    description: DEPRECATED. Indicates that a PR should not merge. Label can only
+      be manually applied/removed.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: do-not-merge/blocked-paths
+    color: e11d21
+    description: Indicates that a PR should not merge because it touches files in
+      blocked paths.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: do-not-merge/cherry-pick-not-approved
+    color: e11d21
+    description: Indicates that a PR is not yet approved to merge into a release branch.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: do-not-merge/hold
+    color: e11d21
+    description: Indicates that a PR should not merge because someone has issued a
+      /hold command.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: do-not-merge/invalid-owners-file
+    color: e11d21
+    description: Indicates that a PR should not merge because it has an invalid OWNERS
+      file in it.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: do-not-merge/release-note-label-needed
+    color: e11d21
+    description: Indicates that a PR should not merge because it's missing one of
+      the release note labels.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously:
+    - name: release-note-label-needed
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    deleteafter: null
+  - name: do-not-merge/work-in-progress
+    color: e11d21
+    description: Indicates that a PR should not merge because it is a work in progress.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: good first issue
+    color: 7057ff
+    description: Denotes an issue ready for a new contributor, according to the "help
+      wanted" guidelines.
+    target: issues
+    prowplugin: ""
+    addedby: ""
+    previously:
+    - name: for-new-contributors
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    deleteafter: null
+  - name: help wanted
+    color: 006b75
+    description: Denotes an issue that needs help from a contributor. Must meet "help
+      wanted" guidelines.
+    target: issues
+    prowplugin: ""
+    addedby: ""
+    previously:
+    - name: help-wanted
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    deleteafter: null
+  - name: kind/bug
+    color: e11d21
+    description: Categorizes issue or PR as related to a bug.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously:
+    - name: bug
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    deleteafter: null
+  - name: kind/cleanup
+    color: c7def8
+    description: Categorizes issue or PR as related to cleaning up code, process,
+      or technical debt.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: kind/design
+    color: c7def8
+    description: Categorizes issue or PR as related to design.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: kind/documentation
+    color: c7def8
+    description: Categorizes issue or PR as related to documentation.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: kind/failing-test
+    color: e11d21
+    description: Categorizes issue or PR as related to a consistently or frequently
+      failing test.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously:
+    - name: priority/failing-test
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    - name: kind/e2e-test-failure
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    - name: kind/upgrade-test-failure
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    deleteafter: null
+  - name: kind/feature
+    color: c7def8
+    description: Categorizes issue or PR as related to a new feature.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously:
+    - name: enhancement
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    - name: kind/enhancement
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    deleteafter: null
+  - name: kind/flake
+    color: f7c6c7
+    description: Categorizes issue or PR as related to a flaky test.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: lgtm
+    color: 15dd18
+    description: Indicates that a PR is ready to be merged.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: lifecycle/active
+    color: 8fc951
+    description: Indicates that an issue or PR is actively being worked on by a contributor.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously:
+    - name: active
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    deleteafter: null
+  - name: lifecycle/frozen
+    color: d3e2f0
+    description: Indicates that an issue or PR should not be auto-closed due to staleness.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously:
+    - name: keep-open
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    deleteafter: null
+  - name: lifecycle/rotten
+    color: "604460"
+    description: Denotes an issue or PR that has aged beyond stale and will be auto-closed.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: lifecycle/stale
+    color: "795548"
+    description: Denotes an issue or PR has remained open with no activity and has
+      become stale.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously:
+    - name: stale
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    deleteafter: null
+  - name: mod/changed
+    color: 69D100
+    description: the go.mod or go.sum has been changed.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: needs-ok-to-test
+    color: b60205
+    description: Indicates a PR that requires an org member to verify it is safe to
+      test.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: needs-rebase
+    color: b60205
+    description: Indicates a PR cannot be merged because it has merge conflicts with
+      HEAD.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: needs-sig
+    color: ededed
+    description: Indicates an issue lacks a `sig/foo` label and requires one.
+    target: issues
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: new-project/api-gateway
+    color: D9534F
+    description: Categorizes an issue or PR as relevant to new-project/api-gateway
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: new-project/app-svr
+    color: D9534F
+    description: Categorizes an issue or PR as relevant to new-project/app-svr
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: new-project/web-svr
+    color: D9534F
+    description: Categorizes an issue or PR as relevant to new-project/web-svr
+    target: both
+    prowplugin: label
+    addedby: anyone
+    previously: []
+    deleteafter: null
+  - name: ok-to-test
+    color: 0ffa16
+    description: Indicates a PR has been approved to tset
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: priority/awaiting-more-evidence
+    color: fef2c0
+    description: Lowest priority. Possibly useful, but not yet enough support to actually
+      get it done.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: priority/backlog
+    color: fbca04
+    description: Higher priority than priority/awaiting-more-evidence.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: priority/critical-urgent
+    color: e11d21
+    description: Highest priority. Must be actively worked on as someone's top priority
+      right now.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: priority/important-longterm
+    color: eb6420
+    description: Important over the long term, but may not be staffed and/or may need
+      multiple releases to complete.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: priority/important-soon
+    color: eb6420
+    description: Must be staffed and worked on either currently, or very soon, ideally
+      in time for the next release.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: ready-to-merge
+    color: 69D100
+    description: Indicates that a PR is ready to be merged.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: release-note
+    color: c2e0c6
+    description: Denotes a PR that will be considered when it comes time to generate
+      release notes.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: release-note-action-required
+    color: c2e0c6
+    description: Denotes a PR that introduces potentially breaking changes that require
+      user action.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: release-note-none
+    color: c2e0c6
+    description: Denotes a PR that doesn't merit a release note.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: retest-not-required
+    color: eb6420
+    description: Indicates that a PR doesn't need to be retested prior to merge.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: retest-not-required-docs-only
+    color: fbca04
+    description: Indicates that a PR doesn't need to be retested prior to merge because
+      it only changes docs.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: size/L
+    color: ee9900
+    description: Denotes a PR that changes 100-499 lines, ignoring generated files.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: size/M
+    color: eebb00
+    description: Denotes a PR that changes 30-99 lines, ignoring generated files.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: size/S
+    color: 77bb00
+    description: Denotes a PR that changes 10-29 lines, ignoring generated files.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: size/XL
+    color: ee5500
+    description: Denotes a PR that changes 500-999 lines, ignoring generated files.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: size/XS
+    color: "009900"
+    description: Denotes a PR that changes 0-9 lines, ignoring generated files.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: size/XXL
+    color: ee0000
+    description: Denotes a PR that changes 1000+ lines, ignoring generated files.
+    target: prs
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: status/approved-for-milestone
+    color: fef2c0
+    description: Used during release burndown. Denotes an issue or PR is approved
+      to be part of the release
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously:
+    - name: approved-for-milestone
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    deleteafter: null
+  - name: status/in-progress
+    color: fef2c0
+    description: Used during release burndown. Denotes that an issue is actively being
+      worked.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: status/in-review
+    color: fef2c0
+    description: Used during release burndown. Denotes that a fix for an issue is
+      actively being reviewed.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously: []
+    deleteafter: null
+  - name: triage/duplicate
+    color: d455d0
+    description: Indicates an issue is a duplicate of other open issue.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously:
+    - name: close/duplicate
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    - name: duplicate
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    deleteafter: null
+  - name: triage/needs-information
+    color: d455d0
+    description: Indicates an issue needs more information in order to work on it.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously:
+    - name: close/needs-information
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    deleteafter: null
+  - name: triage/not-reproducible
+    color: d455d0
+    description: Indicates an issue can not be reproduced as described.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously:
+    - name: close/not-reproducible
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    deleteafter: null
+  - name: triage/support
+    color: d455d0
+    description: Indicates an issue that is a support question.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously:
+    - name: close/support
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    - name: kind/support
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    - name: question
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    deleteafter: null
+  - name: triage/unresolved
+    color: d455d0
+    description: Indicates an issue that can not or will not be resolved.
+    target: both
+    prowplugin: ""
+    addedby: ""
+    previously:
+    - name: close/unresolved
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    - name: invalid
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    - name: wontfix
+      color: ""
+      description: ""
+      target: ""
+      prowplugin: ""
+      addedby: ""
+      previously: []
+      deleteafter: null
+    deleteafter: null

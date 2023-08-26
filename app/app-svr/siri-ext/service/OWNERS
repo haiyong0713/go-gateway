@@ -1,0 +1,7 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+- ""
+labels:
+- area/app-svr/siri-ext/service
+options: {}

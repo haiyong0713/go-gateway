@@ -1,0 +1,18 @@
+[rpcLimiter]
+    disable = false
+    Preflight = false
+    [[rpcLimiter.Methods]]
+    path = "/esports.service.v1.Esports/LiveContests"
+    rule = "total"
+    [[rpcLimiter.Methods]]
+    path = "/esports.service.v1.Esports/ContestList"
+    rule = "total"
+
+[archiveRPC]
+    timeout = "1s"
+
+[filterRPC]
+    timeout = "1s"
+
+[TunnelV2Client]
+    timeout= "500ms"

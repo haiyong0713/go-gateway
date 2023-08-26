@@ -1,0 +1,35 @@
+
+# This is a TOML document. Boom~
+ruleDimensionPushInterval = 3
+[progress]
+token = "uat-native-page"
+userToken = "uat-native-page"
+pageProgressParamsExpire = 86400
+
+[activity]
+
+[cronInterval]
+pageRelationCron = "@every 10s"
+progressParamsExtraCron = "@every 10s"
+upPagesCron = "@every 1m"
+onlinePagesCron = "@every 3s"
+NewPageCron = "00 00 19 * * *"
+
+[dbCommon]
+   upNatPagesByUidExpire = 3600
+   onlineNatPagesExpire = 3600
+
+[mail]
+  host      = ""
+  port      = ""
+  address   = ""
+  pwd       = ""
+  name      = ""
+  switch = false
+  maxNum = 2
+
+[expire]
+   sendMailLockExpire = 86400
+
+
+

@@ -1,0 +1,7 @@
+image:
+  - name: go-1.12.4-golint-latest
+    image: hub.bilibili.co/k8s-prow/go-gateway:20210609v1
+  - name: go-label-sync
+    image: hub.bilibili.co/k8s-prow/label-sync:v20190612150901-aeadf92cc-dirty
+  - name: dind-overlord
+    image: hub.bilibili.co/k8s-prow/go-gateway-test-dind:v20200616150435-43b9ad296-dirty

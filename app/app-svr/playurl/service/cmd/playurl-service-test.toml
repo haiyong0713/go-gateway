@@ -1,0 +1,83 @@
+[host]
+playurl = "http://videodispatch-ugc.bilibili.co"
+playurlBk = "http://videodispatch-ugc-bk.bilibili.co"
+
+[hostDiscovery]
+copyRight = "discovery://main.archive.copyright-gateway"
+
+[httpCopyRightClient]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "30ms"
+timeout   = "500ms"
+keepAlive = "60s"
+
+[log]
+stdout=true
+
+[httpClient]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "30ms"
+timeout   = "500ms"
+keepAlive = "60s"
+    [httpClient.breaker]
+    window  = "3s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+
+[redis]
+    [redis.vip]
+       name   = "app-player-job/player"
+       proto  = "tcp"
+       addr   = "172.18.33.61:6807"
+       active = 20
+       idle   = 10
+       dialTimeout  = "50ms"
+       readTimeout  = "100ms"
+       writeTimeout = "100ms"
+       idleTimeout  = "80s"
+    [redis.arcRedis]
+        name   = "redis-arcRedis"
+        proto  = "tcp"
+        addr   = "127.0.0.1:6379"
+        active = 20
+        idle   = 10
+        dialTimeout  = "50ms"
+        readTimeout  = "100ms"
+        writeTimeout = "100ms"
+        idleTimeout  = "80s"
+    [redis.mixRedis]
+        name   = "redis-mixRedis"
+        proto  = "tcp"
+        addr   = "127.0.0.1:20504"
+        active = 20
+        idle   = 10
+        dialTimeout  = "50ms"
+        readTimeout  = "100ms"
+        writeTimeout = "100ms"
+        idleTimeout  = "80s"
+
+[taiShanConf]
+   playConfTable = "play_conf"
+   playConfToken = "play_conf"
+
+[cron]
+   loadChronos  = "@every 5s"
+   LoadPasterCID  = "@every 30s"
+   LoadSteinsWhite  = "@every 30s"
+   LoadCustomConfig  = "@every 30s"
+   LoadManagerConfig = "@every 30s"
+
+[custom]
+  elecShowTypeIDs = [1,2,3]
+  cloudGray = 1
+  musicMids =[669334488,486906719,2046693818,402585256]
+  musicAids = [1415480,20136557,51566651]
+
+[infocConf]
+[infocConf.CloudInfoc]
+path="/tmp"

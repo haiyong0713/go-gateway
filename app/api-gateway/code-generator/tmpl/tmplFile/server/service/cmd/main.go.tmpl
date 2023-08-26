@@ -1,0 +1,51 @@
+package main
+
+import (
+	"flag"
+	"go-common/library/conf/paladin"
+	ecode "go-common/library/ecode/tip"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
+
+	"git.bilibili.co/platform/{{.ProjectName}}/app/{{.ServicePath}}/service/internal/di"
+	"go-common/library/log"
+	"go-common/library/net/trace"
+
+	_ "go.uber.org/automaxprocs"
+)
+
+func main() {
+    if flag.Lookup("conf").Value.String() == "" {
+        flag.Set("conf", "../configs")
+    }
+	flag.Parse()
+	log.Init(nil) // debug flag: log.dir={path}
+	defer log.Close()
+	log.Info("service start")
+	trace.Init(nil)
+	defer trace.Close()
+	paladin.Init()
+	ecode.Init(nil)
+	_, closeFunc, err := di.InitApp()
+	if err != nil {
+		panic(err)
+	}
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, syscall.SIGHUP, syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGINT)
+	for {
+		s := <-c
+		log.Info("get a signal %s", s.String())
+		switch s {
+		case syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGINT:
+			closeFunc()
+			log.Info("service exit")
+			time.Sleep(time.Second)
+			return
+		case syscall.SIGHUP:
+		default:
+			return
+		}
+	}
+}

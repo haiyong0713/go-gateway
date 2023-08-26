@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "model";
+option (gogoproto.goproto_enum_prefix_all) = false;
+option (gogoproto.goproto_getters_all) = false;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+
+message AidReason {
+    int64   Aid     =  1 [(gogoproto.jsontag) ="aid"];
+    string  Reason  =  2 [(gogoproto.jsontag) ="reason"];
+}
+
+message AidReasons {
+    repeated AidReason List = 1;
+}
+
+message ThemeDetail {
+    int64   ID           =  1 [(gogoproto.jsontag) ="id"];
+    string  Name         =  2 [(gogoproto.jsontag) ="name"];
+    string  Icon         =  3 [(gogoproto.jsontag) ="icon"];
+    string  TopPhoto     =  4 [(gogoproto.jsontag) ="top_photo"];
+    string  BgImg        =  5 [(gogoproto.jsontag) ="bg_img"];
+    int64   IsActivated  =  6 [(gogoproto.jsontag) ="is_activated"];
+}
+
+message ThemeDetails {
+    repeated ThemeDetail List = 1;
+}
+
+message Notice {
+    string  Notice    =  1 [(gogoproto.jsontag) ="notice"];
+    int64   IsForbid  =  2 [(gogoproto.jsontag) ="is_forbid"];
+}
+
+message PhotoMall {
+   int64 id = 1 [(gogoproto.jsontag) ="id"];
+   string product_name = 2 [(gogoproto.jsontag) ="product_name"];
+   int64 price = 3 [(gogoproto.jsontag) ="price"];
+   int64 ios_price = 4 [(gogoproto.jsontag) ="ios_price"];
+   int64 coin_type = 5 [(gogoproto.jsontag) ="coin_type"];
+   int64 vip_free = 6 [(gogoproto.jsontag) ="vip_free"];
+   string s_img = 7 [(gogoproto.jsontag) ="s_img"];
+   string l_img = 8 [(gogoproto.jsontag) ="l_img"];
+   string android_img = 9 [(gogoproto.jsontag) ="android_img"];
+   string iphone_img = 10 [(gogoproto.jsontag) ="iphone_img"];
+   string ipad_img = 11 [(gogoproto.jsontag) ="ipad_img"];
+   string thumbnail_img = 12 [(gogoproto.jsontag) ="thumbnail_img"];
+   int64 sort_num = 13 [(gogoproto.jsontag) ="product_name"];
+   string type = 14 [(gogoproto.jsontag) ="type"];
+   int64 is_disable = 15 [(gogoproto.jsontag) ="is_disable"];
+}
+
+message TopPhotoArc {
+    int64 aid = 1 [(gogoproto.jsontag) = "aid"];
+    int64 mid = 2 [(gogoproto.jsontag) = "mid"];
+    string image_url = 3 [(gogoproto.jsontag) = "image_url"];
+    int64 ctime = 4 [(gogoproto.jsontag) ="ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime = 5 [(gogoproto.jsontag) ="mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}

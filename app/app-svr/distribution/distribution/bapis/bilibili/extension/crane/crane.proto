@@ -1,0 +1,13 @@
+syntax = "proto3";
+package bilibili.extension.crane;
+
+import "google/protobuf/descriptor.proto";
+
+option go_package = "git.bilibili.co/bapis/bapis-go/bilibili/extension/crane;crane";
+option java_package = "com.bapis.bilibili.extension.crane";
+option java_multiple_files = true;
+option objc_class_prefix = "BAPIExtensionCrane";
+
+extend google.protobuf.FileOptions {
+  string bili_grpc_host = 70000;
+}

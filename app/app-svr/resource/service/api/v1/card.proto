@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+// use {app_id}.{version} as package name
+package resource.service.v1;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+// specify golang package name
+option go_package = "v1";
+
+message CardFollow {
+  int64 id = 1;
+  string type = 2;
+  string title = 3;
+  bytes content = 4;
+}
+
+message CardFollowReply { repeated CardFollow list = 1; }
+
+message CardPosRec {
+  int64 id = 1;
+  string title = 2;
+  string card_desc = 3;
+  string cover = 4;
+  string scover = 5;
+  string gifcover = 6;
+  string power_pic_sun = 7;
+  string power_pic_night = 8;
+  string bgcover = 9;
+  double width = 10;
+  double height = 11;
+  int64 re_type = 12;
+  string re_value = 13;
+}
+
+message CardPosRecReply { map<int64, CardPosRec> card = 1; }
+
+message CardPosRecReplyRequest { repeated int64 card_ids = 1; }

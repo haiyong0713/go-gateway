@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/empty.proto";
+
+package app.gw.gateway.v1;
+
+option go_package = "api";
+option (gogoproto.goproto_getters_all) = false;
+
+service AppGateway {
+  rpc Ping(.google.protobuf.Empty) returns (.google.protobuf.Empty);
+}

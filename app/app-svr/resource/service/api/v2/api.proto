@@ -1,0 +1,246 @@
+syntax = "proto3";
+
+package resource.service.v2;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "frontpage.proto";
+
+option go_package = "v2";
+
+service Resource {
+  //获取web特殊卡信息
+  rpc GetWebSpecialCard(NoArgRequest) returns (WebSpecialCardResp){};
+
+  //获取app特殊卡
+  rpc GetAppSpecialCard(NoArgRequest) returns (AppSpecialCardResp){};
+  //获取特殊卡
+  rpc GetSpecialCard(SpecialCardReq) returns (SpecialCardResp){};
+  //获取app相关推荐Pgc关联 特殊卡信息
+  rpc GetAppRcmdRelatePgc(AppRcmdRelatePgcRequest) returns (AppRcmdRelatePgcResp){};
+  // 判定通用黑白名单
+  rpc CheckCommonBWList(CheckCommonBWListReq) returns (CheckCommonBWListRep){};
+  // 批量判定通用黑白名单
+  rpc CheckCommonBWListBatch(CheckCommonBWListBatchReq) returns (CheckCommonBWListBatchRep){};
+
+  // 版头
+  // GetFrontPageConfig 获取参数对应的版头
+  rpc GetFrontPageConfig(GetFrontPageConfigReq) returns (FrontPageConfig);
+
+  //获取物料详细信息
+  rpc GetMaterial(MaterialReq) returns (MaterialResp){};
+}
+
+// NoArgRequest
+message NoArgRequest{}
+
+//web特殊卡 resp
+message WebSpecialCardResp {
+  // web详情页相关推荐卡片设置
+  repeated WebSpecialCard card = 1 [(gogoproto.jsontag) = "card", json_name = "card"];
+}
+
+// web特殊卡信息
+message WebSpecialCard {
+  //web特殊卡id
+  int64 id = 1 [(gogoproto.jsontag) = "id", json_name = "id"];
+  //卡片类型 1:web特殊卡
+  int32 type = 2 [(gogoproto.jsontag) = "type", json_name = "type"];
+  //卡片title
+  string title = 3 [(gogoproto.jsontag) = "title", json_name = "title"];
+  //卡片描述
+  string desc = 4 [(gogoproto.jsontag) = "desc", json_name = "desc"];
+  //卡片封面
+  string cover = 5 [(gogoproto.jsontag) = "cover", json_name = "cover"];
+  //跳转类型 re_type=1 url链接
+  int32 re_type = 6 [(gogoproto.jsontag) = "re_type", json_name = "re_type"];
+  //跳转值
+  string re_value = 7 [(gogoproto.jsontag) = "re_value", json_name = "re_value"];
+  //创建人
+  string person = 8 [(gogoproto.jsontag) = "person", json_name = "person"];
+  //创建时间
+  int64 ctime = 9 [(gogoproto.jsontag) = "ctime", json_name = "ctime"];
+  //修改时间
+  int64 mtime = 10 [(gogoproto.jsontag) = "mtime", json_name = "mtime"];
+}
+
+// 通用黑白名单校验 {
+message  CheckCommonBWListReq{
+  // 小名单物料oid，为了通用性，目前使用string
+  string oid = 1;
+  // 黑白名单token
+  string token = 2 ;
+  // 是否取反
+  bool is_reverse = 3 [(gogoproto.jsontag) = "is_reverse", json_name = "is_reverse"];
+  // 用户ip, 当为空时，从context获取
+  string user_ip = 4 [(gogoproto.jsontag) = "user_ip", json_name = "user_ip"];
+  // 大名单物料oid
+  LargeOidContent large_oid = 5 [(gogoproto.jsontag) = "large_oid", json_name = "large_oid"];
+  // 黑白名单灰度分桶token
+  string large_token = 6 [(gogoproto.jsontag) = "large_token", json_name = "large_token"];
+}
+
+message LargeOidContent {
+  string buvid = 1;
+  int64 mid = 2;
+}
+
+// 通用黑白名单校验 {
+message  CheckCommonBWListRep{
+  // 物料oid，为了通用性，目前使用string
+  bool is_in_list = 1 [(gogoproto.jsontag) = "is_in_list", json_name = "is_in_list"];
+}
+
+// 通用黑白名单校验-批量 {
+message  CheckCommonBWListBatchReq{
+  // 物料oid，为了通用性，目前使用string
+  repeated string oids = 1 [(gogoproto.jsontag) = "oids", json_name = "oids"];
+  // 黑白名单token
+  string token = 2 [(gogoproto.jsontag) = "token", json_name = "token"];
+  // 是否取反
+  bool is_reverse = 3 [(gogoproto.jsontag) = "is_reverse", json_name = "is_reverse"];
+  // 用户ip, 当为空时，从context获取
+  string user_ip = 4 [(gogoproto.jsontag) = "user_ip", json_name = "user_ip"];
+
+}
+
+// 通用黑白名单校验-批量 {
+message  CheckCommonBWListBatchRep{
+  // 物料oid，为了通用性，目前使用string
+  map<string, bool> is_in_list = 1 [(gogoproto.jsontag) = "is_in_list", json_name = "is_in_list"];
+}
+
+//app特殊卡 resp
+message AppSpecialCardResp {
+  // app特殊卡
+  repeated AppSpecialCard card = 1 [(gogoproto.jsontag) = "card", json_name = "card"];
+}
+
+// app相关推荐-特殊卡信息
+message AppSpecialCard {
+  //特殊卡id
+  int64 id = 1;
+  //特殊卡片标题
+  string title = 2;
+  //特殊卡描述
+  string desc = 3;
+  //双列封面
+  string cover = 4;
+  //跳转类型 0:url 1:游戏小卡 2:稿件 3:PGC 4:直播 6:专栏 7:每日精选 8:歌单 9:歌曲 10:相簿 11:小视频 12:特殊小卡 14:PGC-seasion-id
+  int32 re_type = 5 [(gogoproto.jsontag) = "re_type", json_name = "re_type"];
+  //跳转值
+  string re_value = 6 [(gogoproto.jsontag) = "re_value", json_name = "re_value"];
+  //角标文字
+  string corner = 7;
+  //特殊卡片类型 1:特殊小卡 2:特殊大卡 3:置顶卡 4:频道卡 5:特殊大卡B
+  int32 card = 8;
+  //单列封面
+  string scover = 9;
+  //gif封面
+  string gifcover = 10;
+  //频道卡背景图
+  string bgcover = 11;
+  //频道卡推荐理由
+  string reason = 12;
+  //强制跳转tab的uri
+  string tab_uri = 13 [(gogoproto.jsontag) = "tab_uri", json_name = "tab_uri"];
+  //强化角标日间模式
+  string power_pic_sun = 14 [(gogoproto.jsontag) = "power_pic_sun", json_name = "power_pic_sun"];
+  //强化角标夜晚模式
+  string power_pic_night = 15 [(gogoproto.jsontag) = "power_pic_night", json_name = "power_pic_night"];
+  //大卡卡片大小
+  string size = 16;
+  //角标-宽
+  int64 width = 17;
+  //角标-高
+  int64 height = 18;
+  // 特殊小卡，pgc-ep跳转类型时候的url参数
+  string url = 19;
+}
+
+//物料req
+message MaterialReq{
+  repeated int64 id = 1;
+}
+
+//物料resp
+message MaterialResp{
+  repeated Material material = 1 [(gogoproto.jsontag) = "list", json_name = "list"];
+}
+
+//物料信息
+message Material{
+  //物料唯一ID
+  int64 id = 1;
+  //标题
+  string title = 2;
+  //描述
+  string desc = 3;
+  //双列封面
+  string cover = 4;
+  //gif封面
+  string gifcover = 5;
+  //角标文字
+  string corner = 6;
+  //角标白天模式
+  string power_pic_sun = 7 [(gogoproto.jsontag) = "power_pic_sun", json_name = "power_pic_sun"];
+  //强化角标夜间模式
+  string power_pic_night = 8 [(gogoproto.jsontag) = "power_pic_night", json_name = "power_pic_night"];
+  //推荐理由类型 0:无（默认）1:编辑推荐  3:自定义推荐
+  int32 reason = 9;
+  //推荐理由自定义内容，对应reason=3
+  string reason_content = 10 [(gogoproto.jsontag) = "reason_content", json_name = "reason_content"];
+  //宽
+  int64 width = 11;
+  //高
+  int64 height = 12;
+}
+
+//app相关推荐PGC关联 req
+message AppRcmdRelatePgcRequest{
+  // pgc seasonID
+  int64 id = 1;
+  string mobi_app = 2 [(gogoproto.jsontag) = "mobi_app", json_name = "mobi_app"];
+  string device = 3;
+  //版本
+  int32 build = 4;
+}
+
+//app相关推荐PGC关联 resp
+message AppRcmdRelatePgcResp{
+  //特殊卡主键ID
+  int64 id = 1;
+  //特殊卡片标题
+  string title = 2;
+  //特殊卡片描述
+  string desc = 3;
+  //双列封面
+  string cover = 4;
+  //单列封面
+  string scover = 5;
+  //跳转类型 0:url 1:游戏小卡 2:稿件 3:PGC 4:直播 6:专栏 7:每日精选 8:歌单 9:歌曲 10:相簿 11:小视频 12:特殊小卡 14:PGC-seasion-id
+  int32 re_type = 6 [(gogoproto.jsontag) = "re_type", json_name = "re_type"];
+  //跳转参数
+  string re_value = 7 [(gogoproto.jsontag) = "re_value", json_name = "re_value"];
+  //角标文字
+  string corner = 8;
+  //卡片类型 1:特殊小卡 2:特殊大卡 3:置顶卡 4:频道卡 5:特殊大卡B
+  int32 card = 9;
+  //特殊大卡参数 如果是1020*300则封面比例为34 如果是1020*378则封面比例为27
+  string size = 10;
+  //位置
+  int32 position = 11;
+  //推荐理由
+  string rec_reason = 12 [(gogoproto.jsontag) = "rec_reason", json_name = "rec_reason"];
+}
+
+// 获取特殊卡req
+message SpecialCardReq {
+  // 特殊卡id
+  repeated int64 ids = 1 [(gogoproto.jsontag) = "ids", json_name = "ids", (gogoproto.moretags) = 'form:"ids,split" validate:"required"'];
+}
+
+// 特殊卡resp
+message SpecialCardResp {
+  // 特殊卡信息 <特殊卡Id,特殊卡信息>
+  map<int64, AppSpecialCard> special_card = 1 [(gogoproto.jsontag) = "special_card", json_name = "special_card"];
+}

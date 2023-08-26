@@ -1,0 +1,317 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+package stein.gate.service.v1;
+option go_package = "api";
+option (gogoproto.goproto_getters_all) = false;
+
+service SteinsGate {
+	rpc GraphInfo (GraphInfoReq) returns (GraphInfoReply);
+	rpc View(ViewReq) returns (ViewReply);
+	rpc Views(ViewsReq) returns (ViewsReply);
+	rpc GraphView(GraphViewReq) returns (GraphViewReply);
+	rpc Evaluation(EvaluationReq) returns (EvaluationReply);
+    rpc GraphRights(GraphRightsReq) returns (GraphRightsReply);
+    rpc MarkEvaluations(MarkEvaluationsReq) returns (MarkEvaluationsReply);
+}
+
+message GraphRightsReq {
+    int64 aid = 1 [(gogoproto.moretags)='validate:"gt=0,required"'];
+    int32 build = 2 ;
+    string device = 3;
+    string mobi_app = 4;
+}
+
+message GraphRightsReply{
+    bool allow_play = 1;
+}
+
+message MarkEvaluationsReq {
+    int64 mid = 1;
+    repeated int64 aids = 2 [(gogoproto.moretags)='validate:"max=50,gt=0,required"'];
+}
+
+message MarkEvaluationsReply{
+    map<int64, MarkEvaluations> items = 1;
+}
+
+message MarkEvaluations{
+    int64 mark = 1;
+    string evaluation = 2;
+}
+
+message GraphInfoReq {
+    int64 aid = 1 [(gogoproto.moretags)='validate:"gt=0,required"'];
+}
+
+message GraphInfoReply{
+    GraphInfo graphInfo = 1;
+}
+
+message GraphViewReq{
+    int64 aid = 1 [(gogoproto.moretags)='validate:"gt=0,required"'];
+}
+
+message GraphViewReply{
+    // 开始节点的那一P
+    Page page = 1;
+    // 图信息
+    GraphInfo graph = 2;
+    // 该稿件的综合评分
+    string evaluation = 3;
+}
+
+message ViewReq{
+    int64 aid = 1 [(gogoproto.moretags)='validate:"gt=0,required"'];
+    int64 mid = 2;
+    string buvid = 3;
+}
+
+message ViewReply{
+    // 开始节点的那一P
+    Page page = 1;
+    // 图信息
+    GraphInfo graph = 2;
+    // 用户存档当前位置信息
+    GraphNode current_node = 3;
+    // 用户存档是否有效
+    int32 record_state = 4;
+    // 该用户对稿件的评分，10为满分
+    int64 mark = 5;
+    // 该稿件的综合评分
+    string evaluation = 6;
+    // 用户存档当前位置信息(edge树)
+    GraphEdge current_edge = 7;
+    // 客户端在详情页展示toast信息
+    string toast_msg = 8;
+}
+
+message ViewsReq{
+    repeated int64 aids = 1 [(gogoproto.moretags)='validate:"max=50,dive,gt=0,required"'];
+    repeated int64 aids_with_history = 2 [(gogoproto.moretags)='validate:"max=50,dive,gt=0,required"'];
+    int64 mid = 3;
+    string buvid = 4;
+}
+
+message ViewsReply {
+    map<int64, ViewReply> views = 1;
+    map<int64, ViewReply> views_with_history = 2;
+}
+
+message GraphInfo{
+    // 图ID
+    int64 id = 1;
+    // 对应的稿件ID
+    int64 aid = 2;
+    // 该图的起点节点的Cid
+    int64 first_cid = 3;
+    // 该图的起点节点ID
+    int64 first_nid = 4;
+    // 剧情图局部变量
+    string regional_vars = 5;
+    // 剧情图全局变量
+    string global_vars = 6;
+    // 剧情图的版本(0代表走node逻辑, 1代表走edge逻辑，2代表走中插/表达式逻辑)
+    int64 version = 7;
+    // 剧情图皮肤
+    int64 skin_id = 8 [(gogoproto.jsontag) = "-"];
+    // 是否不展示新手引导
+    int32 no_tutorial = 9;
+    // 是否不开启进度回溯
+    int32 no_backtracking = 10;
+    // 是否不展示评分
+    int32 no_evaluation = 11;
+    // 游客是否覆盖局部变量
+    int32 guest_overwrite_regional_vars = 12;
+}
+
+message Skin{
+    // 选项图
+    string choice_image = 1;
+    // 文字颜色
+    string title_text_color = 2;
+    // 文字阴影颜色
+    string title_shadow_color = 3;
+    // 标题阴影位置x
+    float title_shadow_offset_x = 4;
+    // 标题阴影位置y
+    float title_shadow_offset_y = 5;
+    // 标题阴影范围
+    float title_shadow_radius = 6;
+    // 进度条颜色
+    string progressbar_color = 7;
+    // 进度条阴影颜色
+    string progressbar_shadow_color = 8;
+}
+
+message GraphNode{
+    int64 id = 1;
+    string name = 2;
+    int64 graph_id = 3;
+    int64 cid = 4;
+    int32 is_start = 5;
+    int32 otype = 6;
+    int64 show_time = 7;
+    int64 width = 8;
+    int64 height = 9;
+    string sar = 10;
+    // 剧情图皮肤
+    int64 skin_id = 11 [(gogoproto.jsontag) = "-"];
+}
+
+message GraphEdge{
+    int64 id = 1;
+    int64 graph_id = 2;
+    int64 from_node = 3;
+    string title = 4;
+    int64 to_node = 5;
+    int64 to_node_cid = 6;
+    int64 weight = 7;
+    int32 text_align = 8;
+    int64 pos_x = 9;
+    int64 pos_y = 10;
+    int32 is_default = 11;
+    string script = 12;
+    string attribute = 13;
+    string condition = 14;
+    int64 group_id = 15;
+    int32 is_hidden = 16;
+    int32 width = 17;
+    int32 height = 18;
+    int64 to_time = 19;
+    int32 to_type = 20;
+}
+
+message EdgeGroup {
+    int64 id = 1;
+    int64 graph_id = 2;
+    string title = 3;
+    string title_color = 4;
+    string title_font_size = 5;
+    int64 start_time = 6;
+    int64 duration = 7;
+    int64 type = 8;
+    int32 pause_video = 9;
+    int32 fade_in_time = 10;
+    int32 fade_out_time = 11;
+}
+
+message GameRecords{
+    int64 id = 1;
+    int64 graph_id = 2;
+    int64 aid = 3;
+    int64 mid = 4;
+    string choices = 5;
+    int64 current_node = 6;
+    string hidden_vars = 7;
+    string global_vars = 8;
+    string buvid = 9;
+    int64 current_edge = 10;
+    int64 current_cursor = 11;
+    string cursor_choice = 12;
+}
+
+message EvaluationReq{
+    int64 aid = 1;
+}
+
+message EvaluationReply{
+    string eval = 1;
+}
+
+// Page 分P信息
+message Page {
+    // 视频的cid
+    int64 Cid = 1 [(gogoproto.jsontag) = "cid"];
+    // 视频的序号顺序，从小到大
+    int32 Page = 2 [(gogoproto.jsontag) = "page"];
+    // 视频的来源，99%为vupload=B站自己的，少部分为腾讯（qq）、湖南tv(hunan)
+    string From = 3 [(gogoproto.jsontag) = "from"];
+    // 视频的标题
+    string Part = 4 [(gogoproto.jsontag) = "part"];
+    // 视频的时长 单位=秒
+    int64 Duration = 5 [(gogoproto.jsontag) = "duration"];
+    // 站外视频才有vid属性
+    string Vid = 6 [(gogoproto.jsontag) = "vid"];
+    // 视频的简介，多P视频才可填写简介
+    string Desc = 7 [(gogoproto.jsontag) = "description,omitempty"];
+    // 站外视频跳转地址
+    string WebLink = 8 [(gogoproto.jsontag) = "weblink"];
+    // 视频分辨率信息
+    Dimension Dimension = 9
+        [(gogoproto.jsontag) = "dimension", (gogoproto.nullable) = false];
+}
+
+// Dimension 视频分辨率
+message Dimension {
+  // 宽 如 1920
+  int64 Width = 1 [(gogoproto.jsontag) = "width"];
+  // 高 如 1080
+  int64 Height = 2 [(gogoproto.jsontag) = "height"];
+  // 是否竖屏 0=否 1=是
+  int64 Rotate = 3 [(gogoproto.jsontag) = "rotate"];
+}
+
+message Ract {
+  int32 x = 1 [(gogoproto.jsontag) = "x"];
+  int32 y = 2 [(gogoproto.jsontag) = "y"];
+  int32 width = 3 [(gogoproto.jsontag) = "width"];
+  int32 height = 4 [(gogoproto.jsontag) = "height"];
+}
+
+message EdgeFrameAnimation {
+  int64 edge_id = 1 [(gogoproto.jsontag) = "edge_id"];
+  string event = 2 [(gogoproto.jsontag) = "event"];
+  Ract position = 3
+      [(gogoproto.jsontag) = "position", (gogoproto.nullable) = false];
+  string source_pic = 4 [(gogoproto.jsontag) = "source_pic"];
+  int32 item_height = 5
+      [(gogoproto.jsontag) = "item_height"];
+  int32 item_width = 6
+      [(gogoproto.jsontag) = "item_width"];
+  int32 item_count = 7
+      [(gogoproto.jsontag) = "item_count"];
+  int32 fps = 8 [(gogoproto.jsontag) = "fps"];
+  int32 colums = 9
+      [(gogoproto.jsontag) = "colums"];
+  int32 rows = 10 [(gogoproto.jsontag) = "rows"];
+  int32 loop = 11
+      [(gogoproto.jsontag) = "loop"];
+}
+
+message EdgeFrameAnimations {
+    map<string, EdgeFrameAnimation> animations = 1;
+}
+
+message RankScoreSubmitReq {
+    int64 aid = 1 [(gogoproto.moretags)='form:"aid"'];
+    string bvid = 2 [(gogoproto.moretags)='form:"bvid"'];
+    int64 cid = 3 [(gogoproto.moretags)='form:"cid" validate:"required"'];
+    int64 current_mid = 4 [(gogoproto.moretags)='form:"-"'];
+    int32 score = 5 [(gogoproto.moretags)='form:"score"'];
+    uint32 validation = 6 [(gogoproto.moretags)='form:"validation"'];
+}
+
+message RankListReq {
+    int64 aid = 1 [(gogoproto.moretags)='form:"aid"'];
+    string bvid = 2 [(gogoproto.moretags)='form:"bvid"'];
+    int64 cid = 3 [(gogoproto.moretags)='form:"cid" validate:"required"'];
+    int64 size = 4 [(gogoproto.moretags)='form:"size" validate:"max=50,required"'];
+    int64 current_mid = 5 [(gogoproto.moretags)='form:"-"'];
+}
+
+message RankItem {
+  int64 mid = 1 [ (gogoproto.jsontag) = "mid" ];
+  int32 score = 2 [ (gogoproto.jsontag) = "score" ];
+  bool ranked = 3 [ (gogoproto.jsontag) = "ranked" ];
+  int64 ranking = 4 [ (gogoproto.jsontag) = "ranking" ];
+  string name = 5 [ (gogoproto.jsontag) = "name" ];
+  string face = 6 [ (gogoproto.jsontag) = "face" ];
+  string sign = 7 [ (gogoproto.jsontag) = "sign" ];
+}
+
+message RankListReply {
+  repeated RankItem list = 1 [ (gogoproto.jsontag) = "list" ];
+  RankItem current_user = 2 [ (gogoproto.jsontag) = "current_user" ];
+}

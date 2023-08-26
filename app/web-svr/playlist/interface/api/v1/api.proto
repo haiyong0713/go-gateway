@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+// use {app_id}.{version} as package name
+package playlist.service.v1;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/empty.proto";
+
+// specify golang package name
+option go_package = "v1";
+
+// The greeting service definition.
+service Playlist {
+    // SetStat set playlist stat cache.
+    rpc SetStat(PlStatReq) returns(.google.protobuf.Empty);
+}
+
+message PlStatReq {
+    int64 id = 1 [(gogoproto.moretags)='form:"id"'];
+    int64 mid = 2 [(gogoproto.moretags)='form:"mid"'];
+    int64 fid = 3 [(gogoproto.moretags)='form:"fid"'];
+    int64 view = 4 [(gogoproto.moretags)='form:"view"'];
+    int64 reply = 5 [(gogoproto.moretags)='form:"reply"'];
+    int64 fav = 6 [(gogoproto.moretags)='form:"fav"'];
+    int64 share = 7 [(gogoproto.moretags)='form:"share"'];
+    int64 mtime = 8  [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}

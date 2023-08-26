@@ -1,0 +1,2 @@
+proto:
+	protoc  --proto_path=${GOPATH}/src --proto_path=${GOPATH}/src/go-common/app/tool/protobuf/pkg/extensions --proto_path=`pwd` --gogofast_out=Mgoogle/protobuf/any.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/duration.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/struct.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/wrappers.proto=github.com/gogo/protobuf/types,plugins=grpc:. $(wildcard *.proto)

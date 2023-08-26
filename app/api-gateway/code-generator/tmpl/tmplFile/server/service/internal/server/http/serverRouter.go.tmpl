@@ -1,0 +1,40 @@
+package http
+
+import (
+    "context"
+	pb "git.bilibili.co/platform/{{.ProjectName}}/app/{{.ServicePath}}/service/api"
+
+	bm "go-common/library/net/http/blademaster"
+)
+
+func initRouter(e *bm.Engine) {
+	e.Ping(ping)
+	{{ if ne .ServiceInterfaceInfo.HttpPath "" -}}
+	e.GET("{{.ServiceInterfaceInfo.HttpPath}}",
+	    {{- if .ServiceInterfaceInfo.IsAuthUser -}}
+        authSvc.User,
+	    {{- end -}}
+	    {{- if .ServiceInterfaceInfo.IsVerify -}}
+        verifySvc.Verify,
+        {{- end -}}
+	    {{.ServiceInterfaceInfo.FuncName}})
+	{{ end }}
+}
+
+func {{.ServiceInterfaceInfo.FuncName}}(c *bm.Context) {
+    var (
+        req   = new(pb.{{.ServiceInterfaceInfo.InputType}})
+        err error
+    )
+    if err = c.Bind(req); err != nil {
+        return
+    }
+    var (
+        mid int64
+    )
+    if _mid, ok := c.Get("mid"); ok {
+        mid, _ = _mid.(int64)
+    }
+    ctx := context.WithValue(c, "mid", mid)
+    c.JSON(svc.{{.ServiceInterfaceInfo.FuncName}}Impl(ctx, req))
+}

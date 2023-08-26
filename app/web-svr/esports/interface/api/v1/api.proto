@@ -1,0 +1,823 @@
+syntax = "proto3";
+
+// use {app_id}.{version} as package name
+package esports.service.v1;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+// specify golang package name
+option go_package = "v1";
+
+enum ClearCacheType {
+  CONTEST = 0;
+  SEASON = 1;
+  TEAM = 2;
+  TEAMS_IN_SEASON = 3;
+}
+
+// The greeting service definition.
+service Esports {
+  //添加预约
+  rpc LiveAddFav(FavRequest) returns (NoArgRequest);
+  //删除预约
+  rpc LiveDelFav(FavRequest) returns (NoArgRequest);
+  //赛程数据 没有数据返回 -404
+  rpc LiveContests(LiveContestsRequest) returns (LiveContestsReply);
+  //赛程订阅用户列表
+  rpc SubContestUsers(SubContestsRequest) returns (FavedUsersReply);
+  //按时间赛程列表
+  rpc StimeContests(StimeContestsRequest) returns (LiveContestsReply);
+  //游戏数据
+  rpc Games(GamesRequest) returns (GamesReply);
+  //赛程列表
+  rpc ContestList(ContestListRequest) returns (ContestListReply);
+  //赛程游戏
+  rpc GameMap (GameMapRequest) returns (GameMapReply);
+  // 清除用户预测缓存(赛季下的预测缓存)
+  rpc ClearUserGuessCache(ClearUserGuessCacheRequest) returns (ClearUserGuessCacheReply);
+  // 基于赛程id更新关联赛季的预测版本
+  rpc UpdateSeasonGuessVersion(UpdateSeasonGuessVersionRequest) returns (UpdateSeasonGuessVersionReply);
+  //OTT赛程数据无缓存
+  rpc OttContests(OttContestsRequest) returns (OttContestsReply);
+  //刷新ContestDataPage缓存
+  rpc RefreshContestDataPageCache(RefreshContestDataPageCacheRequest) returns (NoArgRequest);
+  // 清除赛事缓存数据
+  rpc ClearCache(ClearCacheRequest) returns (ClearCacheReply);
+  // 赛程组件信息
+  rpc ComponentSeasonContestList(ComponentSeasonContestListRequest) returns (ComponentSeasonContestListReply);
+  // 清除赛程缓存缓存数据
+  rpc ClearComponentContestCache(ClearComponentContestCacheRequest) returns (NoArgRequest);
+  // 清除赛事下的赛季列表缓存数据
+  rpc ClearMatchSeasonsCache(ClearMatchSeasonsCacheRequest) returns (NoArgRequest);
+  // 积分赛-添加积分赛配置
+  rpc AddSeriesPointMatchConfig(SeriesPointMatchConfig) returns (AddSeriesPointMatchConfigResp);
+  // 积分赛-查看积分赛配置
+  rpc GetSeriesPointMatchConfig(GetSeriesPointMatchReq) returns (SeriesPointMatchConfig);
+  // 积分赛-修改积分赛配置
+  rpc UpdateSeriesPointMatchConfig(SeriesPointMatchConfig) returns (UpdateSeriesPointMatchResp);
+  // 积分赛-积分表预览
+  rpc PreviewSeriesPointMatchInfo(SeriesPointMatchConfig) returns (SeriesPointMatchInfo);
+  // 积分赛-刷新线上积分表
+  rpc RefreshSeriesPointMatchInfo(RefreshSeriesPointMatchInfoReq) returns (SeriesPointMatchInfo);
+  // 积分赛-查看线上积分表
+  rpc GetSeriesPointMatchInfo(GetSeriesPointMatchInfoReq) returns (SeriesPointMatchInfo);
+  // 积分赛-查看积分表生成状态
+  rpc IsSeriesPointMatchInfoGenerated(IsSeriesPointMatchInfoGeneratedReq) returns (IsSeriesPointMatchInfoGeneratedResp);
+  //赛程订阅用户列表新接口
+  rpc SubContestUsersV2(SubContestUsersV2Request) returns (SubContestUsersV2Reply);
+  // 淘汰赛-添加淘汰赛配置
+  rpc AddSeriesKnockoutMatchConfig(SeriesKnockoutMatchConfig) returns (AddSeriesKnockoutMatchConfigResp);
+  // 淘汰赛-查看淘汰赛配置
+  rpc GetSeriesKnockoutMatchConfig(GetSeriesKnockoutMatchConfigReq) returns (SeriesKnockoutMatchConfig);
+  // 淘汰赛-修改淘汰赛配置
+  rpc UpdateSeriesKnockoutMatchConfig(SeriesKnockoutMatchConfig) returns (UpdateSeriesKnockoutMatchConfigResp);
+  // 淘汰赛-树状图预览
+  rpc PreviewSeriesKnockoutMatchInfo(SeriesKnockoutMatchConfig) returns (SeriesKnockoutMatchInfo);
+  // 淘汰赛-刷新线上树状图
+  rpc RefreshSeriesKnockoutMatchInfo(RefreshSeriesKnockoutMatchInfoReq) returns (SeriesKnockoutMatchInfo);
+  // 淘汰赛-查看线上树状图
+  rpc GetSeriesKnockoutMatchInfo(GetSeriesKnockoutMatchInfoReq) returns (SeriesKnockoutMatchInfo);
+  // 淘汰赛-查看线上树状图生成状态
+  rpc IsSeriesKnockoutMatchInfoGenerated(IsSeriesKnockoutMatchInfoGeneratedReq) returns (IsSeriesKnockoutMatchInfoGeneratedResp);
+  // 赛程组件吃鸡类比赛
+  rpc ComponentSeasonContestBattle(ComponentSeasonContestBattleRequest) returns (ComponentSeasonContestBattleReply);
+  // 视频库联动筛选
+  rpc VideoListFilter(VideoListFilterRequest) returns (VideoListFilterReply);
+  // 清除专题页视频组件缓存
+  rpc ClearTopicVideoListCache(ClearTopicVideoListRequest) returns (NoArgRequest);
+  // 专题页视频组件Es获取视频ID
+  rpc EsTopicVideoList(EsTopicVideoListRequest) returns (EsTopicVideoListReply);
+  // Lol大数据页刷新缓存
+  rpc RefreshLolData(RefreshLolDataRequest) returns (NoArgRequest);
+}
+
+// 视频库联动筛选请求
+message  RefreshLolDataRequest {
+  int64 leida_sid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message ClearMatchSeasonsCacheRequest{
+  int64 MatchID = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 SeasonID = 2;
+}
+
+message ClearComponentContestCacheRequest {
+  int64 SeasonID = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 ContestID = 2;
+  int64 SeriesID = 3;
+  int64 ContestHome = 4;
+  int64 ContestAway = 5;
+}
+
+//赛程组件信息请求
+message    ComponentSeasonContestListRequest {
+  int64 sid = 1;
+}
+
+//赛程组件信息返回结果
+message ComponentSeasonContestListReply {
+  map< int64, ContestCardComponentList> componentContestList = 1 [(gogoproto.jsontag) = "-"];
+}
+
+message ContestCardComponentList {
+  repeated ContestCardComponent List = 1 [(gogoproto.jsontag) = "list"];
+}
+
+//赛程组件数据
+message ContestCardComponent {
+  int64                  ID = 1 [(gogoproto.jsontag) = "id"];
+  // 赛程开始时间
+  int64                  StartTime = 2 [(gogoproto.jsontag) = "start_time"];
+  // 赛程结束时间
+  int64                  EndTime = 3 [(gogoproto.jsontag) = "end_time"];
+  // 赛程比赛阶段
+  string                 Title = 4 [(gogoproto.jsontag) = "title"];
+  // 赛程状态
+  string                 Status = 5 [(gogoproto.jsontag) = "status"];
+  // 集锦房间号url
+  string                 CollectionURL = 6 [(gogoproto.jsontag) = "collection_url"];
+  // 直播房间号
+  int64                  LiveRoom = 7 [(gogoproto.jsontag) = "live_room"];
+  // 回播房间号url
+  string                 PlayBack = 8 [(gogoproto.jsontag) = "play_back"];
+  // 比赛数据页类型 0：无 1：LOL 2:DATA2
+  int64                  DataType = 9 [(gogoproto.jsontag) = "data_type"];
+  // score数据 match_id
+  int64                  MatchID = 10 [(gogoproto.jsontag) = "match_id"];
+  // 赛季id
+  int64                  SeasonID = 11 [(gogoproto.jsontag) = "season_id"];
+  // 赛程是否填写竞猜
+  int64                  GuessType = 12 [(gogoproto.jsontag) = "guess_type"];
+  // 赛程阶段ID
+  int64                  SeriesID = 13 [(gogoproto.jsontag) = "series_id"];
+  // 是否订阅赛程
+  int64                  IsSub = 14 [(gogoproto.jsontag) = "is_sub"];
+  // 是否竞猜赛程
+  int64                  IsGuess = 15 [(gogoproto.jsontag) = "is_guess"];
+  // 主队
+  Team4FrontendComponent Home = 16 [(gogoproto.jsontag) = "home"];
+  // 客队
+  Team4FrontendComponent Away = 17 [(gogoproto.jsontag) = "away"];
+  // 系列赛阶段
+  ContestSeriesComponent Series = 18 [(gogoproto.jsontag) = "series"];
+  // 比赛进行状态：1未开始，2进行中，3已结束
+  int64                  ContestStatus = 19 [(gogoproto.jsontag) = "contest_status"];
+  // 比赛冻结状态
+  int64                  ContestFreeze = 20 [(gogoproto.jsontag) = "contest_freeze"];
+  // int64 赛程综合状态，此状态值后续不提供给第三方业务使用，只用于赛事内部业务闭环使用
+  int64                  GameState = 21 [(gogoproto.jsontag) = "game_state"];
+  // 是否显示竞猜按扭
+  int64                  GuessShow = 22 [(gogoproto.jsontag) = "guess_show"];
+  int64                  HomeScore = 23 [(gogoproto.jsontag) = "home_score"];
+  int64                  AwayScore = 24 [(gogoproto.jsontag) = "away_score"];
+  string                 GameStage = 25 [(gogoproto.jsontag) = "game_stage"];
+}
+
+//赛程组件吃鸡类比赛请求
+message ComponentSeasonContestBattleRequest {
+  int64 sid = 1;
+}
+
+//赛程组件吃鸡类比赛返回结果
+message ComponentSeasonContestBattleReply {
+  map< int64, ContestBattleCardComponentList> componentContestBattle = 1 [(gogoproto.jsontag) = "-"];
+}
+
+//赛程组件吃鸡类比赛数据
+message ContestBattleCardComponent {
+  int64  ID = 1 [(gogoproto.jsontag) = "id"];
+  // 赛程开始时间
+  int64  StartTime = 2 [(gogoproto.jsontag) = "start_time"];
+  // 赛程结束时间
+  int64  EndTime = 3 [(gogoproto.jsontag) = "end_time"];
+  // 赛程比赛阶段
+  string Title = 4 [(gogoproto.jsontag) = "title"];
+  // 赛程状态
+  string Status = 5 [(gogoproto.jsontag) = "status"];
+  // 集锦房间号url
+  string CollectionURL = 6 [(gogoproto.jsontag) = "collection_url"];
+  // 直播房间号
+  int64  LiveRoom = 7 [(gogoproto.jsontag) = "live_room"];
+  // 回播房间号url
+  string PlayBack = 8 [(gogoproto.jsontag) = "play_back"];
+  // score数据 match_id
+  int64  MatchID = 9 [(gogoproto.jsontag) = "match_id"];
+  // 赛季id
+  int64  SeasonID = 10 [(gogoproto.jsontag) = "season_id"];
+  // 是否订阅赛程
+  int64  IsSub = 11 [(gogoproto.jsontag) = "is_sub"];
+  // 赛程是否填写竞猜
+  int64  GuessType = 12 [(gogoproto.jsontag) = "guess_type"];
+  // 是否竞猜赛程
+  int64  IsGuess = 13 [(gogoproto.jsontag) = "is_guess"];
+  // 比赛进行状态：1未开始，2进行中，3已结束
+  int64  ContestStatus = 14 [(gogoproto.jsontag) = "contest_status"];
+  // 比赛冻结状态
+  int64  ContestFreeze = 15 [(gogoproto.jsontag) = "contest_freeze"];
+  // int64 赛程综合状态，此状态值后续不提供给第三方业务使用，只用于赛事内部业务闭环使用
+  int64  GameState = 16 [(gogoproto.jsontag) = "game_state"];
+  // 是否显示竞猜按扭
+  int64  GuessShow = 17 [(gogoproto.jsontag) = "guess_show"];
+  // 赛程阶段
+  string GameStage = 18 [(gogoproto.jsontag) = "game_stage"];
+}
+
+message ContestBattleCardComponentList {
+  repeated ContestBattleCardComponent List = 1 [(gogoproto.jsontag) = "list"];
+}
+
+message Team4FrontendComponent {
+  int64  ID = 1 [(gogoproto.jsontag) = "id"];
+  // 战队Logo
+  string Icon = 2 [(gogoproto.jsontag) = "icon"];
+  // 战队简称
+  string Name = 3 [(gogoproto.jsontag) = "name"];
+  // 战队得分
+  int64  Wins = 4 [(gogoproto.jsontag) = "wins"];
+  // 战队地区名称
+  string Region = 5 [(gogoproto.jsontag) = "region"];
+  // 战队地区ID
+  int64  RegionID = 6 [(gogoproto.jsontag) = "region_id"];
+}
+
+message ContestSeriesComponent {
+  int64  ID = 1 [(gogoproto.jsontag) = "id"];
+  // 系列赛父阶段标题
+  string ParentTitle = 2 [(gogoproto.jsontag) = "parent_title"];
+  // 系列赛子阶段标题
+  string ChildTitle = 3 [(gogoproto.jsontag) = "child_title"];
+  // 开始时间
+  int64  StartTime = 4 [(gogoproto.jsontag) = "start_time"];
+  // 结束时间
+  int64  EndTime = 5 [(gogoproto.jsontag) = "end_time"];
+  // score系列赛id
+  string ScoreID = 6 [(gogoproto.jsontag) = "score_id"];
+}
+
+message UpdateSeasonGuessVersionRequest {
+  int64 match_id = 1;
+}
+
+message UpdateSeasonGuessVersionReply {
+  int64 status = 1;
+}
+
+message ClearUserGuessCacheRequest {
+  int64 mid = 1;
+  int64 match_id = 2;
+}
+
+message ClearUserGuessCacheReply {
+  int64 status = 1;
+}
+
+message ClearCacheRequest {
+  ClearCacheType cache_type = 1;
+  repeated int64 cache_keys = 2;
+}
+
+message ClearCacheReply {
+  // 0: 全部成功 1：部分成功 2：全部失败
+  int64          status = 1;
+  ClearCacheType cache_type = 2;
+  repeated int64 cache_keys = 3;
+  repeated int64 failed_keys = 4;
+}
+
+message FavedUsersReply {
+  ModelPage     page = 1;
+  repeated User user = 2;
+}
+
+message ModelPage {
+  int32 num = 1;
+  int32 size = 2;
+  int32 count = 3;
+}
+
+message User {
+  int64 id = 1;
+  int64 oid = 2;
+  int64 mid = 3;
+  int32 typ = 4;
+  int32 state = 5;
+  int64 ctime = 6;
+  int64 mtime = 7;
+}
+
+// NoArgReq
+message NoArgRequest {}
+
+//收藏请求参数
+message FavRequest {
+  int64 mid = 1;
+  int64 cid = 2;
+}
+
+//赛程请求参数
+message LiveContestsRequest {
+  int64          mid = 1;
+  repeated int64 cids = 2;
+}
+
+// Ott赛程请求参数
+message OttContestsRequest {
+  int64          mid = 1;
+  repeated int64 cids = 2;
+}
+
+//订阅赛程用户请求参数
+message SubContestsRequest {
+  int64 cid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int32 pn = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int32 ps = 3 [(gogoproto.moretags) = 'validate:"min=1,max=5000"'];
+}
+
+//开始时间赛程请求参数
+message StimeContestsRequest {
+  string         stime = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  string         etime = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  repeated int64 roomids = 3 [(gogoproto.moretags) = 'validate:"required"'];
+  int64          mid = 4;
+}
+
+//赛程订阅用户列表新接口请求参数
+message SubContestUsersV2Request {
+  int64 cid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 cursor = 2;
+  int32 cursor_size = 3;
+}
+
+//赛程订阅用户列表新接口返回
+message SubContestUsersV2Reply {
+  int64         cursor = 1;
+  repeated User user = 2;
+}
+
+//赛程列表请求参数
+message ContestListRequest {
+  int64          mid = 1;
+  int64          sort = 2;
+  int64          match_id = 3;
+  int64          tid = 4;
+  string         stime = 5;
+  string         etime = 6;
+  repeated int64 sids = 7;
+  repeated int64 cids = 8;
+  int64          guess_type = 9;
+  int64          pn = 10 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64          ps = 11 [(gogoproto.moretags) = 'validate:"min=1,max=100"'];
+}
+
+//赛程列表请求返回
+message ContestListReply {
+  ModelPage        page = 1;
+  repeated Contest Contests = 2 [(gogoproto.jsontag) = "-"];
+}
+
+//赛程请求返回
+message LiveContestsReply {
+  repeated Contest Contests = 1 [(gogoproto.jsontag) = "-"];
+}
+
+// Ott赛程请求返回
+message OttContestsReply {
+  repeated Contest Contests = 1;
+}
+
+//游戏请求参数
+message GamesRequest {
+  repeated int64 gids = 1;
+}
+
+//游戏请求返回
+message GamesReply {
+  repeated Game Games = 1 [(gogoproto.jsontag) = "-"];
+}
+
+//赛程游戏请求参数
+message GameMapRequest {
+  repeated int64 cids = 1;
+}
+
+//赛程游戏请求返回
+message GameMapReply {
+  map< int64, Game> games = 1 [(gogoproto.jsontag) = "-"];
+}
+
+//赛程数据
+message Contest {
+  int64  ID = 1 [(gogoproto.jsontag) = "id"];
+  //比赛阶段
+  string GameStage = 2 [(gogoproto.jsontag) = "game_stage"];
+  //比赛开始时间
+  int64  Stime = 3 [(gogoproto.jsontag) = "stime"];
+  //比赛结束时间
+  int64  Etime = 4 [(gogoproto.jsontag) = "etime"];
+  //主场队伍id
+  int64  HomeID = 5 [(gogoproto.jsontag) = "home_id"];
+  //客场队伍id
+  int64  AwayID = 6 [(gogoproto.jsontag) = "away_id"];
+  //主场分数
+  int64  HomeScore = 7 [(gogoproto.jsontag) = "home_score"];
+  //客场分数
+  int64  AwayScore = 8 [(gogoproto.jsontag) = "away_score"];
+  //直播房间号
+  int64  LiveRoom = 9 [(gogoproto.jsontag) = "live_room"];
+  //回播房间号
+  int64  Aid = 10 [(gogoproto.jsontag) = "aid"];
+  //集锦房间号
+  int64  Collection = 11 [(gogoproto.jsontag) = "collection"];
+  //订阅状态 3-已订阅  其它-未订阅
+  int64  GameState = 12 [(gogoproto.jsontag) = "game_state"];
+  // 赛程描述
+  string Dic = 13 [(gogoproto.jsontag) = "dic"];
+  // 0 启用 1 冻结
+  int64  Status = 14 [(gogoproto.jsontag) = "status"];
+  //季度id
+  int64  Sid = 15 [(gogoproto.jsontag) = "sid"];
+  //赛事id
+  int64  Mid = 16 [(gogoproto.jsontag) = "mid"];
+  //赛程类型：0普通1特殊
+  int64  Special = 17 [(gogoproto.jsontag) = "special"];
+  //胜利战队
+  int64  SuccessTeam = 18 [(gogoproto.jsontag) = "success_team"];
+  //赛程名称
+  string SpecialName = 19 [(gogoproto.jsontag) = "special_name"];
+  //胜利文案
+  string SpecialTips = 20 [(gogoproto.jsontag) = "special_tips"];
+  //赛程图片
+  string SpecialImage = 21 [(gogoproto.jsontag) = "special_image"];
+  //回播房间号url
+  string Playback = 22 [(gogoproto.jsontag) = "playback"];
+  //集锦房间号url
+  string CollectionURL = 23 [(gogoproto.jsontag) = "collection_url"];
+  //集锦房间号url
+  string LiveURL = 24 [(gogoproto.jsontag) = "live_url"];
+  //比赛数据页类型 0：无 1：LOL 2:DATA2
+  int64  DataType = 25 [(gogoproto.jsontag) = "data_type"];
+  //雷达数据match_id
+  int64  MatchID = 26 [(gogoproto.jsontag) = "match_id"];
+  //赛季
+  Season season = 27 [(gogoproto.jsontag) = "season"];
+  //主场战队信息
+  Team   HomeTeam = 28 [(gogoproto.jsontag) = "home_team"];
+  //客场战队信息
+  Team   AwayTeam = 29 [(gogoproto.jsontag) = "away_team"];
+  //特殊赛程胜利队信息
+  Team   SuccessTeaminfo = 30 [(gogoproto.jsontag) = "success_teaminfo"];
+  //是否有竞猜
+  int64  GuessShow = 31 [(gogoproto.jsontag) = "guess_show"];
+  //比赛阶段1
+  string GameStage1 = 32 [(gogoproto.jsontag) = "game_stage1"];
+  //比赛阶段2
+  string GameStage2 = 33 [(gogoproto.jsontag) = "game_stage2"];
+  //跳转地址
+  string JumpURL = 34 [(gogoproto.jsontag) = "jump_url"];
+  bool   CanGuess = 35 [(gogoproto.jsontag) = "can_guess", json_name = "can_guess"];
+  string GuessLink = 36 [(gogoproto.jsontag) = "guess_link", json_name = "guess_link"];
+  // 是否为奥林匹克赛程
+  bool  IsOlympic       = 37;
+  // 仅奥运赛程使用，其他场景无需关注； 0不展示集锦及敬请期待按钮；1按照比赛状态及配置信息正常展示
+  int32 OlympicShowRule = 38;
+  // 赛程的冻结状态，此状态为冻结时不吐出详情
+  int64  ContestFreeze = 39 [(gogoproto.jsontag) = "contest_freeze"];
+  // 比赛状态，枚举：1未开始，2进行中，3已结束
+  int64 ContestStatus = 40 [(gogoproto.jsontag) = "contest_status"];
+}
+
+//赛季数据
+message Season {
+  int64  ID = 1 [(gogoproto.jsontag) = "id"];
+  //赛事id
+  int64  Mid = 2 [(gogoproto.jsontag) = "mid"];
+  //简称
+  string Title = 3 [(gogoproto.jsontag) = "title"];
+  //全称
+  string SubTitle = 4 [(gogoproto.jsontag) = "sub_title"];
+  //开始时间
+  int64  Stime = 5 [(gogoproto.jsontag) = "stime"];
+  //结束时间
+  int64  Etime = 6 [(gogoproto.jsontag) = "etime"];
+  //主办方
+  string Sponsor = 7 [(gogoproto.jsontag) = "sponsor"];
+  // logo
+  string Logo = 8 [(gogoproto.jsontag) = "logo"];
+  //备注
+  string Dic = 9 [(gogoproto.jsontag) = "dic"];
+  // 0 启用  1 冻结
+  int64  Status = 10 [(gogoproto.jsontag) = "status"];
+  // 权重
+  int64  Rank = 11 [(gogoproto.jsontag) = "rank"];
+  //是否在移动端展示: 0否1是
+  int64  IsApp = 12 [(gogoproto.jsontag) = "is_app"];
+  //赛季URL
+  string URL = 13 [(gogoproto.jsontag) = "url"];
+  //比赛数据页焦点图
+  string DataFocus = 14 [(gogoproto.jsontag) = "data_focus"];
+  //比赛数据页焦点图url
+  string FocusURL = 15 [(gogoproto.jsontag) = "focus_url"];
+  //搜索赛程卡标题底图
+  string SearchImage = 16 [(gogoproto.jsontag) = "search_image"];
+  // LOGO全
+  string LogoFull = 17 [(gogoproto.jsontag) = "logo_full"];
+  //同步平台
+  int64  SyncPlatform = 18 [(gogoproto.jsontag) = "sync_platform"];
+}
+
+//战队数据
+message Team {
+  int64  ID = 1 [(gogoproto.jsontag) = "id"];
+  //简称
+  string Title = 2 [(gogoproto.jsontag) = "title"];
+  //全称
+  string SubTitle = 3 [(gogoproto.jsontag) = "sub_title"];
+  //英文全称
+  string ETitle = 4 [(gogoproto.jsontag) = "e_title"];
+  //地区
+  string Area = 5 [(gogoproto.jsontag) = "area"];
+  //英文全称
+  string Logo = 7 [(gogoproto.jsontag) = "logo"];
+  //地区
+  int64  UID = 6 [(gogoproto.jsontag) = "uid"];
+  //成员
+  string Members = 8 [(gogoproto.jsontag) = "members"];
+  //备注
+  string Dic = 9 [(gogoproto.jsontag) = "dic"];
+  //战队类型
+  int64  TeamType = 10 [(gogoproto.jsontag) = "team_type"];
+  // LOGO全
+  string LogoFull = 11 [(gogoproto.jsontag) = "logo_full"];
+}
+
+//游戏数据
+message Game {
+  int64  ID = 1 [(gogoproto.jsontag) = "id"];
+  //中文全称
+  string Title = 2 [(gogoproto.jsontag) = "title"];
+  //游戏简称
+  string SubTitle = 3 [(gogoproto.jsontag) = "sub_title"];
+  //英文全称
+  string ETitle = 4 [(gogoproto.jsontag) = "e_title"];
+  //平台
+  string Plat = 5 [(gogoproto.jsontag) = "plat"];
+  //游戏类型
+  int64  GameType = 6 [(gogoproto.jsontag) = "game_type"];
+  //游戏 logo
+  string Logo = 7 [(gogoproto.jsontag) = "logo"];
+  //发行商
+  string Publisher = 8 [(gogoproto.jsontag) = "publisher"];
+  //运行商
+  string Operations = 9 [(gogoproto.jsontag) = "operations"];
+  //发布时间
+  int64  PbTime = 10 [(gogoproto.jsontag) = "pb_time"];
+  //备注
+  string Dic = 11 [(gogoproto.jsontag) = "dic"];
+  //LOGO全
+  string LogoFull = 12 [(gogoproto.jsontag) = "logo_full"];
+}
+
+message RefreshContestDataPageCacheRequest {
+  repeated int64 cids = 1;
+}
+
+//积分赛配置中的战队配置
+message SeriesPointMatchTeamConfig {
+  int64  Tid = 1 [(gogoproto.jsontag) = "team_id"];
+  string Group = 2  [(gogoproto.jsontag) = "group"];
+  int64  Priority = 3 [(gogoproto.jsontag) = "priority"];
+}
+
+
+//积分赛配置
+message SeriesPointMatchConfig {
+  //关联赛季ID
+  int64                               SeasonId = 1 [(gogoproto.jsontag) = "season_id", (gogoproto.moretags) = 'validate:"required"'];
+  //关联阶段ID
+  int64                               SeriesId = 2 [(gogoproto.jsontag) = "series_id", (gogoproto.moretags) = 'validate:"required"'];
+  //获胜后增加的积分数
+  int64                               ScoreIncrWin = 3 [(gogoproto.jsontag) = "score_incr_win"];
+  //落败后扣减的积分数
+  int64                               ScoreDecrLose = 4 [(gogoproto.jsontag) = "score_decr_lose"];
+  //获胜后增加的小分数
+  int64                               SmallScoreIncrWin = 5 [(gogoproto.jsontag) = "small_score_incr_win"];
+  //落败后扣减的小分数
+  int64                               SmallScoreDecrLose = 6 [(gogoproto.jsontag) = "small_score_decr_lose"];
+  //是否使用战队分组
+  bool                                UseTeamGroup = 7 [(gogoproto.jsontag) = "use_team_group"];
+  //战队分组信息
+  repeated SeriesPointMatchTeamConfig Teams = 8 [(gogoproto.jsontag) = "team_group"];
+  // 每组出线名额
+  int64                               GroupOutletNum = 9 [(gogoproto.jsontag) = "group_outlet_num"];
+}
+
+message GetSeriesPointMatchReq {
+  //关联阶段ID
+  int64 SeriesId = 1 [(gogoproto.jsontag) = "series_id", (gogoproto.moretags) = 'form:"series_id" validate:"required"'];
+}
+
+message AddSeriesPointMatchConfigResp {
+}
+
+message UpdateSeriesPointMatchResp {
+}
+
+//用户级接口: 积分排名表中的战队信息
+message SeriesPointMatchTeamListItem {
+  int64  TeamId = 1 [(gogoproto.jsontag) = "team_id"];
+  string Group = 2  [(gogoproto.jsontag) = "group_name"];
+  string TeamName = 3  [(gogoproto.jsontag) = "team_name"];
+  string IconUrl = 4  [(gogoproto.jsontag) = "icon_url"];
+  int64  WinTimes = 5 [(gogoproto.jsontag) = "win_times"];
+  int64  LoseTimes = 6 [(gogoproto.jsontag) = "lose_times"];
+  int64  Score = 7 [(gogoproto.jsontag) = "score"];
+  int64  SmallScore = 8 [(gogoproto.jsontag) = "small_score"];
+  int64  Rank = 9 [(gogoproto.jsontag) = "rank"];
+  int64  LeidaTid = 10 [(gogoproto.jsontag) = "leida_tid"];
+}
+
+//用户级接口: 积分排名表中的分组战队列表
+message SeriesPointMatchGroupList {
+  string                                Name = 1  [(gogoproto.jsontag) = "name"];
+  repeated SeriesPointMatchTeamListItem GroupTeams = 2 [(gogoproto.jsontag) = "teams"];
+}
+
+//用户级接口: 积分排名表
+message SeriesPointMatchInfo {
+  //关联赛季ID
+  int64                                 SeasonId = 1 [(gogoproto.jsontag) = "season_id"];
+  //关联阶段ID
+  int64                                 SeriesId = 2 [(gogoproto.jsontag) = "series_id"];
+  //是否使用战队分组
+  bool                                  UseTeamGroup = 3 [(gogoproto.jsontag) = "use_team_group"];
+  //是否开启积分计算
+  bool                                  UseSmallScore = 4 [(gogoproto.jsontag) = "use_small_score"];
+  //总的战队排名信息
+  repeated SeriesPointMatchTeamListItem TotalTeams = 5 [(gogoproto.jsontag) = "total_teams"];
+  //分组内的战队排名信息
+  repeated SeriesPointMatchGroupList    GroupTeams = 6 [(gogoproto.jsontag) = "group_teams"];
+  //积分表刷新时间
+  int64                                 RefreshTime = 7 [(gogoproto.jsontag) = "refresh_time"];
+  // 每组出线名额
+  int64                                 GroupOutletNum = 8 [(gogoproto.jsontag) = "group_outlet_num"];
+}
+
+message RefreshSeriesPointMatchInfoReq {
+  //关联阶段ID
+  int64 SeriesId = 1 [(gogoproto.jsontag) = "series_id", (gogoproto.moretags) = 'form:"series_id" validate:"required"'];
+}
+
+message GetSeriesPointMatchInfoReq {
+  //关联阶段ID
+  int64 SeriesId = 1 [(gogoproto.jsontag) = "series_id", (gogoproto.moretags) = 'form:"series_id" validate:"required"'];
+}
+
+message IsSeriesPointMatchInfoGeneratedReq {
+  //关联阶段ID
+  int64 SeriesId = 1 [(gogoproto.jsontag) = "series_id", (gogoproto.moretags) = 'form:"series_id" validate:"required"'];
+}
+
+message IsSeriesPointMatchInfoGeneratedResp {
+  //是否已生成积分表
+  bool ViewGenerated = 7 [(gogoproto.jsontag) = "view_generated"];
+}
+
+
+message SeriesKnockoutContestConfigItem {
+  //关联阶段ID
+  int64                                    ContestId = 1 [(gogoproto.jsontag) = "contest_id", (gogoproto.moretags) = 'validate:"required"'];
+  repeated SeriesKnockoutContestConfigItem Children = 2 [(gogoproto.jsontag) = "children,omitempty"];
+}
+
+message SeriesKnockoutContestInfoItem {
+  //关联阶段ID
+  int64                                  ContestId = 1 [(gogoproto.jsontag) = "contest_id", (gogoproto.moretags) = 'validate:"required"'];
+  //主场队伍id
+  int64                                  HomeTeamID = 2 [(gogoproto.jsontag) = "home_team_id"];
+  //客场队伍id
+  int64                                  AwayTeamID = 3 [(gogoproto.jsontag) = "away_team_id"];
+  //主场队伍名
+  string                                 HomeTeamName = 4 [(gogoproto.jsontag) = "home_team_name"];
+  //客场队伍名
+  string                                 AwayTeamName = 5 [(gogoproto.jsontag) = "away_team_name"];
+  //主场队伍Logo
+  string                                 HomeTeamLogo = 6 [(gogoproto.jsontag) = "home_team_logo"];
+  //客场队伍Logo
+  string                                 AwayTeamLogo = 7 [(gogoproto.jsontag) = "away_team_logo"];
+  //主场分数
+  int64                                  HomeTeamScore = 8 [(gogoproto.jsontag) = "home_score"];
+  //客场分数
+  int64                                  AwayTeamScore = 9 [(gogoproto.jsontag) = "away_score"];
+  //获胜队伍id
+  int64                                  WinTeamID = 10 [(gogoproto.jsontag) = "win_team_id"];
+  //赛程阶段名
+  string                                 GameStage = 11 [(gogoproto.jsontag) = "game_stage"];
+  //赛程开始时间
+  int64                                  StartTime = 12 [(gogoproto.jsontag) = "start_time"];
+  //赛程结束时间
+  int64                                  EndTime = 13 [(gogoproto.jsontag) = "end_time"];
+  repeated SeriesKnockoutContestInfoItem Children = 14 [(gogoproto.jsontag) = "children,omitempty"];
+  //赛程冻结状态
+  int64                                  ContestFreeze = 15 [(gogoproto.jsontag) = "contest_freeze"];
+  ContestCardComponent                   contestInfo = 16 [(gogoproto.jsontag) = "contest_info"];
+}
+
+
+//淘汰赛配置
+message SeriesKnockoutMatchConfig {
+  //关联赛季ID
+  int64                                    SeasonId = 1 [(gogoproto.jsontag) = "season_id", (gogoproto.moretags) = 'validate:"required"'];
+  //关联阶段ID
+  int64                                    SeriesId = 2 [(gogoproto.jsontag) = "series_id", (gogoproto.moretags) = 'validate:"required"'];
+  repeated SeriesKnockoutContestConfigItem Groups = 3 [(gogoproto.jsontag) = "groups", (gogoproto.moretags) = 'validate:"required"'];
+}
+
+//淘汰赛树状图
+message SeriesKnockoutMatchInfo {
+  //关联赛季ID
+  int64                                  SeasonId = 1 [(gogoproto.jsontag) = "season_id", (gogoproto.moretags) = 'validate:"required"'];
+  //关联阶段ID
+  int64                                  SeriesId = 2 [(gogoproto.jsontag) = "series_id", (gogoproto.moretags) = 'validate:"required"'];
+  repeated SeriesKnockoutContestInfoItem Groups = 3 [(gogoproto.jsontag) = "groups", (gogoproto.moretags) = 'validate:"required"'];
+  //积分表刷新时间
+  int64                                  RefreshTime = 4 [(gogoproto.jsontag) = "refresh_time"];
+  //待定队伍ID列表
+  repeated int64                         ToBeDeterminedTeamIds = 5 [(gogoproto.jsontag) = "tbd_team_ids"];
+}
+
+
+message GetSeriesKnockoutMatchConfigReq {
+  //关联阶段ID
+  int64 SeriesId = 1 [(gogoproto.jsontag) = "series_id", (gogoproto.moretags) = 'form:"series_id" validate:"required"'];
+}
+
+message AddSeriesKnockoutMatchConfigResp {
+}
+
+message UpdateSeriesKnockoutMatchConfigResp {
+}
+
+message GetSeriesKnockoutMatchInfoReq {
+  //关联阶段ID
+  int64 SeriesId = 1 [(gogoproto.jsontag) = "series_id", (gogoproto.moretags) = 'form:"series_id" validate:"required"'];
+}
+
+message RefreshSeriesKnockoutMatchInfoReq {
+  //关联阶段ID
+  int64 SeriesId = 1 [(gogoproto.jsontag) = "series_id", (gogoproto.moretags) = 'form:"series_id" validate:"required"'];
+}
+
+message IsSeriesKnockoutMatchInfoGeneratedReq {
+  //关联阶段ID
+  int64 SeriesId = 1 [(gogoproto.jsontag) = "series_id", (gogoproto.moretags) = 'form:"series_id" validate:"required"'];
+}
+
+message IsSeriesKnockoutMatchInfoGeneratedResp {
+  //是否已生成积分表
+  bool ViewGenerated = 7 [(gogoproto.jsontag) = "view_generated"];
+}
+
+// 视频库联动筛选请求
+message  VideoListFilterRequest {
+  int64 game_id = 1;
+  int64 match_id = 2;
+  int64 year_id = 3;
+}
+
+// 视频库联动筛选返回结果
+message VideoListFilterReply {
+  VideoListFilterItemList games = 1 [(gogoproto.jsontag) = "games"];
+  VideoListFilterItemList matchs = 2 [(gogoproto.jsontag) = "matchs"];
+  VideoListFilterItemList years = 3 [(gogoproto.jsontag) = "years"];
+}
+
+// 视频库联动筛选数据
+message VideoListFilterItem {
+  int64  ID = 1 [(gogoproto.jsontag) = "id"];
+  // 全称
+  string Title = 2 [(gogoproto.jsontag) = "title"];
+  // 简称
+  string SubTitle = 3 [(gogoproto.jsontag) = "sub_title"];
+}
+
+message VideoListFilterItemList {
+  repeated VideoListFilterItem List = 1 [(gogoproto.jsontag) = "list"];
+}
+
+message ClearTopicVideoListRequest {
+  int64 ID = 1 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+// 视频库联动筛选请求
+message  EsTopicVideoListRequest {
+  int64 game_id = 1;
+  int64 match_id = 2;
+  int64 year_id = 3;
+  int64 pn = 4 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 ps = 5 [(gogoproto.moretags) = 'validate:"min=1,max=50"'];
+}
+
+message EsTopicVideoListReply {
+  repeated int64 SearchAids = 1 [(gogoproto.jsontag) = "search_list"];
+  ModelPage      page = 2;
+}

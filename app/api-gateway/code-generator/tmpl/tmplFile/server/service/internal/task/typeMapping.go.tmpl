@@ -1,0 +1,12 @@
+package task
+
+import "strconv"
+
+func __stringToint64(str string) (res int64){
+    res, _ = strconv.ParseInt(str, 10, 64)
+    return
+}
+
+func __int64Tostring(req int64) (res string){
+    return strconv.FormatInt(req,10)
+}

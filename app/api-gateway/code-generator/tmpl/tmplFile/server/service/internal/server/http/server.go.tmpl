@@ -1,0 +1,44 @@
+package http
+
+import (
+    "go-common/library/net/http/blademaster/middleware/verify"
+	"net/http"
+	"time"
+
+	"git.bilibili.co/platform/{{.ProjectName}}/app/{{.ServicePath}}/service/internal/service"
+    "go-common/library/net/http/blademaster/middleware/auth"
+	"go-common/library/log"
+	bm "go-common/library/net/http/blademaster"
+	xtime "go-common/library/time"
+)
+
+var (
+    svc       *service.Service
+    authSvc   *auth.Auth
+    verifySvc *verify.Verify
+)
+
+// New new a bm server.
+func New(s *service.Service) (engine *bm.Engine, err error) {
+	svc = s
+	authSvc = auth.New(nil)
+	verifySvc = verify.New(nil)
+	engine = bm.DefaultServer(&bm.ServerConfig{
+		Addr:    "0.0.0.0:8000",
+		Timeout: xtime.Duration(time.Second),
+	})
+	//pb.RegisterDemoBMServer(engine, s)
+	initRouter(engine)
+	err = engine.Start()
+	return
+}
+
+
+
+func ping(ctx *bm.Context) {
+	if _, err := svc.Ping(ctx, nil); err != nil {
+		log.Error("ping error(%v)", err)
+		ctx.AbortWithStatus(http.StatusServiceUnavailable)
+	}
+}
+

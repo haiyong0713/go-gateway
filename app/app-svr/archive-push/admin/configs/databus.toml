@@ -1,0 +1,47 @@
+[ArchiveNotifySub]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "ArchiveNotify-MainAppSvr-ArchivePushAdmin-S "
+    topic = "ArchiveNotify-T"
+    action = "sub"
+    name = "archive-push-admin/archive-notify"
+    proto = "tcp"
+    addr = "172.18.33.50:6205"
+    idle = 5
+    active = 50
+    dialTimeout = "1s"
+    readTimeout = "35s"
+    writeTimeout = "35s"
+    idleTimeout = "80s"
+    expire = "1h"
+    [ArchiveNotifySub.discovery]
+        domain = "uat-api.bilibili.co"
+        key = "6d1ea63da61a4443"
+        secret = "29fbc5a2c9e8222fcbe5433b2984af54"
+        region = "sh"
+        zone = "sh001"
+        env = "uat"
+
+[UserAuthorizationSub]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "Year-2021-Booking-Live-MainAppSvr-S"
+    topic = "Year-2021-Booking-Live-T"
+    action = "sub"
+    name = "archive-push-admin/user-authorization"
+    proto = "tcp"
+    addr = "172.18.33.50:6205"
+    idle = 5
+    active = 50
+    dialTimeout = "1s"
+    readTimeout = "35s"
+    writeTimeout = "35s"
+    idleTimeout = "80s"
+    expire = "1h"
+    [UserAuthorizationSub.discovery]
+        domain = "uat-api.bilibili.co"
+        key = "6d1ea63da61a4443"
+        secret = "29fbc5a2c9e8222fcbe5433b2984af54"
+        region = "sh"
+        zone = "sh001"
+        env = "uat"

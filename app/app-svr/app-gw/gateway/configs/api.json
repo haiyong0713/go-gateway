@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "code",
+    "message",
+    "ttl"
+  ],
+  "properties": {
+    "code": {
+      "type": "integer"
+    },
+    "message": {
+      "type": "string",
+      "readOnly": true
+    },
+    "ttl": {
+      "const": 1
+    },
+    "data": {
+    }
+  }
+}

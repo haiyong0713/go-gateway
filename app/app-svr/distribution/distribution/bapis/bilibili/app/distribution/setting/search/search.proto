@@ -1,0 +1,25 @@
+syntax = "proto3";
+package bilibili.app.distribution.search.v1;
+import "bilibili/app/distribution/distribution.proto";
+import "bilibili/app/distribution/options.proto";
+
+option go_package = "git.bilibili.co/bapis/bapis-go/bilibili/app/distribution/setting/search;search";
+option java_package = "com.bapis.bilibili.app.distribution.setting.search";
+option java_multiple_files = true;
+option objc_class_prefix = "BAPIAppDistributionSettingSearch";
+option (bilibili.app.distribution.v1.preference) = "SearchDeviceConfig";
+
+message SearchDeviceConfig {
+    SearchAutoPlay auto_play = 1;
+}
+
+message SearchAutoPlay {
+    bilibili.app.distribution.v1.Int64Value value = 1 [(bilibili.app.distribution.v1.refenum) = "AutoPlay", (bilibili.app.distribution.v1.default_value) = { int64_value: 3 }];
+    enum AutoPlay {
+        AP_UNKNOW = 0;
+        Disable = 1;
+        WIFIOnly = 2;
+        WIFIAndCellular = 3;
+    }
+    bilibili.app.distribution.v1.BoolValue affected_by_server_side = 2 [(bilibili.app.distribution.v1.default_value) = { bool_value: true }];
+}

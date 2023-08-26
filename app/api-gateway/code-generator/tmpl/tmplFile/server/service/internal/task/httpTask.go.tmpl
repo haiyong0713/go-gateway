@@ -1,0 +1,88 @@
+package task
+
+import (
+    "git.bilibili.co/platform/{{.ProjectName}}/app/{{.ServicePath}}/service/internal/model/{{.HttpRequestInfo.PackageName}}"
+    "go-common/library/ecode"
+    "strings"
+    "encoding/json"
+    "context"
+    {{range $pbAlias, $pbPath := .TaskInfo.ImportPb -}}
+    {{$pbAlias}} "{{$pbPath}}"
+    {{end}}
+    "net/http"
+    "net/url"
+)
+
+var (
+    _ = url.Values{}
+    _ = json.Encoder{}
+    _ = strings.Reader{}
+    _ = ecode.OK
+    _ = {{.HttpRequestInfo.PackageName}}.{{.HttpRequestInfo.ResponseType}}{}
+)
+
+func (p *TaskFlow) {{.TaskInfo.Name}}(ctx context.Context
+            {{- range $listId, $taskInputInfo := .TaskInfo.InputList -}}
+            , {{$taskInputInfo.Name}} *{{$taskInputInfo.ParamType}}
+            {{- end -}}
+            ) ({{.TaskInfo.OutputInfo.Name}} *{{.TaskInfo.OutputInfo.ReturnType}}, err error) {
+    __url := "{{.TaskInfo.Url}}"
+
+    var __req *http.Request
+    {{ if .HasQuery -}}
+    __params := url.Values{}
+    {{range $listId, $rule := .TaskInfo.Query -}}
+    __params.Set("{{$rule.To}}", {{$rule.From}})
+    {{end}}
+    __url = __url + "?" + __params.Encode()
+    {{ end }}
+    {{if eq .TaskInfo.Method "GET" -}}
+    __req, err = http.NewRequest(http.MethodGet, __url, nil)
+    if err != nil {
+        return
+    }
+    {{end -}}
+
+    {{if eq .TaskInfo.Method "POST" -}}
+    var __postData string
+    {{ if .HasUrlBody -}}
+    __form := url.Values{}
+    {{range $listId, $rule := .TaskInfo.UrlBody -}}
+    __form.Set("{{$rule.To}}", {{$rule.From}})
+    {{ end }}
+    __postData = __form.Encode()
+    {{ end -}}
+
+    {{ if .HasJsonBody -}}
+    __jsonBody := new({{.HttpRequestInfo.PackageName}}.{{.HttpRequestInfo.BodyType}})
+    {{range $listId, $rule := .TaskInfo.JsonBody -}}
+    __jsonBody.{{$rule.To}} = {{$rule.From}}
+    {{end -}}
+    var __bytesData []byte
+    if __bytesData, err = json.Marshal(__jsonBody); err != nil {
+        return
+    }
+    __postData = string(__bytesData)
+    {{end}}
+    __req, err = http.NewRequest(http.MethodPost, __url, strings.NewReader(__postData))
+    if err != nil {
+        return
+    }
+    {{end -}}
+
+    {{range $listId, $rule := .TaskInfo.Header -}}
+    __req.Header.Add("{{$rule.To}}", {{$rule.From}})
+    {{end}}
+    __res := new({{.TaskInfo.OutputInfo.ReturnType}})
+    if err = p.HttpClient.Do(ctx, __req, __res); err != nil {
+        return
+    }
+    {{ if ne .HttpRequestInfo.ResponseCodeField "" -}}
+    if __res.{{.HttpRequestInfo.ResponseCodeField}} != 0 {
+        err = ecode.Code(__res.{{.HttpRequestInfo.ResponseCodeField}})
+        return
+    }
+    {{ end }}
+    {{.TaskInfo.OutputInfo.Name}} = __res
+    return
+}

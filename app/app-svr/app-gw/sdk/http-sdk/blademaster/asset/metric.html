@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>节点监控</title>
+  <link rel="stylesheet" type="text/css" href="https://activity.hdslb.com/blackboard/static/20200318/0977767b2e79d8ad0a36a731068a83d7/OQSDXKsS.css">
+  <script type="text/javascript" src="https://activity.hdslb.com/blackboard/static/20200318/0977767b2e79d8ad0a36a731068a83d7/4abCCTGAh.js"></script>
+  <script type="text/javascript" src="https://activity.hdslb.com/blackboard/static/20200318/0977767b2e79d8ad0a36a731068a83d7/G5O~pcvw.js"></script>
+  <script src="https://activity.hdslb.com/blackboard/static/20200318/0977767b2e79d8ad0a36a731068a83d7/cQkBSGSw.js"></script>
+  <style type="text/css">
+    #app {
+      padding: 20px 50px;
+    }
+
+    h1 {
+      padding: 20px 0px;
+    }
+
+    .ivu-table td, .ivu-table th{
+      height: 22px!important;
+    }
+  </style>
+</head>
+
+<body>
+<div id="app">
+  <div>instance: {{instance}}</div>
+  <div>uptime: {{uptime}}</div>
+  <div>pid: {{pid}}</div>
+  <h1>Location</h1>
+  <i-table :columns="columns" :data="server_data" border>
+    <template slot-scope="{ row }" slot="2xx">
+      {{ row.response["2xx"] }}
+    </template>
+    <template slot-scope="{ row }" slot="4xx">
+      {{ row.response["4xx"] }}
+    </template>
+    <template slot-scope="{ row }" slot="5xx">
+      {{ row.response["5xx"] }}
+    </template>
+    <template slot-scope="{ row }" slot="1xx">
+      {{ row.response["1xx"] }}
+    </template>
+    <template slot-scope="{ row }" slot="3xx">
+      {{ row.response["3xx"] }}
+    </template>
+    <template slot-scope="{ row }" slot="unknown">
+      {{ row.response["unknown"] }}
+    </template>
+    <template slot-scope="{ row }" slot="total">
+      {{ row.response["total"] }}
+    </template>
+  </i-table>
+  <h1>Upstream</h1>
+  <i-table :columns="columns" :data="location_data" border>
+    <template slot-scope="{ row }" slot="2xx">
+      {{ row.response["2xx"] }}
+    </template>
+    <template slot-scope="{ row }" slot="4xx">
+      {{ row.response["4xx"] }}
+    </template>
+    <template slot-scope="{ row }" slot="5xx">
+      {{ row.response["5xx"] }}
+    </template>
+    <template slot-scope="{ row }" slot="1xx">
+      {{ row.response["1xx"] }}
+    </template>
+    <template slot-scope="{ row }" slot="3xx">
+      {{ row.response["3xx"] }}
+    </template>
+    <template slot-scope="{ row }" slot="unknown">
+      {{ row.response["unknown"] }}
+    </template>
+    <template slot-scope="{ row }" slot="total">
+      {{ row.response["total"] }}
+    </template>
+  </i-table>
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      columns: [
+        {
+          title: 'Zone',
+          key: 'name',
+          width: 250
+        },
+        {
+          title: 'Requests',
+          align: 'center',
+          children: [
+            {
+              title: 'Total',
+              key: 'requests',
+              align: 'center',
+            }
+          ]
+        }, {
+          title: 'Responses',
+          align: 'center',
+          children: [
+            {
+              title: '2xx',
+              slot: '2xx',
+              align: 'center',
+            }, {
+              title: '4xx',
+              slot: '4xx',
+              align: 'center',
+            }, {
+              title: '5xx',
+              slot: '5xx',
+              align: 'center',
+            }, {
+              title: '1xx',
+              slot: '1xx',
+              align: 'center',
+            }, {
+              title: '3xx',
+              slot: '3xx',
+              align: 'center',
+            }, {
+              title: 'unknown',
+              slot: 'unknown',
+              align: 'center',
+            }, {
+              title: 'Total',
+              slot: 'total',
+              align: 'center',
+            }
+          ]
+        }
+      ],
+      server_data: [],
+      location_data: [],
+      instance:'',
+      uptime:'',
+      pid:''
+    },
+    methods: {
+      getData: function () {
+        let that = this
+        url = './metrics.json';
+        axios.get(url)
+                .then(function (response) {
+                  if (response.data.code === 0) {
+                    that.server_data = response.data.data.location;
+                    that.location_data = response.data.data.upstream;
+                    that.instance = response.data.data.instance;
+                    that.uptime = response.data.data.uptime;
+                    that.pid = response.data.data.pid;
+                  } else {
+                    that.server_data = [];
+                    that.location_data = [];
+                    that.instance = '';
+                    that.uptime = '';
+                    that.pid = '';
+                  }
+                })
+                .catch(function (error) {
+                  console.log(error);
+                  that.server_data = [];
+                  that.location_data = [];
+                  that.instance = '';
+                  that.uptime = '';
+                  that.pid = '';
+                });
+      }
+    },
+    mounted() {
+      setInterval(this.getData, 1000);
+    }
+  })
+</script>
+</body>
+
+</html>

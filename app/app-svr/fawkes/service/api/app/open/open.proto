@@ -1,0 +1,190 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+
+package app.open.v1;
+
+option go_package = "open";
+option (gogoproto.goproto_getters_all) = false;
+
+service Open {
+  /* 新增项目 */
+  rpc CreateProject(CreateProjectReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/open/project/add"
+    };
+  }
+  /* 获取项目信息 */
+  rpc GetProjectInfo(GetProjectInfoReq) returns (GetProjectInfoResp){
+    option (google.api.http) = {
+      get: "/x/admin/fawkes/app/open/project/info"
+    };
+  }
+  /* 获取项目信息列表 */
+  rpc GetProjectInfoList(GetProjectInfoListReq) returns (GetProjectInfoListResp){
+    option (google.api.http) = {
+      get: "/x/admin/fawkes/app/open/project/info/list"
+    };
+  }
+  /* 更新项目信息 */
+  rpc UpdateProject(UpdateProjectReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/open/project/update"
+    };
+  }
+  /* 删除项目 */
+  rpc ActiveProject(ActiveProjectReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/open/project/active"
+    };
+  }
+
+  /* 新建接口权限信息 */
+  rpc AddPath(AddPathReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/open/project/path/enable"
+    };
+  }
+  /* 更新接口appKey */
+  rpc UpdatePath(UpdatePathReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/open/project/path/appkey/update"
+    };
+  }
+  /* 删除接口权限信息 */
+  rpc DeletePath(DeletePathReq) returns (DeletePathResp){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/open/project/path/disable"
+    };
+  }
+  /* 接口权限详情列表 */
+  rpc PathList(PathListReq) returns (PathListResp){
+    option (google.api.http) = {
+      get: "/x/admin/fawkes/app/open/project/path/list"
+    };
+  }
+
+  /* 获取api列表 */
+  rpc GetOpenApiList(GetOpenApiListReq) returns (GetOpenApiListResp){
+    option (google.api.http) = {
+      get: "/x/admin/fawkes/app/open/project/apis"
+    };
+  }
+
+
+}
+
+message CreateProjectReq{
+  string project_name = 1 [(gogoproto.jsontag) = "project_name", (gogoproto.moretags) = 'form:"project_name" validate:"required"'];
+  repeated string owner = 2 [(gogoproto.jsontag) = "owner", (gogoproto.moretags) = 'form:"owner" validate:"required"'];
+  string description = 3 [(gogoproto.jsontag) = "description", (gogoproto.moretags) = 'form:"description"'];
+}
+
+message UpdateProjectReq{
+  int64 project_id = 1 [(gogoproto.jsontag) = "project_id", (gogoproto.moretags) = 'form:"project_id" validate:"required"'];
+  repeated string owner = 2 [(gogoproto.jsontag) = "owner", (gogoproto.moretags) = 'form:"owner" '];
+  string description = 3 [(gogoproto.jsontag) = "description", (gogoproto.moretags) = 'form:"description"'];
+}
+
+message GetProjectInfoReq{
+  int64 project_id = 1 [(gogoproto.jsontag) = "project_id", (gogoproto.moretags) = 'form:"project_id" validate:"required"'];
+}
+
+message GetProjectInfoResp{
+  ProjectInfo project_info = 1;
+}
+
+message ProjectInfo{
+  int64 id = 1 [(gogoproto.jsontag) = "project_id", (gogoproto.moretags) = 'form:"project_id" validate:"required"'];
+  string project_name = 2 [(gogoproto.jsontag) = "project_name", (gogoproto.moretags) = 'form:"project_name"'];
+  repeated string owner = 3 [(gogoproto.jsontag) = "owner", (gogoproto.moretags) = 'form:"owner"'];
+  string description = 4 [(gogoproto.jsontag) = "description", (gogoproto.moretags) = 'form:"description"'];
+  string token = 5 [(gogoproto.jsontag) = "token", (gogoproto.moretags) = 'form:"token"'];
+  string applicant = 6 [(gogoproto.jsontag) = "applicant", (gogoproto.moretags) = 'form:"applicant"'];
+  bool is_active = 7 [(gogoproto.jsontag) = "is_active", (gogoproto.moretags) = 'form:"is_active"'];
+}
+
+message GetProjectInfoListReq{
+  string project_name = 1 [(gogoproto.jsontag) = "project_name", (gogoproto.moretags) = 'form:"project_name"'];
+  int64 pn = 2 [(gogoproto.jsontag) = "pn", (gogoproto.moretags) = 'form:"pn" validate:"required"'];
+  int64 ps = 3 [(gogoproto.jsontag) = "ps", (gogoproto.moretags) = 'form:"ps" validate:"required"'];
+}
+
+message GetProjectInfoListResp{
+  PageInfo page_info = 1 [(gogoproto.jsontag) = "page_info", (gogoproto.moretags) = 'form:"page_info"'];
+  repeated ProjectInfo project_info = 2 [(gogoproto.jsontag) = "items", (gogoproto.moretags) = 'form:"items"'];
+}
+
+message GetOpenApiListReq{
+  string app_key = 1 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];
+}
+
+message GetOpenApiListResp{
+  repeated Router router = 1 [(gogoproto.jsontag) = "router", (gogoproto.moretags) = 'form:"router"'];
+}
+
+message Router{
+  string path = 1 [(gogoproto.jsontag) = "path", (gogoproto.moretags) = 'form:"path"'];
+}
+
+message PathListReq{
+  int64 project_id = 1 [(gogoproto.jsontag) = "project_id", (gogoproto.moretags) = 'form:"project_id"'];
+}
+
+message PathListResp{
+  int64 project_id = 1 [(gogoproto.jsontag) = "project_id", (gogoproto.moretags) = 'form:"project_id"'];
+  string project_name = 2 [(gogoproto.jsontag) = "project_name", (gogoproto.moretags) = 'form:"project_name"'];
+  repeated RouterAccess router_access = 3 [(gogoproto.jsontag) = "items", (gogoproto.moretags) = 'form:"items"'];
+}
+
+message RouterAccess{
+  int64  id = 1 [(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id"'];//id
+  string path = 2 [(gogoproto.jsontag) = "path", (gogoproto.moretags) = 'form:"path"'];//地址
+  repeated string app_key = 3 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];//可以访问的app_key
+  string description = 4  [(gogoproto.jsontag) = "description", (gogoproto.moretags) = 'form:"description"'];//描述
+}
+
+message AddPathReq{
+  int64 project_id = 1 [(gogoproto.jsontag) = "project_id", (gogoproto.moretags) = 'form:"project_id" validate:"required"'];
+  repeated RouterAccess router_access = 2 [(gogoproto.jsontag) = "router_access", (gogoproto.moretags) = 'form:"router_access"'];
+}
+
+message UpdatePathReq{
+  int64 project_id = 1 [(gogoproto.jsontag) = "project_id", (gogoproto.moretags) = 'form:"project_id" validate:"required"'];
+  repeated PathUpdate path_update = 2 [(gogoproto.jsontag) = "items", (gogoproto.moretags) = 'form:"items" validate:"required"'];
+}
+
+message PathUpdate{
+  int64 path_id = 1 [(gogoproto.jsontag) = "path_id", (gogoproto.moretags) = 'form:"path_id" validate:"required"'];
+  repeated string app_key = 2 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key" validate:"required"'];
+  string description = 3 [(gogoproto.jsontag) = "description", (gogoproto.moretags) = 'form:"description"'];
+}
+
+message RouterAccessUpdate{
+  int64 path_access_id = 1 [(gogoproto.jsontag) = "path_access_id", (gogoproto.moretags) = 'form:"path_access_id"'];
+  bool is_active = 2 [(gogoproto.jsontag) = "is_active", (gogoproto.moretags) = 'form:"is_active"'];
+  repeated string app_key = 3 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];//可以访问的app_key
+}
+
+message DeletePathReq{
+  int64 project_id = 1 [(gogoproto.jsontag) = "project_id", (gogoproto.moretags) = 'form:"project_id" validate:"required"'];
+  repeated int64 path_id = 2 [(gogoproto.jsontag) = "path_id", (gogoproto.moretags) = 'form:"path_id" validate:"required"'];
+}
+
+message DeletePathResp{
+  int64 deleted_count = 1 [(gogoproto.jsontag) = "deleted_count", (gogoproto.moretags) = 'form:"deleted_count"'];
+}
+
+message ActiveProjectReq{
+  int64 project_id = 1 [(gogoproto.jsontag) = "project_id", (gogoproto.moretags) = 'form:"project_id" validate:"required"'];
+  bool  is_active = 2 [(gogoproto.jsontag) = "is_active", (gogoproto.moretags) = 'form:"is_active"'];
+}
+
+message PageInfo{
+  int64 total = 1 [(gogoproto.jsontag) = "total"];
+  int64 pn = 2 [(gogoproto.jsontag) = "pn"];
+  int64 ps = 3 [(gogoproto.jsontag) = "ps"];
+}

@@ -1,0 +1,60 @@
+syntax = "proto3";
+package bilibili.app.show.v1;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package                          = "act";
+option (gogoproto.goproto_enum_prefix_all) = false;
+option (gogoproto.goproto_getters_all)     = false;
+option (gogoproto.unmarshaler_all)         = true;
+option (gogoproto.marshaler_all)           = true;
+option (gogoproto.sizer_all)               = true;
+
+// ActItem 话题活动页面新卡片proto
+message ActItem {
+    string goto              = 1;
+    string param             = 2;
+    int64 item_id            = 3;
+    string image             = 4;
+    string title             = 5;
+    string uri               = 6;
+    string cover_left_text_1 = 7;
+    string cover_left_text_2 = 8;
+    string cover_left_text_3 = 9;
+    ArcRights rights         = 10;
+    ArcDimension dimension   = 11;
+    ReasonStyle badge        = 12;
+    Repost repost            = 13;
+}
+
+message ArcRights {
+    int32 ugc_pay        = 1;
+    int32 is_cooperation = 2;
+    bool is_pgc          = 3;
+}
+
+message ArcDimension {
+    int64 width = 1;
+    // 高 如 1080
+    int64 height = 2;
+    // 是否竖屏 0=否 1=是
+    int64 rotate = 3;
+}
+
+message ReasonStyle {
+    string text         = 1;
+    string bgColor      = 2 [(gogoproto.jsontag) = "bg_color,omitempty"];
+    string bgColorNight = 3 [(gogoproto.jsontag) = "bg_color_night,omitempty"];
+}
+
+message Repost {
+    string biz_type    = 1;
+    string season_type = 2;
+    int64 aid          = 3;
+    int64 cid          = 4;
+    int32 sub_type     = 5;
+    int64 ep_id        = 6;
+    int32 is_preview   = 7;
+    int64 season_id    = 8;
+    string author_name = 9;
+}

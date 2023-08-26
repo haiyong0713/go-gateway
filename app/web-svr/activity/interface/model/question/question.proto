@@ -1,0 +1,58 @@
+syntax = "proto3";
+package activity.service;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "question";
+
+message Base {
+    int64 ID = 1 [(gogoproto.jsontag) ="id"];
+    int64 BusinessID = 2 [(gogoproto.jsontag) ="business_id"];
+    int64 ForeignID = 3 [(gogoproto.jsontag) ="foreign_id"];
+    int64 Count = 4 [(gogoproto.jsontag) ="count"];
+    int64 OneTs = 5 [(gogoproto.jsontag) ="one_ts"];
+    int64 RetryTs = 6 [(gogoproto.jsontag) ="retry_ts"];
+    int64 Stime = 7 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Etime = 8 [(gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    string Name = 9 [(gogoproto.jsontag) ="name"];
+    string Separator = 10 [(gogoproto.jsontag) ="separator"];
+    int64 DistributeType = 11 [(gogoproto.jsontag) ="distribute_type"];
+}
+
+message Detail {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    int64 BaseID = 2 [(gogoproto.jsontag) = "base_id"];
+    string Name = 3 [(gogoproto.jsontag) = "name"];
+    string RightAnswer = 4 [(gogoproto.jsontag) = "right_answer"];
+    string WrongAnswer = 5 [(gogoproto.jsontag) = "wrong_answer"];
+    int64 Attribute = 6  [(gogoproto.jsontag) = "attribute"];
+    string Pic = 7 [(gogoproto.jsontag) = "pic"];
+}
+
+message UserAnswerLog {
+    int64 ID = 1 [(gogoproto.jsontag) ="id"];
+    int64 Mid = 2 [(gogoproto.jsontag) ="mid"];
+    int64 BaseID = 3  [(gogoproto.jsontag) ="base_id"];
+    int64 DetailID = 4 [(gogoproto.jsontag) ="detail_id"];
+    int64 PoolID = 5 [(gogoproto.jsontag) ="pool_id"];
+    string Answer = 6 [(gogoproto.jsontag) ="answer"];
+    int64 IsRight = 7 [(gogoproto.jsontag) ="is_right"];
+    int64 Index = 8 [(gogoproto.jsontag) ="index"];
+    int64 QuestionTime = 9 [(gogoproto.jsontag) ="question_time", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 AnswerTime = 10 [(gogoproto.jsontag) ="answer_time", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Ctime   =  11 [(gogoproto.jsontag) ="ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Mtime   =  12 [(gogoproto.jsontag) ="mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message UserAnswerRecord {
+    int64 ID = 1 [(gogoproto.jsontag) ="id"];
+    int64 Mid = 2 [(gogoproto.jsontag) ="mid"];
+    int64 BaseID = 3  [(gogoproto.jsontag) ="base_id"];
+    int64 PoolID = 4 [(gogoproto.jsontag) ="pool_id"];
+    int64 PoolCount = 5 [(gogoproto.jsontag) ="pool_count"];
+    int64 AnswerCount = 6 [(gogoproto.jsontag) ="answer_count"];
+    int64 RightCount = 7 [(gogoproto.jsontag) ="right_count"];
+    int64 State = 8 [(gogoproto.jsontag) ="state"];
+    int64 Ctime   =  9 [(gogoproto.jsontag) ="ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Mtime   =  10 [(gogoproto.jsontag) ="mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}

@@ -1,0 +1,19 @@
+package task
+
+import (
+    "context"
+    pb "git.bilibili.co/platform/api-gateway/app/demo/service/api"
+)
+
+type TaskFlow struct {
+}
+
+// SayHello grpc demo func.
+func (p *TaskFlow) Run(ctx context.Context, req *pb.HelloReq) (reply *pb.HelloResp, err error) {
+    r1, err := p.SayWorld1(ctx, req)
+    if err != nil {
+        return
+    }
+    reply, err = p.SayWorld2(ctx, r1)
+    return
+}

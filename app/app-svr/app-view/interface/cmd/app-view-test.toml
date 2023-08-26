@@ -1,0 +1,422 @@
+# This is a TOML document. Boom.
+
+version = "1.0.0"
+user    = "nobody"
+pid     = "/tmp/app-view.pid"
+dir     = "./"
+checkFile = "/data/www/app-view.html"
+family = "app-view"
+address = ""
+trace   = false
+debug   = false
+
+env = "test"
+tick = "1m"
+roundTick = "30m"
+vipTick = "2s"
+fawkesTick = "1m"
+relateCnt = 3
+
+[redis]
+    [redis.attention]
+        name = "app-view-attention/redis"
+        proto = "tcp"
+        addr = "127.0.0.1:20442"
+        active = 10
+        idle = 1
+        dialTimeout = "80ms"
+        readTimeout = "500ms"
+        writeTimeout = "500ms"
+        idleTimeout = "80s"
+    [redis.PlayerRedis]
+        name   = "redis-arcRedis"
+        proto  = "tcp"
+        addr   = "127.0.0.1:20504"
+        active = 50
+        idle   = 10
+        dialTimeout  = "50ms"
+        readTimeout  = "100ms"
+        writeTimeout = "100ms"
+        idleTimeout  = "80s"
+    [redis.OnlineRedis]
+        name   = "redis-online"
+        proto  = "tcp"
+        addr   = "127.0.0.1:26595"
+        active = 50
+        idle   = 10
+        dialTimeout  = "50ms"
+        readTimeout  = "100ms"
+        writeTimeout = "100ms"
+        idleTimeout  = "80s"
+
+[custom]
+viewTag = true
+DisplayAttentionGray = 100
+AttentionExpire = 600
+locationGray = 200
+locationMids = []
+AdAids = [42016752,46641789,10112994]
+HotAidsTick = "5m"
+SeasonWhitelist=[27515255]
+SeasonAbtest=30
+SeasonMidsTick = "5m"
+playerArgs = true
+ElecShowTypeIDs= [176, 192, 189, 190, 191, 130, 194, 193, 20, 154, 156, 31, 30, 59, 29, 28, 26, 22, 126, 127, 24, 25, 47, 27, 17, 18, 16, 65, 136, 19, 121, 171, 172, 173, 37, 124, 122, 39, 96, 95, 98, 71, 137, 131, 157, 158, 159, 164, 82, 128, 138, 21, 75, 76, 161, 162, 163, 174, 153, 168, 85, 86, 182, 183, 184]
+[custom.SteinsBuild]
+	android = 5440000
+	IosBlue = 7370
+	IosPink = 8600
+	IpadHD = 12200
+
+[playURL]
+secret = "62Mt3F1kpbvp3LKC"
+
+dmRegion = [36]
+
+[xlog]
+dir = "/data/log/app-view/"
+
+[playIcon]
+stime = 1549641600
+etime = 1549900799
+tids  = [516,374306,16054,18612,2611047,1008087,50,2513658,56,2512304,6977,8035683,1060128]
+url1  = "http://i0.hdslb.com/bfs/archive/10aac003f39f1c7ca8f796f00971f103c70e8101.json"
+hash1 = "18eaaad1aeef32c120c6a1d5ac933cf5"
+url2  = "http://i0.hdslb.com/bfs/archive/0a318965e59bcfe544f33cef17310553a37f179b.json"
+hash2 = "7f535c7b13ec5e96de94d768b8652262"
+
+[infocGRPCView]
+eventID = "app.v2.view.api"
+logID = "001940"
+
+[infocGRPCViewAd]
+eventID = "ad.bce.app.api"
+logID = "001940"
+
+[infocCoin]
+taskID = "000078"
+proto = "tcp"
+addr = "172.19.100.20:5401"
+chanSize = 1024
+
+[infocView]
+taskID = "000025"
+project = "app-view"
+name    = "view"
+path    = "/data/infoc/app-view/info.log"
+
+[infocViewV2]
+LogID = "012400"
+
+[infocRelate]
+taskID = "000026"
+project = "app-view"
+name    = "relate"
+path    = "/data/infoc/app-view/relate.log"
+
+[infocRelateV2]
+LogID = "012508"
+
+[useractPub]
+key = "0PtMsLLxWyyvoTgAyLCD"
+secret = "0PtMsLLxWyyvoTgAyLCE"
+group = "RecUseract-App-P"
+topic = "RecUseract-T"
+action = "pub"
+name = "app-view/useract"
+proto = "tcp"
+addr = "172.16.33.158:6205"
+active = 1
+idle = 1
+dialTimeout = "1s"
+readTimeout = "1s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[dislikePub]
+key = "0PtMsVFzWyyvoTgAyLCG"
+secret= "0PtMsVFzWyyvoTgAyLCH"
+group= "TagDislike-SkyHorse-P"
+topic= "Dislike-T"
+action="pub"
+name = "app-feed/dislike"
+proto = "tcp"
+addr = "172.16.33.158:6205"
+active = 100
+idle = 50
+dialTimeout = "50ms"
+readTimeout = "200ms"
+writeTimeout = "200ms"
+idleTimeout = "80s"
+
+[tracer]
+proto = "udp"
+addr  = "172.16.33.46:5140"
+tag   = "platform/app-view"
+
+[app]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+
+[httpClient]
+key = "7c7ac0db1aa05587"
+secret = "9a6d62d93290c5f771ad381e9ca23f26"
+dial      = "30ms"
+timeout   = "800ms"
+keepAlive = "60s"
+timer     = 1024
+    [httpClient.breaker]
+    window  = "3s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpAsync]
+key = "7c7ac0db1aa05587"
+secret = "9a6d62d93290c5f771ad381e9ca23f26"
+dial      = "30ms"
+timeout   = "2s"
+keepAlive = "60s"
+timer     = 1024
+    [httpAsync.breaker]
+    window  = "3s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+
+[httpWrite]
+key = "7c7ac0db1aa05587"
+secret = "9a6d62d93290c5f771ad381e9ca23f26"
+dial      = "30ms"
+timeout   = "700ms"
+keepAlive = "60s"
+timer     = 1024
+    [httpWrite.breaker]
+    window  = "3s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpAiClient]
+key = "6a29f8ed87407c11"
+secret = "d3c5a85f5b895a03735b5d20a273bc57"
+dial      = "100ms"
+timeout   = "500ms"
+keepAlive = "60s"
+
+[cron]
+loadChronos  = "@every 5s"
+LoadCommonActivities = "@every 1s"
+LoadOnlineManagerConfig = "@every 5s"
+
+[ActivitySeason]
+Aids = [840074675,960090648,880057386]
+Sid = 1356
+RelateTitle = "相关推荐"
+AndroidBuild = 6159999
+AndroidBlueBuild = 6130820
+IphoneBuild = 61599999
+IphoneBlueBuild = 21503200
+IpadHDBuild = 12510
+IpadBuild = 63100000
+
+[httpBangumi]
+key = "7c7ac0db1aa05587"
+secret = "9a6d62d93290c5f771ad381e9ca23f26"
+dial      = "30ms"
+timeout   = "300ms"
+keepAlive = "60s"
+timer     = 1024
+    [httpBangumi.breaker]
+    window  = "3s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpAD]
+key = "7c7ac0db1aa05587"
+secret = "9a6d62d93290c5f771ad381e9ca23f26"
+dial      = "30ms"
+timeout   = "300ms"
+keepAlive = "60s"
+timer     = 1024
+    [httpAD.breaker]
+    window  = "3s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpAudio]
+key = "7c7ac0db1aa05587"
+secret = "9a6d62d93290c5f771ad381e9ca23f26"
+dial      = "30ms"
+timeout   = "300ms"
+keepAlive = "60s"
+timer     = 1024
+    [httpAudio.breaker]
+    window  = "3s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpGame]
+key = "EeOpM531WqQnBvu4"
+secret = "gHtKtXTHZJDqGP1tg9ORFs0YWV3kW12V"
+dial      = "30ms"
+timeout   = "300ms"
+keepAlive = "60s"
+timer     = 1024
+    [httpGame.breaker]
+    window  = "3s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpGameAsync]
+key = "EeOpM531WqQnBvu4"
+secret = "gHtKtXTHZJDqGP1tg9ORFs0YWV3kW12V"
+dial      = "1s"
+timeout   = "2s"
+keepAlive = "60s"
+timer     = 1024
+    [httpGameAsync.breaker]
+    window  = "3s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpSearch]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "50ms"
+timeout   = "150ms"
+keepAlive = "60s"
+timer = 128
+[httpSearch.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+
+[tagConfig]
+   openIcon = true
+   actIcon = "http://i0.hdslb.com/bfs/tag/51d5e6ca679d1c472ad37c2a8ba01b444d7e70eb.png"
+   newIcon = "http://i0.hdslb.com/bfs/tag/b8fa96354d66081532e3dd2f1c2ecd7164dbb131.png"
+
+[viewConfig]
+    relatesTitle = "相关推荐"
+
+[bm]
+    [bm.outer]
+    addr = "0.0.0.0:6961"
+    timeout = "1s"
+
+[buildLimit]
+    CooperationIOS     = 8290
+    CooperationAndroid = 5365000
+    ChannelIOS         = 8810
+    ChannelAndroid     = 5480000
+    ViewChannelActiveIOS  = 8550
+    ViewChannelActiveAndroid  = 5423000
+
+[host]
+account   = "http://account.bilibili.co"
+bangumi   = "http://bangumi.bilibili.co"
+apiCo     = "http://api.bilibili.co"
+elec      = "http://elec.bilibili.co"
+apiLiveCo = "http://api.live.bilibili.co"
+ad        = "http://cm.bilibili.co"
+data      = "http://data.bilibili.co"
+archive   = "http://archive.api.bilibili.co"
+game      = "http://api.bilibili.co"
+vip       = "http://vip.bilibili.co"
+activity  = "http://matsuri.bilibili.co"
+ai        = "http://172.22.33.111:8101"
+bvcvod = "http://bvc-vod.bilibili.co"
+bvcDiscovery = "discovery://video.video-playurl.playurl-batch-release"
+fawkes = "http://fawkes.bilibili.co"
+bfs     = "http://bfs.bilibili.co"
+ManagerHost = "http://manager.bilibili.co"
+
+[hostDiscovery]
+ad        = "discovery://sycpb.cpm.cpm-bce-slb"
+
+[mysql]
+    [mysql.show]
+    addr   = "172.16.33.205:3306"
+    dsn    = "test:test@tcp(172.16.33.205:3306)/bilibili_show?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+    idle   = 2
+    queryTimeout = "100ms"
+    execTimeout = "100ms"
+    tranTimeout = "200ms"
+    [mysql.show.breaker]
+        window = "3s"
+        sleep = "100ms"
+        bucket = 10
+        ratio = 0.5
+        request = 100
+    [mysql.manager]
+    addr   = "172.16.33.54:3306"
+    dsn    = "test:test@tcp(172.16.33.54:3306)/bilibili_manager?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+    idle   = 2
+    idleTimeout  = "4h"
+    queryTimeout = "200ms"
+    execTimeout  = "200ms"
+    tranTimeout  = "200ms"
+    [mysql.manager.breaker]
+        window = "3s"
+        sleep = "100ms"
+        bucket = 10
+        ratio = 0.5
+        request = 100
+
+[memcache]
+    [memcache.archive]
+    name   = "app-view/archive"
+    proto  = "tcp"
+    addr   = "172.16.33.54:11213"
+    active = 50
+    idle   = 10
+    dialTimeout   = "50ms"
+    readTimeout   = "50ms"
+    writeTimeout  = "50ms"
+    idleTimeout   = "80s"
+    archiveExpire = "20m"
+    viewExpire    = "20m"
+    relateExpire  = "20m"
+    addonExpire   = "5m"
+    recommedExpire= "10m"
+
+[resource]
+    [resource.coin]
+        title = "喜欢就分享给小伙伴吧"
+
+[Online]
+    Text = "%s人在看"
+    SwitchOn = true
+    Gray = 10
+    [Online.Mid]
+        "123" = 1
+
+[OnlineCtrl]
+    Logo = ""
+    SwitchOn = true
+    Gray = 100
+    [OnlineCtrl.Mid]
+        "123" = 1
+
+[LegoToken]
+    PlayOnlineToken = "GE2jQfyoNbdow-76yvrqew=="

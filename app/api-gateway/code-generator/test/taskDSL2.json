@@ -1,0 +1,50 @@
+{
+  "taskList": [
+    {
+      "name": "SayWorld1",
+      "type": "mapping",
+      "input": [
+        {
+          "name": "req",
+          "value": "$service.request"
+        }
+      ],
+      "output": {
+        "type": "archivePb.ArcRequest"
+      },
+      "mappingRule": [
+        {
+          "src": "req.Aid",
+          "dest": "Aid"
+        }
+      ]
+    },
+    {
+      "name": "SayWorld2",
+      "type": "grpc",
+      "input": [
+        {
+          "value": "$task.SayWorld1"
+        }
+      ],
+      "output": {
+        "type": "archivePb.ArcReply"
+      },
+      "discoveryId": "archive.service",
+      "rpcInterface": "Arc"
+    },
+    {
+      "name": "SayWorld3",
+      "type": "udf",
+      "input": [
+        {
+          "value": "$task.SayWorld2"
+        }
+      ],
+      "output": {
+        "type": "servicePb.HelloResp",
+        "isResponse": true
+      }
+    }
+  ]
+}

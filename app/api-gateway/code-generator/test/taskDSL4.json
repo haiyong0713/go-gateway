@@ -1,0 +1,86 @@
+{
+  "taskList": [
+    {
+      "name": "SayWorld1",
+      "type": "mapping",
+      "input": [
+        {
+          "name": "req",
+          "value": "$service.request"
+        }
+      ],
+      "output": {
+        "type": "WorldResp"
+      },
+      "mappingRule": [
+        {
+          "src": "req.Name",
+          "dest": "Content"
+        }
+      ]
+    },
+    {
+      "name": "SayWorld2",
+      "type": "mapping",
+      "input": [
+        {
+          "name": "req",
+          "value": "$task.SayWorld1"
+        }
+      ],
+      "output": {
+        "type": "WorldResp"
+      },
+      "mappingRule": [
+        {
+          "src": "req.Content",
+          "dest": "Content"
+        }
+      ]
+    },
+    {
+      "name": "SayWorld3",
+      "type": "mapping",
+      "input": [
+        {
+          "name": "req",
+          "value": "$service.request"
+        }
+      ],
+      "output": {
+        "type": "WorldResp"
+      },
+      "mappingRule": [
+        {
+          "src": "req.Name",
+          "dest": "Content"
+        }
+      ]
+    },
+    {
+      "name": "SayWorld4",
+      "type": "mapping",
+      "input": [
+        {
+          "name": "req1",
+          "value": "$task.SayWorld2"
+        },
+        {
+          "name": "req2",
+          "value": "$task.SayWorld3",
+          "ignore": true
+        }
+      ],
+      "output": {
+        "type": "servicePb.HelloResp",
+        "isResponse": true
+      },
+      "mappingRule": [
+        {
+          "src": "req1.Content",
+          "dest": "Content"
+        }
+      ]
+    }
+  ]
+}

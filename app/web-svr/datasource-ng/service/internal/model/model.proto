@@ -1,0 +1,38 @@
+syntax = "proto3";
+package web_svr.service.datasource_ng;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "model";
+
+message Model {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  string name = 2 [(gogoproto.jsontag) = "name"];
+  string description = 3 [(gogoproto.jsontag) = "description"];
+}
+
+message ModelField {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  string model_name = 2 [(gogoproto.jsontag) = "model_name"];
+  string name = 3 [(gogoproto.jsontag) = "name"];
+  string description = 4 [(gogoproto.jsontag) = "description"];
+  string value_type = 5 [(gogoproto.jsontag) = "value_type"];
+}
+
+message ModelItem {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  string business = 2 [(gogoproto.jsontag) = "business"];
+  string item_uuid = 3 [(gogoproto.jsontag) = "item_uuid"];
+  string type_name = 4 [(gogoproto.jsontag) = "type_name"];
+  bool expirable = 5 [(gogoproto.jsontag) = "expirable"];
+  int64 expire_at = 6 [(gogoproto.jsontag) = "expire_at"];
+}
+
+message ItemFieldValue {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  string item_uuid = 2 [(gogoproto.jsontag) = "item_uuid"];
+  string field_name = 3 [(gogoproto.jsontag) = "field_name"];
+  int64 value_int = 4 [(gogoproto.jsontag) = "value_int"];
+  string value_string = 5 [(gogoproto.jsontag) = "value_string"];
+  string value_item_uuid = 6 [(gogoproto.jsontag) = "value_item_uuid"];
+}

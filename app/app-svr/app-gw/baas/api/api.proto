@@ -1,0 +1,266 @@
+// 定义项目 API 的 proto 文件 可以同时描述 gRPC 和 HTTP API
+// protobuf 文件参考:
+//  - https://developers.google.com/protocol-buffers/
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+// package 命名使用 {appid}.{version} 的方式, version 形如 v1, v2 ..
+package app.gw.gateway.baas.v1;
+
+option go_package = "api";
+
+service Baas {
+  rpc ModelList(ModelListRequest) returns(ModelListReply);
+  rpc ModelItemList(ModelItemListRequest) returns(ModelItemListReply);
+  rpc ModelFieldList(ModelDetailRequest) returns(ModelFieldReply);
+  rpc ModelDetail(ModelDetailRequest) returns(ModelDetailReply);
+  rpc AddModel(AddModelRequest) returns(.google.protobuf.Empty);
+  rpc AddModelField(AddModelFieldRequest) returns(.google.protobuf.Empty);
+  rpc UpdateModelField(UpdateModelFieldRequest) returns(.google.protobuf.Empty);
+  rpc DeleteModelField(DeleteModelFieldRequest) returns(.google.protobuf.Empty);
+  rpc ExportList(ExportListRequest) returns(ExportListReply);
+  rpc AddExport(AddExportRequest) returns(.google.protobuf.Empty);
+  rpc UpdateExport(UpdateExportRequest) returns(.google.protobuf.Empty);
+  rpc AddImport(AddImportRequest) returns(.google.protobuf.Empty);
+  rpc UpdateImport(UpdateImportRequest) returns(.google.protobuf.Empty);
+  rpc AddModelFieldRule(AddModelFieldRuleRequest) returns(.google.protobuf.Empty);
+  rpc UpdateModelFieldRule(UpdateModelFieldRuleRequest) returns(.google.protobuf.Empty);
+  rpc AuthZ(AuthZReq) returns (AuthZReply);
+}
+
+message AuthZReq {
+  string username = 1;
+  string cookie = 2;
+  string node = 3 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+}
+
+message AuthZReply {
+  repeated Project projects = 1 [(gogoproto.jsontag) = "projects"];
+}
+
+message Project {
+  string project_name = 1 [(gogoproto.jsontag) = "project_name"];
+  string node = 2 [(gogoproto.jsontag) = "node"];
+}
+
+message ModelListRequest {
+  int64 tree_id = 1 [(gogoproto.moretags) = 'form:"tree_id" validate:"required"'];
+  int32 pn = 2 [(gogoproto.moretags) = 'form:"pn" default:"1" min:"0"'];
+  int32 ps = 3 [(gogoproto.moretags) = 'form:"ps" default:"20" max:"100" min:"0"'];
+}
+
+message ModelListReply {
+  repeated MapperModelItem list = 1;
+  int32 pn = 2;
+  int32 ps = 3;
+  int64 total = 4;
+}
+
+message ModelItemListRequest {
+  string model_name = 1 [(gogoproto.moretags) = 'form:"model_name" validate:"required"'];
+  string export_api = 2 [(gogoproto.moretags) = 'form:"export_api" validate:"required"'];
+  int64 tree_id = 3 [(gogoproto.moretags) = 'form:"tree_id" validate:"required"'];
+}
+
+message ModelItemListReply {
+  repeated FieldRuleMetadata list = 1;
+  string model_name = 2;
+  string export_api = 3;
+  repeated string datasource_api = 4;
+}
+
+message ModelDetailRequest {
+  string model_name = 1 [(gogoproto.moretags) = 'form:"model_name" validate:"required"'];
+  int64 tree_id = 2 [(gogoproto.moretags) = 'form:"tree_id"'];
+}
+
+message ModelDetailReply {
+  ModelSchema detail = 1;
+}
+
+message ModelSchema {
+  string type = 1;
+  map<string, ModelSchema> properties = 2;
+}
+
+message StructedItem {
+  map<string, FieldValue> item = 1;
+}
+
+message ItemReply {
+  oneof item {
+    StructedItem value_struct = 1;
+    FieldValue value_raw = 2;
+  }
+}
+
+message StringList {
+  repeated string list = 1;
+}
+
+message IntList {
+  repeated int64 list = 1;
+}
+
+message BoolList {
+  repeated bool list = 1;
+}
+
+message ItemList {
+  repeated ItemReply list = 1;
+}
+
+message FieldValue {
+  oneof value {
+    string value_string = 1;
+    int64 value_int = 2;
+    bool value_bool = 3;
+    ItemReply value_item = 4;
+    StringList value_string_list = 5;
+    BoolList value_bool_list = 6;
+    IntList value_int_list = 7;
+    ItemList value_item_list = 8;
+  }
+}
+
+message AddModelRequest {
+  string model_name = 1 [(gogoproto.moretags) = 'form:"model_name" validate:"required"'];
+  string model_fields = 2 [(gogoproto.moretags) = 'form:"model_fields"'];
+  string description = 3 [(gogoproto.moretags) = 'form:"description"'];
+  int64 tree_id = 4 [(gogoproto.moretags) = 'form:"tree_id" validate:"required"'];
+}
+
+message AddModelFieldRequest {
+  string model_name = 1 [(gogoproto.moretags) = 'form:"model_name" validate:"required"'];
+  string field_name = 2 [(gogoproto.moretags) = 'form:"field_name" validate:"required"'];
+  string field_type = 3 [(gogoproto.moretags) = 'form:"field_type" validate:"required"'];
+  string json_alias = 4 [(gogoproto.moretags) = 'form:"json_alias"'];
+}
+
+message UpdateModelFieldRequest {
+  int64 id = 1 [(gogoproto.moretags) = 'form:"id" validate:"required"'];
+  string model_name = 2 [(gogoproto.moretags) = 'form:"model_name" validate:"required"'];
+  string field_name = 3 [(gogoproto.moretags) = 'form:"field_name" validate:"required"'];
+  string field_type = 4 [(gogoproto.moretags) = 'form:"field_type" validate:"required"'];
+  string json_alias = 5 [(gogoproto.moretags) = 'form:"json_alias"'];
+}
+
+message DeleteModelFieldRequest {
+  int64 id = 1 [(gogoproto.moretags) = 'form:"id" validate:"required"'];
+}
+
+message MapperModelItem {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+  int64 tree_id = 4;
+  int64 ctime = 5 [(gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 mtime = 6 [(gogoproto.casttype) = "go-common/library/time.Time"];
+  int32 is_deleted = 7;
+}
+
+message ModelField {
+  int64 id = 1;
+  string model_name = 2;
+  string field_name = 3;
+  string field_type = 4;
+  string json_alias = 5;
+  int64 ctime = 6 [(gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 mtime = 7 [(gogoproto.casttype) = "go-common/library/time.Time"];
+  int32 is_deleted = 8;
+}
+
+message ModelFieldReply {
+  repeated ModelField list = 1;
+}
+
+message FieldRuleMetadata {
+  int64 id = 1;
+  string model_name = 2;
+  string field_name = 3;
+  string field_type = 4;
+  string json_alias = 5;
+  string datasource_api = 6;
+  string external_rule = 7;
+  int64 rule_id = 8;
+  string rule_type = 9;
+  string value_source = 10;
+  int64 ctime = 11 [(gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message ExportItem {
+  int64 id = 1;
+  string export_api = 2;
+  string model_name = 3;
+  int64 ctime = 4 [(gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 mtime = 5 [(gogoproto.casttype) = "go-common/library/time.Time"];
+  int32 state = 6;
+  int32 is_deleted = 7;
+  int64 tree_id = 8;
+}
+
+message ExportListRequest {
+  string export_api = 1 [(gogoproto.moretags) = 'form:"export_api"'];
+  int64 tree_id = 2 [(gogoproto.moretags) = 'form:"tree_id" validate:"required"'];
+}
+
+message ExportList {
+  ExportItem export = 1;
+  repeated ImportItem imports = 2;
+}
+
+message ExportListReply {
+  repeated ExportList list = 1;
+}
+
+message AddExportRequest {
+  string export_api = 1 [(gogoproto.moretags) = 'form:"export_api" validate:"required"'];
+  string model_name = 2 [(gogoproto.moretags) = 'form:"model_name" validate:"required"'];
+  int32 state = 3 [(gogoproto.moretags) = 'form:"state"'];
+  int64 tree_id = 4 [(gogoproto.moretags) = 'form:"tree_id" validate:"required"'];
+}
+
+message UpdateExportRequest {
+  int64 id = 1 [(gogoproto.moretags) = 'form:"id" validate:"required"'];
+  string export_api = 2 [(gogoproto.moretags) = 'form:"export_api" validate:"required"'];
+  string model_name = 3 [(gogoproto.moretags) = 'form:"model_name" validate:"required"'];
+  int32 state = 4 [(gogoproto.moretags) = 'form:"state"'];
+  int64 tree_id = 5 [(gogoproto.moretags) = 'form:"tree_id" validate:"required"'];
+}
+
+message ImportItem {
+  int64 id = 1;
+  int64 baas_export_id = 2;
+  string datasource_api = 3;
+  string datasource_type = 4;
+}
+
+message AddImportRequest {
+  int64 baas_export_id = 1 [(gogoproto.moretags) = 'form:"baas_export_id" validate:"required"'];
+  string datasource_api = 2 [(gogoproto.moretags) = 'form:"datasource_api" validate:"required"'];
+  string datasource_type = 3 [(gogoproto.moretags) = 'form:"datasource_type" validate:"required"'];
+}
+
+message UpdateImportRequest {
+  int64 id = 1 [(gogoproto.moretags) = 'form:"id" validate:"required"'];
+  int64 baas_export_id = 2 [(gogoproto.moretags) = 'form:"baas_export_id"'];
+  string datasource_api = 3 [(gogoproto.moretags) = 'form:"datasource_api" validate:"required"'];
+  string datasource_type = 4 [(gogoproto.moretags) = 'form:"datasource_type" validate:"required"'];
+}
+
+message AddModelFieldRuleRequest {
+  string field_rule_list = 1 [(gogoproto.moretags) = 'form:"field_rule_list" validate:"required"'];
+}
+
+message UpdateModelFieldRuleRequest {
+  int64 id = 1 [(gogoproto.moretags) = 'form:"id" validate:"required"'];
+  string model_name = 2 [(gogoproto.moretags) = 'form:"model_name" validate:"required"'];
+  string field_name = 3 [(gogoproto.moretags) = 'form:"field_name" validate:"required"'];
+  string datasource_api = 4 [(gogoproto.moretags) = 'form:"datasource_api" validate:"required"'];
+  string external_rule = 5 [(gogoproto.moretags) = 'form:"external_rule"'];
+  string rule_type = 6 [(gogoproto.moretags) = 'form:"rule_type" validate:"required"'];
+  string value_source = 7 [(gogoproto.moretags) = 'form:"value_source" validate:"required"'];
+}

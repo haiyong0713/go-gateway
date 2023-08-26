@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/empty.proto";
+
+package appgw.management.job.v1;
+
+option go_package = "api";
+option (gogoproto.goproto_getters_all) = false;
+
+message CronsConfig {
+  string LoadProxyPassConfigsCron = 1
+      [(gogoproto.jsontag) = "load_proxy_pass_configs_cron"];
+}
+
+message TaskDoReq {
+  string name = 1 [(gogoproto.moretags) = 'form:"name" validate:"required"'];
+  string sponsor = 2 [(gogoproto.moretags) = 'form:"sponsor"'];
+  Params params = 3 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message Params {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  int64 ctime = 3 [(gogoproto.moretags) = 'form:"ctime"'];
+  int64 mtime = 4 [(gogoproto.moretags) = 'form:"mtime"'];
+  string custom = 5 [(gogoproto.moretags) = 'form:"custom"'];
+}
+
+message TaskDoReply {
+  string task_id = 1 [(gogoproto.jsontag) = "task_id"];
+}
+
+message RawConfigReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2
+  [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+}
+
+message RawConfigReply {
+  string config = 1 [(gogoproto.jsontag) = "config"];
+}
+
+service ManagementJob {
+  rpc Ping(.google.protobuf.Empty) returns (.google.protobuf.Empty);
+  rpc TaskDo(TaskDoReq) returns (TaskDoReply);
+  rpc RawConfig(RawConfigReq) returns (RawConfigReply);
+}

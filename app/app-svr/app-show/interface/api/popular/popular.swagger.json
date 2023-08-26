@@ -1,0 +1,1326 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "popular.proto",
+        "version": "1"
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json",
+        "multipart/form-data"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/bilibili.app.show.v1.Popular/Index": {
+            "get": {
+                "summary": "/bilibili.app.show.v1.Popular/Index",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.bilibili.app.show.v1.PopularReply"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "idx",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "login_event",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "qn",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "fnver",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "fnval",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "force_host",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "fourk",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "spmid",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "last_param",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "ver",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "entrance_id",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "location_ids",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "source_id",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "bilibili.app.show.v1.Popular"
+                ]
+            }
+        }
+    },
+    "definitions": {
+        ".bilibili.app.card.v1.AdInfo": {
+            "type": "object",
+            "properties": {
+                "creative_id": {
+                    "type": "integer"
+                },
+                "creative_type": {
+                    "type": "integer"
+                },
+                "card_type": {
+                    "type": "integer"
+                },
+                "creative_content": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.CreativeContent"
+                },
+                "ad_cb": {
+                    "type": "string"
+                },
+                "resource": {
+                    "type": "integer"
+                },
+                "source": {
+                    "type": "integer"
+                },
+                "request_id": {
+                    "type": "string"
+                },
+                "is_ad": {
+                    "type": "boolean"
+                },
+                "cm_mark": {
+                    "type": "integer"
+                },
+                "index": {
+                    "type": "integer"
+                },
+                "is_ad_loc": {
+                    "type": "boolean"
+                },
+                "card_index": {
+                    "type": "integer"
+                },
+                "client_ip": {
+                    "type": "string"
+                },
+                "extra": {
+                    "type": "string"
+                },
+                "creative_style": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.Args": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "integer"
+                },
+                "up_id": {
+                    "type": "integer"
+                },
+                "up_name": {
+                    "type": "string"
+                },
+                "rid": {
+                    "type": "integer"
+                },
+                "rname": {
+                    "type": "string"
+                },
+                "tid": {
+                    "type": "integer"
+                },
+                "tname": {
+                    "type": "string"
+                },
+                "track_id": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "converge_type": {
+                    "type": "integer"
+                },
+                "aid": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.Avatar": {
+            "type": "object",
+            "properties": {
+                "cover": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "uri": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "event": {
+                    "type": "string"
+                },
+                "event_v2": {
+                    "type": "string"
+                },
+                "defalut_cover": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.Base": {
+            "type": "object",
+            "properties": {
+                "card_type": {
+                    "type": "string"
+                },
+                "card_goto": {
+                    "type": "string"
+                },
+                "goto": {
+                    "type": "string"
+                },
+                "param": {
+                    "type": "string"
+                },
+                "cover": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "uri": {
+                    "type": "string"
+                },
+                "three_point": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.ThreePoint"
+                },
+                "args": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Args"
+                },
+                "player_args": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.PlayerArgs"
+                },
+                "idx": {
+                    "type": "integer"
+                },
+                "ad_info": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.AdInfo"
+                },
+                "mask": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Mask"
+                },
+                "from_type": {
+                    "type": "string"
+                },
+                "three_point_v2": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.bilibili.app.card.v1.ThreePointV2"
+                    }
+                },
+                "three_point_v3": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.bilibili.app.card.v1.ThreePointV3"
+                    }
+                },
+                "desc_button": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Button"
+                },
+                "three_point_v4": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.ThreePointV4"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.Bubble": {
+            "type": "object",
+            "properties": {
+                "bubble_content": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "integer"
+                },
+                "stime": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.Button": {
+            "type": "object",
+            "properties": {
+                "text": {
+                    "type": "string"
+                },
+                "param": {
+                    "type": "string"
+                },
+                "uri": {
+                    "type": "string"
+                },
+                "event": {
+                    "type": "string"
+                },
+                "selected": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "event_v2": {
+                    "type": "string"
+                },
+                "relation": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Relation",
+                    "description": "新关注组件"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.Card": {
+            "type": "object",
+            "properties": {
+                "small_cover_v5": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.SmallCoverV5"
+                },
+                "large_cover_v1": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.LargeCoverV1"
+                },
+                "three_item_all_v2": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.ThreeItemAllV2"
+                },
+                "three_item_v1": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.ThreeItemV1"
+                },
+                "hot_topic": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.HotTopic"
+                },
+                "three_item_h_v5": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.DynamicHot"
+                },
+                "middle_cover_v3": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.MiddleCoverV3"
+                },
+                "large_cover_v4": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.LargeCoverV4"
+                },
+                "popular_top_entrance": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.PopularTopEntrance"
+                },
+                "rcmd_one_item": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.RcmdOneItem"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.CreativeContent": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "video_id": {
+                    "type": "integer"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "image_url": {
+                    "type": "string"
+                },
+                "image_md5": {
+                    "type": "string"
+                },
+                "log_url": {
+                    "type": "string"
+                },
+                "log_md5": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "click_url": {
+                    "type": "string"
+                },
+                "show_url": {
+                    "type": "string"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.DislikeReason": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.DynamicHot": {
+            "type": "object",
+            "properties": {
+                "": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Base"
+                },
+                "top_left_title": {
+                    "type": "string"
+                },
+                "desc1": {
+                    "type": "string"
+                },
+                "desc2": {
+                    "type": "string"
+                },
+                "more_uri": {
+                    "type": "string"
+                },
+                "more_text": {
+                    "type": "string"
+                },
+                "covers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "cover_right_text": {
+                    "type": "string"
+                },
+                "top_rcmd_reason_style": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.ReasonStyle"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.EntranceItem": {
+            "type": "object",
+            "properties": {
+                "goto": {
+                    "type": "string"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "module_id": {
+                    "type": "string"
+                },
+                "uri": {
+                    "type": "string"
+                },
+                "entrance_id": {
+                    "type": "integer"
+                },
+                "bubble": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Bubble"
+                },
+                "entrance_type": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.HotTopic": {
+            "type": "object",
+            "properties": {
+                "": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Base"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.bilibili.app.card.v1.HotTopicItem"
+                    }
+                }
+            }
+        },
+        ".bilibili.app.card.v1.HotTopicItem": {
+            "type": "object",
+            "properties": {
+                "cover": {
+                    "type": "string"
+                },
+                "uri": {
+                    "type": "string"
+                },
+                "param": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.HotwordEntrance": {
+            "type": "object",
+            "properties": {
+                "hotword_id": {
+                    "type": "integer"
+                },
+                "hot_text": {
+                    "type": "string"
+                },
+                "h5_url": {
+                    "type": "string"
+                },
+                "icon": {
+                    "type": "string"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.LargeCoverV1": {
+            "type": "object",
+            "properties": {
+                "": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Base"
+                },
+                "cover_gif": {
+                    "type": "string"
+                },
+                "avatar": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Avatar"
+                },
+                "cover_left_text_1": {
+                    "type": "string"
+                },
+                "cover_left_text_2": {
+                    "type": "string"
+                },
+                "cover_left_text_3": {
+                    "type": "string"
+                },
+                "cover_badge": {
+                    "type": "string"
+                },
+                "top_rcmd_reason": {
+                    "type": "string"
+                },
+                "bottom_rcmd_reason": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "official_icon": {
+                    "type": "integer"
+                },
+                "can_play": {
+                    "type": "integer"
+                },
+                "top_rcmd_reason_style": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.ReasonStyle"
+                },
+                "bottom_rcmd_reason_style": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.ReasonStyle"
+                },
+                "rcmd_reason_style_v2": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.ReasonStyle"
+                },
+                "left_cover_badge_style": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.ReasonStyle"
+                },
+                "right_cover_badge_style": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.ReasonStyle"
+                },
+                "cover_badge_2": {
+                    "type": "string"
+                },
+                "like_button": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.LikeButton"
+                },
+                "title_single_line": {
+                    "type": "integer"
+                },
+                "cover_right_text": {
+                    "type": "string"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.LargeCoverV4": {
+            "type": "object",
+            "properties": {
+                "": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Base"
+                },
+                "cover_left_text_1": {
+                    "type": "string"
+                },
+                "cover_left_text_2": {
+                    "type": "string"
+                },
+                "cover_left_text_3": {
+                    "type": "string"
+                },
+                "cover_badge": {
+                    "type": "string"
+                },
+                "can_play": {
+                    "type": "integer"
+                },
+                "up": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Up"
+                },
+                "short_link": {
+                    "type": "string"
+                },
+                "share_subtitle": {
+                    "type": "string"
+                },
+                "play_number": {
+                    "type": "string"
+                },
+                "bvid": {
+                    "type": "string"
+                },
+                "sub_param": {
+                    "type": "string"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.LikeButton": {
+            "type": "object",
+            "properties": {
+                "Aid": {
+                    "type": "integer"
+                },
+                "count": {
+                    "type": "integer"
+                },
+                "show_count": {
+                    "type": "boolean"
+                },
+                "event": {
+                    "type": "string"
+                },
+                "selected": {
+                    "type": "integer"
+                },
+                "event_v2": {
+                    "type": "string"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.Mask": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Avatar"
+                },
+                "button": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Button"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.MiddleCoverV3": {
+            "type": "object",
+            "properties": {
+                "": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Base"
+                },
+                "desc1": {
+                    "type": "string"
+                },
+                "desc2": {
+                    "type": "string"
+                },
+                "cover_badge_style": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.ReasonStyle"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.PlayerArgs": {
+            "type": "object",
+            "properties": {
+                "is_live": {
+                    "type": "integer"
+                },
+                "aid": {
+                    "type": "integer"
+                },
+                "cid": {
+                    "type": "integer"
+                },
+                "sub_type": {
+                    "type": "integer"
+                },
+                "room_id": {
+                    "type": "integer"
+                },
+                "ep_id": {
+                    "type": "integer"
+                },
+                "is_preview": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "duration": {
+                    "type": "integer"
+                },
+                "season_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.PopularTopEntrance": {
+            "type": "object",
+            "properties": {
+                "": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Base"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.bilibili.app.card.v1.EntranceItem"
+                    }
+                }
+            }
+        },
+        ".bilibili.app.card.v1.RcmdOneItem": {
+            "type": "object",
+            "properties": {
+                "": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Base"
+                },
+                "top_rcmd_reason_style": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.ReasonStyle"
+                },
+                "item": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.SmallCoverRcmdItem"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.ReasonStyle": {
+            "type": "object",
+            "properties": {
+                "text": {
+                    "type": "string"
+                },
+                "text_color": {
+                    "type": "string"
+                },
+                "bg_color": {
+                    "type": "string"
+                },
+                "border_color": {
+                    "type": "string"
+                },
+                "icon_url": {
+                    "type": "string"
+                },
+                "text_color_night": {
+                    "type": "string"
+                },
+                "bg_color_night": {
+                    "type": "string"
+                },
+                "border_color_night": {
+                    "type": "string"
+                },
+                "icon_night_url": {
+                    "type": "string"
+                },
+                "bg_style": {
+                    "type": "integer"
+                },
+                "uri": {
+                    "type": "string"
+                },
+                "icon_bg_url": {
+                    "type": "string"
+                },
+                "event": {
+                    "type": "string"
+                },
+                "event_v2": {
+                    "type": "string"
+                },
+                "right_icon_type": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.Relation": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "integer",
+                    "description": "按钮展示文案：0或者字段不存在：未关注、1：已关注、2：被关注、3：互相关注"
+                },
+                "is_follow": {
+                    "type": "integer",
+                    "description": "用户关注UP主：0或者字段不存在：未关注、1：已关注"
+                },
+                "is_followed": {
+                    "type": "integer",
+                    "description": "UP主关注用户：0或者字段不存在：未被关注、1：被关注"
+                }
+            },
+            "description": "新关注组件"
+        },
+        ".bilibili.app.card.v1.SharePlane": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "share_subtitle": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "cover": {
+                    "type": "string"
+                },
+                "aid": {
+                    "type": "integer"
+                },
+                "bvid": {
+                    "type": "string"
+                },
+                "share_to": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "boolean"
+                    },
+                    "description": "分享的渠道如：\"weibo\": true"
+                },
+                "author": {
+                    "type": "string"
+                },
+                "author_id": {
+                    "type": "integer"
+                },
+                "short_link": {
+                    "type": "string"
+                },
+                "play_number": {
+                    "type": "string"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.SmallCoverRcmdItem": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "cover": {
+                    "type": "string"
+                },
+                "uri": {
+                    "type": "string"
+                },
+                "param": {
+                    "type": "string"
+                },
+                "goto": {
+                    "type": "string"
+                },
+                "cover_right_text_1": {
+                    "type": "string"
+                },
+                "right_desc_1": {
+                    "type": "string"
+                },
+                "right_desc_2": {
+                    "type": "string"
+                },
+                "cover_gif": {
+                    "type": "string"
+                },
+                "right_icon_1": {
+                    "type": "integer"
+                },
+                "right_icon_2": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.SmallCoverV5": {
+            "type": "object",
+            "properties": {
+                "": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Base"
+                },
+                "cover_gif": {
+                    "type": "string"
+                },
+                "up": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Up"
+                },
+                "cover_right_text_1": {
+                    "type": "string"
+                },
+                "right_desc_1": {
+                    "type": "string"
+                },
+                "right_desc_2": {
+                    "type": "string"
+                },
+                "rcmd_reason_style": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.ReasonStyle"
+                },
+                "hotword_entrance": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.HotwordEntrance"
+                },
+                "corner_mark_style": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.ReasonStyle"
+                },
+                "right_icon_1": {
+                    "type": "integer"
+                },
+                "right_icon_2": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.ThreeItemAllV2": {
+            "type": "object",
+            "properties": {
+                "": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Base"
+                },
+                "top_rcmd_reason_style": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.ReasonStyle"
+                },
+                "item": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.bilibili.app.card.v1.TwoItemHV1Item"
+                    }
+                }
+            }
+        },
+        ".bilibili.app.card.v1.ThreeItemV1": {
+            "type": "object",
+            "properties": {
+                "": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Base"
+                },
+                "title_icon": {
+                    "type": "integer"
+                },
+                "more_uri": {
+                    "type": "string"
+                },
+                "more_text": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.bilibili.app.card.v1.ThreeItemV1Item"
+                    }
+                }
+            }
+        },
+        ".bilibili.app.card.v1.ThreeItemV1Item": {
+            "type": "object",
+            "properties": {
+                "": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Base"
+                },
+                "cover_left_text": {
+                    "type": "string"
+                },
+                "cover_left_icon": {
+                    "type": "integer"
+                },
+                "desc_1": {
+                    "type": "string"
+                },
+                "desc_2": {
+                    "type": "string"
+                },
+                "badge": {
+                    "type": "string"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.ThreePoint": {
+            "type": "object",
+            "properties": {
+                "dislike_reasons": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.bilibili.app.card.v1.DislikeReason"
+                    }
+                },
+                "feedbacks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.bilibili.app.card.v1.DislikeReason"
+                    }
+                },
+                "watch_later": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.ThreePointV2": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "reasons": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.bilibili.app.card.v1.DislikeReason"
+                    }
+                },
+                "type": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.ThreePointV3": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "selected_title": {
+                    "type": "string"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "reasons": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.bilibili.app.card.v1.DislikeReason"
+                    }
+                },
+                "type": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "selected": {
+                    "type": "integer"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "selected_icon": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "default_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.ThreePointV4": {
+            "type": "object",
+            "properties": {
+                "share_plane": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.SharePlane"
+                },
+                "watch_later": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.WatchLater"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.TwoItemHV1Item": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "cover": {
+                    "type": "string"
+                },
+                "uri": {
+                    "type": "string"
+                },
+                "param": {
+                    "type": "string"
+                },
+                "args": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Args"
+                },
+                "goto": {
+                    "type": "string"
+                },
+                "cover_left_text_1": {
+                    "type": "string"
+                },
+                "cover_left_icon_1": {
+                    "type": "integer"
+                },
+                "cover_right_text": {
+                    "type": "string"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.Up": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "avatar": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Avatar"
+                },
+                "official_icon": {
+                    "type": "integer"
+                },
+                "desc_button": {
+                    "$ref": "#/definitions/.bilibili.app.card.v1.Button"
+                },
+                "cooperation": {
+                    "type": "string"
+                }
+            }
+        },
+        ".bilibili.app.card.v1.WatchLater": {
+            "type": "object",
+            "properties": {
+                "aid": {
+                    "type": "integer"
+                },
+                "bvid": {
+                    "type": "string"
+                }
+            }
+        },
+        ".bilibili.app.show.v1.Bubble": {
+            "type": "object",
+            "properties": {
+                "bubble_content": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "integer"
+                },
+                "stime": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".bilibili.app.show.v1.Config": {
+            "type": "object",
+            "properties": {
+                "item_title": {
+                    "type": "string"
+                },
+                "bottom_text": {
+                    "type": "string"
+                },
+                "bottom_text_cover": {
+                    "type": "string"
+                },
+                "bottom_text_url": {
+                    "type": "string"
+                },
+                "top_items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.bilibili.app.show.v1.EntranceShow"
+                    }
+                },
+                "head_image": {
+                    "type": "string"
+                },
+                "page_items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.bilibili.app.show.v1.EntranceShow"
+                    }
+                }
+            }
+        },
+        ".bilibili.app.show.v1.EntranceShow": {
+            "type": "object",
+            "properties": {
+                "icon": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "module_id": {
+                    "type": "string"
+                },
+                "uri": {
+                    "type": "string"
+                },
+                "bubble": {
+                    "$ref": "#/definitions/.bilibili.app.show.v1.Bubble"
+                },
+                "entrance_id": {
+                    "type": "integer"
+                },
+                "top_photo": {
+                    "type": "string"
+                },
+                "entrance_type": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".bilibili.app.show.v1.PopularReply": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.bilibili.app.card.v1.Card"
+                    }
+                },
+                "config": {
+                    "$ref": "#/definitions/.bilibili.app.show.v1.Config"
+                },
+                "ver": {
+                    "type": "string"
+                }
+            }
+        },
+        ".bilibili.app.show.v1.PopularResultReq": {
+            "type": "object",
+            "properties": {
+                "idx": {
+                    "type": "integer"
+                },
+                "login_event": {
+                    "type": "integer"
+                },
+                "qn": {
+                    "type": "integer"
+                },
+                "fnver": {
+                    "type": "integer"
+                },
+                "fnval": {
+                    "type": "integer"
+                },
+                "force_host": {
+                    "type": "integer"
+                },
+                "fourk": {
+                    "type": "integer"
+                },
+                "spmid": {
+                    "type": "string"
+                },
+                "last_param": {
+                    "type": "string"
+                },
+                "ver": {
+                    "type": "string"
+                },
+                "entrance_id": {
+                    "type": "integer"
+                },
+                "location_ids": {
+                    "type": "string"
+                },
+                "source_id": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

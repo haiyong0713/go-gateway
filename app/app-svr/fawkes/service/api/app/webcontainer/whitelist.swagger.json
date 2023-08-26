@@ -1,0 +1,486 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "go-gateway/app/app-svr/fawkes/service/api/app/webcontainer/whitelist.proto",
+        "version": "1"
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json",
+        "multipart/form-data"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/x/admin/fawkes/app/webcontainer/whitelist": {
+            "post": {
+                "summary": "/x/admin/fawkes/app/webcontainer/whitelist",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.whitelist.v1.GetWhiteListResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.whitelist.v1.GetWhiteListReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.whitelist.v1.WhiteList"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/webcontainer/whitelist/add": {
+            "post": {
+                "summary": "/x/admin/fawkes/app/webcontainer/whitelist/add",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.whitelist.v1.AddWhiteListReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.whitelist.v1.WhiteList"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/webcontainer/whitelist/config": {
+            "get": {
+                "summary": "/x/admin/fawkes/app/webcontainer/whitelist/config",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.whitelist.v1.WhiteListConfigResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "app_key",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "app.whitelist.v1.WhiteList"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/webcontainer/whitelist/delete": {
+            "post": {
+                "summary": "/x/admin/fawkes/app/webcontainer/whitelist/delete",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.whitelist.v1.DelWhiteListReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.whitelist.v1.WhiteList"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/webcontainer/whitelist/domain/sync": {
+            "post": {
+                "summary": "/x/admin/fawkes/app/webcontainer/whitelist/domain/sync",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.google.protobuf.Empty"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.whitelist.v1.WhiteList"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/webcontainer/whitelist/update": {
+            "post": {
+                "summary": "/x/admin/fawkes/app/webcontainer/whitelist/update",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.whitelist.v1.UpdateWhiteListReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.whitelist.v1.WhiteList"
+                ]
+            }
+        }
+    },
+    "definitions": {
+        ".app.whitelist.v1.AddWhiteListReq": {
+            "type": "object",
+            "properties": {
+                "app_key": {
+                    "type": "string",
+                    "description": "关联的app_key 多个用逗号隔开"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "reason": {
+                    "type": "string"
+                },
+                "is_third_party": {
+                    "$ref": "#/definitions/.google.protobuf.BoolValue",
+                    "description": "是否第三方域名"
+                },
+                "comet_id": {
+                    "type": "string"
+                },
+                "feature": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "支持的能力 JsBridge(调用jsb) = 1 QrCode(扫码) = 2; HighLight(高亮) = 3;"
+                },
+                "effective": {
+                    "type": "integer",
+                    "description": "域名生效时间"
+                },
+                "expires": {
+                    "type": "integer",
+                    "description": "域名过期时间"
+                }
+            },
+            "required": [
+                "title",
+                "domain",
+                "reason",
+                "is_third_party",
+                "feature",
+                "effective",
+                "expires"
+            ]
+        },
+        ".app.whitelist.v1.DelWhiteListReq": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "id"
+            ]
+        },
+        ".app.whitelist.v1.GetWhiteListReq": {
+            "type": "object",
+            "properties": {
+                "app_key": {
+                    "type": "string"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "is_third_party": {
+                    "$ref": "#/definitions/.google.protobuf.BoolValue"
+                },
+                "feature": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "effective": {
+                    "$ref": "#/definitions/.google.protobuf.Int64Value"
+                },
+                "expires": {
+                    "$ref": "#/definitions/.google.protobuf.Int64Value"
+                },
+                "comet_id": {
+                    "type": "string"
+                },
+                "is_domain_active": {
+                    "$ref": "#/definitions/.google.protobuf.BoolValue"
+                }
+            }
+        },
+        ".app.whitelist.v1.GetWhiteListResp": {
+            "type": "object",
+            "properties": {
+                "whitelist": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.whitelist.v1.WhiteListInfo"
+                    }
+                }
+            }
+        },
+        ".app.whitelist.v1.UpdateWhiteListReq": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "is_third_party": {
+                    "$ref": "#/definitions/.google.protobuf.BoolValue"
+                },
+                "feature": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "effective": {
+                    "$ref": "#/definitions/.google.protobuf.Int64Value"
+                },
+                "expires": {
+                    "$ref": "#/definitions/.google.protobuf.Int64Value"
+                },
+                "is_domain_active": {
+                    "$ref": "#/definitions/.google.protobuf.BoolValue"
+                },
+                "feature": {
+                    "type": "string"
+                },
+                "reason": {
+                    "type": "string"
+                },
+                "comet_id": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id"
+            ]
+        },
+        ".app.whitelist.v1.WhiteListConfigReq": {
+            "type": "object",
+            "properties": {
+                "app_key": {
+                    "type": "string"
+                }
+            }
+        },
+        ".app.whitelist.v1.WhiteListConfigResp": {
+            "type": "object",
+            "properties": {
+                "h5_all_ability_whitelist": {
+                    "type": "string"
+                },
+                "h5_jsbridge_whitelist": {
+                    "type": "string"
+                },
+                "h5_highlight_whitelist": {
+                    "type": "string"
+                },
+                "h5_qrcode_whitelist": {
+                    "type": "string"
+                },
+                "h5_alert_whitelist": {
+                    "type": "string"
+                }
+            }
+        },
+        ".app.whitelist.v1.WhiteListInfo": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "app_key": {
+                    "type": "string"
+                },
+                "feature": {
+                    "type": "string"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "reason": {
+                    "type": "string"
+                },
+                "is_third_party": {
+                    "type": "boolean"
+                },
+                "comet_id": {
+                    "type": "string"
+                },
+                "feature": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "effective": {
+                    "type": "integer"
+                },
+                "expires": {
+                    "type": "integer"
+                },
+                "ctime": {
+                    "type": "integer"
+                },
+                "mtime": {
+                    "type": "integer"
+                },
+                "is_domain_active": {
+                    "type": "boolean"
+                },
+                "comet_url": {
+                    "type": "string"
+                }
+            }
+        },
+        ".google.protobuf.BoolValue": {
+            "type": "object",
+            "properties": {
+                "value": {
+                    "type": "boolean",
+                    "description": "The bool value."
+                }
+            },
+            "description": "Wrapper message for `bool`.\n\n The JSON representation for `BoolValue` is JSON `true` and `false`."
+        },
+        ".google.protobuf.Empty": {
+            "type": "object",
+            "properties": {},
+            "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }\n\n The JSON representation for `Empty` is empty JSON object `{}`."
+        },
+        ".google.protobuf.Int64Value": {
+            "type": "object",
+            "properties": {
+                "value": {
+                    "type": "integer",
+                    "description": "The int64 value."
+                }
+            },
+            "description": "Wrapper message for `int64`.\n\n The JSON representation for `Int64Value` is JSON string."
+        }
+    }
+}

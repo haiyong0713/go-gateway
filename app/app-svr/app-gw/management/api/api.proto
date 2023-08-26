@@ -1,0 +1,874 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+package appgw.management.v1;
+
+option go_package = "api";
+
+message Project {
+  string project_name = 1 [(gogoproto.jsontag) = "project_name"];
+  string node = 2 [(gogoproto.jsontag) = "node"];
+}
+
+message AuthZReq {
+  string username = 1;
+  string cookie = 2;
+  string node = 3 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+}
+
+message Gateway {
+  string project_name = 1 [(gogoproto.jsontag) = "project_name"];
+  string app_name = 2 [(gogoproto.jsontag) = "app_name"];
+  string node = 3 [(gogoproto.jsontag) = "node"];
+  int64 tree_id = 4 [(gogoproto.jsontag) = "tree_id"];
+  repeated configMeta configs = 5 [(gogoproto.jsontag) = "configs"];
+  int64 updated_at = 6 [(gogoproto.jsontag) = "updated_at"];
+  string discovery_appid = 7 [(gogoproto.jsontag) = "discovery_appid"];
+  string discovery_color = 8 [(gogoproto.jsontag) = "discovery_color"];
+  repeated configMeta grpc_configs = 9 [(gogoproto.jsontag) = "grpc_configs"];
+}
+
+message configMeta {
+  string token = 1 [(gogoproto.jsontag) = "token"];
+  string env = 2 [(gogoproto.jsontag) = "env"];
+  string zone = 3 [(gogoproto.jsontag) = "zone"];
+  string build_name = 4 [(gogoproto.jsontag) = "build_name"];
+  string filename = 5 [(gogoproto.jsontag) = "filename"];
+  bool enable = 6 [(gogoproto.jsontag) = "enable"];
+}
+
+message GatewayReply {
+  repeated Gateway gateways = 1 [(gogoproto.jsontag) = "gateways"];
+}
+
+message AuthZReply {
+  repeated Project projects = 1 [(gogoproto.jsontag) = "projects"];
+}
+
+message BreakerByNull {
+  string name = 1 [(gogoproto.jsontag) = "name"];
+}
+
+message BreakerByEcode {
+  string name = 1 [
+    (gogoproto.jsontag) = "name",
+    (gogoproto.moretags) = 'validate:"required"'
+  ];
+  int64 ecode = 2 [
+    (gogoproto.jsontag) = "ecode",
+    (gogoproto.moretags) = 'validate:"required"'
+  ];
+}
+
+message BreakerByPlaceholder {
+  string name = 1 [
+    (gogoproto.jsontag) = "name",
+    (gogoproto.moretags) = 'validate:"required"'
+  ];
+  string data = 2 [
+    (gogoproto.jsontag) = "data",
+    (gogoproto.moretags) = 'validate:"required"'
+  ];
+}
+
+message BreakerByRetryBackup {
+  string name = 1 [
+    (gogoproto.jsontag) = "name",
+    (gogoproto.moretags) = 'validate:"required"'
+  ];
+  string backup_url = 2 [
+    (gogoproto.jsontag) = "backup_url",
+    (gogoproto.moretags) = 'validate:"required"'
+  ];
+}
+
+message BreakerByDirectlyBackup {
+  string name = 1 [
+    (gogoproto.jsontag) = "name",
+    (gogoproto.moretags) = 'validate:"required"'
+  ];
+  string backup_url = 2 [
+    (gogoproto.jsontag) = "backup_url",
+    (gogoproto.moretags) = 'validate:"required"'
+  ];
+}
+
+message BreakerAction {
+  oneof action {
+    BreakerByNull null = 1;
+    BreakerByEcode ecode = 2;
+    BreakerByPlaceholder placeholder = 3;
+    BreakerByDirectlyBackup directly_backup = 4;
+    BreakerByRetryBackup retry_backup = 5;
+  }
+}
+
+message FlowCopy {
+  oneof flow {
+    CopyByNull null = 1;
+    CopyByRatio ratio = 2;
+    CopyByQPS qps = 3;
+  }
+}
+
+message CopyByNull {
+  string name = 1 [(gogoproto.jsontag) = "name"];
+}
+
+message CopyByRatio {
+  string name = 1 [(gogoproto.jsontag) = "name",(gogoproto.moretags) = 'validate:"required"'];
+  int64 ratio = 2 [(gogoproto.jsontag) = "ratio",(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message CopyByQPS {
+  string name = 1 [(gogoproto.jsontag) = "name",(gogoproto.moretags) = 'validate:"required"'];
+  int64 qps = 2 [(gogoproto.jsontag) = "qps",(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message BreakerAPI {
+  string api = 1 [(gogoproto.jsontag) = "api"];
+  int64 ratio = 2 [(gogoproto.jsontag) = "ratio"];
+  string reason = 3 [(gogoproto.jsontag) = "reason"];
+  string condition = 4 [(gogoproto.jsontag) = "condition"];
+  BreakerAction action = 5 [(gogoproto.jsontag) = "action"];
+  bool enable = 6 [(gogoproto.jsontag) = "enable"];
+  string node = 7 [(gogoproto.jsontag) = "node"];
+  string gateway = 8 [(gogoproto.jsontag) = "gateway"];
+  FlowCopy flow_copy = 9 [(gogoproto.jsontag) = "flow_copy"];
+}
+
+message ListBreakerAPIReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+}
+
+message ListBreakerAPIReply {
+  repeated BreakerAPI breaker_api_list = 1
+      [(gogoproto.jsontag) = "breaker_api_list"];
+}
+
+message SetBreakerAPIReq {
+  string api = 1 [(gogoproto.moretags) = 'form:"api" validate:"required"'];
+  int64 ratio = 2 [(gogoproto.moretags) = 'form:"ratio" validate:"required"'];
+  string reason = 3
+      [(gogoproto.moretags) = 'form:"reason" validate:"required"'];
+  string condition = 4 [(gogoproto.moretags) = 'form:"condition"'];
+  BreakerAction action = 5 [(gogoproto.moretags) = 'form:"-"'];
+  bool enable = 6 [(gogoproto.moretags) = 'form:"enable"'];
+  string node = 7 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 8
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  string username = 9 [(gogoproto.moretags) = 'form:"-"'];
+  FlowCopy flow_copy = 10 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message EnableBreakerAPIReq {
+  string api = 1 [(gogoproto.moretags) = 'form:"api" validate:"required"'];
+  string node = 2 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 3
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  bool disable = 4 [(gogoproto.moretags) = 'form:"disable"'];
+  string username = 5 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message DeleteBreakerAPIReq {
+  string api = 1 [(gogoproto.moretags) = 'form:"api" validate:"required"'];
+  string node = 2 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 3
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  string username = 4 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message SetGatewayReq {
+  string app_name = 1
+      [(gogoproto.moretags) = 'form:"app_name" validate:"required"'];
+  string node = 2 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  int64 tree_id = 3 [(gogoproto.moretags) = 'form:"tree_id"'];
+  repeated configMeta configs = 4 [(gogoproto.moretags) = 'form:"-"'];
+  string username = 5 [(gogoproto.moretags) = 'form:"-"'];
+  string discovery_appid = 6 [(gogoproto.moretags) = 'form:"discovery_appid"'];
+  string discovery_color = 7 [(gogoproto.moretags) = 'form:"discovery_color"'];
+  repeated configMeta grpc_configs = 8 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message ListGatewayReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+}
+
+message DeleteGatewayReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string app_name = 2
+      [(gogoproto.moretags) = 'form:"app_name" validate:"required"'];
+  string username = 3 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message dynPath {
+  string node = 1 [(gogoproto.jsontag) = "node"];
+  string gateway = 2 [(gogoproto.jsontag) = "gateway"];
+  string pattern = 3 [(gogoproto.jsontag) = "pattern"];
+  clientInfo client_info = 4 [(gogoproto.jsontag) = "client_info"];
+  int64 updated_at = 5 [(gogoproto.jsontag) = "updated_at"];
+  bool enable = 6 [(gogoproto.jsontag) = "enable"];
+  map<string, string> annotation = 7 [(gogoproto.jsontag) = "annotation"];
+}
+
+message ListDynPathReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+}
+
+message ListDynPathReply {
+  string node = 1 [(gogoproto.jsontag) = "node"];
+  string gateway = 2 [(gogoproto.jsontag) = "gateway"];
+  repeated dynPath dyn_paths = 3 [(gogoproto.jsontag) = "dyn_paths"];
+}
+
+message clientInfo {
+  string app_id = 1 [(gogoproto.jsontag) = "app_id"];
+  string endpoint = 2 [(gogoproto.jsontag) = "endpoint"];
+  int64 timeout = 3 [(gogoproto.jsontag) = "timeout"];
+  google.protobuf.Int64Value max_retries = 4 [(gogoproto.wktpointer) = true];
+  bool skip_endpoint_check = 5 [(gogoproto.jsontag) = "skip_endpoint_check"];
+}
+
+message SetDynPathReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  string pattern = 3
+      [(gogoproto.moretags) = 'form:"pattern" validate:"required"'];
+  clientInfo client_info = 4 [(gogoproto.moretags) = 'form:"-"'];
+  int64 updated_at = 5 [(gogoproto.moretags) = 'form:"-"'];
+  bool enable = 6 [(gogoproto.moretags) = 'form:"enable"'];
+  string username = 7 [(gogoproto.moretags) = 'form:"-"'];
+  map<string, string> annotation = 8 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message DeleteDynPathReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  string pattern = 3
+      [(gogoproto.moretags) = 'form:"pattern" validate:"required"'];
+  string username = 4 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message UpdateALLGatewayConfigReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string app_name = 2
+      [(gogoproto.moretags) = 'form:"app_name" validate:"required"'];
+  bool disable = 3 [(gogoproto.moretags) = 'form:"disable"'];
+  string username = 4 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message EnableDynPathReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  string pattern = 3
+      [(gogoproto.moretags) = 'form:"pattern" validate:"required"'];
+  bool disable = 4 [(gogoproto.moretags) = 'form:"disable"'];
+  string username = 5 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message sponsor {
+  int64 uid = 1 [(gogoproto.jsontag) = "uid"];
+  string uname = 2 [(gogoproto.jsontag) = "uname"];
+}
+
+message entity {
+  string gateway = 1 [(gogoproto.jsontag) = "gateway"];
+  int64 object_type = 2 [(gogoproto.jsontag) = "type"];
+  string action = 3 [(gogoproto.jsontag) = "action"];
+  string identifier = 4 [(gogoproto.jsontag) = "identifier"];
+  string env = 5 [(gogoproto.jsontag) = "env"];
+  string zone = 6 [(gogoproto.jsontag) = "zone"];
+}
+
+message extra_content {
+  string detail = 1 [(gogoproto.jsontag) = "detail"];
+}
+
+message log_item {
+  string job_id = 1 [(gogoproto.jsontag) = "job_id"];
+  int64 ctime = 2 [(gogoproto.jsontag) = "ctime"];
+  int64 mtime = 3 [(gogoproto.jsontag) = "mtime"];
+  string state = 4 [(gogoproto.jsontag) = "state"];
+  string level = 5 [(gogoproto.jsontag) = "level"];
+  sponsor sponsor = 6
+      [(gogoproto.jsontag) = "sponsor", (gogoproto.nullable) = false];
+  entity entity = 7
+      [(gogoproto.jsontag) = "entity", (gogoproto.nullable) = false];
+  extra_content extra_content = 8
+      [(gogoproto.jsontag) = "extra_content", (gogoproto.nullable) = false];
+  string category = 9 [(gogoproto.jsontag) = "category"];
+}
+
+message page {
+  int64 num = 1 [(gogoproto.jsontag) = "num"];
+  int64 size = 2 [(gogoproto.jsontag) = "size"];
+  int64 total = 3 [(gogoproto.jsontag) = "total"];
+}
+
+message ListLogReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  int64 object = 3 [(gogoproto.moretags) = 'form:"object"'];
+  int64 pn = 4 [(gogoproto.moretags) = 'form:"pn"'];
+  int64 ps = 5 [(gogoproto.moretags) = 'form:"ps"'];
+}
+
+message ListLogReply {
+  repeated log_item lists = 1 [(gogoproto.jsontag) = "lists"];
+  page pages = 2 [(gogoproto.jsontag) = "page", (gogoproto.nullable) = false];
+}
+
+message worker_node {
+  string hostname = 1 [(gogoproto.jsontag) = "hostname"];
+  string zone = 2 [(gogoproto.jsontag) = "zone"];
+  string gateway_version = 3 [(gogoproto.jsontag) = "gateway_version"];
+  string sdk_version = 4 [(gogoproto.jsontag) = "sdk_version"];
+  string advertise_addr = 5 [(gogoproto.jsontag) = "advertise_addr"];
+  repeated string addrs = 6 [(gogoproto.jsontag) = "addrs"];
+  int64 status = 7 [(gogoproto.jsontag) = "status"];
+  int64 reg_timestamp = 8 [(gogoproto.jsontag) = "reg_timestamp"];
+  int64 up_timestamp = 9 [(gogoproto.jsontag) = "up_timestamp"];
+  int64 renew_timestamp = 10 [(gogoproto.jsontag) = "renew_timestamp"];
+  int64 dirty_timestamp = 11 [(gogoproto.jsontag) = "dirty_timestamp"];
+  int64 latest_timestamp = 12 [(gogoproto.jsontag) = "latest_timestamp"];
+  string version = 13 [(gogoproto.jsontag) = "version"];
+  map<string, string> metadata = 14 [(gogoproto.jsontag) = "metadata"];
+  string monitor_url = 15 [(gogoproto.jsontag) = "monitor_url"];
+  string config_api = 16 [(gogoproto.jsontag) = "config_api"];
+  string config_digest = 17 [(gogoproto.jsontag) = "config_digest"];
+  string grpc_config_api = 18 [(gogoproto.jsontag) = "grpc_config_api"];
+  string grpc_config_digest = 19 [(gogoproto.jsontag) = "grpc_config_digest"];
+}
+
+message worker_nodes {
+  repeated string gateway_version = 1 [(gogoproto.jsontag) = "gateway_version"];
+  repeated string sdk_version = 2 [(gogoproto.jsontag) = "sdk_version"];
+  repeated worker_node nodes = 3 [(gogoproto.jsontag) = "nodes"];
+}
+
+message GatewayProfileReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string app_name = 2
+      [(gogoproto.moretags) = 'form:"app_name" validate:"required"'];
+  string username = 3 [(gogoproto.moretags) = 'form:"-"'];
+  string cookie = 4 [(gogoproto.moretags) = 'form:"-"'];
+  string host = 5 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message GatewayProfileReply {
+  string project_name = 1 [(gogoproto.jsontag) = "project_name"];
+  string app_name = 2 [(gogoproto.jsontag) = "app_name"];
+  string node = 3 [(gogoproto.jsontag) = "node"];
+  int64 tree_id = 4 [(gogoproto.jsontag) = "tree_id"];
+  repeated string zones = 5 [(gogoproto.jsontag) = "zones"];
+  repeated configMeta configs = 6 [(gogoproto.jsontag) = "configs"];
+  int64 updated_at = 7 [(gogoproto.jsontag) = "updated_at"];
+  worker_nodes worker_nodes = 8 [(gogoproto.jsontag) = "worker_nodes"];
+  repeated configMeta grpc_configs = 9 [(gogoproto.jsontag) = "grpc_configs"];
+  repeated string envs = 10 [(gogoproto.jsontag) = "envs"];
+}
+
+message ExecuteTaskReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  string task = 3 [(gogoproto.moretags) = 'form:"task" validate:"required"'];
+  string username = 4 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message ExecuteTaskReply {
+  string task_id = 1 [(gogoproto.jsontag) = "task_id"];
+}
+
+message GatewayProxyReq {
+  string token = 1 [(gogoproto.moretags) = 'form:"token"'];
+  string suffix = 2 [(gogoproto.moretags) = 'form:"suffix"'];
+}
+
+message GatewayProxyReply {
+  bytes page = 1 [(gogoproto.jsontag) = "page"];
+  int32 status_code = 2 [(gogoproto.jsontag) = "status_code"];
+  map<string, header> header = 3
+      [(gogoproto.jsontag) = "header", (gogoproto.nullable) = false];
+}
+
+message header {
+  repeated string values = 1 [(gogoproto.jsontag) = "values"];
+}
+
+message AppPromptAPIReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node"'];
+  string username = 2 [(gogoproto.moretags) = 'form:"-"'];
+  string cookie = 3 [(gogoproto.moretags) = 'form:"-"'];
+  bool only_gateway = 4 [(gogoproto.moretags) = 'form:"only_gateway"'];
+}
+
+message AppPromptAPIReply {
+  repeated TreeNode nodes = 1 [(gogoproto.jsontag) = "nodes"];
+}
+
+message TreeNode {
+  int64 tree_id = 1 [(gogoproto.jsontag) = "tree_id"];
+  string name = 2 [(gogoproto.jsontag) = "name"];
+  string path = 3 [(gogoproto.jsontag) = "path"];
+  string discovery_id = 4 [(gogoproto.jsontag) = "discovery_id"];
+}
+
+message ConfigPromptAPIReq {
+  int64 tree_id = 1
+      [(gogoproto.moretags) = 'form:"tree_id" validate:"required"'];
+  string cookie = 2 [(gogoproto.moretags) = 'form:"-"'];
+  string type = 3 [(gogoproto.moretags) = 'form:"type"'];
+}
+
+message ConfigPromptAPIReply {
+  repeated AppConfigItem list = 1 [(gogoproto.jsontag) = "list"];
+}
+
+message AppConfigItem {
+  string file_name = 1 [(gogoproto.jsontag) = "file_name"];
+  string env = 2 [(gogoproto.jsontag) = "env"];
+  string zone = 3 [(gogoproto.jsontag) = "zone"];
+  string build_name = 4 [(gogoproto.jsontag) = "build_name"];
+  string token = 5 [(gogoproto.jsontag) = "token"];
+}
+
+message AppPathPromptAPIReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+}
+
+message AppPathPromptAPIReply {
+  repeated string paths = 1 [(gogoproto.jsontag) = "paths"];
+}
+
+message InitGatewayConfigsReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string app_name = 2
+      [(gogoproto.moretags) = 'form:"app_name" validate:"required"'];
+  int64 tree_id = 3 [(gogoproto.moretags) = 'form:"tree_id"'];
+  string cookie = 4 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message SnapshotActionReq {
+  string uuid = 1 [(gogoproto.moretags) = 'form:"-"'];
+  string resource = 2 [(gogoproto.moretags) = 'form:"-"'];
+  string action = 3 [(gogoproto.moretags) = 'form:"-"'];
+  oneof snapshotReq {
+    ListBreakerAPIReq listBreakerAPIReq = 4;
+    SetBreakerAPIReq setBreakerAPIReq = 5;
+    EnableBreakerAPIReq enableBreakerAPIReq = 6;
+    DeleteBreakerAPIReq deleteBreakerAPIReq = 7;
+    ListDynPathReq listDynPathReq = 8;
+    SetDynPathReq setDynPathReq = 9;
+    DeleteDynPathReq deleteDynPathReq = 10;
+    EnableDynPathReq enableDynPathReq = 11;
+  }
+}
+
+message Empty {}
+
+message SnapshotActionReply {
+  oneof snapshotReply {
+    Empty empty = 1;
+    ListBreakerAPIReply listBreakerAPI = 2;
+    ListDynPathReply listDynPath = 3;
+  }
+}
+
+message AddSnapshotReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  string username = 3 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message AddSnapshotReply {
+  snapshotMeta meta = 1 [(gogoproto.jsontag) = "meta"];
+}
+
+message snapshotMeta {
+  string uuid = 1 [(gogoproto.jsontag) = "uuid"];
+  string node = 2 [(gogoproto.jsontag) = "node"];
+  string gateway = 3 [(gogoproto.jsontag) = "gateway"];
+}
+
+message SnapshotProfileReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  string uuid = 3 [(gogoproto.moretags) = 'form:"uuid" validate:"required"'];
+}
+
+message SnapshotProfileReply {
+  snapshotMeta meta = 1 [(gogoproto.jsontag) = "meta"];
+  ListDynPathReply dyn_path = 2 [(gogoproto.jsontag) = "dyn_path"];
+  ListBreakerAPIReply breaker_api = 3 [(gogoproto.jsontag) = "breaker_api"];
+  ListDynPathReply grpc_dyn_path = 4 [(gogoproto.jsontag) = "grpc_dyn_path"];
+  ListBreakerAPIReply grpc_breaker_api = 5 [(gogoproto.jsontag) = "grpc_breaker_api"];
+  repeated QuotaMethod quota_method = 6 [(gogoproto.jsontag) = "quota_method"];
+}
+
+message CreateDeploymentReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  string uuid = 3 [(gogoproto.moretags) = 'form:"uuid" validate:"required"'];
+  string description = 4 [(gogoproto.moretags) = 'form:"description"'];
+  string username = 5 [(gogoproto.moretags) = 'form:"-"'];
+  string deployment_type = 6 [(gogoproto.moretags) = 'form:"deployment_type"'];
+}
+
+message CreateDeploymentReply {
+  string deployment_id = 1 [(gogoproto.jsontag) = "deployment_id"];
+}
+
+message DeploymentReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  string deployment_id = 3
+      [(gogoproto.moretags) = 'form:"deployment_id" validate:"required"'];
+  string username = 4 [(gogoproto.moretags) = 'form:"-"'];
+  string deployment_type = 5 [(gogoproto.moretags) = 'form:"deployment_type"'];
+}
+
+message CompareDeploymentReply {
+  string id = 1 [(gogoproto.jsontag) = "id"];
+  string node = 2 [(gogoproto.jsontag) = "node"];
+  string gateway = 3 [(gogoproto.jsontag) = "gateway"];
+  old_configs old_configs = 4 [(gogoproto.jsontag) = "old_configs"];
+  new_configs new_configs = 5 [(gogoproto.jsontag) = "new_configs"];
+  string type = 6 [(gogoproto.jsontag) = "type"];
+}
+
+message old_configs {
+  repeated BreakerAPI breaker_api_list = 1
+      [(gogoproto.jsontag) = "breaker_api_list"];
+  repeated dynPath dyn_path_list = 2 [(gogoproto.jsontag) = "dyn_path_list"];
+}
+
+message new_configs {
+  repeated snapshot_dyn_path snapshot_dyn_paths = 1
+      [(gogoproto.jsontag) = "snapshot_dyn_paths"];
+  repeated snapshot_breaker_api snapshot_breaker_apis = 2
+      [(gogoproto.jsontag) = "snapshot_breaker_apis"];
+}
+
+message snapshot_dyn_path {
+  dynPath dynPath = 1 [(gogoproto.jsontag) = "dyn_path"];
+  bool has_changed = 2 [(gogoproto.jsontag) = "has_changed"];
+}
+
+message snapshot_breaker_api {
+  BreakerAPI breaker_api = 1 [(gogoproto.jsontag) = "breaker_api"];
+  bool has_changed = 2 [(gogoproto.jsontag) = "has_changed"];
+}
+
+message DeployDeploymentProfileReply {
+  string id = 1 [(gogoproto.jsontag) = "id"];
+  string node = 2 [(gogoproto.jsontag) = "node"];
+  string gateway = 3 [(gogoproto.jsontag) = "gateway"];
+  string sponsor = 4 [(gogoproto.jsontag) = "sponsor"];
+  string confirm = 5 [(gogoproto.jsontag) = "confirm"];
+  string description = 6 [(gogoproto.jsontag) = "description"];
+  string state = 7 [(gogoproto.jsontag) = "state"];
+  repeated action_log action_log = 8 [(gogoproto.jsontag) = "action_log"];
+  repeated instance_status instance_status = 9
+      [(gogoproto.jsontag) = "instance_status"];
+  deployment_status status = 10
+      [(gogoproto.jsontag) = "status", (gogoproto.nullable) = false];
+  string type = 11 [(gogoproto.jsontag) = "type"];
+}
+
+message action_log {
+  string instance = 1 [(gogoproto.jsontag) = "instance"];
+  string action = 2 [(gogoproto.jsontag) = "action"];
+  string level = 3 [(gogoproto.jsontag) = "level"];
+  int64 created_at = 4 [(gogoproto.jsontag) = "created_at"];
+  string sponsor = 5 [(gogoproto.jsontag) = "sponsor"];
+}
+
+message instance_status {
+  string instance = 1 [(gogoproto.jsontag) = "instance"];
+  string addr = 2 [(gogoproto.jsontag) = "addr"];
+  string state = 3 [(gogoproto.jsontag) = "state"];
+  int64 created_at = 4 [(gogoproto.jsontag) = "created_at"];
+  string digest = 5 [(gogoproto.jsontag) = "digest"];
+}
+
+message ListDeploymentReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2
+      [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  int64 page_num = 3 [(gogoproto.moretags) = 'form:"page_num" default:"1"'];
+  int64 size = 4 [(gogoproto.moretags) =
+                      'form:"size" validate:"min=1,required" default:"100"'];
+  int64 stime = 5 [(gogoproto.moretags) = 'form:"stime"'];
+  int64 etime = 6 [(gogoproto.moretags) = 'form:"etime"'];
+  string deployment_type = 7 [(gogoproto.moretags) = 'form:"deployment_type"'];
+}
+
+message ListDeploymentReply {
+  string node = 1 [(gogoproto.jsontag) = "node"];
+  string gateway = 2 [(gogoproto.jsontag) = "gateway"];
+  repeated DeploymentMeta lists = 3 [(gogoproto.jsontag) = "lists"];
+  page pages = 4 [(gogoproto.jsontag) = "page", (gogoproto.nullable) = false];
+}
+
+message DeploymentMeta {
+  string deployment_id = 1 [(gogoproto.jsontag) = "deployment_id"];
+  string snapshot_uuid = 2 [(gogoproto.jsontag) = "snapshot_uuid"];
+  string description = 3 [(gogoproto.jsontag) = "description"];
+  string sponsor = 4 [(gogoproto.jsontag) = "sponsor"];
+  int64 created_at = 5 [(gogoproto.jsontag) = "created_at"];
+  int64 updated_at = 6 [(gogoproto.jsontag) = "updated_at"];
+  string state = 7 [(gogoproto.jsontag) = "state"];
+  string rollback_uuid = 8 [(gogoproto.jsontag) = "rollback_uuid"];
+  string node = 9 [(gogoproto.jsontag) = "node"];
+  string gateway = 10 [(gogoproto.jsontag) = "gateway"];
+  deployment_status status = 11
+      [(gogoproto.jsontag) = "status", (gogoproto.nullable) = false];
+  string deployment_type = 12 [(gogoproto.jsontag) = "deployment_type"];
+}
+
+message deployment_status {
+  bool rollbacked = 1 [(gogoproto.jsontag) = "rollbacked"];
+  bool persisted = 2 [(gogoproto.jsontag) = "persisted"];
+  bool finished = 3 [(gogoproto.jsontag) = "finished"];
+  bool initialized = 4 [(gogoproto.jsontag) = "initialized"];
+  bool deployed = 5 [(gogoproto.jsontag) = "deployed"];
+  bool single_deployed = 6 [(gogoproto.jsontag) = "single_deployed"];
+}
+
+message DeploymentConfirm {
+  string sponsor = 1 [(gogoproto.jsontag) = "sponsor"];
+  int64 confirmed_at = 2 [(gogoproto.jsontag) = "confirmed_at"];
+}
+
+message AddActionLogReq {
+  string node = 1 [(gogoproto.jsontag) = "node"];
+  string gateway = 2 [(gogoproto.jsontag) = "gateway"];
+  string deployment_id = 3 [(gogoproto.jsontag) = "deployment_id"];
+  action_log action_log = 4
+      [(gogoproto.jsontag) = "action_log", (gogoproto.nullable) = false];
+}
+
+message SnapshotRunPlan {
+  repeated SetDynPathReq set_dyn_req = 1 [(gogoproto.jsontag) = "set_dyn_req"];
+  repeated SetBreakerAPIReq set_breaker_req = 2
+      [(gogoproto.jsontag) = "set_breaker_req"];
+  repeated DeleteDynPathReq del_dyn_req = 3
+      [(gogoproto.jsontag) = "del_dyn_req"];
+  repeated DeleteBreakerAPIReq del_breaker_req = 4
+      [(gogoproto.jsontag) = "del_breaker_req"];
+}
+
+message ListLimiterReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2
+  [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+}
+
+message Limiter {
+  string id = 1 [(gogoproto.jsontag) = "id"];
+  string api = 2 [(gogoproto.jsontag) = "api"];
+  int64 capacity = 3 [(gogoproto.jsontag) = "capacity"];
+  int64 refresh_interval = 4 [(gogoproto.jsontag) = "refresh_interval"];
+  int64 algorithm = 5 [(gogoproto.jsontag) = "algorithm"];
+}
+
+message LimiterListItem {
+  string api = 1 [(gogoproto.jsontag) = "api"];
+  repeated LimiterMeta limiters = 2 [(gogoproto.jsontag) = "limiters"];
+}
+
+message LimiterMeta {
+  string id = 1 [(gogoproto.jsontag) = "id"];
+  total_rule total_rule = 2 [(gogoproto.jsontag) = "total_rule", (gogoproto.nullable) = false];
+  int64 refresh_interval = 3 [(gogoproto.jsontag) = "refresh_interval"];
+  int64 algorithm = 4 [(gogoproto.jsontag) = "algorithm"];
+  string rule = 5 [(gogoproto.jsontag) = "rule"];
+  bool enable = 6 [(gogoproto.jsontag) = "enable"];
+  string zone = 7 [(gogoproto.jsontag) = "zone"];
+  referer_rule referer_rule = 8 [(gogoproto.jsontag) = "referer_rule", (gogoproto.nullable) = false];
+}
+
+message total_rule {
+  int64 capacity = 1 [(gogoproto.jsontag) = "capacity"];
+}
+
+message referer_rule {
+  int64 capacity = 1 [(gogoproto.jsontag) = "capacity"];
+}
+
+message ListLimiterReply {
+  repeated LimiterListItem list = 1 [(gogoproto.jsontag) = "list"];
+}
+
+message AddLimiterReq {
+  string api = 1 [(gogoproto.moretags) = 'form:"api" validate:"required"'];
+  int64 capacity = 2 [(gogoproto.moretags) = 'form:"capacity" validate:"required"'];
+  int64 refresh_interval = 3 [(gogoproto.moretags) = 'form:"refresh_interval" validate:"required"'];
+  int64 algorithm = 4 [(gogoproto.moretags) = 'form:"algorithm"'];
+  string zone = 5 [(gogoproto.moretags) = 'form:"zone" validate:"required"'];
+  string rule = 6 [(gogoproto.moretags) = 'form:"rule" default:"total"'];
+  bool enable = 7 [(gogoproto.moretags) = 'form:"enable"'];
+  string node = 8 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 9 [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  string username = 10 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message SetLimiterReq {
+  string id = 1 [(gogoproto.moretags) = 'form:"id" validate:"required"'];
+  int64 capacity = 2 [(gogoproto.moretags) = 'form:"capacity" validate:"required"'];
+  int64 refresh_interval = 3 [(gogoproto.moretags) = 'form:"refresh_interval" validate:"required"'];
+  int64 algorithm = 4 [(gogoproto.moretags) = 'form:"algorithm"'];
+  string rule = 5 [(gogoproto.moretags) = 'form:"rule" default:"total"'];
+  string node = 6 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 7 [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  string username = 8 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message DeleteLimiterReq {
+  string id = 1 [(gogoproto.moretags) = 'form:"id" validate:"required"'];
+  string node = 2 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 3 [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  string username = 4 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message EnableLimiterReq {
+  string api = 1 [(gogoproto.moretags) = 'form:"api" validate:"required"'];
+  string node = 2 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 3 [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+  bool disable = 4 [(gogoproto.moretags) = 'form:"disable"'];
+  string username = 5 [(gogoproto.moretags) = 'form:"-"'];
+  string rule = 6 [(gogoproto.moretags) = 'form:"rule" validate:"required"'];
+}
+
+message QuotaMethod {
+  string api = 1 [(gogoproto.jsontag) = "api"];
+  string rule = 2 [(gogoproto.jsontag) = "rule"];
+  string node = 3 [(gogoproto.jsontag) = "node"];
+  string gateway = 4 [(gogoproto.jsontag) = "gateway"];
+  bool enable = 5 [(gogoproto.jsontag) = "enable"];
+}
+
+message PluginReq {
+  string plugin_name = 1 [(gogoproto.moretags) = 'form:"plugin_name" validate:"required"'];
+  string field = 2 [(gogoproto.moretags) = 'form:"field" validate:"required"'];
+  Plugin plugin = 3 [(gogoproto.moretags) = 'form:"-"'];
+}
+
+message Plugin {
+  string data = 1 [(gogoproto.jsontag) = "data"];
+}
+
+message ZonePromptAPIReq {
+  string node = 1 [(gogoproto.moretags) = 'form:"node" validate:"required"'];
+  string gateway = 2 [(gogoproto.moretags) = 'form:"gateway" validate:"required"'];
+}
+
+message ZonePromptAPIReply {
+  repeated string zones = 1 [(gogoproto.jsontag) = "zones"];
+}
+
+message PluginListReq {
+  string plugin_name = 1 [(gogoproto.moretags) = 'form:"plugin_name" validate:"required"'];
+}
+
+message PluginListReply {
+  repeated PluginListItem list = 1 [(gogoproto.jsontag) = "list"];
+}
+
+message PluginListItem {
+  string key = 1 [(gogoproto.jsontag) = "key"];
+  Plugin plugin = 2 [(gogoproto.jsontag) = "plugin"];
+}
+
+message GRPCAppPackagePromptAPIReq {
+  string endpoint = 1 [(gogoproto.moretags) = 'form:"endpoint"'];
+}
+
+message GRPCAppPackagePromptAPIReply {
+  map<string, AppPackageService> package = 1 [(gogoproto.jsontag) = "package"];
+}
+
+message AppPackageService {
+  repeated string services = 1 [(gogoproto.jsontag) = "services"];
+}
+
+service Management {
+  rpc Ping(.google.protobuf.Empty) returns (.google.protobuf.Empty);
+  rpc AuthZ(AuthZReq) returns (AuthZReply);
+  rpc Gateway(AuthZReq) returns (GatewayReply);
+  rpc GatewayProfile(GatewayProfileReq) returns (GatewayProfileReply);
+  rpc AddGateway(SetGatewayReq) returns (.google.protobuf.Empty);
+  rpc UpdateGateway(SetGatewayReq) returns (.google.protobuf.Empty);
+  rpc DeleteGateway(DeleteGatewayReq) returns (.google.protobuf.Empty);
+  rpc EnableALLGatewayConfig(UpdateALLGatewayConfigReq)
+      returns (.google.protobuf.Empty);
+  rpc DisableALLGatewayConfig(UpdateALLGatewayConfigReq)
+      returns (.google.protobuf.Empty);
+  rpc EnableAllGRPCGatewayConfig(UpdateALLGatewayConfigReq)
+  returns (.google.protobuf.Empty);
+  rpc DisableAllGRPCGatewayConfig(UpdateALLGatewayConfigReq)
+  returns (.google.protobuf.Empty);
+  rpc ListBreakerAPI(ListBreakerAPIReq) returns (ListBreakerAPIReply);
+  rpc SetBreakerAPI(SetBreakerAPIReq) returns (.google.protobuf.Empty);
+  rpc UpdateBreakerAPI(SetBreakerAPIReq) returns (.google.protobuf.Empty);
+  rpc EnableBreakerAPI(EnableBreakerAPIReq) returns (.google.protobuf.Empty);
+  rpc DisableBreakerAPI(EnableBreakerAPIReq) returns (.google.protobuf.Empty);
+  rpc DeleteBreakerAPI(DeleteBreakerAPIReq) returns (.google.protobuf.Empty);
+  rpc ListDynPath(ListDynPathReq) returns (ListDynPathReply);
+  rpc AddDynPath(SetDynPathReq) returns (.google.protobuf.Empty);
+  rpc UpdateDynPath(SetDynPathReq) returns (.google.protobuf.Empty);
+  rpc DeleteDynPath(DeleteDynPathReq) returns (.google.protobuf.Empty);
+  rpc EnableDynPath(EnableDynPathReq) returns (.google.protobuf.Empty);
+  rpc DisableDynPath(EnableDynPathReq) returns (.google.protobuf.Empty);
+  rpc ListLog(ListLogReq) returns (ListLogReply);
+  rpc ExecuteTask(ExecuteTaskReq) returns (ExecuteTaskReply);
+  rpc GatewayProxy(GatewayProxyReq) returns (GatewayProxyReply);
+  rpc InitGatewayConfigs(InitGatewayConfigsReq)
+      returns (.google.protobuf.Empty);
+  rpc AppPromptAPI(AppPromptAPIReq) returns (AppPromptAPIReply);
+  rpc ConfigPromptAPI(ConfigPromptAPIReq) returns (ConfigPromptAPIReply);
+  rpc AppPathPromptAPI(AppPathPromptAPIReq) returns (AppPathPromptAPIReply);
+  rpc SnapshotAction(SnapshotActionReq) returns (SnapshotActionReply);
+  rpc AddSnapshot(AddSnapshotReq) returns (AddSnapshotReply);
+  rpc SnapshotProfile(SnapshotProfileReq) returns (SnapshotProfileReply);
+  rpc CreateDeployment(CreateDeploymentReq) returns (CreateDeploymentReply);
+  rpc CompareDeployment(DeploymentReq) returns (CompareDeploymentReply);
+  rpc ConfirmDeployment(DeploymentReq) returns (.google.protobuf.Empty);
+  rpc DeployDeployment(DeploymentReq) returns (.google.protobuf.Empty);
+  rpc DeployDeploymentProfile(DeploymentReq) returns (DeployDeploymentProfileReply);
+  rpc Deployment(ListDeploymentReq) returns (ListDeploymentReply);
+  rpc DeployDeploymentAll(DeploymentReq) returns (.google.protobuf.Empty);
+  rpc RollbackDeployment(DeploymentReq) returns (.google.protobuf.Empty);
+  rpc FinishDeployment(DeploymentReq) returns (.google.protobuf.Empty);
+  rpc CloseDeployment(DeploymentReq) returns (.google.protobuf.Empty);
+  rpc CancelDeployment(DeploymentReq) returns (.google.protobuf.Empty);
+  rpc ListLimiter(ListLimiterReq) returns (ListLimiterReply);
+  rpc AddLimiter(AddLimiterReq) returns (.google.protobuf.Empty);
+  rpc UpdateLimiter(SetLimiterReq) returns (.google.protobuf.Empty);
+  rpc DeleteLimiter(DeleteLimiterReq) returns (.google.protobuf.Empty);
+  rpc EnableLimiter(EnableLimiterReq) returns (.google.protobuf.Empty);
+  rpc DisableLimiter(EnableLimiterReq) returns (.google.protobuf.Empty);
+  rpc SetupPlugin(PluginReq) returns (.google.protobuf.Empty);
+  rpc ZonePromptAPI(ZonePromptAPIReq) returns (ZonePromptAPIReply);
+  rpc PluginList(PluginListReq) returns (PluginListReply);
+  rpc GRPCAppMethodPromptAPI(AppPathPromptAPIReq) returns (AppPathPromptAPIReply);
+  rpc GRPCAppPackagePromptAPI(GRPCAppPackagePromptAPIReq) returns (GRPCAppPackagePromptAPIReply);
+}

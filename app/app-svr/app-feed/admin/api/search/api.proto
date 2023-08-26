@@ -1,0 +1,169 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/empty.proto";
+
+package main.feed.admin.search.api;
+
+option go_package = "search";
+
+service Search {
+  rpc BatchOptWeb(BatchOptWebReq) returns (BatchOptWebResp);
+  rpc BatchOptResultSpread(BatchOptResultSpreadReq) returns (BatchOptResultSpreadResp);
+  // 搜索后台-up主别名管理
+  // 新增
+  rpc AddUpAlias(AddUpAliasReq) returns (.google.protobuf.Empty);
+  // 编辑
+  rpc EditUpAlias(EditUpAliasReq) returns (.google.protobuf.Empty);
+  // 审核
+  rpc ToggleUpAlias(ToggleUpAliasReq) returns (.google.protobuf.Empty);
+  // 查询
+  rpc SearchUpAlias(SearchUpAliasReq) returns (SearchUpAliasRep);
+  // 同步信息
+  rpc SyncUpAlias(SyncUpAliasReq) returns (SyncUpAliasRep);
+}
+
+// --------------------------- 请求和返回的定义 ----------------------------
+message BatchOptWebReq {
+  int64 uid = 1 [(gogoproto.moretags) = 'form:"uid"', (gogoproto.jsontag) = "uid"];
+  string uname = 2 [(gogoproto.moretags) = 'form:"uname"', (gogoproto.jsontag) = "uname"];
+  repeated int64 ids = 3 [(gogoproto.moretags) = 'form:"ids,split" validate:"required"', (gogoproto.jsontag) = "ids", json_name = "ids"];
+  string option = 4 [(gogoproto.moretags) = 'form:"option" validate:"required"', (gogoproto.jsontag) = "option", json_name = "option"];
+}
+
+message BatchOptWebResp {
+  repeated BatchInvalidItem invalid_ids = 1 [(gogoproto.jsontag) = "invalid_ids"];
+}
+
+message BatchOptResultSpreadReq {
+  int64 uid = 1 [(gogoproto.moretags) = 'form:"uid"', (gogoproto.jsontag) = "uid"];
+  string uname = 2 [(gogoproto.moretags) = 'form:"uname"', (gogoproto.jsontag) = "uname"];
+  repeated int64 spread_ids = 3 [(gogoproto.moretags) = 'form:"spread_ids,split" validate:"required"', (gogoproto.jsontag) = "spread_ids", json_name = "spread_ids"];
+  string option = 4 [(gogoproto.moretags) = 'form:"option" validate:"required"', (gogoproto.jsontag) = "option", json_name = "option"];
+}
+
+message BatchOptResultSpreadResp {
+  repeated BatchInvalidItem invalid_ids = 1 [(gogoproto.jsontag) = "invalid_ids"];
+}
+
+message BatchInvalidItem {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  string msg = 2 [(gogoproto.jsontag) = "msg"];
+}
+
+message AddUpAliasReq {
+  // 用户mid
+  int64 mid = 1;
+  // 用户昵称
+  string nickname = 2;
+  // 搜索词
+  string search_words = 3 [(gogoproto.jsontag) = "search_words"];
+  // 生效开始时间
+  int64 stime = 4;
+  // 生效结束时间
+  int64 etime = 5;
+  // 是否永久
+  int32 is_forever = 6 [(gogoproto.jsontag) = "is_forever"];
+  // 申请人
+  string applier = 7;
+}
+
+message EditUpAliasReq{
+  // 记录id
+  int64 id = 1;
+  // 用户mid
+  int64 mid = 2;
+  // 用户昵称
+  string nickname = 3;
+  // 搜索词
+  string search_words = 4 [(gogoproto.jsontag) = "search_words"];
+  // 生效开始时间
+  int64 stime = 5;
+  // 生效结束时间
+  int64 etime = 6;
+  // 是否永久
+  int32 is_forever = 7 [(gogoproto.jsontag) = "is_forever"];
+  // 申请人
+  string applier = 8;
+}
+
+message ToggleUpAliasReq{
+  // 记录id
+  int64 id = 1;
+  // 是否在线
+  int32 state = 2;
+}
+
+message SearchUpAliasReq{
+  // 分页大小
+  int32 ps = 1 [(gogoproto.moretags) = 'form:"ps"'];
+  // 页码
+  int32 pn = 2 [(gogoproto.moretags) = 'form:"pn"'];
+  // 用户mid
+  int64 mid = 3 [(gogoproto.moretags) = 'form:"mid"'];
+  // 用户昵称
+  string nickname = 4 [(gogoproto.moretags) = 'form:"nickname"'];
+  // 搜索词
+  string search_words = 5 [(gogoproto.moretags) = 'form:"search_words"'];
+  // 申请人
+  string applier = 6 [(gogoproto.moretags) = 'form:"applier"'];
+}
+
+message SearchUpAliasRep {
+  repeated UpAlias items = 1 [(gogoproto.jsontag) = "items"];
+  PageInfo pager = 2 [(gogoproto.jsontag) = "pager"];
+}
+
+message UpAlias {
+  // 记录id
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  // 用户mid
+  int64 mid = 2 [(gogoproto.jsontag) = "mid"];
+  // 用户昵称
+  string nickname = 3 [(gogoproto.jsontag) = "nickname"];
+  // 搜索词
+  string search_words = 4 [(gogoproto.jsontag) = "search_words"];
+  // 生效开始时间
+  int64 stime = 5 [(gogoproto.jsontag) = "stime"];
+  // 生效结束时间
+  int64 etime = 6 [(gogoproto.jsontag) = "etime"];
+  // 是否永久
+  int32 is_forever = 7 [(gogoproto.jsontag) = "is_forever"];
+  // 申请人
+  string applier = 8 [(gogoproto.jsontag) = "applier"];
+  // 是否在线
+  int32 state = 9 [(gogoproto.jsontag) = "state"];
+  // 粉丝数
+  int64 fans_count = 10 [(gogoproto.jsontag) = "fans_count"];
+  // 创建时间
+  int64 ctime = 11 [(gogoproto.jsontag) = "ctime"];
+}
+
+message PageInfo {
+  int32 num = 1 [(gogoproto.jsontag) = "num"];
+  int32 size = 2 [(gogoproto.jsontag) = "size"];
+  int32 total = 3 [(gogoproto.jsontag) = "total"];
+}
+
+message SyncUpAliasReq {
+  int64 effect_time = 1 [(gogoproto.moretags) = 'form:"effect_time"'];
+}
+
+message SyncUpAliasRep {
+  repeated SyncUpAlias items = 1 [(gogoproto.jsontag) = "items"];
+}
+
+message SyncUpAlias {
+  // 记录id
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  // 用户mid
+  int64 mid = 2 [(gogoproto.jsontag) = "mid"];
+  // 用户昵称
+  string nickname = 3 [(gogoproto.jsontag) = "nickname"];
+  // 搜索词
+  repeated string search_words = 4 [(gogoproto.jsontag) = "search_words"];
+  // 编辑时间
+  int64 mtime = 5 [(gogoproto.jsontag) = "mtime"];
+}
+
+

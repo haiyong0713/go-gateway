@@ -1,0 +1,17 @@
+[cmc]
+    host = "https://go.gicp.game.qq.com"
+    secret = "436db730f5869a7bde3db7a3171d7f0f"
+    ibiz = "18"
+    source = "bilibili"
+    sext9 = "45"
+    [cmc.oauth2]
+        clientId = "f9a9yne6hp1x4mtj"
+        secret = "qa0w1c5n4yazfms3wd03od8hhlc1i5j0"
+
+[tgl]
+    host = "https://api.tgl.qq.com"
+    action = 10106
+    gameId = 362
+    [tgl.oauth2]
+        clientId = "tgl73c03b4636eb0"
+        secret = "0b753a27ff42ade1f149da68f4713f81cb27f52e"

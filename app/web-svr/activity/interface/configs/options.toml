@@ -1,0 +1,17 @@
+Base = "go-gateway/app/web-svr/activity/interface/"
+[Options]
+    [Options.Switch]
+        "component.InitDWRelations" = false
+        "component.InitClient" = false
+        #"bapis/platform/interface/act-plat-v2" = false
+        "service/like.asyncReserveConsumeProc" = false
+        "service/like.initInternalGetActRelationInfoFromCacheSetInfoMemory" = false
+        "service/like.initInternalGetActSubjectInfoFromCacheSetInfoMemory" = false
+        "service/like.initInternalGetActSubjectReserveIDsInfoFromCacheSetInfoMemory" = false
+        "service/like.initGetActReservedMapVideoSourceTags" = false
+        "service/system.New" = false
+        "service/springfestival2021.New" = false
+        "service/cards.New" = false
+        "service/examination.New" = false
+    [Options.CloseAfter]
+        "service/acg.New" = 2021-01-01T00:00:00+08:00

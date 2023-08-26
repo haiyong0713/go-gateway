@@ -1,0 +1,294 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+// use {app_id}.{version} as package name
+package ugcseason.service.v1;
+
+option go_package = "api";
+
+// UGCSeason grpc
+service UGCSeason {
+    // 获取合集信息
+    rpc Season(SeasonRequest) returns(SeasonReply);
+    // 批量获取合集信息
+    rpc Seasons(SeasonsRequest) returns(SeasonsReply);
+    // 提供给详情页查询稿件所属的合集信息
+    rpc View(ViewRequest) returns(ViewReply);
+    // 批量查询合集下稿件信息（一次最多20个合集，所含前20个稿件）
+    rpc Views(ViewsRequest) returns(ViewsReply);
+    // 获取计数信息
+    rpc Stat(StatRequest) returns(StatReply);
+    // 批量获取计数信息
+    rpc Stats(StatsRequest) returns(StatsReply);
+    // UP主的所有剧集列表
+    rpc UpperList(UpperListRequest) returns(UpperListReply);
+    // 更新合集所属的所有缓存
+    rpc UpCache(UpCacheRequest) returns(NoReply);
+}
+
+// NoReply
+message NoReply{}
+
+message UpperListRequest {
+    int64 mid = 1 [(gogoproto.moretags)='validate:"gt=0,required"'];
+    int64 pageNum = 2 [(gogoproto.moretags)='validate:"min=1"'];
+    int64 pageSize = 3 [(gogoproto.moretags)='validate:"min=1,max=20"'];
+}
+
+message UpperListReply {
+    repeated Season seasons = 1;
+    int64 totalCount = 2 [(gogoproto.jsontag) = "total_count"];
+    int64 totalPage = 3 [(gogoproto.jsontag) = "total_page"];
+}
+
+message UpCacheRequest {
+    int64 SeasonID = 1;
+    string action = 2;
+}
+
+message SeasonRequest {
+    int64 seasonID = 1 [(gogoproto.jsontag) = "season_id", (gogoproto.moretags)='validate:"gt=0,required"'];
+}
+
+message SeasonReply {
+    Season season = 1;
+}
+
+// SeasonsRequest
+message SeasonsRequest {
+    // 批量合集id
+    repeated int64 season_ids = 1 [(gogoproto.moretags)='validate:"max=50,min=1,dive,gt=0,required"'];
+}
+
+// SeasonsReply
+message SeasonsReply {
+    // season_id为key的合集信息
+    map<int64, Season> seasons = 1;
+}
+
+message ViewRequest {
+    int64 seasonID = 1 [(gogoproto.jsontag) = "season_id", (gogoproto.moretags)='validate:"gt=0,required"'];
+}
+
+message ViewReply {
+    View view = 1;
+}
+
+message View {
+    Season season = 1;
+    repeated Section sections = 2;
+}
+
+message Season {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    // 剧集标题
+    string title = 2 [(gogoproto.jsontag) = "title"];
+    // 剧集封面图地址，绝对地址 如 http://i0.hdslb.com/bfs/xxx.jpg
+    string cover = 3 [(gogoproto.jsontag) = "cover"];
+    // 用户mid
+    int64 mid = 4 [(gogoproto.jsontag) = "mid"];
+    // 剧集简介
+    string intro = 5 [(gogoproto.jsontag) = "intro"];
+    // 签约状态 0未签约 1独家 2首发
+    int32 signState = 6[(gogoproto.jsontag) = "sign_state"];
+    // 属性位
+    int64 attribute = 7[(gogoproto.jsontag) = "attribute"];
+    // 剧集计数信息，详见Stat字段说明
+    Stat stat = 8 [(gogoproto.jsontag) = "stat", (gogoproto.nullable) = false];
+    // 单集数量
+    int64 epCount = 9 [(gogoproto.jsontag) = "ep_count"];
+    // 第一集aid
+    int64 first_aid = 10;
+    // 最新一集的发布时间
+    int64 Ptime = 11 [(gogoproto.jsontag) = "ptime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    // 付费合集，预期总共的视频数量，实际epCount可能会大于epNum
+    int64 ep_num = 12 [(gogoproto.jsontag) = "ep_num", json_name = "ep_num"];
+    // 合集绑定的商品信息
+    GoodsInfo goods_info = 13;
+}
+
+message GoodsInfo{
+    // 商品id
+    string goods_id = 1;
+    // 商品名称
+    string goods_name = 2;
+    // 商品价格(分)
+    int64 goods_price = 3;
+    // 商品价格(元)
+    string goods_price_fmt = 4;
+}
+
+message StatRequest {
+    int64 seasonID = 1 [(gogoproto.jsontag) = "season_id", (gogoproto.moretags)='validate:"gt=0,required"'];
+}
+
+message StatReply {
+    Stat stat = 1;
+}
+
+message StatsReply {
+    map<int64, Stat> stats = 1;
+}
+
+message Stat {
+    int64 seasonID = 1 [(gogoproto.jsontag) = "season_id"];
+    // 播放数
+    int32 view = 2 [(gogoproto.jsontag) = "view"];
+    // 弹幕数
+    int32 danmaku = 3 [(gogoproto.jsontag) = "danmaku"];
+    // 评论数
+    int32 reply = 4 [(gogoproto.jsontag) = "reply"];
+    // 收藏数
+    int32 fav = 5 [(gogoproto.jsontag) = "favorite"];
+    // 投币数
+    int32 coin = 6 [(gogoproto.jsontag) = "coin"];
+    // 分享数
+    int32 share = 7 [(gogoproto.jsontag) = "share"];
+    // 当前排名
+    int32 nowRank = 8 [(gogoproto.jsontag) = "-"];
+    // 历史最高排名
+    int32 hisRank = 9 [(gogoproto.jsontag) = "-"];
+    // 点赞数
+    int32 like = 10 [(gogoproto.jsontag) = "like"];
+    // 更新时间 时间戳格式
+    int64 Mtime = 11 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message StatsRequest {
+    repeated int64 seasonIDs = 1 [(gogoproto.jsontag) = "season_ids" ,(gogoproto.moretags)='validate:"dive,gt=0,required"'];
+}
+
+message Section {
+    // 剧集ID
+    int64 seasonID = 1 [(gogoproto.jsontag) = "season_id"];
+    // 小节ID
+    int64 ID = 2 [(gogoproto.jsontag) = "id"];
+    // 小节标题
+    string title = 3 [(gogoproto.jsontag) = "title"];
+    // 小节类型 0其他 1正片
+    int64 type = 4 [(gogoproto.jsontag) = "type"];
+    // 单集列表
+    repeated Episode episodes = 5;
+}
+
+message Episode {
+    // 剧集ID
+    int64 seasonID = 1 [(gogoproto.jsontag) = "season_id"];
+    // 小节ID
+    int64 sectionID = 2 [(gogoproto.jsontag) = "section_id"];
+    // 单集ID
+    int64 ID = 3 [(gogoproto.jsontag) = "id"];
+    // 对应稿件的aid
+    int64 aid = 4 [(gogoproto.jsontag) = "aid"];
+    // 对应视频的cid
+    int64 cid = 5 [(gogoproto.jsontag) = "cid"];
+    // 单集的标题
+    string title = 6 [(gogoproto.jsontag) = "title"];
+    // 属性位, 2位表示免费试看单集(只有合集attribute的bit6为1才有效)
+    int64 attribute = 7 [(gogoproto.jsontag) = "attribute"];
+    // 对应的稿件信息
+    Arc arc = 8;
+    // 对应的单p信息
+    ArcPage page = 9;
+}
+
+message Arc {
+    // 稿件封面
+    string pic = 1;
+    // 稿件发布时间
+    int64 pubDate = 2 [(gogoproto.jsontag) = "pubdate", (gogoproto.casttype) = "go-common/library/time.Time"];
+    // 稿件计数
+    ArcStat stat = 3;
+    // 单集作者
+    Author author = 4;
+    // 稿件属性位
+    int64 attribute = 5;
+    // 稿件属性位v2
+    int64 attribute_v2 = 6;
+    // 稿件总时长（所有分P加起来的） 单位=秒
+    int64 duration = 7;
+    // 标题
+    string title = 8;
+    // 稿件首p首帧
+    string first_frame = 9;
+}
+
+// Author 稿件作者信息
+message Author {
+    // Up主mid
+    int64 mid = 1;
+    // Up主名称
+    string name = 2;
+    // Up主头像地址 绝对地址
+    string face = 3;
+}
+
+// ArcPage 分P信息
+message ArcPage {
+    // 视频的cid
+    int64 cid = 1 [(gogoproto.jsontag) = "cid"];
+    // 视频的序号顺序，从小到大
+    int32 page = 2 [(gogoproto.jsontag) = "page"];
+    // 视频的来源，99%为vupload=B站自己的，少部分为腾讯（qq）、湖南tv(hunan)
+    string from = 3 [(gogoproto.jsontag) = "from"];
+    // 视频的标题
+    string part = 4 [(gogoproto.jsontag) = "part"];
+    // 视频的时长 单位=秒
+    int64 duration = 5 [(gogoproto.jsontag) = "duration"];
+    // 站外视频才有vid属性
+    string vid = 6 [(gogoproto.jsontag) = "vid"];
+    // 视频的简介，多P视频才可填写简介
+    string desc = 7 [(gogoproto.jsontag) = "description,omitempty"];
+    // 站外视频跳转地址
+    string webLink = 8 [(gogoproto.jsontag) = "weblink"];
+    // 视频分辨率信息
+    Dimension dimension = 9 [(gogoproto.jsontag) = "dimension", (gogoproto.nullable) = false];
+}
+
+// Dimension 视频分辨率
+message Dimension {
+    // 宽 如 1920
+    int64 width = 1 [(gogoproto.jsontag) = "width"];
+    // 高 如 1080
+    int64 height = 2 [(gogoproto.jsontag) = "height"];
+    // 是否翻转 0=否 1=是
+    int64 rotate = 3 [(gogoproto.jsontag) = "rotate"];
+}
+
+// ArcStat 稿件的所有计数信息
+message ArcStat {
+    int64 aid = 1 [(gogoproto.jsontag) = "aid"];
+    // 播放数
+    int32 view = 2 [(gogoproto.jsontag) = "view"];
+    // 弹幕数
+    int32 danmaku = 3 [(gogoproto.jsontag) = "danmaku"];
+    // 评论数
+    int32 reply = 4 [(gogoproto.jsontag) = "reply"];
+    // 收藏数
+    int32 fav = 5 [(gogoproto.jsontag) = "favorite"];
+    // 投币数
+    int32 coin = 6 [(gogoproto.jsontag) = "coin"];
+    // 分享数
+    int32 share = 7 [(gogoproto.jsontag) = "share"];
+    // 当前排名
+    int32 nowRank = 8 [(gogoproto.jsontag) = "now_rank"];
+    // 历史最高排名
+    int32 hisRank = 9 [(gogoproto.jsontag) = "his_rank"];
+    // 点赞数
+    int32 like = 10 [(gogoproto.jsontag) = "like"];
+    // 点踩数 已取消前台展示，现在均返回0
+    int32 disLike = 11 [(gogoproto.jsontag) = "dislike"];
+}
+
+message ViewsRequest {
+    // 批量合集id（最多20个）
+    repeated int64 season_ids = 1 [(gogoproto.moretags) = 'validate:"max=20,min=1,dive,gt=0"'];
+    // 每个合集需要返回的单集数量（最大20）
+    int64 ep_size = 2 [(gogoproto.moretags) = 'validate:"gt=0,lte=20"'];
+}
+
+message ViewsReply {
+    // season_id为key包含eps
+    map<int64, View> views = 1;
+}

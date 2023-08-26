@@ -1,0 +1,36 @@
+Base = "go-gateway/app/web-svr/activity/job/"
+[Options]
+    [Options.Switch]
+        "databus.ActPlatHistory-T" = false
+        "databus.LotteryAddTimes-T" = false
+        "databus.Lottery-T" = false
+        "databus.StatLike-T" = false
+        "databus.StatCoin-T" = false
+        "databus.Article-T" = false
+        "databus.ActBnjPreview-T" = false
+        "databus.ActBnjAward-T" = false
+        "databus.StatReply-T" = false
+        "databus.ArchiveNotify-T" = false
+        "databus.ActivityFreeFlow-T" = false
+        "databus.VipBinlog-T" = false
+        "databus.ScheduleEventReward-T" = false
+        "databus.Lottery-Award-T" = false
+        "databus.VipLotteryTimes-T" = false
+        "databus.ActivationCard-T" = false
+        "databus.TvipOrderSucc-T" = false
+        "databus.ArcActEvent-T" = false
+        "databus.ActivityCustomLottery-T" = false
+        "databus.Reserve-Notify-T" = false
+        "databus.GaiaHitReport-T" = false
+        "databus.Bnj-2021-AR-T" = false
+        "databus.User-In-LiveRoom-T" = false
+        "databus.Live-Lottery-Rec-T" = false
+        "databus.Live-ARDraw-Coupon-T" = false
+        "databus.DoRelation-T" = false
+        "databus.ActivityRewardsSending-T" = false
+        "databus.Archive-T" = false
+        "databus.UpActReserveRelationChannelAudit-Uat-T" = false
+        "databus.UpActReserveLotteryUserReserveState-Uat-T" = false
+        "databus.DFCardUser-T" = false
+    [Options.CloseAfter]
+        "service/acg.New" = 2021-01-01T00:00:00+08:00

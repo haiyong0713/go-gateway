@@ -1,0 +1,73 @@
+[log]
+   stdout = true
+   #dir = "/data/log/dance-taiko-job/"
+
+
+[httpClient]
+    key = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial = "1s"
+    timeout = "1s"
+    keepAlive = "60s"
+
+
+[host]
+    api   = "http://api.bilibili.co"
+
+[redis]
+name = "demo"
+proto = "tcp"
+addr = "127.0.0.1:6379"
+idle = 10
+active = 10
+dialTimeout = "1s"
+readTimeout = "1s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+gameExp = "30m"
+
+[mysql]
+addr = "172.16.33.205:3308"
+dsn = "test_3306:UJPZaGKjpb2ylFx3HNhmLuwOYft4MCAi@tcp(172.22.34.101:3306)/steins_gate?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+active = 20
+idle = 10
+idleTimeout ="4h"
+queryTimeout = "1s"
+execTimeout = "1s"
+tranTimeout = "2s"
+
+[cfg]
+defaultScore = 2000
+StatDelay = 500
+StatCron = "* * * * * *" ## 每秒结算2次
+StatCurrency = 10 ## 结算并发量
+MaxScore = 5000.00 ## 最大分值
+Normalization = true
+Boundary = 100 ## 计算关键帧附近正负100ms的数据
+[cfg.Deviation]
+Perfect = 0.75
+Super = 0.60
+Good = 0.40
+Bad = 0.20
+[cfg.Score]
+Perfect = 100
+Super = 80
+Good = 50
+Bad = 30
+Miss = 0
+
+[DanceBinlogSub]
+key = "9765cdac5894f2ba"
+secret = "f4237d712c3ed1e7fab0137b81418b14"
+group = "DanceBinlog-MainWebSvr-S"
+topic = "DanceBinlog-T"
+action="sub"
+name = "dance-taiko-job/DanceBinlogSub"
+proto = "tcp"
+addr = "172.18.33.50:6205"
+idle = 1
+active = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"

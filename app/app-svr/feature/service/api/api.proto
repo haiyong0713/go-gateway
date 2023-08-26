@@ -1,0 +1,181 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+// use {app_id}.{version} as package name
+package feature.service.v1;
+
+option go_package = "api";
+
+// Feature grpc
+service Feature {
+    // BuildLimit 获取treeID对应版本控制
+    rpc BuildLimit(BuildLimitReq) returns(BuildLimitReply);
+    // FeatureDegrades ott交互开关(部分)
+    rpc FeatureDegrades (FeatureDegradesReq) returns (FeatureDegradesReply);
+    // ChannelFeature ott交互开关(部分)
+    rpc ChannelFeature (ChannelFeatureReq) returns (ChannelFeatureReply);
+    // FeatureTVSwitch ott极速版交互开关
+    rpc FeatureTVSwitch(FeatureTVSwitchReq) returns (FeatureTVSwitchReply);
+    // BusinessConfig 业务配置下发
+    rpc BusinessConfig(BusinessConfigReq) returns (BusinessConfigReply);
+    // ABTest 获取treeID对应分组实验
+    rpc ABTest(ABTestReq) returns(ABTestReply);
+}
+
+// NoArgReq
+message NoArgRequest{}
+// NoReply
+message NoReply{}
+
+message BuildLimitReq{
+    int64 tree_id = 1;
+}
+
+message BuildLimitReply{
+    repeated BuildLimitkeys keys = 2;
+}
+
+message BuildLimitkeys{
+    string key_name = 1;
+    repeated BuildLimitPlats plats = 2;
+}
+
+message BuildLimitPlats{
+    string mobi_app = 1;
+    repeated BuildLimitConditions conditions = 2;
+}
+
+message BuildLimitConditions{
+    string op = 1;
+    int64 build = 2;
+}
+
+message FeatureDegradesReq {
+    // 渠道
+    string channel = 1;
+    // 品牌
+    string brand = 2;
+    // 机型
+    string model = 3;
+    // 安卓版本
+    int64 sys_ver = 4;
+    // 版本号
+    int64 build = 5;
+    // 降级功能
+    repeated string feature = 6 [(gogoproto.moretags)='validate:"required"'];
+    // 内存大小
+    int64 memory = 7;
+}
+
+message FeatureDegradesReply {
+    map<string, FeatureDegradeItem> items = 1 [(gogoproto.jsontag) = "items"];
+}
+
+message FeatureDegradeItem {
+    // 是否降级
+    bool is_degrade = 1 [(gogoproto.jsontag) = "is_degrade"];
+    // 放大倍数
+    float enlarge = 2 [(gogoproto.jsontag) = "enlarge"];
+    // 日志等级
+    int32 logLevel = 3 [(gogoproto.jsontag) = "log_level"];
+}
+
+message ChannelFeatureReq {
+    string channel = 1 [(gogoproto.moretags)='validate:"required"'];
+}
+
+message ChannelFeatureReply {
+    int64 decode_type = 1 [(gogoproto.jsontag) = "decode_type"];
+    int32 auto_launch = 2 [(gogoproto.jsontag) = "auto_launch"];
+}
+
+message FeatureTVSwitchReq {
+    // 渠道
+    string channel = 1;
+    // 品牌
+    string brand = 2;
+    // 机型
+    string model = 3;
+    // 安卓版本
+    int64 sys_ver = 4;
+    // 内存大小
+    int64 memory = 5;
+    // 降级功能
+    repeated string feature = 6 [(gogoproto.moretags)='validate:"required"'];
+}
+
+enum DisplayType {
+    DisplayTypeNone = 0;
+    DisplayTypeDegrade = 1;
+    DisplayTypeChannel = 2;
+}
+
+message FeatureTVSwitchReply {
+    map<string,FeatureTVSwitchItem> switch = 1;
+    bool is_hit = 2;
+    int64 id = 3;
+}
+
+message FeatureTVSwitchItem {
+    // 业务类型
+    DisplayType display_type = 1;
+    // 是否命中极速版规则
+    bool is_hit = 2;
+    // 命中的规则ID
+    int64 hit_id = 3;
+    // 返回值
+    oneof item {
+        FeatureDegradeItem degrade = 4;
+        ChannelFeatureReply channel = 5;
+    }
+}
+
+message BusinessConfigReq {
+    int64 tree_id = 1;
+}
+
+message BusinessConfigReply {
+    map<string, BusinessConfig> business_configs = 1;
+}
+
+message BusinessConfig {
+    int64 id = 1;
+    int64 tree_id = 2;
+    string key_name = 3;
+    string config = 4;
+    string description = 5;
+    repeated int64 relations = 6;
+}
+
+message ABTestReq {
+    int64 tree_id = 1;
+}
+
+message ABTestReply {
+    repeated ABTestItem abtest_items = 1;
+}
+
+message ABTestItem {
+    // 数据ID
+    int64 id = 1;
+    // 实验所属服务
+    int64 tree_id = 2;
+    // 实验key
+    string key_name = 3;
+    // 实验类型
+    string ab_type = 4;
+    // 分桶数
+    int32 bucket = 5;
+    // 盐值
+    string salt = 6;
+    // 实验配置
+    repeated ExpConfig config = 7;
+}
+
+message ExpConfig{
+    string group = 1;
+    int32 start = 2;
+    int32 end = 3;
+    string whitelist = 4;
+}

@@ -1,0 +1,25 @@
+
+[log]
+dir = "/data/log/feature-service/"
+
+[httpServers]
+    [httpServers.inner]
+    addr = "0.0.0.0:8171"
+    timeout = "1s"
+
+[db]
+    [db.feature]
+    addr = "127.0.0.1:3306"
+    dsn = "root:test@tcp(127.0.0.1:3306)/bilibili_feature?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+    idle = 2
+    idleTimeout ="4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+    [db.feature.breaker]
+    window = "3s"
+    sleep = "100ms"
+    bucket = 10
+    ratio = 0.5
+    request = 100

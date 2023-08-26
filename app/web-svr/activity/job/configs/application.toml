@@ -1,0 +1,864 @@
+[log]
+    dir = "/tmp/log/activity/"
+
+[live]
+    sid = 11440
+    lid = 319
+    seids = [13,14,15,16,17]
+    liveExpire = 1728000
+
+[bnj2019]
+    gamecancel=1
+    lid = 2555
+    startTime = "2018-12-06T15:40:00+08:00"
+    timelinePic = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+    h5timelinePic= "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+    msgSpec = ""
+    midLimit = 1000
+    wxKey = "71f079db59672ecec5b8d6f252c4b59ab2a8a227mainsite@bilibili.com"
+    wxSercet = "37ba757817b4e9c45c7e97f6ed5eee4e1c7bac52"
+    [[bnj2019.time]]
+        second = 360
+        score = 2000000
+        step = 4
+        msgTitle = "拜年祭200万预约达成，快来查看你的预约奖励吧！"
+        msgMc = "1_21_11"
+        msg = "感谢各位观众姥爷们的热情，已成功开启第四档预约奖励，主机显卡等你来抽！#{点我查看奖励；}{\"https://www.bilibili.com/blackboard/xianxing2019bnj.html\"}抽奖结果将在一个工作日后公布，请关注哔哩哔哩活动获悉获奖名单"
+    [[bnj2019.time]]
+        second = 1800
+        score = 1500000
+        step = 3
+        msgTitle = "拜年祭150万预约达成，快来查看你的预约奖励吧！"
+        msgMc = "1_21_10"
+        msg = "感谢各位观众姥爷们的热情，已成功开启第三档预约奖励，会员购优惠券点击即送！#{点我查看奖励；}{\"https://www.bilibili.com/blackboard/xianxing2019bnj.html\"}抽奖结果将在一个工作日后公布，请关注哔哩哔哩活动获悉获奖名单"
+    [[bnj2019.time]]
+        second = 3600
+        score = 1000000
+        step = 2
+        msgTitle = "拜年祭100万预约达成，快来查看你的预约奖励吧！"
+        msgMc = "1_21_9"
+        msg = "感谢各位观众姥爷们的热情，已成功开启第二档预约奖励，手办桌游等你来抽！#{点我查看奖励；}{\"https://www.bilibili.com/blackboard/xianxing2019bnj.html\"}抽奖结果将在一个工作日后公布，请关注哔哩哔哩活动获悉获奖名单"
+    [[bnj2019.time]]
+        second = 5400
+        score = 500000
+        step = 1
+        msgTitle = "拜年祭50万预约达成，快来查看你的预约奖励吧！"
+        msgMc = "1_21_8"
+        msg = "感谢各位观众姥爷们的热情，已成功开启第一档预约奖励，头像挂件点击即送！#{点我查看奖励；}{\"https://www.bilibili.com/blackboard/xianxing2019bnj.html\"}抽奖结果将在一个工作日后公布，请关注哔哩哔哩活动获悉获奖名单"
+    [[bnj2019.time]]
+        second = 7200
+        score = 0
+    [[bnj2019.message]]
+        start = "2018-12-24T17:29:00+08:00"
+        title = "【bilibili2019拜年祭档案揭秘】002"
+        content = "前有某任乱斗，今有b站混战。小电视：妈妈，快看神仙打架！#{链接}{\"http://uat-www.bilibili.com/blackboard/preview/activity-3dIEfBOuD.html\"}"
+        mc = "1_21_2"
+    [[bnj2019.message]]
+        start = "2018-12-24T17:25:00+08:00"
+        title = "【bilibili2019拜年祭档案揭秘】001"
+        content = "飞雪连天射白鹿，笑书神侠倚碧鸳。当V家碰到金庸，会碰撞出怎样的火花？来拜年祭后台看看吧~ #{链接}{\"http://uat-www.bilibili.com/blackboard/preview/activity-3dIEfBOuD.html\"}"
+        mc = "1_21_1"
+
+[rule]
+ArcObjStatSid = 10345
+ArtObjStatSid = 10349
+kingStorySid = 38
+eleLotteryID = 315
+dailyLikeSid = 10559
+lotterySID = [10503,10504]
+threeLotteryID = 318
+guessPercent = 0.95
+guessBusiness = [1]
+guessMaxOdds = 50.0
+guessSID = 12
+VipLotteryID = 328
+VipLotteryExpire = 8640000
+LikeAddLotterySids = [10559]
+newstarArcTypes = [17,171,173,172,136,121,19,65,98,39,201,209,124,96,207,122,208,199,200,154,20,198,156,30,54,29,28,194,59,130,193,31,95,191,189,190,21,138,176,163,47,75]
+newstarDays = "720h"
+newstarName = "newstar_first"
+articleDaySid = 13163
+articleDayBegin=1611849600
+articleDayEnd = 1613750399
+tunnelPushBizID = 1001
+[[rule.VipLotteryIDs]]
+    AppID = 101
+    LotteryID = 328
+[[rule.VipLotteryIDs]]
+    AppID = 102
+    LotteryID = 329
+[[rule.VipLotteryIDs]]
+    AppID = 103
+    LotteryID = 330
+[[rule.LotteryAddRule]]
+    Sid = 12
+    LotteryID = 333
+    NoLimit = 1
+    LimitDuration = 0
+    LimitTimes = 0
+    Expire = 5356800
+[[rule.OttVipLottery]]
+    Pid = 187
+    LotteryID = 339
+[[rule.OttVipLottery]]
+    Pid = 188
+    LotteryID = 339
+[[rule.OttVipLottery]]
+    Pid = 189
+    LotteryID = 339
+[[rule.OttVipLottery]]
+    Pid = 190
+    LotteryID = 339   
+
+[interval]
+coinInterval = "0ms"
+ObjStatInterval = "5m"
+ViewRankInterval = "5m"
+kingStoryInterval = "5m"
+QuestionInterval = "1h"
+FateInterval = "1m"
+FateDataInterval = "1m"
+GuessInterval = "60s"
+guessCron = "0 */3 * * * *"
+UpListHisCron = "0 0 0 * * *"
+EntCron= "0 */5 * * * *"
+SpringCron = "0 */5 * * * *"
+QuestionCron = "0 */1 * * * *"
+SubsRankCron = "0 0 */2 * * *"
+PoolCreatCron = "*/1 * * * * *"
+SteinListCron = "0 */21 * * * *"
+LoadGuessOidsCron = "0 */1 * * * *"
+LoadStaffCron = "0 */16 * * * *"
+TimingTaskCron = "*/30 * * * * *"
+BnjValueCron = "0 */9 * * * *"
+BnjReserveCron = "0 */14 * * * *"
+AwardSubjectCron = "0 */5 * * * *"
+imageCron = "0 */1 * * * *"
+StupidCron = "0 5 */1 * * *"
+FactionCron = "0 */5 * * * *"
+reload = "0 */1 * * * *"
+NewstarUpArcCron = "0 */1 * * * *"
+NewstarFinishCron = "0 0 15 * * *"
+ContestCron = "0 5 * * * *"
+ContestDetailCron = "0 5 * * * *"
+articleDayCron = "0 0 3 * * *"
+NewstarIdentityCron = "0 0 6 * * *"
+ActRelationInfoCron = "* */2 * * * *"
+ActSubjectInfoCron = "* */2 * * * *"
+ActSubjectReserveIDsInfoCron = "* */2 * * * *"
+PushUpReserveVerifyCron = "0 0 14 * * *"
+
+[faction]
+    sids = [10742,10720,10706]
+    etime = "2020-06-07T15:40:00+08:00"
+   blockAids = []
+
+[image]
+	Sid = 10462
+	AppointSid = 10506
+	AppointLid = 3557
+    tenReplyID  = 4055
+	TaskLikeID = 2
+	TaskBeLikeID = 4
+    TaskArchiveID = 168
+    TaskArchiveSID = 10535
+    TaskMikuSid = 10544
+    MikuArtSid = 10551
+    TaskMikuLikeID = 178
+    TaskMikuCoinID = 176
+	TaskCoinID = 1
+	TaskPassID = 3
+    [image.YearTaskIDs]
+      "10676" = 232
+      "10677" = 233
+      "10678" = 234
+      "10679" = 235
+      "10680" = 236
+      "10681" = 237
+    [image.CommonTaskIDs]
+      "10701" = 276
+
+[fate]
+    stime = "2018-12-24T17:29:00+08:00"
+    appkey = "26138054"
+    secret = "381fa514da46e62b9c717c6a9b3542e7"
+    vid = 46
+
+[guessImMsg]
+    officialUID = 32708316
+    content = "亲爱的用户，由于您在%s参与的%s的竞猜状态发生变动，您投注的%d硬币已返回至您的账户中，感谢您的参与。"    
+
+[YeGr]
+    SuitAwardIDs = []
+
+[Bws2019]
+    Bid   = 6
+	Limit = 100
+	VipCardCodeID = 991
+    Stime = 1564995599
+    Etime = 1566115200
+
+[stein]
+    Sid = 10541
+	LikeTaskID = 172
+	OneViewRule = 1
+	OneLikeRule = 1
+	TwoViewRule = 2
+	TwoLikeRule = 2
+    LotteryID = 331
+
+[eleven]
+    ElevenSid = 10569
+	LikeTaskID = 183
+	CoinTaskID = 184
+	ArcTaskID = 185
+
+[Scholarship]
+    Sid = 10570
+	CoinTaskID = 199
+	ArcTaskID = 200
+	OtherTaskID = 201
+	OtherSid = [10573, 10572, 10567]
+	ScholarshipExpire = 3024000
+    ArcVid = 54
+    CountStudyLikeID = 205
+    CountLikeID = 206
+
+[Lottery]
+    LotteryExpire = "600s"
+    WinListCron = "@every 30m"
+    RedisClean = 0
+[staff]
+    sid = 10581
+    PassTaskID = 196
+    LikeTaskID = 197   
+
+[taaf]
+    Sidv2 = 10597
+
+[bnj2020]
+    GameCancel = 0
+	Sid = 10635
+	MidLimit = 5000
+	BlockGame      = 0
+	BlockGameAction  = 0
+	BlockMaterial  = 0
+	MaxValue     = 1000000
+	TimelinePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20190123/8a3e1fa14e30dc3be9c5324f604e5991/B1d5MnHXE.png"
+    H5TimelinePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20190123/8a3e1fa14e30dc3be9c5324f604e5991/B1d5MnHXE.png"
+	Sender = 12076317
+    cron = "0 */10 20 20 1 *"
+	[[bnj2020.message]]
+        start = "2020-01-20T20:09:59+08:00"
+        content = "叮咚~B站驻伦敦记者为您传来【拜年祭BNJ-02情报】！戳→https://www.bilibili.com/blackboard/xianxing2020bnj.html?bsource=2020bnjsx了解详情，城市街头不断地有人神秘失踪，一切似乎和传说中的吸血鬼有关。吸血鬼萝莉X新手帅哥警探再现《夜的第七章》，雾都惊魂暗夜追凶！"
+    [[bnj2020.message]]
+        start = "2020-01-20T20:19:59+08:00"
+        content = "报！！！三百里加急【拜年祭BNJ-03情报】戳→https://www.bilibili.com/blackboard/xianxing2020bnj.html?bsource=2020bnjsx抢先看，花木兰，上官婉儿，武则天等古代杰出女性群像燃曲，横跨时空共同谱写属于她们的倾世长歌！"
+    [[bnj2020.message]]
+        start = "2020-01-20T20:29:59+08:00"
+        content = "111各单位注意！战地记者发来最新【拜年祭BNJ-04情报】戳→https://www.bilibili.com/blackboard/xianxing2020bnj.html?bsource=2020bnjsx开启，14位选手已进入空投区，即将进入战斗模式。现在呼吁最高的选手是海绵宝宝，炮姐御坂美琴紧随其后，谁将成为今夜的冠军？不要走开，我们将为您持续报道！"
+    [[bnj2020.message]]
+        start = "2020-01-20T20:39:59+08:00"
+        content = "“最烧脑”【拜年祭BNJ-05情报】你的语文还给老师了吗？戳→https://www.bilibili.com/blackboard/xianxing2020bnj.html?bsource=2020bnjsx测一测，横竖撇点折造就五千年文化，每句歌词都是一句谜题。等一个语文课代表在线解答~"
+    [[bnj2020.message]]
+        start = "2020-01-20T20:49:59+08:00"
+        content = "再见我去三次元了！【拜年祭BNJ-06情报】穿越指南戳→https://www.bilibili.com/blackboard/xianxing2020bnj.html?bsource=2020bnjsx开启传送门，B站造出真·破壁机？！穿过次元门的不止你的本命角色，可能还有一些未知的可怕生物。"
+    [[bnj2020.message]]
+        start = "2020-01-20T20:59:59+08:00"
+        content = "程序员大战程序你见过吗？【拜年祭BNJ-07情报】戳→https://www.bilibili.com/blackboard/xianxing2020bnj.html?bsource=2020bnjsx瞧瞧，最强科学家battle最强人工智能，你作为这场战役的决胜点，你会选择帮助人类？还是帮助AI呢？"
+    [bnj2020.Live]
+    Source = 308
+    ExpireTime = 1579449600
+    [[bnj2020.Live.items]]
+        rewardID = 201
+        type = 5
+    [[bnj2020.Live.items]]
+        rewardID = 1
+        startTime = 1577101174
+        type = 6
+        num = 1
+    [[bnj2020.Live.items]]
+        rewardID = 6
+        type = 11
+        [bnj2020.Live.items.extraData]
+            type = "color"
+            value = 15937617
+    [[bnj2020.Live.items]]
+        rewardID = 1
+        type = 8
+        num = 233
+
+[ent]
+    Vid = 61
+	[[ent.UpArcSids]]
+		UpSid  = 10642
+		ArcSid = 10658
+    [[ent.UpArcSids]]
+		UpSid  = 10641
+		ArcSid = 10657
+    [[ent.UpArcSids]]
+		UpSid  = 10640
+		ArcSid = 10656
+    [[ent.UpArcSids]]
+		UpSid  = 10639
+		ArcSid = 10659
+	
+[Shad]
+    LikeTaskID = 277
+    Vid = 64
+
+[Restart2020]
+    LikeTaskID = 278
+    Vid = 65
+
+[YelAndGreen]
+    LikeTaskID = 279
+    Vid = 66
+    YingYuanView = 100
+    YingYuanVote = 2333
+    YellowMid = 27515430
+    YellowFid =7120092
+    GreenMid = 27515430
+    GreenFid = 7120093
+    GreenYingYuanSid = 10703
+    YellowYingYuanSid = 10706
+    YingYuanVoteCron = "0 */10 * * * *"
+
+[YellowAndGreen]
+    YingYuanVoteCron = "0 */10 * * * *"
+    [[yellowAndGreen.Period]]
+    YingYuanView = 100
+    YingYuanVote = 2333
+    GreenYingYuanSid = 10703
+    YellowYingYuanSid = 10706
+    [[yellowAndGreen.Period]]
+    YingYuanView = 100
+    YingYuanVote = 2333
+    GreenYingYuanSid = 18245
+    YellowYingYuanSid = 18246
+
+
+[MobileGame]
+    LikeTaskID = 281
+    Vid = 69
+
+[imageV2]
+    sid = 10523
+    dayLimit = 10
+    etime = "2020-05-17T00:00:00+08:00"
+
+[stupid]
+    sid = 10742
+    sids = [10742,10740,10734,10733,10732,10729]
+    etime = 1590768000
+    vid = 70
+    LikeTaskID = 292
+
+[wxlottery]
+    TransDesc         = "小程序抽奖"
+	WithdrawEndTime   = 0
+	WithdrawStartHour = 24
+    PageCron = "0 */5 * * * *"
+    [wxlottery.payCfg]
+    CustomerID = "10086"
+	MerchantCode = "main"
+	CoinType = "1001"
+	PayHost = "http://pay.bilibili.co"
+	Token = "c70f64bef342022acabc1653c05d2b5c"
+    ActivityID = "537b72175df741e2cc2d4e7a8eabccfb"
+
+[handwrite]
+    Sid = 12085
+    CountMidArchive = 3
+    ArchiveCoinAward = 2
+    RankTopLength = 100
+    RankCron = ""
+    FavSyncCron = ""
+    FavID = 7002050
+	FavMid  = 27515255
+    GodAllMoney = 10000000
+    TiredAllMoney = 10000000
+    NewAllMoney = 5000000
+    FilePath = "./data/"
+    RankLastBatch = 2020070820
+    RankStartBatch = 2020070213
+    ActivityStart = 1593958300
+    ActivityEnd = 1693958300
+    ActPlatActivity = "2020handwrite"
+	ActPlatCounter = "midCoins"
+	ActPlatFilter = "favAids"
+    [handwrite.mail]
+        Host = "smtp.partner.outlook.cn"
+        Port = 587
+        Pwd = "5Ztf9f23DOTHpkfx"
+        Address = "yyjs-server@bilibili.com"
+        [[handwrite.mail.ToAddress]]
+            address = "zhangtinghua@bilibili.com"
+            name = "zhangtinghua"
+        [[handwrite.mail.CcAddress]]
+            address ="zhangtinghua@bilibili.com"
+            name = "zhangtinghua"
+        [[handwrite.mail.BccAddresses]]
+            address = "zhangtinghua@bilibili.com"
+            name = "zhangtinghua"
+
+
+[remix]
+    activityStart = "2020-05-17T00:00:00+08:00"
+    activityEnd = "2020-08-20T14:04:01+08:00"
+    TopView = 2
+    Sid = 12098
+    TopRank = 10
+    ChildTopRank = 6
+    RankCron = "0 40 * * * *"
+    TaskID = 425
+    ChildSid= [12099,12100,12101,12102]
+    lastBatch = 2020082214
+    startBatch = 2020061000
+    Money = 10000000
+    FilePath = "./data/"
+    [remix.mail]
+         Host = "smtp.partner.outlook.cn"
+        Port = 587
+        Pwd = "5Ztf9f23DOTHpkfx"
+        Address = "yyjs-server@bilibili.com"
+        [[remix.mail.ToAddress]]
+            address = "zhangtinghua@bilibili.com"
+            name = "zhangtinghua"
+        [[remix.mail.CcAddress]]
+            address ="zhangtinghua@bilibili.com"
+            name = "zhangtinghua"
+        [[remix.mail.BccAddresses]]
+            address = "zhangtinghua@bilibili.com"
+            name = "zhangtinghua"
+
+[gameholiday]
+    Vid           = 75
+	ActPlatActivity = "12181"
+	ActPlatCounter  ="like_counter_1ef1dg807"
+    SyncCron = "@every 1m"
+
+[NatBroadcast]
+    token="uat-native-page"
+[college]
+	MidActivity ="college2020"
+	MidFormula ="total"
+	MidTopLength =100
+	MIDSID = 1000
+	CollegeSID =2000
+	ArchiveTopLength =1000
+    RankCron = ""
+    VersionCron = ""
+    ArchiveCtime = 0
+    VersionTest = 1
+    ArchiveVideoState  = 5000
+	VideoBonusPoint = 500
+    ScoreCron = ""
+    BonusCron = ""
+    activityEnd = "2020-10-09T00:00:00+08:00"
+    ScoreAutoCron = "0 7 * * * *"
+    [college.AutoAddScore]
+        1_12 = 100000
+        1_18 = 100000
+        1_23 = 200000
+        2_12 = 100000
+        2_18 = 100000
+        2_23 = 200000
+        3_12 = 100000
+        3_18 = 100000
+        3_23 = 200000
+        4_12 = 100000
+        4_18 = 100000
+        4_23 = 200000
+        5_12 = 100000
+        5_18 = 100000
+        5_23 = 200000
+
+[S10General]
+    Switch=true
+
+[S10CacheExpire]
+    SignedExpire = "5m"
+    TaskProgressExpire ="10m"
+    RestPointExpire = "1h"
+    CoinExpire = "1m"
+	PointExpire = "720h"
+    LotteryExpire ="5m"
+	ExchangeExpire="5m"
+    RoundExchangeExpire="5m"
+	RestCountGoodsExpire="5m"
+    RoundRestCountGoodsExpire="5m"
+    PointDetailExpire="5m"
+    UserFlowExpire="5m"
+[share]
+    ShareURL = "http://uat-api.bilibili.com"
+    ShareCron = "@every 15m"
+    [share.shareLinkConf]
+        [share.shareLinkConf.fission_campus]
+            num=15
+            token = "update_fission"
+            baseUrl = "%s/%s%s%d/activity-Wd60UP5Ri.html"
+            prefixPath = ["lx","zh","hb","rp","xj"]
+            hosts = ["http://hankvision.cn"]
+
+[S10CacheKey]
+    ESportsKey  = "esport:contestIDList:lol:122"
+    ContestListKey = "esport:contestList:lol:122"
+    GuessMainDetailsKey = "guess:mainDetail:lol:122"
+    
+[Mail]
+    Host = "smtp.partner.outlook.cn"
+    Port = 587
+    Pwd = "5Ztf9f23DOTHpkfx"
+    Address = "yyjs-server@bilibili.com"
+    [[Mail.ToAddress]]
+        address = "yyjs-server@bilibili.com"
+        name = "yyjs-server"
+    [[Mail.CcAddress]]
+        address = "yyjs-server@bilibili.com"
+        name = "yyjs-server"
+    [[Mail.BccAddresses]]
+        address = "yyjs-server@bilibili.com"
+        name = "yyjs-server"
+
+[Reserve]
+    Notify = ["ouyangkeshou", "liqing01", "yehanlu"]
+[dubbing]
+    activityStart = "2020-05-17T00:00:00+08:00"
+    activityEnd = "2020-09-17T00:00:00+08:00"
+    TopView = 3
+    Sid = 12260
+    TopRank = 10
+    ChildTopRank = 3
+    RankCron = "0 5 * * * *"
+    TaskID = 519
+    ChildSid= [12261,12262,12263,12264,12265]
+    lastBatch = 2020091017
+    startBatch = 2020070100
+    FilePath = "./data/"
+    ArchiveScoreExpire = "336h"
+    LastDay = 1
+    Money = 100000000
+    FirstTime = "2020-09-13T00:00:00+08:00"
+    [dubbing.mail]
+        Host = "smtp.partner.outlook.cn"
+        Port = 587
+        Pwd = "5Ztf9f23DOTHpkfx"
+        Address = "yyjs-server@bilibili.com"
+        [[dubbing.mail.ToAddress]]
+            address = "zhangtinghua@bilibili.com"
+            name = "zhangtinghua"
+        [[dubbing.mail.CcAddress]]
+            address ="zhangtinghua@bilibili.com"
+            name = "zhangtinghua"
+        [[dubbing.mail.BccAddresses]]
+            address = "zhangtinghua@bilibili.com"
+            name = "zhangtinghua"
+
+[s10contribution]
+    Sid  = 12249
+    DayVid          = 80
+    ActPlatCounter  ="like_counter_1eh4gb3cu"
+    ActPlatActivity = "12232"
+    SyncDaySelectCron = "@every 1m"
+    CalcSplitPeopleCron ="0 */5 * * * *"
+    UpDBCron = "0 0 5 * * *"
+    TotalRankCron = "0 0 6 * * *"
+    RankCount = 30
+    isWinSN = 1
+    noWinSnEnd = 1604764860
+    winSnEnd = 1605456060
+    snArchiveTime = 1603707206
+
+
+[s10Answer]
+  maxQuestion = 1500
+  timesNoRank = 0
+  scoreMaxNoRank = 1500
+  hourCron = ""
+  weekCron = ""
+  baseIDs = [6,5,4,3,2]
+  userInfoKey = ["20200928"]
+  [s10Answer.finishTime]
+      "20200930" = "20200928"
+
+[GaoKaoAnswer]
+   SpitTag = "$$$"
+   ForeignId = [2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006,2005,2004,2003,2002,2001,2000,1999]
+   RunCron = "@every 5m"
+   [[GaoKaoAnswer.RandMethod]]
+      Code   = 678000
+      [GaoKaoAnswer.RandMethod.AttrNum]
+         "1" = 1
+         "2" = 1
+         "3" = 1
+         "4" = 1
+  [[GaoKaoAnswer.RandMethod]]
+       Code   = 679000
+       [GaoKaoAnswer.RandMethod.AttrNum]
+         "1" = 1
+         "2" = 1
+         "3" = 1
+         "5" = 1
+
+[BwPark2021]
+  RunCron  = "@every 5m"
+  SyncNum  = 20
+
+[Acg2020]
+    SID = 12260
+    DataFile = "/data/app/datafile"
+    CsvFile = "/data/app/acg2020.csv"
+    UpdateDuration = "1m"
+    wxKey = "71f079db59672ecec5b8d6f252c4b59ab2a8a227mainsite@bilibili.com"
+    [[Acg2020.ExtraAward]]
+        FinishTask = 2
+        Award = 10000
+    [[Acg2020.ExtraAward]]
+        FinishTask = 3
+        Award = 10000
+    [[Acg2020.Task]]
+        Round = 0
+        StartTime = "2020-09-10T00:00:00+08:00"
+        EndTime = "2020-09-20T00:00:00+08:00"
+        StatTime = "2020-09-20T00:00:00+08:00"
+        AwardTime = "2020-09-21T00:00:00+08:00"
+        FinishCount = 2
+        FinishScore = 2
+        Award = 20000
+    [[Acg2020.Task]]
+        Round = 1
+        StartTime = "2020-09-22T00:00:00+08:00"
+        EndTime = "2020-09-23T00:00:00+08:00"
+        StatTime = "2020-09-24T00:00:00+08:00"
+        AwardTime = "2020-09-24T00:00:00+08:00"
+        FinishCount = 2
+        FinishScore = 50
+        Award = 20000
+    [[Acg2020.Task]]
+        Round = 2
+        StartTime = "2020-09-28T00:00:00+08:00"
+        EndTime = "2020-09-30T00:00:00+08:00"
+        StatTime = "2020-09-30T00:00:00+08:00"
+        AwardTime = "2020-09-30T00:00:00+08:00"
+        FinishCount = 2
+        FinishScore = 50
+        Award = 20000
+    [Acg2020.Mail]
+        Subject = "2020秋季新番/国创二创征集数据通报"
+        Content = "2020秋季新番/国创二创征集数据通报"
+        [[Acg2020.Mail.Receiver]]
+            address = "ouyangkeshou@bilibili.com"
+            name = "ouyangkeshou"
+        [[Acg2020.Mail.Receiver]]
+            address = "xuyiming@bilibili.com"
+            name = "xuyiming"
+
+[notifier]
+    mentionUserIDs = ["dujinyang"]
+    mentionUserTels = ["13681611995"]
+    webhookUrl = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=555d47b1-f5bc-46dc-bac0-c6253d4c8308"
+[funny]
+    Vid             = 81
+    ActPlatActivity = "12308"
+    ActPlatCounter  ="like_counter_1einnd96h"
+    SyncVideoCron   = "@every 1m"
+    FunnyVideoDuration = 30
+    CaculatePartOne = "0 10 0 1 10 1"
+    CaculatePartTwo = "0 10 0 1 10 1"
+    ActSid          = 12352
+    PartOneLikesLimit = 2
+    PartTwoVideoNumLimit = 2
+    PartTwoVideoViewLimit = 2
+    EmailReceivers = "wangguannan@bilibili.com"
+
+[column]
+    Sid             = 12361
+    Trigger = "0 10 7 * * *"
+    EmailReceivers = "wangguannan@bilibili.com,wangjing02@bilibili.com"
+
+[rank]
+    TopLength   =5000
+	ArchiveLength =3
+	RankCron      = "@every 5m"
+	PublicKey     ="71f079db59672ecec5b8d6f252c4b59ab2a8a227mainsite@bilibili.com"
+    NewRankCron = "0 1 0 * * ?"
+
+[selection]
+    sid  = 12249
+    calcAssistanceCron = "0 */5 * * * *"
+    voteReportCron = "0 0 2 * * *"
+    resetSelectionVoteCron = "0 0 12 * * *"
+    voteReportBegin = 1605715200
+    voteReportEnd = 1609516800
+    EmailReceivers = "guanyanliang@bilibili.com,wangjing02@bilibili.com"
+    tagSplit = ","
+    stopRiskVote = 0
+    reportProduct = 0
+    voteStage = [
+        { CategoryID = 1, CategoryName = "2020年度动画"},
+        { CategoryID = 2, CategoryName = "往年动画"},
+        { CategoryID = 3, CategoryName = "2020年度动画角色"},
+        { CategoryID = 4, CategoryName = "往年动画角色"},
+        { CategoryID = 5, CategoryName = "历代特摄"},
+        { CategoryID = 6, CategoryName = "最受期待动画"},
+    ]
+[corpWeChat]
+    mentionUserIDs = ["leijiru", "wuliang02"]
+    mentionUserTels = ["15555742725"]
+    webhookUrl = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=8a541600-2c1e-48c3-90cc-535cf59a0fd6"
+
+[NewYearReservePubConfig]
+    RuleType = 1
+    ConfigName = "NewYearReserve"
+    [NewYearReservePubConfig.RuleConfig]
+    SIDs = [13012,13300]
+[knowledge]
+Sid = "12453,12465,12466"
+Cron = "*/2 * * * * *"
+
+[tunnelGroup]
+    source = "activity"
+
+[operationSource]
+  updateTicker  = 60
+  infoSids = [88,807]
+  operationSids = [88,89,90]
+
+[Handwrite2021]
+	EndStatisticsTime ="2021-01-20T19:25:00+08:00"
+    LastPubTime = "2021-01-20T19:00:00+08:00"
+	RankID = 26
+	LastBatch = 2021012019
+    prefix = "act_handwrite_new"
+	Sid  = 12261
+	Coin = 2
+	View1 = 50
+	View2 =80
+	View3 =130
+    FilePath = "./data/"
+    GodAllMoney = 8000000
+	Tired1Money = 3000000
+	Tired2Money = 3000000
+	Tired3Money = 3000000
+    Cron = ""
+    DataCron = ""
+    [Handwrite2021.mail]
+        Host = "smtp.partner.outlook.cn"
+        Port = 587
+        Pwd = "5Ztf9f23DOTHpkfx"
+        Address = "yyjs-server@bilibili.com"
+        [[Handwrite2021.mail.ToAddress]]
+            address = "zhangtinghua@bilibili.com"
+            name = "zhangtinghua"
+        [[Handwrite2021.mail.CcAddress]]
+            address ="zhangtinghua@bilibili.com"
+            name = "zhangtinghua"
+        [[Handwrite2021.mail.BccAddresses]]
+            address = "zhangtinghua@bilibili.com"
+            name = "zhangtinghua"
+
+[springfestival2021]
+    activity = "SpringFestival2021"
+
+[WechatToken]
+    LittleFlower = "233624bd-8d0b-4ab0-b05c-23cf22365280"
+
+[UpActReserveNotify]
+    TmpID = "0_78"
+    ArcTemplateID = "0_78"
+    ResetTmpID = "0_77"
+    LiveTemplateID = "0_72"
+    LiveResetTempID = "0_74"
+    ArcResetSenderUID = 12076317
+    LiveResetSenderUID = 434967398
+    PushUpVerifyID = "0_76"
+    PushUpVerifySenderID = 37090048
+    LotteryReserveTmpID = "0_73"
+
+[UpActReserveAudit]
+    BizID1 = 749
+    BizID2 = 44
+    NetID  = 44
+
+[ActDomainConfig]
+    SyncNum = 5
+    RunCron = "@every 5m"
+
+[Vote]
+    DSItemsRefreshDurForNotEnd = "1m"
+    RealTimeRankRefreshDurForNotEnd = "1m"
+    DSItemsRefreshDurForEndWithin90 = "1m"
+    RealTimeRankRefreshDurForEndWithin90 = "1m"
+
+[FitJobConfig]
+    RunFlushCron = ""
+    RunAwardSendCron = ""
+    RunTianMaCron = ""
+    RunSetMemberCron = ""
+    GetCounterResHasLimitCounter = "16373_ss_612_ss_3_2_T"
+    GetCounterResNoLimitCounter = "view_time_addr_1f8brrs4j"
+    PiFuDay = 5
+    AwardId = 62
+    DingYueActivityId = 16907
+    DaKaActivityId = 16373
+
+[FitTianMaCardContentConf]
+    DefaultTemplateId = 121011
+    ChangeTemplateId = 121010
+    Icon = "https://i0.hdslb.com/bfs/activity-plat/static/20210622/cdad5e6d26c836589e5afd458464ac82/d9FmOtUHlx.jpg"
+    Link = "https://www.bilibili.com/blackboard/preview/activity-NyouFW2LNH.html"
+    ButtonType = "text"
+    ButtonText = "立即查看"
+    ButtonLink = "https://www.bilibili.com/blackboard/preview/activity-NyouFW2LNH.html"
+    TianMaSTime = 18
+    TianMaEndSTime = 21
+    NeedPushWeekDay = 7
+
+[Boss]
+    Host = "http://uat-boss.bilibili.co"
+    AccessKeyID = "ed720dc0397edd39"
+    SecretAccessKey = "60ba2f5ce7f1c90cfc4da77517cc333f"
+
+[KnowledgeTask]
+knowTaskBatchNum = 200
+delKnowCalcBatchNum = 5000
+delCron = "0 0 1 * * *"
+delSleep = "1s"
+
+[PushVerifyUriConfig]
+    AllUri = ""
+    AndroidUri = "bilibili://uper/user_center/add_archive/?from=0"
+    IphoneUri = "bilibili://uper/user_center/add_archive/?from=0"
+    IpadUri = "https://www.bilibili.com/read/cv11975892"
+    WebUri = "https://member.bilibili.com/platform/upload/video/frame"
+    Text = "去投稿"
+
+[PushVerifyUriResetConfig]
+    AllUri = ""
+    AndroidUri = "http://space.bilibili.com"
+    IphoneUri = "http://space.bilibili.com"
+    IpadUri = "https://www.bilibili.com/read/cv11975892"
+    WebUri = "https://space.bilibili.com/"
+    Text = "去个人页撤销预约"
+
+[PushVerifyEmailReceivers]
+    EmailReceivers = "lijingyu@bilibili.com"
+
+[Cpc100Config]
+    RefreshInterval = "5s"
+    PvUrl = "http://manager.bilibili.co/operational-tool/count/cpc100"
+    RideN = 1.0
+    AddN = 0
+    TopicRefreshInterval = "30s"
+    TopicIds= [155406,4344,4078,18447]
+
+
+[StockServerJobConf]
+    RunCron = "@every 5m"
+    SyncNum = 5
+    SyncTimeGap = 60
+    SyncPageSize = 50
+    SyncMaxLoop  = 50
+    [StockServerJobConf.AckUrlMap]
+    "mission" = "http://manager.bilibili.co/x/admin/activity/mission/stock/check"

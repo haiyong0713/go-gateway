@@ -1,0 +1,29 @@
+[result]
+	addr = "172.16.33.205:3308"
+	dsn = "test:test@tcp(172.16.33.205:3308)/archive_result?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+	active = 20
+	idle = 10
+	idleTimeout ="4h"
+	queryTimeout = "200ms"
+	execTimeout = "300ms"
+	tranTimeout = "400ms"
+
+[archive]
+	addr = "172.16.33.205:3308"
+	dsn = "test:test@tcp(172.16.33.205:3308)/bilibili_archive?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+	active = 20
+	idle = 10
+	idleTimeout ="4h"
+	queryTimeout = "200ms"
+	execTimeout = "300ms"
+	tranTimeout = "400ms"
+
+[temp]
+	addr = "172.16.33.205:3308"
+	dsn = "test:test@tcp(172.16.33.205:3308)/archive_result?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+	active = 20
+	idle = 10
+	idleTimeout ="4h"
+	queryTimeout = "200ms"
+	execTimeout = "300ms"
+	tranTimeout = "400ms"

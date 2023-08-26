@@ -1,0 +1,17 @@
+[SilverBullet]
+  Enable = false # 开启风控
+  [SilverBullet.Config]
+    [SilverBullet.Config.GaiaGRPCConfig]
+      timeout = "250ms"
+
+[Dao]
+   # 稿件服务
+  [Dao.ArchiveClient]
+    timeout = "400ms"
+  # 播客专用后端
+  [Dao.ListenerSvrClient]
+    timeout = "400ms"
+  # 收藏夹服务
+  [Dao.FavoriteClient]
+    timeout = "200ms"
+

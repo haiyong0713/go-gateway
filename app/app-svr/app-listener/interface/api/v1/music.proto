@@ -1,0 +1,199 @@
+// 老音频 网关API
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+package bilibili.app.listener.v1;
+
+option go_package = "v1";
+option java_multiple_files = true;
+option java_package = "com.bapis.bilibili.app.listener.v1";
+option objc_class_prefix = "BAPIAppListenerV1";
+
+
+// 老音频 主要是兼容老音频相关服务 内网/对端混合使用
+// 内网接口有简单的app key鉴权 使用请联系研发
+service Music {
+  // 【内网】用于主站收藏夹 判断是否出歌单的tab
+  rpc FavTabShow(FavTabShowReq) returns (FavTabShowResp);
+
+  // 以下是兼容老音频（Music）专用对端接口
+
+  // 主站收藏夹 获取老音频的子tab信息
+  rpc MainFavMusicSubTabList(MainFavMusicSubTabListReq) returns (MainFavMusicSubTabListResp);
+  // 主站收藏夹 老音频收藏按子tab类型翻页
+  rpc MainFavMusicMenuList(MainFavMusicMenuListReq) returns (MainFavMusicMenuListResp);
+  // 歌单编辑
+  rpc MenuEdit(MenuEditReq) returns (MenuEditResp);
+  // 歌单删除
+  rpc MenuDelete(MenuDeleteReq) returns (MenuDeleteResp);
+  // 歌单订阅（收藏/取消收藏）
+  rpc MenuSubscribe(MenuSubscribeReq) returns (MenuSubscribeResp);
+  // 事件计数上报
+  rpc Click(ClickReq) returns (ClickResp);
+}
+
+message FavTabShowReq {
+  // 当前用户id 必填
+  int64 mid = 1;
+}
+
+message FavTabShowResp {
+  // 展示歌单tab
+  bool show_menu = 1;
+}
+
+
+message MainFavMusicSubTabListReq {
+
+}
+
+message MainFavMusicSubTabListResp {
+  // 歌单子tab列表 端上默认展示第一个tab
+  repeated MusicSubTab tabs = 1;
+  // 默认展示的tab下的资源信息
+  // Deprecated: Use first_page_res instead
+  MainFavMusicMenuListResp default_tab_res = 2;
+  // 每个tab下第一页的资源信息
+  map<int32, MainFavMusicMenuListResp> first_page_res = 3;
+}
+
+message MusicSubTab {
+  // tab的显示名称
+  string name = 1;
+  // tab类型 用于内部标识 涉及请求时填入该类型
+  int32 tab_type = 2;
+  // tab下资源计数
+  int64 total = 3;
+}
+
+message MusicMenu {
+  // 歌单id
+  int64 id = 1;
+  // 歌单类型
+  // 1-我收藏的歌单
+  // 2-我创建的歌单
+  // 3-我收藏的合辑
+  // （枚举仅供参考，实现直接用map）
+  int32 menu_type = 2;
+  // 歌单名称
+  string title = 3;
+  // 歌单简介
+  string desc = 4;
+  // 歌单封面
+  string cover = 5;
+  // 歌单创建者信息
+  MusicMenuAuthor owner = 6;
+  // 状态 0-正常 -1-已失效
+  // 约定 >=0为正常状态 <0都按失效处理
+  int32 state = 7;
+  // 属性位
+  // 0- 1-默认歌单 0-用户创建歌单
+  // 1- 1-公开歌单 0-私密歌单
+  int64 attr = 8;
+  // 歌单计数信息
+  MusicMenuStat stat = 9;
+  // 歌单内资源总数
+  int64 total = 10;
+  // 创建时间
+  int64 ctime = 11 [(gogoproto.casttype) = "go-common/library/time.Time"];
+  // 跳转链接
+  string uri = 12;
+}
+
+message MusicMenuAuthor {
+  // mid
+  int64 mid = 1;
+  // 用户名
+  string name = 2;
+  // 用户头像
+  string avatar = 3;
+}
+
+message MusicMenuStat {
+  // 播放数
+  int64 play = 1;
+  // 评论数
+  int64 reply = 2;
+}
+
+message MainFavMusicMenuListReq {
+  // tab类型 请求该tab下的列表
+  int32 tab_type = 1;
+  // 翻页参数 首页传空
+  string offset = 2;
+}
+
+message MainFavMusicMenuListResp {
+  // 回传tab类型
+  int32 tab_type = 1;
+  // 歌单列表
+  repeated MusicMenu menu_list = 2;
+  // 是否有下一页
+  bool has_more = 3;
+  // 下一页的翻页参数
+  string offset = 4;
+}
+
+message MenuEditReq {
+  // 歌单id
+  int64 id = 1;
+  // 歌单名称 必填
+  string title = 2;
+  // 歌单描述 可选
+  string desc = 3;
+  // 是否设置为公开
+  int32 is_public = 4;
+}
+
+message MenuEditResp {
+  // 编辑成功的toast 没有就不展示
+  string message = 1;
+}
+
+message MenuDeleteReq {
+  // 歌单id
+  int64 id = 1;
+}
+
+message MenuDeleteResp {
+  // 删除成功的toast
+  string message = 1;
+}
+
+message MenuSubscribeReq {
+  enum SubscribeAction {
+    // 无意义
+    INVALID = 0;
+    // 添加订阅（收藏）
+    ADD = 1;
+    // 取消订阅（取消收藏）
+    DEL = 2;
+  }
+  // 歌单订阅动作
+  SubscribeAction action = 1;
+  // 目标歌单id
+  int64 target_id = 2;
+}
+
+message MenuSubscribeResp {
+  // 操作成功的toast 没有就不展示
+  string message = 1;
+}
+
+message ClickReq {
+  // song id
+  int64 sid = 1;
+  enum ClickAction {
+    // 默认 无效
+    INVALID = 0;
+    // 分享成功上报
+    SHARE = 1;
+  }
+  // 动作类型
+  ClickAction action = 2;
+}
+
+message ClickResp {
+
+}

@@ -1,0 +1,24 @@
+[host]
+    api   = "http://api.bilibili.co"
+    beiTai = "http://sportsdata.misports.cn"
+
+[httpClient]
+    key = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial = "1s"
+    timeout = "1s"
+    keepAlive = "60s"
+
+[messageHTTPClient]
+    key = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial      = "50ms"
+    timeout   = "1s"
+    keepAlive = "60s"
+
+[leidaHTTPClient]
+    key = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial = "1s"
+    timeout = "60s"
+    keepAlive = "60s"

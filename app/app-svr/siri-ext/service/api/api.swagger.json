@@ -1,0 +1,113 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "api.proto",
+        "version": "1"
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json",
+        "multipart/form-data"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/x/internal/siri-ext/resolve/command": {
+            "get": {
+                "summary": "/x/internal/siri-ext/resolve/command",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.siri_ext.service.v1.ResolveCommandReply"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.siri_ext.service.v1.ResolveCommandReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "siri_ext.service.v1.SiriExt"
+                ]
+            }
+        }
+    },
+    "definitions": {
+        ".siri_ext.service.v1.ResolveCommandReply": {
+            "type": "object",
+            "properties": {
+                "redirect_url": {
+                    "type": "string"
+                },
+                "debug": {
+                    "type": "string"
+                }
+            }
+        },
+        ".siri_ext.service.v1.ResolveCommandReq": {
+            "type": "object",
+            "properties": {
+                "mid": {
+                    "type": "integer"
+                },
+                "command": {
+                    "type": "string"
+                },
+                "debug": {
+                    "type": "boolean"
+                },
+                "-": {
+                    "$ref": "#/definitions/.siri_ext.service.v1.deviceMeta"
+                }
+            },
+            "required": [
+                "command"
+            ]
+        },
+        ".siri_ext.service.v1.deviceMeta": {
+            "type": "object",
+            "properties": {
+                "mobi_app": {
+                    "type": "string"
+                },
+                "device": {
+                    "type": "string"
+                },
+                "build": {
+                    "type": "integer"
+                },
+                "channel": {
+                    "type": "string"
+                },
+                "buvid": {
+                    "type": "string"
+                },
+                "platform": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

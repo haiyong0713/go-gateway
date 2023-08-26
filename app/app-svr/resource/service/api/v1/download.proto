@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+// use {app_id}.{version} as package name
+package resource.service.v1;
+
+// specify golang package name
+option go_package = "v1";
+
+message DownLoadCard {
+    int64 id = 1;
+    string title = 2;
+    string desc = 3;
+    string icon = 4;
+    string cover = 5;
+    int32 url_type = 6 ;
+    string url_value = 7;
+    int32 btn_txt = 8;
+    int32 re_type = 9 ;
+    string re_value = 10;
+    int32 number = 11;
+    string double_cover = 12;
+}
+
+message DownLoadCardReply{
+    repeated DownLoadCard list = 1;
+}

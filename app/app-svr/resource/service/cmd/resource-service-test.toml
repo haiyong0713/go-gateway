@@ -1,0 +1,259 @@
+spLimit = "500ms"
+hashNum = 1000000
+monitorURL = true
+monitorArchive = true
+WeChatToken = "uYsRqXPjnbyXDCba"
+WeChatSecret = "tUILeGIXJHFSUdwfLjBHDZJXmLgYpgEy"
+WeChantUsers = ["zhaobingqing"]
+WeChantDomain = "http://bap.bilibili.co/api/v1/message/add"
+PopEntranceS10Id = 20
+
+bannerID = [142,925,926,927,1576,1580,1584,1588,1592,1596,1600,1604,1608,1612,1616,1620,1622,1634,1920,2210,2260,3129,4249,4363]
+
+[reload]
+ad="10s"
+
+[cron]
+loadRes = "@every 5s"
+loadVideoAds = "@every 5s"
+loadBannerCahce = "@every 5s"
+loadCustomConfig = "@every 5s"
+loadTypeList = "@every 5s"
+loadPlayIcon = "@every 5s"
+loadCmtbox   = "@every 10s"
+loadSpecialCache = "@every 5s"
+loadRelateCache = "@every 5s"
+loadAudit = "@every 5s"
+loadWebRcmd = "@every 5s"
+loadDySearch = "@every 5s"
+loadSearchOgvConfig = "@every 5s"
+loadHiddenCache = "@every 5s"
+loadSkinCache = "@every 5s"
+loadSideBarCache = "@every 5s"
+checkResURL = "@every 5s"
+loadIconCache = "@every 5s"
+loadParamCache = "@every 5s"
+loadChCardCache = "@every 5s"
+feedPosRecCache = "@every 30s"
+loadCardCache = "@every 30s"
+loadTabExtCache="@every 1m"
+loadBWListCache="@every 30s"
+loadMaterialCache="@every 1m"
+loadSpecialCardCache = "@every 1m"
+
+[note]
+noteNumber = 4
+
+[Host]
+bangumi  = "http://bangumi.bilibili.com"
+ad       = "http://cm.bilibili.co"
+dataPlat = "http://172.18.33.162:6193"
+
+[xlog]
+stdout = true
+dir = "/tmp/log/resource-service/"
+
+
+[httpClient]
+key     = "f022126a8a365e20"
+secret  = "b7b86838145d634b487e67b811b8fab2"
+dial = "500ms"
+timeout = "2s"
+keepAlive = "60s"
+timer = 1000
+    [httpClient.breaker]
+    window  ="10s"
+    sleep   ="10ms"
+    bucket  = 10
+    ratio   = 0.1
+    request = 10
+
+[bm]
+    [bm.inner]
+    addr = "0.0.0.0:6421"
+    timeout = "1s"
+    [bm.local]
+    addr = "0.0.0.0:6423"
+    timeout = "1s"
+
+[rpcServer2]
+[[rpcServer2.servers]]
+    proto = "tcp"
+    addr = "0.0.0.0:6429"
+    weight = 10 
+[rpcServer2.zookeeper]
+    root = "/microservice/resource-service/"
+    addrs = ["172.18.33.50:2199","172.18.33.51:2199","172.18.33.52:2199"]
+    timeout = "30s"
+
+[db]
+    [db.res]
+    dsn = "manager:QhJxu7Qkp7WR1iRw9cpCSQTt0oWqj3k2@tcp(172.22.34.101:3306)/bilibili_resource?timeout=1s&readTimeout=1s&writeTimeout=1s&parseTime=true&loc=Local&charset=utf8mb4,utf8"
+    active = 5
+    idle = 2
+    idleTimeout ="4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+    [db.res.breaker]
+    window = "3s"
+    sleep = "100ms"
+    bucket = 10
+    ratio = 0.5
+    request = 100
+    [db.ads]
+    dsn = "manager:QhJxu7Qkp7WR1iRw9cpCSQTt0oWqj3k2@tcp(172.22.34.101:3306)/bilibili_ads?timeout=1s&readTimeout=1s&writeTimeout=1s&parseTime=true&loc=Local&charset=utf8mb4,utf8"
+    active = 5
+    idle = 2
+    idleTimeout ="4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+    [db.ads.breaker]
+    window = "3s"
+    sleep = "100ms"
+    bucket = 10
+    ratio = 0.5
+    request = 100
+    [db.show]
+    dsn    = "manager:QhJxu7Qkp7WR1iRw9cpCSQTt0oWqj3k2@tcp(172.22.34.101:3306)/bilibili_show?timeout=1s&readTimeout=1s&writeTimeout=1s&parseTime=true&loc=Local&charset=utf8mb4,utf8"
+    active = 5
+    idle   = 1
+    idleTimeout ="4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+    [db.show.breaker]
+    window = "3s"
+    sleep = "100ms"
+    bucket = 10
+    ratio = 0.5
+    request = 100
+    [db.manager]
+    dsn    = "manager:QhJxu7Qkp7WR1iRw9cpCSQTt0oWqj3k2@tcp(172.22.34.101:3306)/bilibili_manager?timeout=1s&readTimeout=1s&writeTimeout=1s&parseTime=true&loc=Local&charset=utf8mb4,utf8"
+    active = 5
+    idle   = 1
+    idleTimeout ="4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+    [db.manager.breaker]
+    window = "3s"
+    sleep = "100ms"
+    bucket = 10
+    ratio = 0.5
+    request = 100
+    [db.player]
+        dsn = "manager:QhJxu7Qkp7WR1iRw9cpCSQTt0oWqj3k2@tcp(172.22.34.101:3306)/bilibili_player?timeout=1s&readTimeout=1s&writeTimeout=1s&parseTime=true&loc=Local&charset=utf8mb4,utf8"
+        active = 5
+        idle = 1
+        idleTimeout = "4h"
+        queryTimeout = "1s"
+        execTimeout = "1s"
+        tranTimeout = "1s"
+        [db.player.breaker]
+            sleep = "100ms"
+            bucket = 10
+            ratio = 0.5
+            request = 100
+
+[taishan]
+    [taishan.popups]
+        table = "pop_ups"
+        token = "pop_ups"
+
+
+[redis]
+    [redis.ads]
+        name = "resource-service"
+        proto = "tcp"
+        #addr = "172.16.33.54:6379"
+        addr = "172.18.33.60:6975"
+        idle = 10
+        active = 10
+        dialTimeout = "1s"
+        readTimeout = "1s"
+        writeTimeout = "1s"
+        idleTimeout = "10s"
+        expire = "1m"
+    [redis.comm]
+         name = "resource-service/comm"
+         proto = "tcp"
+         addr = "172.18.33.60:6975"
+         idle = 10
+         active = 10
+         dialTimeout = "1s"
+         readTimeout = "1s"
+         writeTimeout = "1s"
+         idleTimeout = "10s"
+         expire = "1m"
+    [redis.Entrance]
+      name   = "app-job/Entrance"
+      proto  = "tcp"
+      addr   = "localhost:6379"
+      idle = 10
+      active = 10
+      dialTimeout = "1s"
+      readTimeout = "1s"
+      writeTimeout = "1s"
+      idleTimeout = "10s"
+    [redis.Show]
+      name   = "resource-service/show"
+      proto  = "tcp"
+      addr   = "127.0.0.1:20611"
+      active = 1024
+      idle   = 12
+      dialTimeout  = "80ms"
+      readTimeout  = "150ms"
+      writeTimeout = "150ms"
+      idleTimeout  = "80s"
+      FrontPageExpire = "60s"
+    [redis.Resource]
+        name   = "resource-service/resource"
+        proto  = "tcp"
+        addr   = "localhost:26601"
+        idle = 10
+        active = 10
+        dialTimeout = "1s"
+        readTimeout = "1s"
+        writeTimeout = "1s"
+        idleTimeout = "10s"
+    [redis.Res]
+        name   = "resource-service/resource"
+        proto  = "tcp"
+        addr   = "localhost:26601"
+        idle = 10
+        active = 10
+        dialTimeout = "1s"
+        readTimeout = "1s"
+        writeTimeout = "1s"
+        idleTimeout = "10s"
+[archiveSub]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "Archive-MainAppSvr-2-S"
+    topic = "Archive-T"
+    action = "sub"
+    name = "archive-job/archivesub"
+    proto = "tcp"
+    addr = "172.18.33.50:6205"
+    idle = 1
+    active = 1
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+
+[ResourceLabel]
+    ResourceIDs = [2048,2066,1670,2308,2521,2979,3240,3242,3345,3354,3363,3372,3381,3449,2520,2674,2742]
+    PositionIDs = [2054,2055,2056,2073,2074,2075,1671,1672,1673,2315,2316,2317,2489,2490,2491,2459,2460,2461,2469,2470,2471,2479,2480,2481,2499,2500,2501,2606,2607,2608,2609,2610,2618,2619,2620,2621,2622,2623,2556,2557,2558,2559,2560,2991,2992,2993,3241,3243,3346,3347,3348,3349,3350,3351,3355,3356,3357,3358,3359,3360,3364,3365,3366,3367,3368,3369,3373,3374,3375,3376,3377,3378,3382,3383,3384,3385,3386,3387,3450,3451,3452,3453,3454,2544,2545,2546,2547,2548,2549,2550,2551,2552,2553,2554,2555,2697,2698,2699,2700,2701,2702,2765,2766,2767,2768,2769,2770]
+
+[IconCacheConfig]
+    PreloadDuration = 24
+
+[ResourceParam]
+    AppSpecailCardTimeSize = 2
+
+[FrontPage]
+    [FrontPage.BaseDefaultConfig]
+

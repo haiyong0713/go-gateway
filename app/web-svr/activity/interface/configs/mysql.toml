@@ -1,0 +1,107 @@
+[mysql]
+    [mysql.bnj]
+    addr = "172.22.34.101:3306"
+    dsn = "lottery:D8B9aJcnMHh2SWzVvCQiIJ2qYzfMvfUg@tcp(172.22.34.101:3306)/bilibili_lottery?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 1
+    idle = 1
+    idleTimeout ="4h"
+    queryTimeout = "5000ms"
+    execTimeout = "5000ms"
+    tranTimeout = "5000ms"
+    [mysql.bnj.breaker]
+    window  ="3s"
+    sleep   ="100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+    [mysql.like]
+    addr = "172.22.34.101:3306"
+    dsn = "lottery:D8B9aJcnMHh2SWzVvCQiIJ2qYzfMvfUg@tcp(172.22.34.101:3306)/bilibili_lottery?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8mb4,utf8"
+    active = 1
+    idle = 1
+    idleTimeout ="4h"
+    queryTimeout = "5000ms"
+    execTimeout = "5000ms"
+    tranTimeout = "5000ms"
+    [mysql.like.breaker]
+    window  ="3s"
+    sleep   ="100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+    [mysql.act]
+    addr = "172.22.34.101:3306"
+    dsn = "lottery:D8B9aJcnMHh2SWzVvCQiIJ2qYzfMvfUg@tcp(172.22.34.101:3306)/bilibili_lottery?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 1
+    idle = 1
+    idleTimeout ="4h"
+    queryTimeout = "5000ms"
+    execTimeout = "5000ms"
+    tranTimeout = "5000ms"
+    [mysql.act.breaker]
+    window  ="3s"
+    sleep   ="100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[TiDB]
+    addr = "uat-tidb-4000.testdb.bilibili.co:4000"
+    dsn = "main_lottery:RWXcNcw1X43S1K1nvB51x7iNjMMjP0ba@tcp(172.23.34.47:4000)/main_lottery?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 1
+    idle = 1
+    idleTimeout ="4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "2s"
+    [TiDB.breaker]
+    window  ="3s"
+    sleep   ="100ms"
+    bucket  = 10
+    ratio   = 0.5
+
+
+[hbase]
+master = ""
+meta = ""
+dialTimeout = "100ms"
+readTimeout = "100ms"
+readsTimeout = "100ms"
+writeTimeout = "100ms"
+writesTimeout = "100ms"
+    [hbase.zookeeper]
+    root = ""
+     addrs = ["172.18.33.75:2181" ]
+    timeout = "100ms"
+
+[S10MySQL]
+    addr = "172.22.34.101:3306"
+    dsn = "lottery:D8B9aJcnMHh2SWzVvCQiIJ2qYzfMvfUg@tcp(172.22.34.101:3306)/bilibili_lottery?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 1
+    idle = 1
+    idleTimeout ="4h"
+    queryTimeout = "500ms"
+    execTimeout = "500ms"
+    tranTimeout = "500ms"
+    [S10MySQL.breaker]
+        window  ="3s"
+        sleep   ="100ms"
+        bucket  = 10
+        ratio   = 0.5
+        request = 100
+
+[RewardsMySQL]
+    addr = "172.22.34.101:3306"
+    dsn = "lottery:D8B9aJcnMHh2SWzVvCQiIJ2qYzfMvfUg@tcp(172.22.34.101:3306)/bilibili_lottery?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 1
+    idle = 1
+    idleTimeout ="4h"
+    queryTimeout = "3s"
+    execTimeout = "3s"
+    tranTimeout = "3s"
+    [RewardsMySQL.breaker]
+        window  ="3s"
+        sleep   ="100ms"
+        bucket  = 10
+        ratio   = 0.5
+        request = 100

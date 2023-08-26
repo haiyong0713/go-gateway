@@ -1,0 +1,217 @@
+package act
+
+const (
+	GotoClick                 = "click"
+	GotoClickArea             = "click_area"
+	GotoClickButton           = "click_button"
+	GotoClickButtonV2         = "click_button_v2"
+	GotoClickButtonV3         = "click_button_v3"
+	GotoClickProgress         = "click_progress"
+	GotoClickFollow           = "follow"
+	GotoClickPgc              = "pgc"
+	GotoClickAppointment      = "appointment"
+	GotoClickAttention        = "act_relationInfo"
+	GotoClickBuy              = "act_buy"
+	GotoClickCartoon          = "act_cartoon"
+	GotoClickBack             = "click_back"
+	GotoClickRedirect         = "redirect"
+	GotoClickReserve          = "click_reserve"
+	GotoClickURL              = "click_url"
+	GotoClickUnable           = "click_unable"
+	GotoClickVote             = "click_vote"
+	GotoClickVoteUp           = "click_vote_up"
+	GotoVoteBack              = "vote_back"
+	GotoTitleImage            = "display_image"
+	GotoAct                   = "act_list"
+	GotoVideo                 = "video"
+	GotoVideoMore             = "video_more"
+	GotoVideoLike             = "video_like"
+	GotoDynamic               = "dynamic"
+	GotoSortModule            = "sort_module"
+	GotoSortTab               = "sort_tab"
+	GotoActModule             = "act_module"
+	GotoActCapsuleModule      = "act_capsule_module"
+	GotoActCapsule            = "act_capsule"
+	GotoVideoModule           = "video_module"
+	GotoDynamicModule         = "dynamic_module"
+	GotoDynamicMore           = "dynamic_more"
+	GotoVideoSingle           = "video_single"
+	GotoVideoDouble           = "video_double"
+	GotoAvIDSingleModule      = "avid_single_module"
+	GotoAvIDDoubleModule      = "avid_double_module"
+	GotoActSingleModule       = "act_single_module"
+	GotoActDoubleModule       = "act_double_module"
+	GotoDynSingleModule       = "dyn_single_module"
+	GotoDynDoubleModule       = "dyn_double_module"
+	GotoOriginResourceModule  = "origin_resource_module" //二级列表使用
+	GotoActResourceModule     = "act_resource_module"    //二级列表使用
+	GotoIDResourceModule      = "id_resource_module"     //二级列表使用
+	GotoDynResourceModule     = "dyn_resource_module"    //二级列表使用
+	GotoCardMore              = "video_card_more"
+	GotoNewIDVideoModule      = "id_video_module"      //新视频卡-二级列表使用
+	GotoNewActVideoModule     = "act_video_module"     //新视频卡-二级列表使用
+	GotoNewDynVideoModule     = "dyn_video_module"     //新视频卡-二级列表使用
+	GotoEditOriginModule      = "origin_editor_module" //编辑推荐卡数据源模式-二级列表使用
+	GotoTitleName             = "display_name"
+	GotoBannerModule          = "banner_module"
+	GotoBannerCard            = "banner_card"
+	GotoStatementModule       = "statement_module"
+	GotoStatement             = "statement_card"
+	GotoSingleDynModule       = "single_dynamic_module"
+	GotoFromCard              = "from_card"
+	GotoPartModule            = "part_module"
+	GotoRecommend             = "recommend"
+	GotoRecommendModule       = "recommend_module"
+	GotoRcmdVerticalMou       = "recommend_vertical_module"
+	GotoRcmdVertical          = "recommend_vertical"
+	GotoCarouselImg           = "carousel_img"
+	GotoCarouselImgModule     = "carousel_img_module"
+	GotoCarouselWord          = "carousel_word"
+	GotoCarouselWordModule    = "carousel_word_module"
+	GotoIcon                  = "icon"
+	GotoIconModule            = "icon_module"
+	GotoNavigationModule      = "navigation_module"
+	GotoResourceModule        = "resource_module"
+	GotoResource              = "resource"
+	GotoNavigation            = "navigation"
+	GotoInlineTabModule       = "inline_tab_module"
+	GotoInlineTab             = "inline_tab"
+	GotoLiveModule            = "live_module"
+	GotoLive                  = "live"
+	GotoEditorModule          = "editor_module"
+	GotoEditor                = "editor"
+	GotoSelectModule          = "select_module"
+	GotoSelect                = "select"
+	GotoTimelineModule        = "timeline_module"
+	GotoTimelineMore          = "timeline_more"
+	GotoTimelineExpand        = "timeline_expand"
+	GotoTimelineResource      = "timeline_event_resource"
+	GotoTimelinePic           = "timeline_event_pic"
+	GotoTimelineText          = "timeline_event_text"
+	GotoTimelineMix           = "timeline_event_pic_text"
+	GotoTimelineHead          = "timeline_head"
+	GotoOgvSeasonModule       = "ogv_season_module"
+	GotoOgvSeasoThree         = "ogv_season_three"
+	GotoOgvSeasoOne           = "ogv_season_one"
+	GotoOgvSeasonMore         = "ogv_season_more"
+	GotoReplyModule           = "reply"
+	ActStatContent            = "发起的活动"
+	GotoNewVideoModule        = "new_video_module" //新视频卡-act模式
+	GotoNewUgcVideo           = "new_ugc_video"    //新视频卡
+	GotoNewPgcVideo           = "new_pgc_video"    //新视频卡
+	GotoProgressModule        = "progress_module"
+	GotoProgress              = "progress"
+	GotoGameModule            = "game_module"
+	GotoGame                  = "game"
+	GotoHoverButtonModule     = "hover_button_module"
+	GotoReserveModule         = "reserve_module"
+	GotoReserve               = "reserve"
+	GotoVoteModule            = "vote_module"
+	GotoVoteButton            = "vote_button"
+	GotoVoteProcess           = "vote_process"
+	GotoVoteUser              = "vote_user"
+	GotoNewactHeaderModule    = "newact_header_module"
+	GotoNewactHeader          = "newact_header"
+	GotoNewactAwardModule     = "newact_award_module"
+	GotoNewactAward           = "newact_award"
+	GotoNewactStatementModule = "newact_statement_module"
+	GotoNewactStatement       = "newact_statement"
+	GotoBottomButton          = "bottom_button"
+	GotoMatchMedalModule      = "match_medal_module"
+	GotoMatchMedal            = "match_medal"
+	GotoMatchEventModule      = "match_event_module"
+	GotoMatchEvent            = "match_event"
+	AddReserve                = 1
+	RemoteActivityPage        = "activity_page"
+	RemoteActivity            = "activity"
+	BizOgvType                = 1
+	BizArtType                = 2
+	BizUgcType                = 3
+	BizBusinessCommodity      = 4
+	BizSeasonType             = 5
+	BizWebType                = 6
+	BizOgvFilmType            = 7
+	BizLiveType               = 8
+	ShareUgc                  = "ugc"
+	ShareArticle              = "article"
+	ShareLongPress            = "activity_longpress_share"
+	ShareTypeActivity         = 8
+	OriginTab                 = "activity_tab_share"
+	OriginInlineTab           = "activity_more_share"
+	SimpleTab                 = "activity_titlebar_share"
+	SimpleInlineTab           = "activity_one_page_share"
+	// 挂件领取
+	GotoClickPendant       = "click_pendant"
+	GotoClickUpAppointment = "up_appointment"
+	// Item.Type
+	TypeClickArea     = "click_area"
+	TypeClickImage    = "click_image"
+	TypeClickLink     = "click_link"
+	TypeClickAPP      = "click_app"
+	TypeCommodity     = "commodity"
+	TypeUgc           = "ugc"
+	TypeOgv           = "ogv"
+	TypeArticle       = "article"
+	TypeSeason        = "season"
+	TypeWeb           = "web"      //网页
+	TypeOgvFilm       = "ogv_film" //片单
+	TypePersonalSpace = "personal_space"
+	TypeURI           = "uri"
+	TypeRound         = "round"
+	TypeRectangle     = "rectangle"
+	TypeNode          = "node"
+	TypeLive          = "live"
+	// 进度条样式
+	ProgStyleRound     = 1 //圆角条
+	ProgStyleRectangle = 2 //矩形条
+	ProgStyleNode      = 3 //分节条
+	// style
+	StyleColor = "color"
+	StyleImage = "image"
+	// progress
+	ProgDataTypeAllPoint  = 0 //活动总积分
+	ProgDataTypeAllMember = 1 //活动总人数
+	ProgTypeUserRule      = 0 //规则维度
+	ProgTypeUserFormula   = 1 //公式维度
+	//页面来源
+	PageFromIndex = "index"
+	//每周必看
+	WeekStyle = "weekly_selected"
+	// AppJumpUrl biz_type
+	JumpURLBizTypeBnj2021 = 0 //Bnj2021AR
+	// formatModule from
+	FormatModFromMenuTab    = "menu_tab"
+	FormatModFromMenuOGV    = "menu_ogv"
+	FormatModFromMenuUGC    = "menu_ugc"
+	FormatModFromMenuPlayer = "menu_player"
+	FormatModFromMenuSpace  = "menu_space"
+	FormatModFromMenuUp     = "menu_up"
+	FormatModFromMenuBottom = "menu_bottom"
+	FormatModFromMenuLive   = "menu_live"
+	FormatModFromMenuNewact = "menu_newact"
+	FormatModFromIndex      = "index"
+	FormatModFromInline     = "inline"
+	// 埋点 action_type
+	ActionTypeSub   = "interaction_subscribe"
+	ActionTypeUnsub = "interaction_unsubscribe"
+	ActionTypeJump  = "jump"
+	//预约组件展示类型
+	ReserveDisplayA    = int64(1)
+	ReserveDisplayC    = int64(2)
+	ReserveDisplayD    = int64(3)
+	ReserveDisplayE    = int64(4)
+	ReserveDisplayLive = int64(5)
+	//直播态
+	Living  = 1
+	LiveEnd = 2
+	//直播enterFrom
+	LiveEnterFrom = "dynamic_activity_reserve"
+	//预约icon
+	ReserveIcon = "http://i0.hdslb.com/bfs/archive/f5b7dae25cce338e339a655ac0e4a7d20d66145c.png"
+	// 投票组件-选项数
+	VoteOptionNum = 2
+	// 表格对齐方式
+	TextAlignCenter = "center" //居中
+	TextAlignLeft   = "left"   //靠左
+	TextAlignRight  = "right"  //靠右
+)

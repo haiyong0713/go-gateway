@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+// use {app_id}.{version} as package name
+package resource.service.v1;
+
+
+// specify golang package name
+option go_package = "v1";
+
+message ConvergeCard {
+    int64 id = 1;
+    int32 re_type = 2 ;
+    string re_value = 3;
+    string title = 4;
+    string cover = 5;
+    bytes content = 6;
+}
+
+message ConvergeCardReply{
+    repeated ConvergeCard list = 1;
+}

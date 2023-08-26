@@ -1,0 +1,19 @@
+folder = "/tmp"
+patchLimit = 5
+
+[modCDN]
+"/appstaticboss/"  = "https://upos-sz-static.hdslb.com"
+"/bfs/app-static/" = "https://i0.hdslb.com"
+"/appstatic/"      = "https://boss.hdslb.com"
+
+[HTTPClientAsyn]
+    key    = "fca0f184c60379df"
+    secret = "eeafadc0a6077cad3ec386e5ef33addd"
+    dial      = "1s"
+    timeout   = "120s"
+    keepAlive = "60s"
+
+[bossConfig]
+    host = "http://uat-boss.bilibili.co"
+    accessKeyID = "56be3f1296b814ce"
+    secretAccessKey = "4b61c259fbe2ad0f0f5ebc0f1be30737"

@@ -1,0 +1,18 @@
+[host]
+    apiCo = "http://api.bilibili.co"
+    genpost = "http://uat-api.bilibili.com/x/share/placard"
+    savePost = "http://uat-api.bilibili.com/x/share/placardSave"
+
+[httpReply]
+    key = "96923574ed650ef9"
+    secret = "35113863f243e6a84b8bbdafa2ba76cd"
+    dial = "3s"
+    timeout = "10s"
+    keepAlive = "60s"
+
+[httpJob]
+    key = "96923574ed650ef9"
+    secret = "35113863f243e6a84b8bbdafa2ba76cd"
+    dial = "3s"
+    timeout = "10m"
+    keepAlive = "60s"

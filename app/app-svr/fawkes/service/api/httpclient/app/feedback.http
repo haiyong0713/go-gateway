@@ -1,0 +1,42 @@
+POST {{baseUrl}}/app/feedback/add
+Content-Type: application/x-www-form-urlencoded
+Cookie: {{Cookie}}
+Referer: {{Referer}}
+x1-bilispy-user:fawkes_
+
+app_key=w191e&bv=dfalijge134235&business=笔记业务&send_to=xiaoluoli&is_bug=false
+
+###
+
+POST {{baseUrl}}/openapi/feedback/add
+Content-Type: application/x-www-form-urlencoded
+fawkes-token:{{Token}}
+fawkes-user:suibiangei
+
+app_key=w19e&bv=dfalijge134235&remark=test&business=笔记业务
+###
+
+GET {{baseUrl}}/app/feedback/info?id=2136
+Accept: application/json
+Cookie: {{Cookie}}
+Referer: {{Referer}}
+x1-bilispy-user:fawkes_
+
+###
+
+
+GET {{baseUrl}}/app/feedback/list?app_key=w19e&pn=1&ps=1000&is_bug=true
+Accept: application/json
+Cookie: {{Cookie}}
+Referer: {{Referer}}
+x1-bilispy-user:fawkes_
+###
+
+POST {{baseUrl}}/app/feedback/update
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json
+Referer: {{Referer}}
+x1-bilispy-user:fawkes_
+Cookie: {{Cookie}}
+
+id=2135&remark=ttttt&status=2&business=笔记&is_bug=1

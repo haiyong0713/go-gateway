@@ -1,0 +1,61 @@
+syntax = "proto3";
+package bilibili.app.distribution.experimental.v1;
+import "bilibili/app/distribution/distribution.proto";
+import "bilibili/app/distribution/options.proto";
+import "bilibili/extension/crane/crane.proto";
+
+option go_package = "git.bilibili.co/bapis/bapis-go/bilibili/app/distribution/setting/experimental;experimental";
+option java_package = "com.bapis.bilibili.app.distribution.setting.experimental";
+option java_multiple_files = true;
+option objc_class_prefix = "BAPIAppDistributionSettingExperimental";
+option (bilibili.app.distribution.v1.preference) = "MultipleTusConfig";
+option (bilibili.app.distribution.v1.storage_driver) = "multiple-tus-flag";
+option (bilibili.extension.crane.bili_grpc_host) = "main.grpc.bilibili.com";
+
+message MultipleTusConfig {
+  //首页左上角配置
+  TopLeft topLeft = 1 [
+    (bilibili.app.distribution.v1.tus_values) = "7841",
+    (bilibili.app.distribution.v1.tus_values) = "7842",
+    (bilibili.app.distribution.v1.tus_values) = "11622",
+    (bilibili.app.distribution.v1.tus_values) = "11620",
+    (bilibili.app.distribution.v1.tus_values) = "14172"
+  ];
+  //动态筛选器
+  DynamicSelect dynamicSelect = 2
+      [ (bilibili.app.distribution.v1.tus_values) = "8574" ];
+}
+
+message TopLeft {
+  // 点击左上角跳转链接
+  bilibili.app.distribution.v1.StringValue url = 1;
+  // 安卓story模式前景图
+  bilibili.app.distribution.v1.StringValue storyForegroundImage = 2;
+  // 安卓story模式背景图
+  bilibili.app.distribution.v1.StringValue storyBackgroundImage = 3;
+  // 安卓听一听模式前景图
+  bilibili.app.distribution.v1.StringValue listenForegroundImage = 4;
+  // 安卓听一听模式背景图
+  bilibili.app.distribution.v1.StringValue listenBackgroundImage = 5;
+  // IOS story模式前景图
+  bilibili.app.distribution.v1.StringValue iosStoryForegroundImage = 6;
+  // IOS story模式背景图
+  bilibili.app.distribution.v1.StringValue iosStoryBackgroundImage = 7;
+  // IOS听一听模式前景图
+  bilibili.app.distribution.v1.StringValue iosListenForegroundImage = 8;
+  // IOS听一听模式背景图
+  bilibili.app.distribution.v1.StringValue iosListenBackgroundImage = 9;
+  // 跳转标识(1-我的页 2-模式切换页)
+  bilibili.app.distribution.v1.StringValue goto = 10;
+  // 点击左上角跳转链接(新版本用)
+  bilibili.app.distribution.v1.StringValue urlV2 = 11;
+  // 跳转标识(1-我的页 2-模式切换页 3-直进story 4-模式切换页+大角标)(新版本用)
+  bilibili.app.distribution.v1.Int64Value gotoV2 = 12;
+  // 头像角标(新版本用)
+  bilibili.app.distribution.v1.StringValue badge = 13;
+}
+
+message DynamicSelect {
+  //是否收起动态筛选器
+  bilibili.app.distribution.v1.BoolValue fold = 1;
+}

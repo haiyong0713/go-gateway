@@ -1,0 +1,194 @@
+[app]
+    key = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+
+[rule]
+    before = "15m"
+    sleepInterval = "5m"
+    alertTitle = "你订阅的比赛即将开播了"
+    alertBodyDefault = "%s中,你订阅的赛程【%s %s VS %s】即将开播，快前去观看比赛吧! %s"
+    alertBodySpecial = "%s中,你订阅的赛程【%s %s】即将开播，快前去观看比赛吧! %s"
+    scoreSleep = "1h"
+    coinPercent = 0.4
+    favPercent = 0.3
+    dmPercent = 0.4
+    replyPercent = 0.4
+    viewPercent = 0.25
+    likePercent = 0.4
+    sharePercent = 0.6
+    newDay = 14.0
+    newPercent = 1.5
+    beiTaiAfter = "0 */60 * * * ?"
+    TunnelBizID = 1006
+    autoFileSwitch = 0
+    autoOfficialTid = 3
+    autoPassView = 10
+
+[push]
+    businessID = 1
+    businessToken = "fi6xf5xmldudexsh5tgukerohn3mgrl3"
+    retryTimes = 3
+    partSize = 100000
+    title = "你订阅的比赛开播了～"
+    bodyDefault = "%s %s VS %s 已开播，快来观看比赛吧！ %s"
+    bodySpecial = "%s %s 已开播，快来观看比赛吧！%s"
+    onlyMids = ""
+
+[message]
+    URL = "http://message.bilibili.co/api/notify/send.user.notify.do"
+    MC = "1_4_2"
+
+[leidata]
+    timeout = "15s"
+    recentSleep = "5m"
+    connTime = "60s"
+    bindTime = "-5m"
+    groupUrl = "http://egame.leidata.com/nesport/index.php/Api"
+    socket = "ws://47.95.28.113:8080/"
+    key = "9823e403c489589b3d62308d02f5d10d"
+    origin = "http://leidata.bilibili.com/"
+    ip = "http://47.95.28.113/"
+    [leidata.hero]
+    version="9.2.1"
+    ids=[2489]
+    [leidata.after]
+    retry = 3
+    lolGameID = 2
+    dotaGameID = 4
+    gameEnd = "30m"
+    bigDataCron = "0 0 12 * * ?"
+    infoDataCron = "0 0 1 * * *"
+    gameSleepCron = "0 */5 * * * ?"
+    url = "http://47.95.28.113/nesport/index.php/Api"
+    key = "68acec7451ad6404d638ef399489e1c5"
+
+[beiTai]
+    leagueID = "401"
+    customer = "bilibili"
+    key = "bilibili"
+    appSecret = "BNf8Jsdy"
+
+[search]
+    LocalPath="/tmp/"
+    LocalFile="/tmp/esports"
+    LocalMD5File="/tmp/esports.md5"
+    RemotePath="/open/esports/"
+    RemoteFileName="esports"
+    RemoteMD5FileName="esports.md5"
+    ftpDataCron= "0 */1 * * * ?"
+    [search.cfg]
+    UploadFre = "100s"
+    UpperCnt  = 50
+    [search.ftp]
+    USER="search"
+    PASS="sq46uCbIJRozYuWD"
+    HOST="172.22.33.55:21"
+    Timeout="5s"
+
+[Score]
+    seasonIDs = [20]
+    url = "https://gd-api.famulei.com/services"
+    key = "5d9020406a022"
+    secret = "ce94a875cbe32c58fa754a902c14c536"
+    liveBackupImg = "https://i0.hdslb.com/bfs/face/member/noface.jpg"
+    offlineTournamentID = "172"
+    liveTicker = 1
+
+[interval]
+    autoArcRuleCron = "0 */30 * * * ?"
+    offLineImageCron = "@every 100h"
+    autoArcPassCron = "0 0 2 * * ?"
+
+
+[seasonContestWatchMap]
+    [seasonContestWatchMap.122]
+    seasonID = 122
+    matchType = 1
+    uniqKey = "英雄联盟S10世界赛"
+    startTime = "2020-12-30 11:50:00"
+    endTime = "2021-05-20 11:50:00"
+    fetchAll = true
+    contestAvCIDListCacheKey = "esport:contestAvCIDList:lol:122"
+    contestListCacheKey = "esport:contestList:lol:122"
+    contestIDListCacheKey = "esport:contestIDList:lol:122"
+    contestMatchIDMapCacheKey = "esport:contestMatchIDMap:lol:122"
+    contestSeriesMapCacheKey = "esport:contestSeriesMap:lol:122"
+    cacheKey4PosterList = "esport:posterList:lol:122"
+    teamScoreMapCacheKey = "esport:teamScoreMap:lol:122"
+    expiredDuration = 86400
+
+[seasonStatusNotifier]
+    [seasonStatusNotifier.122]
+    seasonID = 122
+    uniqID = "S10"
+    httpNotifies = ["http://api.vc.bilibili.co/dynamic_mix/v0/dynamic_mix/set_live_style"]
+    startTime = "2020-12-30 11:50:00"
+    endTime = "2021-02-20 11:50:00"
+    notifyInterval = 0
+    notifyTimes = 3
+    webhookUrl = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=220f41b8-7c12-4ba1-a2ba-657a7a5107d7"
+    webhookNotify = false
+    webhookReceivers = ["leijiru"]
+    webhookTels = ["15555742725"]
+
+[berserker]
+    host = "http://berserker.bilibili.co"
+    appKey = "750813c1f6d9f9ffbb7bd1d9ebb1325b"
+    appSecret = "2811b8aa032f56cc185f8f53c704ecdb"
+    cronSpec = "0 30 14 * * *"
+    archiveScoreInDB = false
+    enabled = false
+    keepBackupFile = true
+
+[corpWeChat]
+    mentionUserIDs = ["leijiru", "wuliang02"]
+    mentionUserTels = ["15555742725"]
+    webhookUrl = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=8a541600-2c1e-48c3-90cc-535cf59a0fd6"
+
+[RankingDataWatch]
+    RoundIDListCacheKey = "esport:score:ranking:data:round:id"
+    RoundDataCacheKeyPre = "esport:score:ranking:data:round:data:"
+    CurrentRoundIDCacheKey = "esport:score:ranking:data:current:round:id"
+    InterventionCacheKey = "esport:score:ranking:data:intervention"
+    Cron = "0 */5 * * * *"
+    TournamentID = "191"
+
+[scoreAnalysisConfig]
+    tournamentID = 178
+    startTime = 1595952000
+    endTime = 1606579200
+    interval = 60
+    enabled = true
+    cacheKey4Team = "esport:scoreAnalysis:team"
+    cacheKey4Player = "esport:scoreAnalysis:player"
+    cacheKey4Hero = "esport:scoreAnalysis:hero"
+    expiration = 86000
+
+
+[seasonContestComponent]
+    canWatch = true
+    startTimeBefore = "720h"
+    endTimeAfter = "720h"
+    expiredDuration = 86400
+
+[seriesRefresh]
+    refreshDuration = "60s"
+    refreshIgnoreIDList = [27]
+
+[tunnelBGroup]
+    source = "esports"
+    sendNew = 1
+    newContests = [111,222,3996,3999,4005] #小卡灰度的赛程
+
+[contestStatusRefresh]
+    refreshSwitchDo = true
+    refreshDuration = "60s"
+
+[OlympicConf]
+    Open = true
+    PreContest = false
+    OlympicLocalFile = "/tmp/olympic"
+    OlympicLocalMD5File = "/tmp/olympic.md5"
+    OlympicRemotePath = "/open/esports/"
+    OlympicRemoteFileName = "esports-pre"
+    OlympicRemoteMD5FileName = "esports-pre.md5"

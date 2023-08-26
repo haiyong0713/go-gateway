@@ -1,0 +1,63 @@
+POST {{baseUrl}}/railgun/user/reload
+Content-Type: application/json
+
+{
+  "task_id": 128,
+  "uuid": "j2v9ju4nft",
+  "heartbeat": 10,
+  "test": false,
+  "addr": "http://172.22.225.198:8000"
+}
+
+###
+
+POST {{baseUrl}}/railgun/nas/clean
+Content-Type: application/json
+railgun-async-msg:true
+
+{
+  "task_id": 128,
+  "uuid": "j2v9ju4nft",
+  "heartbeat": 10,
+  "test": false,
+  "addr": "http://172.22.225.198:8000"
+}
+
+###
+POST {{baseUrl}}/railgun/nas/clean/patch
+Content-Type: application/json
+railgun-async-msg:false
+
+{
+  "task_id": 128,
+  "uuid": "j2v9ju4nsft",
+  "heartbeat": 10,
+  "test": false,
+  "addr": "http://172.22.225.198:8000"
+}
+###
+
+POST {{baseUrl}}/railgun/nas/clean/channel
+Content-Type: application/json
+railgun-async-msg:false
+
+{
+  "task_id": 128,
+  "uuid": "j2v9ju4nsft",
+  "heartbeat": 10,
+  "test": false,
+  "addr": "http://172.22.225.198:8000"
+}
+###
+
+POST {{baseUrl}}/railgun/tribe/pack/move
+Content-Type: application/json
+railgun-async-msg:true
+
+{
+  "task_id": 1191,
+  "uuid": "j2v9ju4nft",
+  "heartbeat": 10,
+  "test": false,
+  "addr": "http://172.22.225.198:8000"
+}

@@ -1,0 +1,21 @@
+[memcached]
+    name = "esport/s10"
+    proto = "tcp"
+    addr = "127.0.0.1:11211"
+    idle = 64
+    active = 1024
+    dialTimeout = "30ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+
+[Memcached4UserGuess]
+    name = "esport/s10"
+    proto = "tcp"
+    addr = "127.0.0.1:11211"
+    idle = 64
+    active = 1024
+    dialTimeout = "30ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"

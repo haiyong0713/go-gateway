@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package bilibili.app.dynamic.v2;
+
+option go_package = "v2";
+option java_multiple_files = true;
+option java_package = "com.bapis.bilibili.app.dynamic.v2";
+option objc_class_prefix = "BAPIAppDynamicV2";
+
+import "go-gateway/app/app-svr/app-dynamic/interface/api/common/common.proto";
+import "go-gateway/app/app-svr/app-dynamic/interface/api/v2/dynamicV2.proto";
+import "go-gateway/app/app-svr/archive/middleware/v1/preload.proto";
+import "bilibili/pagination/pagination.proto";
+
+// 校园对客户端网关服务
+service Campus {
+  // 校园双列瀑布流推荐 (其他院校/首页未开放推荐feed)
+  rpc WaterFlowRcmd(WaterFlowRcmdReq) returns (WaterFlowRcmdResp);
+}
+
+
+enum WFItemType {
+  // 无效类型
+  WATER_FLOW_TYPE_NONE = 0;
+  // 稿件 使用 WFItemDefault
+  WATER_FLOW_TYPE_ARCHIVE = 1;
+  // 动态 使用 WFItemDefault
+  WATER_FLOW_TYPE_DYNAMIC = 2;
+}
+
+// 瀑布流默认的橱窗样式
+message WFItemDefault {
+  // 标题
+  string title = 1;
+  // 封面
+  string cover = 2;
+  // 封面左下角 从左往右 第1个
+  CoverIconWithText bottom_left_1 = 3;
+  // 封面左下角 从左往右 第2个
+  CoverIconWithText bottom_left_2 = 4;
+  // 封面右下角 从右往左 第1个
+  CoverIconWithText bottom_right_1 = 5;
+  // 跳转链接
+  string uri = 6;
+  // 推荐理由
+  RcmdReason rcmd_reason  = 7;
+  // UI无关的注解信息
+  // 例如埋点需要的 aid/cid/dynamic_id/track_id等等
+  map<string, string> annotations = 8;
+}
+
+message CampusWaterFlowItem {
+  // 卡片类型
+  WFItemType item_type = 1;
+  // 卡片比例 缺失该字段时客户端丢卡
+  bilibili.app.dynamic.common.ItemWHRatio wh_ratio = 2;
+  // 卡片数据类型列表
+  oneof flow_item {
+    // 瀑布流默认的橱窗样式
+    WFItemDefault item_default = 3;
+  }
+}
+
+message WaterFlowRcmdReq {
+  // 页面的学校ID
+  int64 campus_id = 1;
+  // 翻页参数
+  bilibili.pagination.FeedPagination page = 2;
+  // 秒开用
+  bilibili.app.archive.middleware.v1.PlayerArgs player_args = 3;
+  // 页面请求来源
+  CampusRcmdReqFrom from = 4;
+}
+
+message WaterFlowRcmdResp {
+  // 推荐卡片列表
+  repeated CampusWaterFlowItem items = 1;
+  // 翻页用 next为空或者该结构为空时说明已经到底了
+  bilibili.pagination.FeedPaginationReply offset = 2;
+}

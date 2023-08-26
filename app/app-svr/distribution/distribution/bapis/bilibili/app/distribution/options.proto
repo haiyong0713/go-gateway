@@ -1,0 +1,37 @@
+syntax = "proto3";
+package bilibili.app.distribution.v1;
+import "google/protobuf/descriptor.proto";
+import "bilibili/app/distribution/distribution.proto";
+import "bilibili/extension/crane/crane.proto";
+
+option go_package = "git.bilibili.co/bapis/bapis-go/bilibili/app/distribution;distribution";
+option java_package = "com.bapis.bilibili.app.distribution";
+option java_multiple_files = true;
+option objc_class_prefix = "BAPIAppDistribution";
+option (bilibili.extension.crane.bili_grpc_host) = "main.grpc.bilibili.com";
+
+extend google.protobuf.FieldOptions {
+    string refenum = 75001;
+    string inherit_from = 75002;
+    string field_runtime_setting_title = 75003;
+    bilibili.app.distribution.v1.defaultValue default_value = 75004;
+    string abtest_flag_value = 75005;
+    string tus_value = 75006;
+    repeated string tus_values = 75007;
+}
+
+extend google.protobuf.FileOptions {
+    repeated string preference = 76001;
+    string storage_driver = 76002;
+    bool disabled = 76003;
+    repeated string feature = 76004;
+    bool reset_on_clean_install = 76005;
+}
+
+extend google.protobuf.MessageOptions {
+    bool runtime_setting_view = 77001;
+}
+
+extend google.protobuf.EnumValueOptions {
+    string enum_runtime_setting_title = 78001;
+}

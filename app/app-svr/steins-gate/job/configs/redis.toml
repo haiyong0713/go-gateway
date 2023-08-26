@@ -1,0 +1,11 @@
+[SteinsGate]
+    name   = "app-job/graph"
+    proto  = "tcp"
+    addr   = "127.0.0.1:6379"
+    active = 128
+    idle   = 64
+    dialTimeout  = "30ms"
+    readTimeout  = "800ms"
+    writeTimeout = "800ms"
+    idleTimeout  = "80s"
+    LockExpire = "24h" #如果del失败了则24h后自动过期

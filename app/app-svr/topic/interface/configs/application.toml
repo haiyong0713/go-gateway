@@ -1,0 +1,13 @@
+[host]
+deepLearn  = "http://deeplearn.bilibili.co"
+apiCo    = "http://api.bilibili.co"
+
+[HTTPClient]
+    key    = "e7482d29be4a95b8"
+    secret = "9e803791cdef756e75faee68e12b7442"
+    dial      = "500ms"
+    timeout   = "1s"
+    keepAlive = "60s"
+
+[dynamicGRPC]
+    timeout = "800ms"

@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package bilibili.app.playeronline.v1;
+
+option go_package = "api";
+
+service PlayerOnline {
+  //查询在看人数
+  rpc PlayerOnline(PlayerOnlineReq) returns (PlayerOnlineReply);
+  //上报在看参与
+  rpc ReportWatch(ReportWatchReq) returns (NoReply);
+  //查询首映结束后参与人数与互动信息
+  rpc PremiereInfo(PremiereInfoReq) returns (PremiereInfoReply);
+}
+
+// NoReply
+message NoReply {}
+
+message ReportWatchReq {
+  // aid
+  int64 aid = 1;
+  // app or web
+  string biz = 2;
+  // buvid
+  string buvid = 3;
+}
+
+message PremiereInfoReq {
+  // aid
+  int64 aid = 1;
+}
+
+message PremiereInfoReply {
+  // 期间共xxx人参与，发生xxx次互动
+  string premiere_over_text = 1;
+  // xxx人参与
+  int64 participant = 2;
+  // xxx次互动
+  int64 interaction = 3;
+}
+
+message PlayerOnlineReq {
+  // aid
+  int64 aid = 1;
+  // cid
+  int64 cid = 2;
+  // true为新的播放行为
+  bool play_open = 3;
+}
+
+message PlayerOnlineReply {
+  // xxx人在看
+  string total_text = 1;
+  // 下次获取在看人数间隔（秒）
+  int64 sec_next = 2;
+  // 是否展示左下角底部在看人数
+  bool bottom_show = 3;
+  // 是否展示特殊弹幕
+  bool sdm_show = 4;
+  // 特殊弹幕 展示文案
+  string sdm_text = 5;
+  // 在线人数
+  int64 total_number = 6;
+  // 在线人数文本
+  string total_number_text = 7;
+}

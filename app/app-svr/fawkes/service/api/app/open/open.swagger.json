@@ -1,0 +1,707 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "go-gateway/app/app-svr/fawkes/service/api/app/open/open.proto",
+        "version": "1"
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json",
+        "multipart/form-data"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/x/admin/fawkes/app/open/project/active": {
+            "post": {
+                "summary": "删除项目",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.open.v1.ActiveProjectReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.open.v1.Open"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/open/project/add": {
+            "post": {
+                "summary": "新增项目",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.open.v1.CreateProjectReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.open.v1.Open"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/open/project/apis": {
+            "get": {
+                "summary": "获取api列表",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.open.v1.GetOpenApiListResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "app_key",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "app.open.v1.Open"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/open/project/info": {
+            "get": {
+                "summary": "获取项目信息",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.open.v1.GetProjectInfoResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "project_id",
+                        "in": "query",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "app.open.v1.Open"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/open/project/info/list": {
+            "get": {
+                "summary": "获取项目信息列表",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.open.v1.GetProjectInfoListResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "project_name",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pn",
+                        "in": "query",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "ps",
+                        "in": "query",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "app.open.v1.Open"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/open/project/path/appkey/update": {
+            "post": {
+                "summary": "更新接口appKey",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.open.v1.UpdatePathReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.open.v1.Open"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/open/project/path/disable": {
+            "post": {
+                "summary": "删除接口权限信息",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.open.v1.DeletePathResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.open.v1.DeletePathReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.open.v1.Open"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/open/project/path/enable": {
+            "post": {
+                "summary": "新建接口权限信息",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.open.v1.AddPathReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.open.v1.Open"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/open/project/path/list": {
+            "get": {
+                "summary": "接口权限详情列表",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.open.v1.PathListResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "project_id",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "app.open.v1.Open"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/open/project/update": {
+            "post": {
+                "summary": "更新项目信息",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.open.v1.UpdateProjectReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.open.v1.Open"
+                ]
+            }
+        }
+    },
+    "definitions": {
+        ".app.open.v1.ActiveProjectReq": {
+            "type": "object",
+            "properties": {
+                "project_id": {
+                    "type": "integer"
+                },
+                "is_active": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "project_id"
+            ]
+        },
+        ".app.open.v1.AddPathReq": {
+            "type": "object",
+            "properties": {
+                "project_id": {
+                    "type": "integer"
+                },
+                "router_access": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.open.v1.RouterAccess"
+                    }
+                }
+            },
+            "required": [
+                "project_id"
+            ]
+        },
+        ".app.open.v1.CreateProjectReq": {
+            "type": "object",
+            "properties": {
+                "project_name": {
+                    "type": "string"
+                },
+                "owner": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "project_name",
+                "owner"
+            ]
+        },
+        ".app.open.v1.DeletePathReq": {
+            "type": "object",
+            "properties": {
+                "project_id": {
+                    "type": "integer"
+                },
+                "path_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "required": [
+                "project_id",
+                "path_id"
+            ]
+        },
+        ".app.open.v1.DeletePathResp": {
+            "type": "object",
+            "properties": {
+                "deleted_count": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".app.open.v1.GetOpenApiListReq": {
+            "type": "object",
+            "properties": {
+                "app_key": {
+                    "type": "string"
+                }
+            }
+        },
+        ".app.open.v1.GetOpenApiListResp": {
+            "type": "object",
+            "properties": {
+                "router": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.open.v1.Router"
+                    }
+                }
+            }
+        },
+        ".app.open.v1.GetProjectInfoListReq": {
+            "type": "object",
+            "properties": {
+                "project_name": {
+                    "type": "string"
+                },
+                "pn": {
+                    "type": "integer"
+                },
+                "ps": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "pn",
+                "ps"
+            ]
+        },
+        ".app.open.v1.GetProjectInfoListResp": {
+            "type": "object",
+            "properties": {
+                "page_info": {
+                    "$ref": "#/definitions/.app.open.v1.PageInfo"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.open.v1.ProjectInfo"
+                    }
+                }
+            }
+        },
+        ".app.open.v1.GetProjectInfoReq": {
+            "type": "object",
+            "properties": {
+                "project_id": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "project_id"
+            ]
+        },
+        ".app.open.v1.GetProjectInfoResp": {
+            "type": "object",
+            "properties": {
+                "project_info": {
+                    "$ref": "#/definitions/.app.open.v1.ProjectInfo"
+                }
+            }
+        },
+        ".app.open.v1.PageInfo": {
+            "type": "object",
+            "properties": {
+                "total": {
+                    "type": "integer"
+                },
+                "pn": {
+                    "type": "integer"
+                },
+                "ps": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".app.open.v1.PathListReq": {
+            "type": "object",
+            "properties": {
+                "project_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".app.open.v1.PathListResp": {
+            "type": "object",
+            "properties": {
+                "project_id": {
+                    "type": "integer"
+                },
+                "project_name": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.open.v1.RouterAccess"
+                    }
+                }
+            }
+        },
+        ".app.open.v1.PathUpdate": {
+            "type": "object",
+            "properties": {
+                "path_id": {
+                    "type": "integer"
+                },
+                "app_key": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "path_id",
+                "app_key"
+            ]
+        },
+        ".app.open.v1.ProjectInfo": {
+            "type": "object",
+            "properties": {
+                "project_id": {
+                    "type": "integer"
+                },
+                "project_name": {
+                    "type": "string"
+                },
+                "owner": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "description": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "applicant": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "project_id"
+            ]
+        },
+        ".app.open.v1.Router": {
+            "type": "object",
+            "properties": {
+                "path": {
+                    "type": "string"
+                }
+            }
+        },
+        ".app.open.v1.RouterAccess": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "app_key": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "description": {
+                    "type": "string"
+                }
+            }
+        },
+        ".app.open.v1.UpdatePathReq": {
+            "type": "object",
+            "properties": {
+                "project_id": {
+                    "type": "integer"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.open.v1.PathUpdate"
+                    }
+                }
+            },
+            "required": [
+                "project_id",
+                "items"
+            ]
+        },
+        ".app.open.v1.UpdateProjectReq": {
+            "type": "object",
+            "properties": {
+                "project_id": {
+                    "type": "integer"
+                },
+                "owner": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "project_id"
+            ]
+        },
+        ".google.protobuf.Empty": {
+            "type": "object",
+            "properties": {},
+            "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }\n\n The JSON representation for `Empty` is empty JSON object `{}`."
+        }
+    }
+}

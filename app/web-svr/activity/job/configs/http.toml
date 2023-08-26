@@ -1,0 +1,46 @@
+[bm]
+    addr = "0.0.0.0:7751"
+    timeout = "1s"
+[httpClient]
+key = "33ac033ce123e590"
+secret = "0b2847315d32989a248294e350ac3ede"
+dial = "60ms"
+timeout = "500ms"
+keepAlive = "60s"
+timer = 1000
+
+[httpFate]
+key = "33ac033ce123e590"
+secret = "0b2847315d32989a248294e350ac3ede"
+dial = "60ms"
+timeout = "500ms"
+keepAlive = "60s"
+timer = 1000
+
+[httpClientBFS]
+key = "33ac033ce123e590"
+secret = "0b2847315d32989a248294e350ac3ede"
+dial = "60ms"
+timeout = "3s"
+keepAlive = "60s"
+timer = 1000
+
+[httpClientComic]
+    key = "foo"
+    secret = "bar"
+    dial = "30ms"
+    timeout = "300ms"
+    keepAlive = "60s"
+
+[host]
+APICo = "http://uat-api.bilibili.co"
+activity = "http://www.bilibili.com"
+msgCo = "http://message.bilibili.co"
+actCo = "http://activity-mng.bilibili.co"
+apiVcCo = "http://api.vc.bilibili.co"
+comic = "http://manga.bilibili.co"
+mall = "http://uat-mall.bilibili.co"
+MerakCo = "http://merak.bilibili.co"
+manager = "http://uat-manager.bilibili.co"
+dynamic = "http://uat-api.vc.bilibili.co"
+

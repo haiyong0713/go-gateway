@@ -1,0 +1,71 @@
+[ProxyConfig]
+[[ProxyConfig.DynPath]]
+Pattern="~ ^/x/web-interface"
+ValidatorDSN="jsonschema://?reference=sven:///api.json&loader=sven"
+[ProxyConfig.DynPath.ClientInfo]
+AppID = "main.web-svr.web-interface"
+Endpoint = "http://api.bilibili.com"
+[[ProxyConfig.DynPath]]
+    Pattern = "~ /x/playlist/whitelist"
+    ValidatorDSN = ""
+    [ProxyConfig.DynPath.BackupRetryOption]
+      Ratio = 0
+      ForceBackupCondition = ""
+      BackupAction = ""
+      BackupPlaceholder = ""
+      BackupECode = 0
+      BackupURL = ""
+    [ProxyConfig.DynPath.SDKConfig]
+      Key = ""
+      Secret = ""
+      Debug = false
+    [ProxyConfig.DynPath.ClientInfo]
+      AppID = "whitelist"
+      Endpoint = "discovery://community.service.playlist"
+      MaxRetries = 2
+      Timeout = 1
+  [[ProxyConfig.DynPath]]
+    Pattern = "= /x/playlist/test"
+    ValidatorDSN = ""
+    [ProxyConfig.DynPath.BackupRetryOption]
+      Ratio = 100
+      ForceBackupCondition = ""
+      BackupAction = "retry_backup"
+      BackupPlaceholder = ""
+      BackupECode = 0
+      BackupURL = "http://127.0.0.1:8000/_/metrics.json"
+    [ProxyConfig.DynPath.SDKConfig]
+      Key = ""
+      Secret = ""
+      Debug = false
+    [ProxyConfig.DynPath.ClientInfo]
+      AppID = "whitelist"
+      Endpoint = "discovery://community.service.playlist"
+      MaxRetries = 1
+      Timeout = 100
+[[ProxyConfig.DynPath]]
+Pattern="~ ^/x/v2/view"
+[ProxyConfig.DynPath.ClientInfo]
+AppID = "main.app-svr.app-view"
+Endpoint = "http://app.bilibili.com"
+[ProxyConfig.DynPath.BackupRetryOption]
+Ratio = 100
+ForceBackupCondition = "mid==2231365"
+BackupAction = "ecode" # ecode retry directly
+BackupPlaceholder = "{}"
+BackupEcode = -101
+BackupURL = "discovery://main.app-svr.app-view"
+[[ProxyConfig.DynPath]]
+Pattern="= /x/v2/view"
+[ProxyConfig.DynPath.ClientInfo]
+AppID = "main.app-svr.app-view"
+Endpoint = "http://app.bilibili.com"
+[ProxyConfig.DynPath.BackupRetryOption]
+Ratio = 100
+ForceBackupCondition = "buvid==\"2231365\""
+BackupAction = "ecode" # ecode retry directly
+BackupPlaceholder = "{}"
+BackupEcode = -101
+BackupURL = "discovery://main.app-svr.app-view"
+[ProxyConfig.DynPath.RateLimiterOption]
+Rule="total"

@@ -1,0 +1,13 @@
+debug = true
+
+[log]
+    stdout=true
+
+[export]
+    [export.ArchivePushBatch]
+        filenameFormat = "推送详情(%d) - %s.csv"
+        columns = ["BVID", "PushStatus", "Reason"]
+        titles = ["BVID", "与内容中台交互状态", "说明"]
+
+[push]
+    maxRetryCount = 3

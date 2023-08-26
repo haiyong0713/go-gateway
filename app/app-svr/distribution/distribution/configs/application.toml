@@ -1,0 +1,8 @@
+# This is a TOML document. Boom~
+[kvstore]
+PreferenceExpire=100
+
+[infoc]
+
+[ServiceConfig]
+PreferenceLogID="010704"

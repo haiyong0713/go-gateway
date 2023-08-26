@@ -1,0 +1,43 @@
+// 定义项目 API 的 proto 文件 可以同时描述 gRPC 和 HTTP API
+// protobuf 文件参考:
+//  - https://developers.google.com/protocol-buffers/
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+package siri_ext.service.v1;
+
+option go_package = "api";
+option(gogoproto.goproto_getters_all) = false;
+
+service SiriExt {
+  rpc Ping(.google.protobuf.Empty) returns(.google.protobuf.Empty);
+  rpc ResolveCommand(ResolveCommandReq) returns(ResolveCommandReply) {
+    option(google.api.http) = {get : "/x/internal/siri-ext/resolve/command"};
+  }
+}
+
+message deviceMeta {
+  string mobi_app = 1;
+  string device = 2;
+  int64 build = 3;
+  string channel = 4;
+  string buvid = 5;
+  string platform = 6;
+}
+
+message ResolveCommandReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'form:"mid"'];
+  string command =
+      2 [(gogoproto.moretags) = 'form:"command" validate:"required"'];
+  bool debug = 3 [(gogoproto.moretags) = 'form:"debug"'];
+  deviceMeta device =
+      4 [(gogoproto.nullable) = false, (gogoproto.moretags) = 'form:"-"'];
+}
+
+message ResolveCommandReply {
+  string redirect_url = 1 [(gogoproto.jsontag) = "redirect_url"];
+  string debug = 2 [(gogoproto.jsontag) = "debug"];
+}

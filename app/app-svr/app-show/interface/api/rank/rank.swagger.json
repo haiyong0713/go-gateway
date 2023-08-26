@@ -1,0 +1,315 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "rank.proto",
+        "version": "1"
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json",
+        "multipart/form-data"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/bilibili.app.show.v1.Rank/RankAll": {
+            "get": {
+                "summary": "全站排行榜",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.bilibili.app.show.v1.RankListReply"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "order",
+                        "description": "原创排行：origin 、全站排行：all 、新番排行：bangumi",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pn",
+                        "description": "页数",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "ps",
+                        "description": "当前页最大显示条数",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "bilibili.app.show.v1.Rank"
+                ]
+            }
+        },
+        "/bilibili.app.show.v1.Rank/RankRegion": {
+            "get": {
+                "summary": "分区排行榜",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.bilibili.app.show.v1.RankListReply"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "rid",
+                        "description": "原创排行：origin 、全站排行：all 、新番排行：bangumi",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "pn",
+                        "description": "页数",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "ps",
+                        "description": "当前页最大显示条数",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "bilibili.app.show.v1.Rank"
+                ]
+            }
+        }
+    },
+    "definitions": {
+        ".bilibili.app.show.v1.Item": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "标题"
+                },
+                "cover": {
+                    "type": "string",
+                    "description": "封面"
+                },
+                "param": {
+                    "type": "string",
+                    "description": "跳转参数"
+                },
+                "uri": {
+                    "type": "string",
+                    "description": "跳转uri"
+                },
+                "redirect_url": {
+                    "type": "string",
+                    "description": "服务端内部逻辑使用，请不要乱用"
+                },
+                "goto": {
+                    "type": "string",
+                    "description": "跳转类型"
+                },
+                "play": {
+                    "type": "integer",
+                    "description": "播放次数"
+                },
+                "danmaku": {
+                    "type": "integer",
+                    "description": "弹幕数"
+                },
+                "mid": {
+                    "type": "integer",
+                    "description": "用户mid"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "用户名"
+                },
+                "face": {
+                    "type": "string",
+                    "description": "用户头像"
+                },
+                "reply": {
+                    "type": "integer",
+                    "description": "评论数"
+                },
+                "favourite": {
+                    "type": "integer",
+                    "description": "收藏数"
+                },
+                "pubdate": {
+                    "type": "integer",
+                    "description": "稿件发布时间"
+                },
+                "rid": {
+                    "type": "integer",
+                    "description": "分区id"
+                },
+                "rname": {
+                    "type": "string",
+                    "description": "分区名"
+                },
+                "duration": {
+                    "type": "integer",
+                    "description": "时长"
+                },
+                "like": {
+                    "type": "integer",
+                    "description": "点赞数"
+                },
+                "cid": {
+                    "type": "integer",
+                    "description": "稿件第一P的first_cid"
+                },
+                "pts": {
+                    "type": "integer",
+                    "description": "评分"
+                },
+                "cooperation": {
+                    "type": "string",
+                    "description": "UP主联合投稿描述，字段没有或者为空则不是联合创作"
+                },
+                "attribute": {
+                    "type": "integer",
+                    "description": "0：未关注、1：已关注"
+                },
+                "follower": {
+                    "type": "integer",
+                    "description": "粉丝数"
+                },
+                "official_verify": {
+                    "$ref": "#/definitions/.bilibili.app.show.v1.OfficialVerify",
+                    "description": "official_verify：type，0=个人,1=企业,-1=未进行实名认证，desc为描述"
+                },
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.bilibili.app.show.v1.Item"
+                    },
+                    "description": "返回的数据数组"
+                },
+                "relation": {
+                    "$ref": "#/definitions/.bilibili.app.show.v1.Relation",
+                    "description": "新关注组件"
+                }
+            },
+            "description": "Item 排行榜item"
+        },
+        ".bilibili.app.show.v1.OfficialVerify": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "integer",
+                    "description": "0=个人,1=企业,-1=未进行实名认证"
+                },
+                "desc": {
+                    "type": "string",
+                    "description": "描述"
+                }
+            },
+            "description": "OfficialVerify"
+        },
+        ".bilibili.app.show.v1.RankAllResultReq": {
+            "type": "object",
+            "properties": {
+                "order": {
+                    "type": "string",
+                    "description": "原创排行：origin 、全站排行：all 、新番排行：bangumi"
+                },
+                "pn": {
+                    "type": "integer",
+                    "description": "页数"
+                },
+                "ps": {
+                    "type": "integer",
+                    "description": "当前页最大显示条数"
+                }
+            },
+            "description": "RankAllResultReq 全站排行榜请求参数"
+        },
+        ".bilibili.app.show.v1.RankListReply": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.bilibili.app.show.v1.Item"
+                    }
+                }
+            },
+            "description": "RankListReply 排行榜返回结果"
+        },
+        ".bilibili.app.show.v1.RankRegionResultReq": {
+            "type": "object",
+            "properties": {
+                "rid": {
+                    "type": "integer",
+                    "description": "原创排行：origin 、全站排行：all 、新番排行：bangumi"
+                },
+                "pn": {
+                    "type": "integer",
+                    "description": "页数"
+                },
+                "ps": {
+                    "type": "integer",
+                    "description": "当前页最大显示条数"
+                }
+            },
+            "description": "RankRegionResultReq 分区排行榜请求参数"
+        },
+        ".bilibili.app.show.v1.Relation": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "integer",
+                    "description": "按钮展示文案：0或者字段不存在：未关注、1：已关注、2：被关注、3：互相关注"
+                },
+                "is_follow": {
+                    "type": "integer",
+                    "description": "用户关注UP主：0或者字段不存在：未关注、1：已关注"
+                },
+                "is_followed": {
+                    "type": "integer",
+                    "description": "UP主关注用户：0或者字段不存在：未被关注、1：被关注"
+                }
+            },
+            "description": "新关注组件"
+        }
+    }
+}

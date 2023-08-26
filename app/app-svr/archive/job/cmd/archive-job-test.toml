@@ -1,0 +1,281 @@
+chanSize = 50
+UGCAsync = 0
+MonitorSize = 30
+tick = "50ms"
+MaxVideoProc = 8
+
+[Custom]
+ChanSize = 50
+MonitorSize = 30
+CacheGrey = 100
+DBAlertSec = 10
+
+[Taishan]
+table = "archive"
+token = "archive"
+
+[SteinsGateSub]
+key = "8e27ab7e39270b59"
+secret= "477df6a068d7332a163f95abbad2079c"
+group= "SteinsGate-MainAppSvr-S"
+topic= "SteinsGate-T"
+action="sub"
+
+[bm]
+addr = "0.0.0.0:6161"
+timeout = "1s"
+[app]
+key    = "53e2fa226f5ad348"
+secret = "3cf6bd1b0ff671021da5f424fea4b04a"
+
+[host]
+apiCo = "http://api.bilibili.co"
+bap = "http://bap.bilibili.co"
+
+[httpClient]
+key    = "53e2fa226f5ad348"
+secret = "3cf6bd1b0ff671021da5f424fea4b04a"
+dial      = "200ms"
+timeout   = "1s"
+keepAlive = "60s"
+[httpClient.host."http://i0.hdslb.com"]
+timeout = "3s"
+
+[db]
+    [db.archive]
+    name = "bilibili_archive"
+    dsn = "arc_service:lizK1PZWI7GrQDhuxsc3wtvXT04kRSo6@tcp(172.22.34.101:3306)/bilibili_archive?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8mb4"
+    active = 5
+    idle = 1
+    idleTimeout = "4h"
+    queryTimeout = "5s"
+    execTimeout = "5s"
+    tranTimeout = "5s"
+    [db.result]
+    name = "archive_result"
+    dsn = "arc_service:lizK1PZWI7GrQDhuxsc3wtvXT04kRSo6@tcp(172.22.34.101:3306)/archive_result?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8mb4"
+    active = 5
+    idle = 1
+    idleTimeout = "4h"
+    queryTimeout = "5s"
+    execTimeout = "5s"
+    tranTimeout = "5s"
+    [db.stat]
+    name = "172.22.34.101:3306"
+    dsn = "arc_service:lizK1PZWI7GrQDhuxsc3wtvXT04kRSo6@tcp(172.22.34.101:3306)/archive_stat?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+    idle = 1
+    idleTimeout = "2h"
+    queryTimeout = "5s"
+    execTimeout = "3s"
+    tranTimeout = "5s"
+    [db.ArchiveTiDB]
+    dsn = "archive:4TyI6P0gtFepoZ3AKDw1MbcSrdu2QzUJ@discovery(main.tidb.tidb-archive)/bilibili_archive?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8mb4"
+    active = 5
+    idle = 1
+    idleTimeout = "2h"
+    queryTimeout = "5s"
+    execTimeout = "3s"
+    tranTimeout = "5s"
+
+[redis]
+name = "archive-job/trackreport"
+proto = "tcp"
+addr = "127.0.0.1:20081"
+active = 10
+idle = 1
+dialTimeout = "1s"
+readTimeout = "1s"
+writeTimeout = "1s"
+idleTimeout = "80s"
+
+[UpperRedis]
+name = "archive-job/trackreport"
+proto = "tcp"
+addr = "127.0.0.1:20081"
+active = 10
+idle = 1
+dialTimeout = "1s"
+readTimeout = "1s"
+writeTimeout = "1s"
+idleTimeout = "80s"
+
+[archiveResultPub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "ArchiveNotify-MainAppSvr-P"
+topic = "ArchiveNotify-T"
+action = "pub"
+name = "archive-job/archivepub"
+proto = "tcp"
+addr = "172.18.33.50:6205"
+idle = 1
+active = 10
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[DmSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "DMSubject-MainAppSvr-S"
+topic = "DMSubject-T"
+action = "sub"
+name = "archive-job/DMSubject"
+proto = "tcp"
+addr = "172.18.33.50:6205"
+idle = 1
+active = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[DmPub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "StatDM-MainAppSvr-P"
+topic = "StatDM-T"
+action = "pub"
+name = "archive-job/dmpub"
+proto = "tcp"
+addr = "172.16.33.158:6205"
+idle = 100
+active = 100
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[VideoupSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "Videoup2Bvc-MainAppSvr-S"
+topic = "Videoup2Bvc"
+action = "sub"
+name = "archive-job/videoupsub"
+proto = "tcp"
+addr = "172.18.33.50:6205"
+idle = 1
+active = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[CacheSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "ArchiveUserCache-MainAppSvr-S"
+topic = "ArchiveUserCache-T"
+action = "sub"
+name = "archive-job/userCache"
+proto = "tcp"
+addr = "172.18.33.50:6205"
+idle = 1
+active = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "80s"
+
+[AccountNotifySub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "AccountNotify-MainAppSvr-S"
+topic = "AccountNotify-T"
+action = "sub"
+name = "archive-job/userCache"
+proto = "tcp"
+addr = "172.18.33.50:6205"
+idle = 1
+active = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "80s"
+
+[mail]
+host = "smtp.exmail.qq.com"
+port = 465
+username = "manager@bilibili.com"
+password = "a1654OQigEsyHz2I"
+bangumi = ["pgc-sc@bilibili.com","fengdebin@bilibili.com","linyuqing@bilibili.com","chenzhen@bilibili.com","lizhuojia@bilibili.com"]
+movie = ["pgc-sc@bilibili.com"]
+
+[[ArchiveServices]]
+cluster=""
+[[ArchiveServices]]
+cluster=""
+
+[[ArchiveGRPC]]
+clusters=[]
+[[ArchiveGRPC]]
+clusters=[]
+
+[SeasonNotifyArcSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "SeasonNotifyArchive-MainAppSvr-S"
+topic = "SeasonNotifyArchive-T"
+action = "sub"
+name = "archive-job/SeasonNotifyArcSub"
+proto = "tcp"
+idle = 1
+active = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[[ArcRedises]]
+    name = "archive-service/archive"
+    proto = "tcp"
+    addr = "127.0.0.1:20078"
+    idle = 10
+    active = 100
+    dialTimeout = "100ms"
+    readTimeout = "500ms"
+    writeTimeout = "500ms"
+    idleTimeout = "80s"
+    expire = "8h"
+
+[[SimpleArcRedis]]
+    name = "archive-service/simple_archive"
+    proto = "tcp"
+    addr = "127.0.0.1:20596"
+    idle = 10
+    active = 100
+    dialTimeout = "100ms"
+    readTimeout = "500ms"
+    writeTimeout = "500ms"
+    idleTimeout = "80s"
+    expire = "8h"
+
+[Cron]
+    CheckConsume = "* */1 * * *"
+    SyncCreativeType = "* */1 * * *"
+    LoadTypes = "*/5 * * * *"
+    CheckModifyAids = "*/10 * * * *"
+
+[Limiter]
+    [Limiter.UGC]
+        ID = "uat.sh001.main.app-svr.archive-job|UGCComsumer|videoup|total"
+    [Limiter.OGV]
+        ID = "uat.sh001.main.app-svr.archive-job|OGVComsumer|videoup|total"
+    [Limiter.Retry]
+        ID = "uat.sh001.main.app-svr.archive-job|RETRYComsumer|videoup|total"
+    [Limiter.Other]
+        ID = "uat.sh001.main.app-svr.archive-job|OTHERComsumer|videoup|total"
+
+[LoadTypesCronConfig]
+    [LoadTypesCronConfig.CronInputConfig]
+        Spec = "*/5 * * * *"
+[SyncCreativeTypeCronConfig]
+    [SyncCreativeTypeCronConfig.CronInputConfig]
+        Spec = "@every 1m"
+[CheckConsumeCronConfig]
+    [CheckConsumeCronConfig.CronInputConfig]
+        Spec = "@every 1m"
+

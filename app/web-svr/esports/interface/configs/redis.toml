@@ -1,0 +1,26 @@
+[redis]
+    name = "esports"
+    proto = "tcp"
+    addr = "10.23.4.117:6379"
+    idle = 10
+    active = 10
+    dialTimeout = "1s"
+    readTimeout = "1s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+    filterExpire = "1000s"
+    listExpire = "100m"
+    longExpire = "24h"
+    guessExpire = "10s"
+
+
+[autoSubCache]
+    name = "esports"
+    proto = "tcp"
+    addr = "10.23.4.117:6379"
+    idle = 10
+    active = 10
+    dialTimeout = "1s"
+    readTimeout = "1s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"

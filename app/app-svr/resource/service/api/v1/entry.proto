@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package resource.service.v1;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "v1";
+
+message GetAppEntryStateReq {
+    // 系统平台
+    int32 plat = 1 [(gogoproto.jsontag) = "plat", json_name = "plat"];
+    // 端版本
+    int32 build = 2 [(gogoproto.jsontag) = "build", json_name = "build"];
+}
+
+message GetAppEntryStateV2Rep {
+    //不存在时返回nil
+    GetAppEntryStateRep item = 1;
+}
+
+message GetAppEntryStateRep {
+    // 常驻入口状态id
+    int32 stateID = 1 [(gogoproto.jsontag) = "state_id", json_name = "state_id"];
+    // 常驻入口状态名
+    string stateName = 2 [(gogoproto.jsontag) = "state_name", json_name = "state_name"];
+    // 跳转url
+    string url = 3 [(gogoproto.jsontag) = "url", json_name = "url"];
+    // 静态icon，兜底
+    string staticIcon = 4 [(gogoproto.jsontag) = "static_icon", json_name = "static_icon"];
+    // 动态icon
+    string dynamicIcon = 5 [(gogoproto.jsontag) = "dynamic_icon", json_name = "dynamic_icon"];
+    // 动态icon循环次数
+    int32 loopCount = 6 [(gogoproto.jsontag) = "loop_count", json_name = "loop_count"];
+    // 状态配置生效时间
+    int64 sTime = 7 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time", json_name = "stime"];
+    // 入口总配置结束时间
+    int64 eTime = 8 [(gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time", json_name = "etime"];
+    // 入口名称
+    string entryName = 9 [(gogoproto.jsontag) = "entry_name", json_name = "entry_name"];
+    // 时间配置ID
+    int32 ID = 10 [(gogoproto.jsontag) = "id", json_name = "id"];
+}
+
+message EffectivePlatform {
+    // 生效平台
+    int32 platform = 1 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "plat"];
+    // 版本运算符
+    string condition = 2 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "conditions"];
+    // 平台版本
+    int32 build = 3 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "build"];
+}

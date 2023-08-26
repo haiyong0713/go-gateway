@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+package archive.service.dynamic.v1;
+
+import "go-gateway/app/app-svr/archive/service/api/api.proto";
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "v1";
+
+message RegionArcs3Reply { 
+    repeated archive.service.v1.Arc arcs = 1;
+    int64 count = 2;
+}
+
+message RegionArcs3Req { 
+    int64 rid = 2 [(gogoproto.moretags)='form:"rid" validate:"required"'];
+    int64 pn = 3 [(gogoproto.moretags)='form:"pn" validate:"min=1,required"'];
+    int64 ps = 4 [(gogoproto.moretags)='form:"ps" validate:"min=1,required"'];
+    string business = 5 [(gogoproto.moretags)='form:"business"'];
+    bool isFilter = 6;
+}
+
+message RegionTagArcs3Reply { 
+    repeated archive.service.v1.Arc arcs= 1;
+    int64 count = 2;
+}
+
+message RegionTagArcs3Req { 
+    int64 rid = 2 [(gogoproto.moretags)='form:"rid" validate:"required"'];
+    int64 tag_id = 3 [(gogoproto.moretags)='form:"tag_id" validate:"required"'];
+    int64 pn = 4 [(gogoproto.moretags)='form:"pn" validate:"min=1,required"'];
+    int64 ps = 5 [(gogoproto.moretags)='form:"ps" validate:"min=1,required"'];
+}
+
+message RegionTotalReply { 
+    map<string, int64> res = 1;
+}
+
+message NoArgRequest {}
+
+message Arcs {
+    repeated archive.service.v1.Arc arcs= 1;
+}
+
+message RegAllReq {
+    int64 rid = 1 [(gogoproto.moretags)='form:"rid" validate:"required"'];
+	int32 type = 2 [(gogoproto.moretags)='form:"type"'];
+	int64 pn = 3 [(gogoproto.moretags)='form:"pn" validate:"min=1,required"'];
+	int64 ps = 4 [(gogoproto.moretags)='form:"ps" validate:"min=1,required"'];
+}
+
+message RegAllReply {
+    repeated archive.service.v1.Arc archives = 1;
+    int64 count = 2;
+}
+
+message RegCountReq{
+    repeated int32 rid = 1 [(gogoproto.moretags)='form:"rid" validate:"required"'];
+}
+
+message RegCountReply{
+    map<int32, int64> regCountMap = 1;
+}
+
+message RecentThrdRegArcReq {
+    int32 rid = 1 [(gogoproto.moretags)='form:"rid" validate:"required"'];
+    int64 pn = 2 [(gogoproto.moretags)='form:"pn" validate:"min=1,required"'];
+    int64 ps = 3 [(gogoproto.moretags)='form:"ps" validate:"min=1,max=100,required"'];
+}
+
+message RecentThrdRegArcReply {
+    repeated archive.service.v1.Arc archives = 1;
+}
+
+message RecentWeeklyArcReq {
+    int64 pn = 1 [(gogoproto.moretags)='form:"pn" validate:"min=1,required"'];
+    int64 ps = 2 [(gogoproto.moretags)='form:"ps" validate:"min=1,max=100,required"'];
+}
+
+message RecentWeeklyArcReply {
+    repeated archive.service.v1.Arc archives = 1;
+    int64 count = 2;
+}
+
+
+service Dynamic { 
+    // 分区下动态总数
+    rpc RegionTotal(NoArgRequest) returns(RegionTotalReply);
+    // 分区下最新动态
+    rpc RegionArcs3(RegionArcs3Req) returns(RegionArcs3Reply); 
+    // 分区下热门tag的最新动态
+    rpc RegionTagArcs3(RegionTagArcs3Req) returns(RegionTagArcs3Reply);
+    // 二级分区稿件
+    rpc RegAllArcs(RegAllReq) returns(RegAllReply);
+    // 获取分区当天投稿数量
+    rpc RegCount(RegCountReq) returns(RegCountReply);
+    // 分区下最近三天稿件
+    rpc RecentThrdRegArc(RecentThrdRegArcReq) returns(RecentThrdRegArcReply);
+    // 最近七天稿件
+    rpc RecentWeeklyArc(RecentWeeklyArcReq) returns(RecentWeeklyArcReply);
+}

@@ -1,0 +1,141 @@
+tick = "1m"
+PlayerSwitch = true
+PlayerNum = 0
+PlayerAPI = "http://bvc-vod.bilibili.co/playurl/batch"
+PlayerDiscovery = "discovery://video.video-playurl.playurl-batch-release/playurl/batch"
+PGCPlayerAPI = "http://api.bilibili.co/pgc/internal/dynamic/aid/list"
+PGCPlayerV2API = "http://api.bilibili.co/pgc/internal/dynamic/v2/aid/list"
+time = "5m"
+
+[custom]
+UserQnGray = 5
+WifiUserQnGray = 10
+playerqn = 32
+ArcMidGrey = 100
+ArcsMidGrey = 100
+SteinsGuideAid = 10113421
+SteinsCallers = ["main.app-svr.steins-gate-service","main.app-svr.steins-gate-job","main.app-svr.app-player","main.app-svr.app-player-job","main.app-svr.playurl-service","main.web-svr.web-interface","main.web-svr.player-interface", "main.app-svr.steins-gate-admin","main.community.dm2-job","main.community.dm2"]
+DurationLimit = 86400
+FlvProjectGray = 100
+FourkAndBuild = 5570000
+FourkIOSBuild = 9290
+FourkIPadHDBuild = 12401
+SimplePlayurlIOS = 10090
+SimplePlayurlAnd = 6039999
+PlayurlMids = [111008012, 111005921]
+HdrIOS = 10190
+HdrAnd = 6079999
+TaishanArcGrey=100
+TaishanArcsGrey=100
+VipFreeAids = [520020311]
+Vertical720Grey = 1
+UserQnGrayMids = []
+WifiUserQnGrayMids = [111008014]
+HistoryPlayUrlBuildAndroid = 6210000
+HistoryPlayUrlBuildIphone  = 62100000
+
+[cron]
+LoadShortHost = "*/5 * * * * *"
+LoadTypes = "*/5 * * * * * "
+
+[Taishan]
+Table = "archive"
+Token = "archive"
+
+[videoshot]
+NewURI = "http://i0.hdslb.com/bfs/videoshot/"
+
+[bm]
+    [bm.inner]
+    addr = "0.0.0.0:6081"
+    timeout = "1s"
+
+[accountRPC]
+timeout = "300ms"
+
+[playerClient]
+key = "53e2fa226f5ad348"
+secret = "3cf6bd1b0ff671021da5f424fea4b04a"
+dial      = "50ms"
+timeout   = "500ms"
+keepAlive = "60s"
+
+[CacheDatabus]
+key = "8e27ab7e39270b59"
+secret= "477df6a068d7332a163f95abbad2079c"
+group= "ArchiveUserCache-MainAppSvr-P"
+topic= "ArchiveUserCache-T"
+action="pub"
+name = "archive-service/stat"
+proto = "tcp"
+idle = 5
+active = 50
+dialTimeout = "1s"
+readTimeout = "1s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[db]
+    [db.arcResult]
+    name = "172.22.34.101:3306"
+    dsn = "archive_result:8bmwBDtgBLB5Cqg31h2FxiRJK3OK6VXq@tcp(127.0.0.1:3306)/archive_result?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8mb4"
+    active = 5
+    idle = 1
+    idleTimeout = "4h"
+    queryTimeout = "5s"
+    execTimeout = "5s"
+    tranTimeout = "5s"
+    [db.stat]
+    name = "172.22.34.101:3306"
+    dsn = "archive_stat:8bmwBDtgBLB5Cqg31h2FxiRJK3OK6VXq@tcp(127.0.0.1:3306)/archive_stat?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8mb4"
+    active = 5
+    idle = 1
+    idleTimeout = "4h"
+    queryTimeout = "5s"
+    execTimeout = "5s"
+    tranTimeout = "5s"
+
+[arcredis]
+    name = "archive-service/archive"
+    proto = "tcp"
+    addr = "127.0.0.1:20078"
+    idle = 10
+    active = 100
+    dialTimeout = "100ms"
+    readTimeout = "500ms"
+    writeTimeout = "500ms"
+    idleTimeout = "80s"
+    expire = "8h"
+
+[redis]
+    [redis.archive]
+    name = "archive-service/archive"
+    proto = "tcp"
+    addr = "127.0.0.1:20081"
+    idle = 10
+    active = 100
+    dialTimeout = "100ms"
+    readTimeout = "500ms"
+    writeTimeout = "500ms"
+    idleTimeout = "80s"
+    expire = "8h"
+    UpRdsExpire = 1728000
+    [redis.SimpleArc]
+    name = "simple_archive"
+    proto = "tcp"
+    addr = "127.0.0.1:20596"
+    idle = 10
+    active = 100
+    dialTimeout = "100ms"
+    readTimeout = "500ms"
+    writeTimeout = "500ms"
+    idleTimeout = "80s"
+    expire = "8h"
+
+[switch]
+vipControl = true
+HistorySeek = false
+NoMultiPlayer = false
+VoiceBalance = false
+
+[QuotaConf]

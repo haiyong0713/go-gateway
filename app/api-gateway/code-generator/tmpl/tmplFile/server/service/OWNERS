@@ -1,0 +1,6 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+labels:
+- area/api-gateway/code-generator/tmpl/tmplFile/server/service
+options: {}
+

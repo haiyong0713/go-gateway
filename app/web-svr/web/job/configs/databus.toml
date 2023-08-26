@@ -1,0 +1,6 @@
+[ActPlatSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ActPlatHistory-MainWebSvr-Popular-S"
+    topic = "ActPlatHistory-T"
+    action = "sub"

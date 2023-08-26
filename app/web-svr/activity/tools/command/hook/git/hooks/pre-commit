@@ -1,0 +1,72 @@
+#!/bin/sh
+changed=`git diff --cached --name-only -- "*.go"`
+if [ "$changed" = "" ]; then
+    exit 0
+fi
+mkfifo /tmp/fd_pid_$$
+exec 3<>/tmp/fd_pid_$$
+rm -rf /tmp/fd_pid_$$
+{
+    changedDir=`for f in $changed; do dirname $f; done | sort | uniq`
+    for f in $changedDir
+    do
+      go vet $f/*.go
+      if [ $? -ne 0 ]; then
+        echo 1 >&3
+        exit 1
+      fi
+    done
+    echo 0 >&3
+}&
+{
+    for f in $changed
+    do
+        goimports -w $f
+        if [ $? -ne 0 ]; then
+            echo 1 >&3
+            exit 1
+        fi
+        gofmt -w $f
+        if [ $? -ne 0 ]; then
+            echo 1 >&3
+            exit 1
+        fi
+        git add $f
+    done
+    echo 0 >&3
+}&
+{
+#    for f in $changed
+#    do
+#        golint -set_exit_status $f
+#        if [ $? -ne 0 ]; then
+#            echo 1 >&3
+#            exit 1
+#        fi
+#    done
+    echo 0 >&3
+}&
+{
+    for f in $changed
+    do
+        go generate $f
+        if [ $? -ne 0 ]; then
+            echo 1 >&3
+            exit 1
+        fi
+    done
+    echo 0 >&3
+}&
+for i in {1..4}; do
+    read -u3 s
+    if [ "$s" != "0" ]; then
+        kill %1
+        kill %3
+        kill %4
+        exec 3<&-
+        exec 3>&-
+        exit $s
+    fi
+done
+exec 3<&-
+exec 3>&-

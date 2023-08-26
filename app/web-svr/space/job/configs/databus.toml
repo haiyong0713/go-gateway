@@ -1,0 +1,17 @@
+[archiveNotifySub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ArchiveNotify-MainWebSvr-Space-S"
+    topic = "ArchiveNotify-T"
+    action = "sub"
+
+[archiveNotifyRailgun]
+
+[spaceSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "SpaceBinlog-MainWebSvr-S"
+    topic = "SpaceBinlog-T"
+    action = "sub"
+
+[spaceRailgun]

@@ -1,0 +1,92 @@
+
+    - name: <<repo>>-prow-lint
+      always_run: true
+      cluster: jsy
+      spec:
+        containers:
+          - image: go-1.12.4-golint-latest
+            imagePullPolicy: IfNotPresent
+            args:
+              - --id=$(BUILD_ID)
+              - --job=$(JOB_NAME)
+              - --root=/root/go/src
+              - --repo=git.bilibili.co/$(REPO_OWNER)/$(REPO_NAME)=$(PULL_REFS)
+              - --command
+              - ./hack/verify-prow.sh
+            volumeMounts:
+              - name: modcache
+                mountPath: /root/go/pkg
+        volumes:
+          - name: modcache
+            hostPath:
+              path: /root/go/pkg
+    - name: <<repo>>-changelog-lint
+      always_run: true
+      cluster: jsy
+      spec:
+        containers:
+          - image: go-1.12.4-golint-latest
+            imagePullPolicy: IfNotPresent
+            args:
+              - --id=$(BUILD_ID)
+              - --job=$(JOB_NAME)
+              - --root=/root/go/src
+              - --repo=git.bilibili.co/$(REPO_OWNER)/$(REPO_NAME)=$(PULL_REFS)
+              - --command
+              - ./hack/verify-changelog.sh
+    - name: <<repo>>-security-lint
+      always_run: true
+      cluster: jsy
+      optional: true
+      spec:
+        containers:
+          - image: go-1.12.4-golint-latest
+            env:
+              - name: SECURITY_APPKEY
+                valueFrom:
+                  secretKeyRef:
+                    name: security-lint-key
+                    key: SECURITY_APPKEY
+              - name: SECURITY_SECRET
+                valueFrom:
+                  secretKeyRef:
+                    name: security-lint-key
+                    key: SECURITY_SECRET
+            imagePullPolicy: IfNotPresent
+            args:
+              - --id=$(BUILD_ID)
+              - --job=$(JOB_NAME)
+              - --root=/root/go/src
+              - --repo=git.bilibili.co/$(REPO_OWNER)/$(REPO_NAME)=$(PULL_REFS)
+              - --command
+              - ./hack/verify-security.sh
+            volumeMounts:
+              - name: modcache
+                mountPath: /root/go/pkg
+        volumes:
+          - name: modcache
+            hostPath:
+              path: /root/go/pkg
+    - name: <<repo>>-mod-changed-build
+      always_run: true
+      cluster: jsy
+      trusted_labels:
+        - mod/changed
+      spec:
+        containers:
+          - image: go-1.12.4-golint-latest
+            imagePullPolicy: IfNotPresent
+            args:
+              - --id=$(BUILD_ID)
+              - --job=$(JOB_NAME)
+              - --root=/root/go/src
+              - --repo=git.bilibili.co/$(REPO_OWNER)/$(REPO_NAME)=$(PULL_REFS)
+              - --command
+              - ./hack/verify-mod-dep.sh
+            volumeMounts:
+              - name: modcache
+                mountPath: /root/go/pkg
+        volumes:
+          - name: modcache
+            hostPath:
+              path: /root/go/pkg

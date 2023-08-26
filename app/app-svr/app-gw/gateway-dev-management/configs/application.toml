@@ -1,0 +1,11 @@
+
+# This is a TOML document. Boom~
+scheduleMessageBot = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=0f72e3e6-c987-4bbb-892a-d4ad04f306f0"
+scheduleToken = "ce95a1db31bf9e9797229a6ef99f6896"
+schedulerId = 28
+cronConfig = "0 0 10 * * 1"
+
+moniToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQ3OTA4ODc4NDQsImlhdCI6MTYzNzI4Nzg0NCwiaXNzIjoibGl1eWlqdW4wMiIsIlVzZXJuYW1lIjoibGl1eWlqdW4wMiIsIkV4cGlyZUF0IjoiMDAwMS0wMS0wMVQwMDowMDowMFoifQ.SICFZmC94QFltZ527Os9Bx_Sea7ntfORtDTU4dqbAQM"
+casterToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJsaXV5aWp1bjAyIiwicGxhdGZvcm1faWQiOiJjYXN0ZXIiLCJleHAiOjE2Mzg1MTg5MzIsImlzcyI6ImxpdXlpanVuMDIifQ.4tuLJ49TP4R8vc4UWjDVthAoeL31BjJcR6Tss_sj1gM"
+releaseURL = "https://gw-dev-mgt.bilibili.co/x/admin/gateway-dev-management/bot/deploy?jwt=%s"
+scriptURL = "https://gw-dev-mgt.bilibili.co/x/admin/gateway-dev-management/bot/script?jwt=%s"

@@ -1,0 +1,38 @@
+[memcache]
+accessExpire = "10s"
+likeExpire = "60s"
+timeFinishExpire = "0s"
+lessTimeExoire = "0s"
+    [memcache.like]
+    name = "activity/test"
+    proto = "tcp"
+    addr = "10.23.4.117:11211"
+    idle = 64
+    active = 1024
+    dialTimeout = "30ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+
+[S10MC]
+    name = "activity-service"
+    proto = "tcp"
+    addr = "127.0.0.1:20626"
+    idle = 64
+    active = 1024
+    dialTimeout = "30ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+
+[S10PointCostMC]
+    name = "activity-service"
+    proto = "tcp"
+    addr = "127.0.0.1:20626"
+    idle = 64
+    active = 1024
+    dialTimeout = "30ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+

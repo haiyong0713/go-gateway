@@ -1,0 +1,8 @@
+[Server]
+    addr = "0.0.0.0:9000"
+    timeout = "1s"
+
+[quota]
+    [[quota.Methods]]
+    path = "/up.archive.service.v1.UpArchive/ArcsPassedSort"
+    rule = "total"

@@ -1,0 +1,15 @@
+
+[Graph]
+    name   = "app-job/graph"
+    proto  = "tcp"
+    addr   = "localhost:11211"
+    active = 1024
+    idle   = 64
+    dialTimeout  = "30ms"
+    readTimeout  = "800ms"
+    writeTimeout = "800ms"
+    idleTimeout  = "80s"
+[Expirations]
+    RecordExpire = "3h" #存档记录修改为3个小时
+    GraphExpire = "168h"
+    HvarExpire = "168h"

@@ -1,0 +1,915 @@
+env     = "uat"
+tick    = "1m"
+roundTick ="30m"
+localCache  = false
+
+
+[StaticKVGRPC]
+    Timeout = "300ms"
+
+[cron]
+    loadSidebar = "@every 3m"
+    loadShowBv  = "@every 5s"
+    loadBlacklist = "@every 3m"
+    loadHotCache = "@every 3m"
+    loadSearchTipsCache = "@every 1m"
+    loadUpRcmdBlockList = "@every 5m"
+    LoadSpecialCache = "@every 1m"
+    LoadSystemNotice = "@every 1m"
+    
+[Infoc]
+taskID = "001723"
+proto = "tcp"
+addr = "172.18.33.124:15140"
+chanSize = 10240
+
+[cfg]
+    BvTick = "5s"
+    ShowBv = 2
+    maxDisplay = 3
+    [cfg.PgcSearchCard]
+        Epsize = 2
+        OfflineWatch = "查看详情" #不可播出查看详情
+        OnlineWatch = "立即观看" #可播出立即观看
+        CheckMoreContent = "查看全部%d个视频 >" #查看全部按钮文案
+        CheckMoreSchema = "bilibili://search/bangumi-episodes/%s/%d"
+        EpLabel = "%s 播出"
+        GridBadge = true
+    [cfg.GarbCfg]
+        ShowReset = true
+        GoodsAvailable = true
+        PurchaseButtonTitle = "去购买"
+        PurchaseButtonURI = "http://www.bilibili.com/h5/mall/home?navhide=1&from=personal_space"
+
+[searchBuildLimit]
+    PGCHighlightIOS       = 8309
+    PGCHighlightAndroid   = 5365000
+    PGCALLIOS             = 8229
+    PGCALLAndroid         = 5365000
+    SpecialerGuideIOS     = 8320
+    SpecialerGuideAndroid = 5365007
+    SearchArticleIOS      = 8289
+    SearchArticleAndroid  = 5355000
+    ComicIOS              = 8309
+    ComicAndroid          = 5365000
+    ChannelIOS            = 999999999
+    ChannelAndroid        = 5365000
+    CooperationIOS        = 8309
+    CooperationAndroid    = 5365000
+    CooperationIPadHD     = 12520
+    QueryCorIOS           = 8399
+    QueryCorAndroid       = 5375000
+    QueryCorAndroidI      = 2033000
+    SugDetailIOS          = 8399
+    SugDetailAndroid      = 5375000
+    SugDetailAndroidI     = 2033000
+    NewTwitterIOS         = 8399
+    NewTwitterAndroid     = 5375000
+    NewOrderIOS           = 8319
+    NewOrderAndroid       = 5365000
+    NewOrderAndroidI      = 2033000
+    DefaultWordJumpIOS    = 8669
+    DefaultWordJumpAndroid = 5435000
+    DefaultWordJumpAndroidI = 2033000
+    NewChannelIOS         = 8820
+    NewChannelAndroid     = 5479999
+    ESportsIOS            = 8940
+    ESportsAndroid        = 5499999
+    VideoDurationIOS      = 9150
+    VideoDurationAndroid  = 5529999
+    TypeSearchWithPlayURLIOS = 20000
+    TypeSearchWithPlayURLAndroid = 9999999
+    TypeSearchChannelESIOS       = 8869
+    TypeSearchChannelESAndroid   = 5479999
+    OGVURLAndroid = 5530500
+    OGVURLIOS = 9160
+    SpecialCardIOS               = 9220
+    SpecialCardAndroid           = 5545000
+    UpNewAndroid                 = 6020000
+    UpNewIOS                     = 10025
+    CardOptimizeAndroid          = 6029999
+	CardOptimizeIPhone           = 10159
+	CardOptimizeIpadHD           = 999999999
+    TipsCardIOS             = 10320
+    TipsCardAndroid         = 6120400
+    ADCardIOS = 62099999 #62100000
+    ADCardAndroid = 6209999 #6210000
+
+[searchDynamicSwitch]
+    isUP     = true
+    isCount  = true
+
+[BuildLimit]
+    IOSMineCreative  = 8590
+    AndMineCreative = 5440000
+    IPhoneBMineCreative = 7370
+    IOSCheese = 8869
+    AndroidCheese = 5480399
+    IPadCheese = 9150
+    IPadHDCheese = 32100000
+    IPhoneBCheese = 8869
+    AndroidBCheese = 5299999
+    IOSMineLive  = 8910
+    AndMineLive = 5489999
+    NewMineIOSBuild  = 9340
+    NewMineAndBuild = 5590000
+    NewMineIPhoneBBuild  = 9360
+    NewMineAndBBuild = 5390300
+    NewMineAndIBuild = 2042030
+    NewPlayurlAndBuild = 6071200
+    NewPlayurlIOSBuild = 10200
+    NewCreativeIOSBuild = 61599999
+    NewCreativeAndBuild = 6151000
+    NewCreativeAndBBuild = 6131020
+    NewCreativeIOSBBuild = 21503200
+    SkinOpenIOSBuild     = 61900100
+    SkinOpenAndroidBuild = 6200000
+    NewMixCreativeIOSBuild = 62005299
+    NewMixCreativeAndBuild = 6205599
+    NewMixCreativeAndBBuild = 5370199
+    NewMixCreativeIOSBBuild = 9299
+    NewFansIOSBuild = 62100199
+    NewFansIOSBBuild = 9300
+    NewMineIPad = 64390000
+    NewMineIPadHD = 32599999
+
+[spaceNewABTest]
+   testPercent = 5
+   contrastPercent = 10
+   atTestNum         = 4
+ 
+[spaceTabABTest]
+    exp1 = 2
+    exp2 = 4
+    isParams = true
+
+[LoginBuild]
+Iphone = 8309
+Android = 6060000
+AndroidB = 6060020
+IphoneB = 8000
+IpadHD = 12110
+
+[spaceBuildLimit]
+    FavIOS                = 8399
+    FavAndroid            = 5375000
+    CooperationIOS        = 8419
+    CooperationAndroid    = 5385000
+    UGCSeasonIOS          = 8859
+    UGCSeasonAndroid      = 5479999
+    UGCSeasonAndroidI     = 9999999
+    ComicIOS              = 8701
+    ComicAndroid          = 5499999
+    ComicAndroidI         = 9999999
+    HideSexAndroidStart   = 5490000
+    HideSexAndroidEnd     = 5490999
+    HideSexSwitch         = true
+    SubComicIOS           = 8960
+    SubComicAndroid       = 5509999
+    ContinuePlayAndroid   = 6009999    
+    ContinuePlayIOS       = 9340
+    PlayurlIOS            = 10020
+    PlayurlAndroid        = 6019999
+    IPadHDArchiveSort     = 12390
+    ButtonTextAnd         = 6110500
+    ButtonTextIOS         = 10310
+    ButtonTextIpad        = 12480
+    PrInfoCardIOS         = 10350
+    PrInfoCardAndroid     = 6130400
+    PrInfoCardIPadHD      = 12500
+
+[playerBuildLimit]
+    iphone  = 8590
+    ipad    = 12105
+    android = 5435000
+
+[favBuildLimit]
+    ComicIOS         = 8960
+    ComicAndroid     = 5469999
+    NoteIOS         = 62000000 
+    NoteAndroid     = 6200000
+    ChannelIOS = 62399999
+    ChannelAndroid = 6239999
+    
+#[xlog]
+#    dir = "/data/log/app-interface"
+
+[useractPub]
+key = "0QNB0ZgFozbKUCQhbTq8"
+secret = "0QNB0ZgFozbKUCQhbTq9"
+group = "RecUseract-App-P"
+topic = "RecUseract-T"
+action = "pub"
+name = "app-interface/useract"
+proto = "tcp"
+addr = "172.18.33.50:6205"
+active = 1
+idle = 1
+dialTimeout = "1s"
+readTimeout = "1s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[host]
+account = "http://uat-account.bilibili.com"
+bangumi = "http://uat-bangumi.bilibili.com"
+apiCo   = "http://uat-api.bilibili.co"
+apiCom  = "http://uat-api.bilibili.com"
+im9     = "http://www.im9.com"
+space   = "http://uat-space.bilibili.com"
+search  = "http://uat-s.search.bilibili.co"
+game    = "http://interface.biligame.com"
+live    = "http://uat-live.bilibili.com"
+elec    = "http://uat-elec.bilibili.com"
+ad      = "http://uat-cm.bilibili.co"
+vc      = "http://api.vc.bilibili.co"
+apiLiveCo  = "http://api.live.bilibili.co"
+www      = "http://uat-www.bilibili.com"
+pay = "http://uat-pay.bilibili.co"
+member = "http://uat-member.bilibili.co"
+show  =  "http://uat-show.bilibili.co"
+mall  = "http://uat-mall.bilibili.co"
+manga   = "http://manga.bilibili.co"
+data    = "http://data.bilibili.co"
+gameCo = "http://uat-game-center-open-api.bilibili.co"
+bap = "http://bap.bilibili.co"
+manager   = "http://uat-manager.bilibili.co"
+AdTopic = "http://uat-b.bilibili.com"
+FeedAdmin = "discovery://main.web-svr.feed-admin"
+
+[hostDiscovery]
+data = "discovery://ai.pegasus.ai-router"
+mall = "discovery://open.mall.mall-shop"
+pay = "discovery://main.npay.payplatform-accesslayer"
+#search = "discovery://search.search.router"
+search  = "http://uat-s.search.bilibili.co"
+#vc = "discovery://link.basic.bplus-gw"
+vc      = "http://api.vc.bilibili.co"
+#music = "discovery://main.musics.music-internal"
+music = "http://uat-api.bilibili.co"
+space = "discovery://main.web-svr.space-interface"
+
+[search]
+seasonNum  = 3
+movieNum   = 3
+seasonMore = 1
+movieMore  = 1
+upUserNum  = 1
+uvLimit    = 1
+userNum    = 1
+userVideoLimit = 1
+userVideoLimitMix = 10
+biliUserNum = 1
+biliUserVideoLimit = 1
+BiliUserVideoLimitMix = 10
+operationNum = 1
+iPadSearchBangumi = 2
+iPadSearchFt = 2
+trendingLimit = 10
+eggCloseCount = 3
+BackgroundSwitch = true
+LiveFaceSwitch = true
+[search.SpaceEntrance]
+    TextMore        = "查看更多>"
+    TextMoreWithNum = "查看全部%d个视频>"
+    TextColor       = ""
+    TextColorNight  = ""
+    
+[app]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+
+[gameApp]
+key = "QGSfvPhlsTtv3BMK"
+secret = "ygcWHXbEGGiO0octq3eIPMPInKsq1LYp"
+
+[httpAd]
+key = "6a29f8ed87407c11"
+secret = "d3c5a85f5b895a03735b5d20a273bc57"
+dial      = "100ms"
+timeout   = "900ms"
+keepAlive = "60s" 
+timer = 128
+
+[httpAdTopic]
+key = "topic-query"
+secret = "83e8ef09b4dd1fcf8b8f99aa065b2d3b"
+dial      = "100ms"
+timeout   = "300ms"
+keepAlive = "60s"
+
+[httpClient]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "100ms"
+timeout   = "800ms"
+keepAlive = "60s"
+
+[httpIm9]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "100ms"
+timeout   = "150ms"
+keepAlive = "60s"
+
+[httpSearch]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "100ms"
+timeout   = "800ms"
+keepAlive = "60s"
+
+[httpWrite]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "100ms"
+timeout   = "700ms"
+keepAlive = "60s"
+
+[httpLive]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "100ms"
+timeout   = "100ms"
+keepAlive = "60s"
+
+[httpBangumi]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "100ms"
+timeout   = "300ms"
+keepAlive = "60s"
+
+[httpBPlus]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "100ms"
+timeout   = "500ms"
+keepAlive = "60s"
+
+[httpGame]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "100ms"
+timeout   = "300ms"
+keepAlive = "60s"
+
+[httpFeedAdmin]
+key    = "0e9b9fcce22daaf1"
+secret = "76aaccc1e756ac1c5b2ec135e6bd6b39"
+dial      = "100ms"
+timeout   = "800ms"
+keepAlive = "60s"
+    [httpFeedAdmin.breaker]
+    window  = "1s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpGameCo]
+key    = "EeOpM531WqQnBvu4"
+secret = "gHtKtXTHZJDqGP1tg9ORFs0YWV3kW12V"
+dial      = "100ms"
+timeout   = "500ms"
+keepAlive = "60s"
+
+[bm]
+    [bm.outer]
+    addr = "0.0.0.0:6131"
+    timeout = "3s"
+
+[accountRPC]
+    timeout = "5s"
+
+[archiveRPC]
+    timeout = "5s"
+
+[archiveRPC2]
+    timeout = "5s"
+
+[tagRPC]
+    timeout = "5s"
+
+[articleRPC]
+    timeout = "5s"
+
+[relationRPC]
+    timeout = "5s"
+
+[thumbupRPC]
+    timeout = "5s"
+
+[historyRPC]
+    timeout = "5s"
+
+[resourceRPC]
+    timeout = "5s"
+
+[SpaceClient]
+    timeout = "350ms"
+
+[SpacePhotoClient]
+    timeout = "1000ms"
+
+[mysql]
+    [mysql.show]
+    addr   = "172.22.34.101:3306"
+    dsn    = "bilibili_show:8bmwBDtgBLB5Cqg31h2FxiRJK3OK6VXq@tcp(127.0.0.1:3306)/bilibili_show?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 10
+    idle   = 5
+    queryTimeout = "100ms"
+    execTimeout = "100ms"
+    tranTimeout = "200ms"
+    [mysql.teenagers]
+    addr   = "172.22.34.101:3311"
+    dsn    = "bilibili_teenagers:9FbLkvSwI9yBoQBzMNVKax8Cib5GJZDY@tcp(127.0.0.1:3306)/bilibili_teenagers?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8mb4,utf8"
+    active = 10
+    idle   = 5
+    queryTimeout = "100ms"
+    execTimeout = "100ms"
+    tranTimeout = "200ms"
+
+[redis]
+    [redis.contribute]
+    name   = "app-interface/contribute"
+    proto  = "tcp"
+    addr   = "127.0.0.1:20341"
+    active = 20
+    idle   = 10
+    dialTimeout  = "50ms"
+    readTimeout  = "50ms"
+    writeTimeout = "50m"
+    idleTimeout  = "80s"
+    [redis.interface]
+    name   = "app-interface/interface"
+    proto  = "tcp"
+    addr   = "127.0.0.1:20341"
+    active = 20
+    idle   = 10
+    dialTimeout  = "50ms"
+    readTimeout  = "50ms"
+    writeTimeout = "50m"
+    idleTimeout  = "80s"
+    emptyCacheExpire = "48h"
+    emptyCacheRand = "4h"
+    antiAddictionExpire = "25h"
+    [redis.Attention]
+    name   = "app-interface/interface"
+    proto  = "tcp"
+    addr   = "127.0.0.1:20341"
+    active = 20
+    idle   = 10
+    dialTimeout  = "50ms"
+    readTimeout  = "50ms"
+    writeTimeout = "50m"
+    idleTimeout  = "80s"
+
+[memcache]
+    [memcache.archive]
+    name   = "app-interface/archive"
+    proto  = "tcp"
+    addr   = "127.0.0.1:20339"
+    active = 50
+    idle   = 50
+    dialTimeout   = "50ms"
+    readTimeout   = "50ms"
+    writeTimeout  = "50ms"
+    idleTimeout   = "80s"
+    archiveExpire = "20m"
+    relateExpire  = "20m"
+    addonExpire   = "5m"
+    recommedExpire= "10m"
+    [memcache.popular]
+    name   = "app-wall/cache"
+    proto  = "tcp"
+    addr   = "127.0.0.1:20236"
+    active = 1024
+    idle   = 512
+    dialTimeout  = "80ms"
+    readTimeout  = "800ms"
+    writeTimeout = "800ms"
+    idleTimeout  = "80s"
+    expire = "1h"
+
+[degradeConfig]
+    expire = 86400
+    [degradeConfig.memcache]
+    name   = "app-interface/search/degrade"
+    proto  = "tcp"
+    addr   = "127.0.0.1:20340"
+    active = 50
+    idle   = 50
+    dialTimeout = "2s"
+    readTimeout = "2s"
+    writeTimeout = "2s"
+    idleTimeout = "7h"
+
+[degrade2Config]
+    expire = 86400
+    [degrade2Config.memcache]
+    name   = "app-interface"
+    proto  = "tcp"
+    addr   = "127.0.0.1:203403"
+    active = 50
+    idle   = 50
+    dialTimeout = "2s"
+    readTimeout = "2s"
+    writeTimeout = "2s"
+    idleTimeout = "7h"
+    
+[contributePub]
+key = ""
+secret = ""
+group = ""
+topic = ""
+action = "pub"
+offset = "old"
+buffer = 128
+name = "app-interface/contribute"
+proto = "tcp"
+addr = "172.16.33.158:6205"
+idle = 100
+active = 100
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[switch]
+    searchRecommend  = false
+    searchSuggest    = false
+    searchMainRcmd   = false
+    bbqOpen          = true
+    adOpen           = true
+    guardOpen        = true
+    skinOpen         = true
+    spaceContributeAll  = false
+    searchThreePoint = true
+    playerArgs = true
+    foolDoveActOpen = true
+
+[spaceLikeRule]
+skrTip = "视频、专栏、动态累计获赞"
+rule = "关于获赞数"
+ruleURL = "https://www.bilibili.com/read/cv2160038"
+
+[spaceSkipRule]
+pendantURL = "https://www.bilibili.com/h5/mall/pendant/home?navhide=1&from=personal_space"
+achieveURL = "https://www.bilibili.com/h5/achieve"
+achieveImage = "http://i0.hdslb.com/bfs/archive/3887792717b10fe603d1f31fe7c99380c6a1aa87.png"
+
+[SearchPageTitle]
+HotTitle = "热搜"
+HistoryTitle = "搜索历史"
+FindTitle = "搜索发现"
+
+[SpaceGame]
+Image = "http://i0.hdslb.com/bfs/archive/b5abaed1166adbbcd9b61e774891c565f2d6df87.png"
+JumpUri = "bilibili://game_center?sourceFrom=100002"
+
+[custom]
+ChannelLink = "bilibili://pegasus/channel/find?tab_id=100"
+HisLTime = 600
+HisRTime = 5
+HisLTimeArray = [600, 1200, 1800, 3600, 7200]
+HisRTimeArray = [3, 5, 8, 10, 15]
+NewFollowersRTime = 5500
+LatestHistoryPro = 0.95
+LatestHistoryTime = 1200
+MogulMids = [111005921]
+PhotoMallTitle = "默认头图"
+SetArchiveText = "视频模式\n设置视频"
+PhotoArcCount = 100
+CreatedActCnt = 6
+UpArcHasShare = true
+UpArcAddToViewIcon = "https://uat-i0.hdslb.com/bfs/app/25cc01346574a601dafd45c94226d92a67eed79a.png"
+UpArcAddToViewText = "添加至稍后再看"
+UpArcShareIcon = "https://uat-i0.hdslb.com/bfs/app/a5787f586c72f2d6f6ade4b33c64908938c4a01f.png"
+UpArcShareText = "分享"
+UpArcShareSuccToast = "分享成功"
+UpArcShareFailToast = "分享失败"
+HisHasShare = true
+NewUpArcMids = [27515255]
+NewUpArcGray = 100
+NewUpArcGrayNum = 100
+#uat环境更换图片测试 线上用产品给的
+#mallIcon = "https://i0.hdslb.com/bfs/vc/d09ca33f19ba9ba5a5a4ffe3c33d65a845ad88b7.png"
+mallIcon = "http://uat-i0.hdslb.com/bfs/app/d09ca33f19ba9ba5a5a4ffe3c33d65a845ad88b7.png"
+IpadSectionExp = 88
+
+
+[custom.SpaceSeriesMid]
+   # 2094180213 = 1
+    14139334 = 1
+    88895133 = 1
+    27515233 = 1
+    27515240 = 1
+    27515232 = 1
+    27515243 = 1
+    14135892 = 1
+    27515258 = 1
+    27515255 = 1
+
+[mogulDatabus]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "Mogul-MainAppSvr-P"
+    topic = "Mogul-T"
+    action = "pub"
+    name = "app-card/mogul"
+    active = 30
+    idle = 5
+    dialTimeout = "200ms"
+    readTimeout = "500ms"
+    writeTimeout = "800ms"
+    idleTimeout = "80s"
+
+[configSetPub]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "AppAccoutConfig-MainAppSvr-P"
+    topic = "AppAccoutConfig-T"
+    action = "pub"
+    name = "app-interface/configset"
+    active = 30
+    idle = 5
+    dialTimeout = "200ms"
+    readTimeout = "500ms"
+    writeTimeout = "800ms"
+    idleTimeout = "80s"
+
+[SpaceArchive]
+episodicOpen = true
+episodicMid = [40153618,6887420,178431199,58010653,15528977,304022040,53148642,258502589,11458153,21841193,39329259,20003749,161652222,67916241]
+episodicText = "连续播放"
+episodicText1 = "继续播放"
+episodicText2 = "继续播放"
+episodicDesc = "UP主的全部视频"
+
+[auth]
+   [auth.identify]
+     timeout = "350ms"
+
+[DegradeArgsConf]
+    logID = "006058"
+    [DegradeArgsConf.Infoc]
+    name = "degrade_args.log"
+
+[resource]
+    [resource.searchThreePoint]
+    waitIcon = "http://uat-i0.hdslb.com/bfs/feed-admin/95bd7470999b629f1aa74975ead0d9410737b429.png"
+    waitTitle = "添加至稍后再看"
+    shareIcon = "http://uat-i0.hdslb.com/bfs/feed-admin/2c4eeeec2a6bd2299ff45c5623e5b93da130b2ce.png"
+    shareTitle = "分享"
+
+[wechant]
+token = "uYsRqXPjnbyXDCba"
+secret = "tUILeGIXJHFSUdwfLjBHDZJXmLgYpgEy"
+users = ["yujia", "zhufan"]
+
+[Creative]
+    ButtonName = "有奖发布"
+    BeUpTitle = "发布你的第一个视频"
+    UpTitle = "创作中心"
+    TipIcon = "http://i0.hdslb.com/bfs/archive/abf993060ae4747a29891b88a29010aacbab5249.png"
+    TipTitle = "100%兑换3天大会员、限定挂件等"
+    DefaultUpTitle = "创作中心"
+    DefaultBeUpTitle = "成为UP主，分享你的创作"
+    DefaultTipIcon = "http://i0.hdslb.com/bfs/archive/1139c393af22c98a754b7b9c31bcc3c6e9c86775.png"
+    DefaultTipTitle = "发布视频，领限定挂件，赢活动奖金"
+
+[teenagers]
+    bucket = 90
+    innerInterval = 2
+    outerInterval = 1
+    ForceOpen = true
+    ForceClose = true
+    ForceOpenInterval = 300
+    ForceOnlineTime = 1636560000
+    [teenagers.outerZone]
+    # 北京：4243456
+    "4243456" = []
+    [[teenagers.noneZone]]
+        index = 2
+        # 香港：1035993088
+        # 澳门：1044381696
+        [teenagers.noneZone.zone]
+            "1035993088" = []
+            "1044381696" = []
+    [[teenagers.noneZone]]
+        index = 1
+        # 台湾：1040187392
+        [teenagers.noneZone.zone]
+            "1040187392" = []
+
+
+[feature]
+    [feature.featureBuildLimit]
+        switch = true
+        SearchSuggestShowLive = "common.show_live"
+        showLive = "common.show_live"
+        searchLiveAll = "service.searchLiveAll"
+        searchOld = "service.searchOld"
+        searchEgg = "service.searchEgg"
+        searchNewPGC = "service.searchNewPGC"
+        searchFlow = "service.searchFlow"
+        searchPadPgcNum = "service.searchPadPgcNum"
+        searchNewOrder = "service.searchNewOrder"
+        searchTwitter = "service.searchTwitter"
+        searchDuration = "service.searchDuration"
+        searchOgvUrl = "service.searchOgvUrl"
+        searchRcmdNewColor = "service.searchRcmdNewColor"
+        searchQueryCor = "service.searchQueryCor"
+        searchCooperation = "service.searchCooperation"
+        searchPadPgcMore = "service.searchPadPgcMore"
+        searchChannel = "service.searchChannel"
+        searchTabLiveAll = "service.searchTabLiveAll"
+        searchOld2 = "service.searchOld2"
+        searchTabArticle = "service.searchTabArticle"
+        searchChannelES = "service.searchChannelES"
+        searchPlayer = "service.searchPlayer"
+        searchUpCard = "service.searchUpCard"
+        searchTypeHightLight = "service.searchTypeHightLight"
+        spaceCrop = "service.spaceCrop"
+        spaceShouldChangeErr = "service.spaceShouldChangeErr"
+        spaceCheckPay = "service.spaceCheckPay"
+        spaceHideSex = "service.spaceHideSex"
+        spacePrinfo = "service.spacePrinfo"
+        spaceElecNil = "service.spaceElecNil"
+        spaceFansEffect = "service.spaceFansEffect"
+        spaceTabActivity = "service.spaceTabActivity"
+        spaceMedialist = "service.spaceMedialist"
+        spaceFavCover = "service.spaceFavCover"
+        spaceGoods = "service.spaceGoods"
+        spaceUgcSeason = "service.spaceUgcSeason"
+        spaceShop = "service.spaceShop"
+        spaceShopElse = "service.spaceShopElse"
+        spaceMall = "service.spaceMall"
+        spaceFav = "service.spaceFav"
+        spaceComics = "service.spaceComics"
+        spaceSubComics = "service.spaceSubComics"
+        spaceCooperation = "service.spaceCooperation"
+        spacePlayurl = "service.spacePlayurl"
+        spaceContinuePlay = "service.spaceContinuePlay"
+        spaceButtonText = "service.spaceButtonText"
+        contributeCooperation = "service.contributeCooperation"
+        contributeAudio = "service.contributeAudio"
+        searchNewUser = "service.searchNewUser"
+        searchParamComic = "service.searchParamComic"
+        searchParamNewlive = "service.searchParamNewlive"
+        searchParamTwitter = "service.searchParamTwitter"
+        searchParamHighlight = "service.searchParamHighlight"
+        searchParamCardNum = "service.searchParamCardNum"
+        searchParamStar = "service.searchParamStar"
+        searchParamPgcAll = "service.searchParamPgcAll"
+        searchParamTicket = "service.searchParamTicket"
+        searchParamProduct = "service.searchParamProduct"
+        searchParamSpecialGuide = "service.searchParamSpecialGuide"
+        searchParamArticle = "service.searchParamArticle"
+        searchParamChannel = "service.searchParamChannel"
+        searchParamOGV = "service.searchParamOGV"
+        searchParamEsports = "service.searchParamEsports"
+        searchParamSpecialCard = "service.searchParamSpecialCard"
+        searchParamTips = "service.searchParamTips"
+        searchParamAD = "service.searchParamAD"
+        searchDaoErr = "service.searchDaoErr"
+        searchBroadcastType = "service.searchBroadcastType"
+        searchParamSugDetail = "service.searchParamSugDetail"
+        searchPgcPlayurl = "service.searchPgcPlayurl"
+        searchParamDefaultWord = "service.searchParamDefaultWord"
+        favoriteMedialist = "service.favoriteMedialist"
+        historyBroadCast = "service.historyBroadCast"
+        hasCheeseAll = "service.hasCheeseAll"
+        hasCheeseNotAll = "service.hasCheeseNotAll"
+        historyCheese = "service.historyCheese"
+        historyPlayurl = "service.historyPlayurl"
+        mineSkin = "service.mineSkin"
+        mineNewCreative = "service.mineNewCreative"
+        mineNewLive = "service.mineNewLive"
+        mineNew = "service.mineNew"
+        mineNewCreativeCT = "service.mineNewCreativeCT"
+        mineMixCreativeCT = "service.mineMixCreativeCT"
+        favoriteTopic = "service.favoriteTopic"
+        favoriteComic = "service.favoriteComic"
+        favoriteNote = "service.favoriteNote"
+        ContributeComics = "service.ContributeComics"
+
+[[iosPreIcons]]
+id = 171
+title = "创作首页灾备"
+url = "bilibili://uper/homevc"
+icon = "http://i0.hdslb.com/bfs/archive/d3aad2d07538d2d43805f1fa14a412d7a45cc861.png"
+redDot = 0
+globalRedDot = 1
+needLogin = 1
+display = 1
+
+[[iosPreIcons]]
+id = 172
+title = "稿件管理"
+url = "bilibili://uper/user_center/archive_list"
+icon = "http://i0.hdslb.com/bfs/archive/97acb2d8dec09b296a38f7f7093d651947d13b91.png"
+redDot = 0
+globalRedDot = 1
+needLogin = 1
+display = 1
+
+[[iosPreIcons]]
+id = 534
+title = "打卡挑战"
+url = "https://member.bilibili.com/york/punch-card?navhide=1"
+icon = "http://i0.hdslb.com/bfs/archive/68e553ee0675b45ebff98d2b0ec44501b558cc36.png"
+redDot = 0
+globalRedDot = 1
+needLogin = 1
+display = 1
+
+[[iosPreIcons]]
+id = 174
+title = "有奖活动"
+url = "https://www.bilibili.com/blackboard/x/activity-tougao-h5/all"
+icon = "http://i0.hdslb.com/bfs/archive/7f4fa86d99bf3814bf10f8ee5d6c8c9db6e931c8.png"
+redDot = 0
+globalRedDot = 1
+needLogin = 1
+display = 1
+
+[[andPreIcons]]
+id = 190
+title = "创作首页灾备"
+url = "bilibili://main/drawer/upper"
+icon = "https://i0.hdslb.com/bfs/archive/d3aad2d07538d2d43805f1fa14a412d7a45cc861.png"
+redDot = 0
+globalRedDot = 1
+needLogin = 1
+display = 1
+
+[[andPreIcons]]
+id = 411
+title = "稿件管理"
+url = "bilibili://uper/user_center/archive_list"
+icon = "https://i0.hdslb.com/bfs/archive/97acb2d8dec09b296a38f7f7093d651947d13b91.png"
+redDot = 0
+globalRedDot = 1
+needLogin = 1
+display = 1
+
+[[andPreIcons]]
+id = 532
+title = "打卡挑战"
+url = "https://member.bilibili.com/york/punch-card?navhide=1"
+icon = "http://i0.hdslb.com/bfs/archive/68e553ee0675b45ebff98d2b0ec44501b558cc36.png"
+redDot = 0
+globalRedDot = 1
+needLogin = 1
+display = 1
+
+[[andPreIcons]]
+id = 191
+title = "有奖活动"
+url = "https://www.bilibili.com/blackboard/x/activity-tougao-h5/all"
+icon = "https://i0.hdslb.com/bfs/archive/7f4fa86d99bf3814bf10f8ee5d6c8c9db6e931c8.png"
+redDot = 0
+globalRedDot = 1
+needLogin = 1
+display = 1
+  
+[SearchGray]
+    Open = true
+    Whitelist = [1111112136,111008012,1111112639]
+    Bucket = 100
+[upArcGray]
+    open = false
+    whtelist = [1111112639,110000239]
+    bucket = 100
+
+[HisIcon]
+    Phone = "https://i0.hdslb.com/bfs/app/718bdd84b840f985e71af43c0e2806b36ef1ee62.png"
+    Pad = "https://i0.hdslb.com/bfs/app/c89b4bf7ebf3508a4d28c22a8932c711f321a1e3.png"
+    TV = "https://i0.hdslb.com/bfs/app/6323423d3ec17058c125b6b38f8985f686ea2473.png"
+    PC = "https://i0.hdslb.com/bfs/app/6776db36dadff2c2dfb67d6409542c7b6b7b77dd.png"
+    Car = "https://i0.hdslb.com/bfs/app/9269f7015f1ccdb2e1a00074e72a73c143cfaf9c.png"
+    Iot = "https://i0.hdslb.com/bfs/app/e18385b8e4f9f3b674d406c81ad2524d92a40073.png"
+
+[LiveTipConf1]
+    Icon = "https://i0.hdslb.com/bfs/archive/7f4fa86d99bf3814bf10f8ee5d6c8c9db6e931c8.png"
+    Mod = 0
+    Url = "activity://liveStreaming/home"
+    Text = "一键开播，更快涨粉"
+    ButtonText = "开播"
+    ButtonIcon = "https://i0.hdslb.com/bfs/activity-plat/static/20210317/4f3662116d8ab4ee084213142492fc16/0cWJFYD8mw.png"
+
+[livePlayback]
+    upFrom = [22,30]
+
+[legoToken]
+    spaceIPLimit = "jijioYVKlGWaGrLla3wera=="
+
+[HisEmptyLink]
+    "archive" = "bilibili://home?bottom_tab_name=%E9%A6%96%E9%A1%B5&tab_name=%E6%8E%A8%E8%8D%90"
+    "live" = "bilibili://home?bottom_tab_name=%E9%A6%96%E9%A1%B5&tab_name=%E7%9B%B4%E6%92%AD"
+    "article" = "bilibili://category/65541"
+
+[GameModuleID]
+    "143" = 1

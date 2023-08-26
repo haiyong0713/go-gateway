@@ -1,0 +1,10 @@
+[MallDefaultIDMap]
+    "927" = 1
+    "180" = 1
+
+[MallCustomIDMap]
+    "1012" = 1
+    "1013" = 1
+
+[IconCacheConfig]
+    PreloadDuration = 24

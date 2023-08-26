@@ -1,0 +1,373 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+package operational.esportsservice.v1;
+
+// specify golang package name
+option (wdcli.appid) = "main.operational.esportsservice";
+option go_package = "git.bilibili.co/bapis/bapis-go/operational/esportsservice;v1";
+option java_multiple_files = true;
+option java_package = "com.bapis.operational.esportsservice";
+
+
+service EsportsService {
+  // 外部调用
+  // 获取单赛程详情，赛程无效时报错
+  rpc GetContestInfo(GetContestRequest) returns (ContestInfo);
+  // 按时间赛程列表
+  rpc GetContestsByTime(GetTimeContestsRequest) returns (GetTimeContestsResponse);
+  // 赛程数据，会过滤掉无效赛程
+  rpc GetContests(GetContestsRequest) returns (ContestsResponse);
+  // 添加预约
+  rpc AddContestFav(FavRequest) returns (NoArgsResponse);
+  // 删除预约
+  rpc DelContestFav(FavRequest) returns (NoArgsResponse);
+  // 赛程订阅用户列表新接口
+  rpc GetContestSubscribers(GetSubscribersRequest) returns (ContestSubscribers);
+  // 获取赛事下的所有游戏
+  rpc GetGames(GetGamesRequest) returns (GamesResponse);
+  // 获取战队详情，会过滤掉无效赛程
+  rpc GetTeams(GetTeamsRequest) returns (TeamsResponse);
+}
+
+message GetTeamsRequest {
+  // 获取特定战队的信息单次数量不可超100
+  repeated int64 teamIds = 1;
+}
+
+message TeamsResponse {
+  repeated TeamDetail teams = 1;
+}
+
+//游戏请求参数
+message GetGamesRequest {
+  // 是否获取指定的游戏信息，否则获取全部
+  repeated int64 gameIds    = 1;
+  int64          cursor     = 2;
+  int64          cursorSize = 3 [(gogoproto.moretags) = 'validate:"min=1,max=500"'];
+}
+
+//游戏数据
+message GameDetail {
+  int64  ID         = 1;
+  //中文全称
+  string title      = 2;
+  //游戏简称
+  string subTitle   = 3;
+  //英文全称
+  string eTitle     = 4;
+  //平台
+  int64  plat       = 5;
+  //游戏类型
+  int64  gameType   = 6;
+  //游戏 logo
+  string logo       = 7;
+  //发行商
+  string publisher  = 8;
+  //运行商
+  string operations = 9;
+  //发布时间
+  int64  pbTime     = 10;
+  //备注
+  string dic        = 11;
+  //LOGO全
+  string logoFull   = 12;
+  // 排序
+  int64  rank       = 13;
+}
+
+// 游戏列表返回，cursor返回为0或games列表为空时无需翻页
+message GamesResponse {
+  repeated GameDetail games  = 1;
+  int64               cursor = 2;
+}
+
+// 赛程订阅用户列表
+message ContestSubscribers {
+  int64         cursor = 1;
+  repeated User user   = 2;
+}
+
+message User {
+  int64 id    = 1;
+  int64 oid   = 2;
+  int64 mid   = 3;
+  int32 typ   = 4;
+  int32 state = 5;
+  int64 ctime = 6;
+  int64 mtime = 7;
+}
+
+
+message GetSubscribersRequest {
+  int64 cid        = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 cursor     = 2;
+  int32 cursorSize = 3 [(gogoproto.moretags) = 'validate:"min=1,max=500"'];
+}
+
+//收藏请求参数
+message FavRequest {
+  int64 mid = 1;
+  int64 cid = 2;
+}
+
+// 赛程请求参数
+message GetContestRequest {
+  int64 mid = 1;
+  int64 cid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+//多赛程请求参数
+message GetContestsRequest {
+  int64          mid         = 1;
+  repeated int64 cids        = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  // 是否需要返回无效赛程，无效赛程定义为：被冻结的赛程
+  bool           needInvalid = 3;
+}
+
+//赛程请求返回
+message ContestsResponse {
+  repeated ContestDetail contests = 1;
+}
+
+
+//开始时间赛程请求参数
+message GetTimeContestsRequest {
+  string         stime       = 1;
+  string         etime       = 2;
+  // 过滤赛程绑定的直播间列表
+  repeated int64 roomIds     = 3;
+  // mid 获取用户对赛程的用户态新，例如：订阅、竞猜信息
+  int64          mid         = 4;
+  // 过滤游戏id
+  int64          gameId      = 5;
+  // 过滤战队id
+  int64          teamId      = 6;
+  // 过滤渠道列表，渠道对应信息见：
+  repeated int64 channel     = 7;
+  // 分页获取游标，返回0则无需再翻页
+  int64          cursor      = 8;
+  // 分页获取时的页量
+  int32          cursorSize  = 9 [(gogoproto.moretags) = 'validate:"min=0,max=100"'];
+  // 按照时间排序的方式， 0正序，1倒序
+  int32          timeSort    = 10;
+  // 是否需要返回无效赛程，无效赛程定义为：被冻结的赛程
+  bool           needInvalid = 11;
+}
+
+// 翻页式返回赛程
+message GetTimeContestsResponse {
+  repeated ContestDetail contests = 1;
+  int64                  cursor   = 2;
+}
+
+// 赛程的相关详情， 请求传入用户mid时会多返回用户态相关信息，例如竞猜(IsGuessed)、订阅(isSubscribed)
+message ContestDetail {
+  int64                ID              = 1;
+  //比赛阶段文本信息
+  string               gameStage       = 2;
+  //比赛开始时间
+  int64                stime           = 3;
+  //比赛结束时间
+  int64                etime           = 4;
+  //主场队伍id
+  int64                homeID          = 5;
+  //客场队伍id
+  int64                awayID          = 6;
+  //主场分数
+  int64                homeScore       = 7;
+  //客场分数
+  int64                awayScore       = 8;
+  //主场战队信息
+  TeamDetail           homeTeam        = 9;
+  //客场战队信息
+  TeamDetail           awayTeam        = 10;
+  //赛季id
+  int64                sid             = 11;
+  //赛季
+  SeasonDetail         season          = 12;
+  //赛事id
+  int64                mid             = 13;
+  // 赛程关联的阶段id
+  int64                seriesId        = 14;
+  // 赛程关联的阶段信息
+  SeriesDetail         series          = 15;
+  //直播房间号
+  int64                liveRoom        = 16;
+  //回播房间号
+  int64                aid             = 17;
+  //集锦房间号
+  int64                collection      = 18;
+  // 赛程描述
+  string               dic             = 19;
+  //赛程类型：0普通1特殊
+  int64                special         = 20;
+  //特殊赛程的胜利战队无主客队仅有胜利队伍
+  int64                successTeam     = 21;
+  //特殊赛程胜利队信息
+  TeamDetail           successTeamInfo = 22;
+  //特殊赛程，赛程名称
+  string               specialName     = 23;
+  //特殊赛程，胜利文案
+  string               specialTips     = 24;
+  //特殊赛程，赛程图片
+  string               specialImage    = 25;
+  //回播房间号url
+  string               playback        = 26;
+  //集锦房间号url
+  string               collectionURL   = 27;
+  //集锦房间号url
+  string               liveURL         = 28;
+  //比赛数据页类型 0：无 1：LOL 2:DATA2
+  int64                dataType        = 29;
+  //雷达数据match_id
+  int64                matchID         = 30;
+  //比赛阶段1
+  string               gameStage1      = 31;
+  //比赛阶段2
+  string               gameStage2      = 32;
+  //跳转地址
+  string               jumpURL         = 33;
+  string               guessLink       = 34;
+  // 赛程的冻结状态，1冻结不展示，0未冻结 可展示
+  ContestFrozenEnum    contestFrozen   = 35;
+  // 比赛状态，枚举：1未开始，2进行中，3已结束
+  ContestStatusEnum    contestStatus   = 36;
+  // 用户态信息，是否已参与该赛程的竞猜枚举：0 可参与竞猜未竞猜，1可参与竞猜已竞猜，2不可参与未竞猜，3不可参与已竞猜，4赛程无绑定竞猜
+  GuessStatusEnum      isGuessed       = 37;
+  // 用户态信息，是否已订阅过该赛程，枚举：0 可订阅时未订阅，1可订阅时已订阅，2不可订阅时未订阅，3不可订阅时已订阅，4赛程无需订阅
+  SubscribedStatusEnum isSubscribed    = 38;
+}
+
+enum ContestStatusEnum {
+  // 初始化状态，一般不会有，有则表示未开始
+  Init = 0;
+  // 未开始
+  Waiting = 1;
+  // 2进行中
+  Ing = 2;
+  // 3已结束
+  Over = 3;
+}
+
+enum ContestFrozenEnum {
+  // 未冻结，可展示，
+  False = 0;
+  // 被冻结，不可展示，被冻结赛程的信息一般不被返回
+  True = 1;
+}
+
+enum GuessStatusEnum {
+  // 竞猜可参与时未竞猜
+  HasGuessNoGuessed = 0;
+  // 竞猜可参与时已竞猜
+  HasGuessGuessed = 1;
+  // 当前竞猜不可参与，之前未参与
+  HasGuessOverNoGuessed = 2;
+  // 当前竞猜不可参与，之前已参与
+  HasGuessOverGuessed = 3;
+  // 无竞猜，不可参与&无需参与
+  HasNoGuess = 4;
+}
+
+enum SubscribedStatusEnum {
+  // 可订阅时未订阅
+  CanSubNoSub = 0;
+  // 可订阅时已订阅
+  CanSubSubed = 1;
+  // 当前不可订阅，之前未参与
+  CanSubOverNoSub = 2;
+  // 当前不可订阅，之前已参与
+  CanSubOverSubed = 3;
+  // 不可订阅，无需订阅
+  CanNotSub = 4;
+}
+
+
+// 阶段数据
+message SeriesDetail {
+  int64  ID          = 1;
+  string parentTitle = 2;
+  string childTitle  = 3;
+  int64  startTime   = 4;
+  int64  endTime     = 5;
+  string scoreId     = 6;
+}
+
+//赛季数据
+message SeasonDetail {
+  int64          ID           = 1;
+  //赛事id
+  int64          mid          = 2;
+  //简称
+  string         title        = 3;
+  //全称
+  string         subTitle     = 4;
+  //开始时间
+  int64          stime        = 5;
+  //结束时间
+  int64          etime        = 6;
+  //主办方
+  string         sponsor      = 7;
+  // logo
+  string         logo         = 8;
+  //备注
+  string         dic          = 9;
+  // 0 启用  1 冻结
+  int64          status       = 10;
+  // 权重
+  int64          rank         = 11;
+  //是否在移动端展示: 0否1是
+  int64          isApp        = 12;
+  //赛季URL
+  string         URL          = 13;
+  //比赛数据页焦点图
+  string         dataFocus    = 14;
+  //比赛数据页焦点图url
+  string         focusURL     = 15;
+  //搜索赛程卡标题底图
+  string         searchImage  = 16;
+  // LOGO全
+  string         logoFull     = 17;
+  //同步平台
+  int64          syncPlatform = 18;
+  // 赛季可同步渠道方，对syncPlatform的扩展，1.tv 2.直播; 为空时则表示其他方不可同步
+  repeated int64 channel      = 19;
+}
+
+//战队数据
+message TeamDetail {
+  int64  ID       = 1;
+  //简称
+  string title    = 2;
+  //全称
+  string subTitle = 3;
+  //英文全称
+  string eTitle   = 4;
+  //地区
+  string area     = 5;
+  //英文全称
+  string logo     = 7;
+  //地区
+  int64  uid      = 6;
+  //成员
+  string members  = 8;
+  //备注
+  string dic      = 9;
+  //战队类型
+  int64  teamType = 10;
+  // LOGO全
+  string logoFull = 11;
+  int64  regionId = 12;
+}
+
+message ContestInfo {
+  ContestDetail contest = 1;
+}
+
+// NoArgReq
+message NoArgsRequest {}
+
+// NoArgsResponse
+message NoArgsResponse {}

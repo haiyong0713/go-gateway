@@ -1,0 +1,583 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "go-gateway/app/app-svr/fawkes/service/api/app/auth/auth.proto",
+        "version": "1"
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json",
+        "multipart/form-data"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/x/admin/fawkes/auth/grant": {
+            "post": {
+                "summary": "给角色授权",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.auth.v1.GrantRoleReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.auth.v1.Auth"
+                ]
+            }
+        },
+        "/x/admin/fawkes/auth/group/add": {
+            "post": {
+                "summary": "新增权限组",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.auth.v1.AddAuthItemGroupReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.auth.v1.Auth"
+                ]
+            }
+        },
+        "/x/admin/fawkes/auth/group/update": {
+            "post": {
+                "summary": "更新权限组",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.auth.v1.UpdateAuthItemGroupReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.auth.v1.Auth"
+                ]
+            }
+        },
+        "/x/admin/fawkes/auth/item/add": {
+            "post": {
+                "summary": "新增权限点",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.auth.v1.AddAuthItemReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.auth.v1.Auth"
+                ]
+            }
+        },
+        "/x/admin/fawkes/auth/item/delete": {
+            "post": {
+                "summary": "删除权限点",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.auth.v1.DeleteAuthItemReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.auth.v1.Auth"
+                ]
+            }
+        },
+        "/x/admin/fawkes/auth/item/switch": {
+            "post": {
+                "summary": "启用权限点",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.auth.v1.ActiveAuthItemReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.auth.v1.Auth"
+                ]
+            }
+        },
+        "/x/admin/fawkes/auth/item/update": {
+            "post": {
+                "summary": "更新权限点",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.auth.v1.UpdateAuthItemReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.auth.v1.Auth"
+                ]
+            }
+        },
+        "/x/admin/fawkes/auth/list": {
+            "get": {
+                "summary": "拉取所有权限点",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.auth.v1.ListAuthResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "role_value",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "app.auth.v1.Auth"
+                ]
+            }
+        }
+    },
+    "definitions": {
+        ".app.auth.v1.ActiveAuthItemReq": {
+            "type": "object",
+            "properties": {
+                "item_id": {
+                    "type": "integer"
+                },
+                "is_active": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "item_id"
+            ]
+        },
+        ".app.auth.v1.AddAuthItemGroupReq": {
+            "type": "object",
+            "properties": {
+                "group_name": {
+                    "type": "string",
+                    "description": "组名"
+                }
+            },
+            "required": [
+                "group_name"
+            ]
+        },
+        ".app.auth.v1.AddAuthItemReq": {
+            "type": "object",
+            "properties": {
+                "group_id": {
+                    "type": "integer",
+                    "description": "组id"
+                },
+                "item_name": {
+                    "type": "string",
+                    "description": "权限项名字"
+                },
+                "fe_key": {
+                    "type": "string",
+                    "description": "前端key"
+                },
+                "be_url": {
+                    "type": "string",
+                    "description": "后端url"
+                },
+                "url_param": {
+                    "type": "string",
+                    "description": "后端url参数 key1=value1\u0026k2=v2"
+                }
+            },
+            "required": [
+                "group_id",
+                "item_name"
+            ]
+        },
+        ".app.auth.v1.DeleteAuthItemReq": {
+            "type": "object",
+            "properties": {
+                "item_id": {
+                    "type": "integer",
+                    "description": "权限项id"
+                }
+            },
+            "required": [
+                "item_id"
+            ]
+        },
+        ".app.auth.v1.Grant": {
+            "type": "object",
+            "properties": {
+                "item_id": {
+                    "type": "integer",
+                    "description": "权限项id"
+                },
+                "role_value": {
+                    "type": "integer",
+                    "description": "角色"
+                },
+                "is_granted": {
+                    "type": "boolean",
+                    "description": "是否授权"
+                }
+            },
+            "description": "授权信息",
+            "required": [
+                "item_id",
+                "role_value",
+                "is_granted"
+            ]
+        },
+        ".app.auth.v1.GrantRoleReq": {
+            "type": "object",
+            "properties": {
+                "item": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.auth.v1.Grant"
+                    }
+                }
+            },
+            "required": [
+                "item"
+            ]
+        },
+        ".app.auth.v1.Group": {
+            "type": "object",
+            "properties": {
+                "group_id": {
+                    "type": "integer",
+                    "description": "权限组id"
+                },
+                "group_name": {
+                    "type": "string",
+                    "description": "权限组名字"
+                },
+                "operator": {
+                    "type": "string",
+                    "description": "操作人"
+                },
+                "item": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.auth.v1.Item"
+                    },
+                    "description": "权限项"
+                },
+                "ctime": {
+                    "type": "integer"
+                },
+                "mtime": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".app.auth.v1.Item": {
+            "type": "object",
+            "properties": {
+                "item_id": {
+                    "type": "integer"
+                },
+                "item_name": {
+                    "type": "string"
+                },
+                "fe_key": {
+                    "type": "string"
+                },
+                "be_url": {
+                    "type": "string"
+                },
+                "url_param": {
+                    "type": "string",
+                    "description": "后端url参数 key1=value1\u0026k2=v2"
+                },
+                "operator": {
+                    "type": "string"
+                },
+                "role_access": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "ctime": {
+                    "type": "integer"
+                },
+                "mtime": {
+                    "type": "integer"
+                },
+                "group_id": {
+                    "type": "integer"
+                },
+                "is_active": {
+                    "type": "boolean"
+                }
+            }
+        },
+        ".app.auth.v1.ListAuthReq": {
+            "type": "object",
+            "properties": {
+                "role_value": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".app.auth.v1.ListAuthResp": {
+            "type": "object",
+            "properties": {
+                "item": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.auth.v1.Group"
+                    }
+                },
+                "role": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.auth.v1.Role"
+                    }
+                }
+            }
+        },
+        ".app.auth.v1.Role": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "ename": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "integer"
+                },
+                "state": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".app.auth.v1.UpdateAuthItemGroupReq": {
+            "type": "object",
+            "properties": {
+                "group_id": {
+                    "type": "integer",
+                    "description": "组id"
+                },
+                "group_name": {
+                    "type": "string",
+                    "description": "组名"
+                }
+            },
+            "required": [
+                "group_id",
+                "group_name"
+            ]
+        },
+        ".app.auth.v1.UpdateAuthItemReq": {
+            "type": "object",
+            "properties": {
+                "item_id": {
+                    "type": "integer"
+                },
+                "item_name": {
+                    "type": "string"
+                },
+                "fe_key": {
+                    "type": "string"
+                },
+                "be_url": {
+                    "type": "string"
+                },
+                "url_param": {
+                    "type": "string",
+                    "description": "后端url参数 key1=value1\u0026k2=v2"
+                }
+            },
+            "required": [
+                "item_id"
+            ]
+        },
+        ".google.protobuf.Empty": {
+            "type": "object",
+            "properties": {},
+            "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }\n\n The JSON representation for `Empty` is empty JSON object `{}`."
+        }
+    }
+}

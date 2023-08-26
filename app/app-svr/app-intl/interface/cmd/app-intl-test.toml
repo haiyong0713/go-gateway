@@ -1,0 +1,394 @@
+# This is a TOML document. Boom.
+tick    = "1m"
+
+[xlog]
+stdout=true
+
+[playIcon]
+stime = 1549641600
+etime = 1549900799
+tids  = [516,374306,16054,18612,2611047,1008087,50,2513658,56,2512304,6977,8035683,1060128]
+url1  = "http://i0.hdslb.com/bfs/archive/10aac003f39f1c7ca8f796f00971f103c70e8101.json"
+hash1 = "18eaaad1aeef32c120c6a1d5ac933cf5"
+url2  = "http://i0.hdslb.com/bfs/archive/0a318965e59bcfe544f33cef17310553a37f179b.json"
+hash2 = "7f535c7b13ec5e96de94d768b8652262"
+
+[bm]
+    [bm.outer]
+    addr = "0.0.0.0:8000"
+    timeout = "1s"
+
+[feed]
+[feed.index]
+    count = 10
+    iPadCount = 20
+    moePosition = 6
+    followPosition = 7
+[feed.cmResource]
+    "iphone"  = 1890
+    "android" = 1897
+    "ipad"    = 1975
+
+[search]
+seasonNum  = 3
+movieNum   = 3
+seasonMore = 1
+movieMore  = 1
+upUserNum  = 1
+uvLimit    = 1
+userNum    = 1
+userVideoLimit = 1
+biliUserNum = 1
+biliUserVideoLimit = 1
+operationNum = 1
+
+[view]
+vipTick   = "300s"
+relateCnt = 3
+
+[showInfoc]
+taskID = "000027"
+proto = "tcp"
+addr = "172.19.100.20:5401"
+chanSize = 10240
+
+[tagInfoc]
+taskID = "000028"
+proto = "tcp"
+addr = "172.19.100.20:5401"
+chanSize = 10240
+
+[redirectInfoc]
+taskID = "000029"
+proto = "tcp"
+addr = "172.19.100.20:5401"
+chanSize = 10240
+
+[coinInfoc]
+taskID = "000078"
+proto = "tcp"
+addr = "172.19.100.20:5401"
+chanSize = 1024
+
+[viewInfoc]
+taskID = "000025"
+proto = "tcp"
+addr = "172.19.100.20:5401"
+chanSize = 1024
+
+[relateInfoc]
+taskID = "000025"
+proto = "tcp"
+addr = "172.19.100.20:5401"
+chanSize = 1024
+
+[IntlShowInfoc]
+    logId = "005660"
+    [IntlShowInfoc.conf]
+        path = ""
+        name = "recLog"
+        rotated = true
+
+
+[host]
+live     = "http://live.bilibili.co"
+liveApi  = "http://api.live.bilibili.co"
+bangumi  = "http://bangumi.bilibili.co"
+data     = "http://data.bilibili.co"
+hetongzi = "http://hetongzi.bilibili.co"
+www      = "http://www.bilibili.com"
+apiCo    = "http://api.bilibili.co"
+api      = "http://api.bilibili.com"
+ad       = "http://cm.bilibili.co"
+activity = "http://matsuri.bilibili.co"
+rank     = ""
+show     = "http://show.bilibili.com"
+dynamic  = "http://api.vc.bilibili.com"
+bigData  = "http://bigdata.bilibili.co"
+search   = "http://s.search.bilibili.co"
+black    = "http://172.18.7.208"
+
+
+[app]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+
+[httpWrite]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "30ms"
+timeout   = "100ms"
+keepAlive = "60s"
+timer     = 128
+[httpWrite.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+
+[httpClient]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "30ms"
+timeout   = "100ms"
+keepAlive = "60s"
+timer     = 128
+[httpClient.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpClientAsyn]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "1s"
+timeout   = "2s"
+keepAlive = "60s"
+timer     = 10
+[httpClientAsyn.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpData]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "30ms"
+timeout   = "200ms"
+keepAlive = "60s"
+timer     = 1024
+[httpData.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpTag]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "50ms"
+timeout   = "200ms"
+keepAlive = "60s"
+timer = 10
+    [httpTag.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpAd]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "50ms"
+timeout   = "100ms"
+keepAlive = "60s"
+timer = 128
+[httpAd.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpActivity]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "50ms"
+timeout   = "150ms"
+keepAlive = "60s"
+timer = 128
+[httpActivity.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpBangumi]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "50ms"
+timeout   = "150ms"
+keepAlive = "60s"
+timer = 128
+[httpBangumi.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpDynamic]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "200ms"
+timeout   = "800ms"
+keepAlive = "60s"
+timer = 128
+[httpDynamic.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpAudio]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "50ms"
+timeout   = "150ms"
+keepAlive = "60s"
+timer = 128
+[httpAudio.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpShow]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "50ms"
+timeout   = "150ms"
+keepAlive = "60s"
+timer = 128
+[httpShow.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpSearch]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "50ms"
+timeout   = "150ms"
+keepAlive = "60s"
+timer = 128
+[httpSearch.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[mysql]
+    [mysql.show]
+    addr   = "172.18.33.49:3306"
+    dsn    = "show:UJYgc9UkHIaGovEDUXpTU4U0rjBpZtwb@tcp(172.18.33.49:3306)/bilibili_show?timeout=1s&readTimeout=1s&writeTimeout=1s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 2
+    idle   = 1
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+    [mysql.show.Breaker]
+    window = "1s"
+    sleep = "1s"
+    bucket = 10
+    ratio = 0.5
+    request = 100
+    [mysql.resource]
+    addr = "172.18.33.49:3306"
+    dsn = "resource:nMgVkY0JPgQr60nUVif5tEUbOTXlilXN@tcp(172.18.33.49:3306)/bilibili_resource?timeout=100ms&readTimeout=200ms&writeTimeout=200ms&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 2
+    idle = 1
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+    [mysql.resource.Breaker]
+    window = "1s"
+    sleep = "1s"
+    bucket = 10
+    ratio = 0.5
+    request = 100
+    [mysql.manager]
+    addr = "172.16.33.205:3308"
+    dsn = "test:test@tcp(172.16.33.205:3308)/bilibili_manager?timeout=100ms&readTimeout=200ms&writeTimeout=200ms&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 2
+    idle = 1
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+    [mysql.manager.Breaker]
+    window = "1s"
+    sleep = "1s"
+    bucket = 10
+    ratio = 0.5
+    request = 100
+
+[redis]
+    [redis.feed]
+    name   = "app-intl/feed"
+    proto  = "unix"
+    addr   = "/tmp/uat-app-redis.sock"
+    active = 5
+    idle   = 1
+    dialTimeout  = "30ms"
+    readTimeout  = "80ms"
+    writeTimeout = "80ms"
+    idleTimeout  = "80s"
+    expireRecommend = "1h"
+    expireBlack = "16h"
+    [redis.upper]
+    name   = "app-intl/upper"
+    proto  = "unix"
+    addr   = "/tmp/uat-app-redis.sock"
+    active = 5
+    idle   = 1
+    dialTimeout  = "30ms"
+    readTimeout  = "50ms"
+    writeTimeout = "50ms"
+    idleTimeout  = "80s"
+    expireUpper  = "96h"
+
+[memcache]
+    [memcache.feed]
+    name   = "app-intl/feed"
+    proto  = "unix"
+    addr   = "/tmp/uat-app-mc.sock"
+    active = 5
+    idle   = 1
+    dialTimeout  = "30ms"
+    readTimeout  = "150ms"
+    writeTimeout = "150ms"
+    idleTimeout  = "80s"
+    expire       = "24h"
+    relateExpire = "5m"
+    [memcache.cache]
+    name   = "app-intl/cache"
+    proto  = "unix"
+    addr   = "/tmp/uat-app-mc.sock"
+    active = 5
+    idle   = 1
+    dialTimeout  = "30ms"
+    readTimeout  = "150ms"
+    writeTimeout = "150ms"
+    idleTimeout  = "80s"
+    expire       = "24h"
+
+[ViewBuildLimit]
+    SteinsSeasonBuildAndroid = 2033000
+    SteinsSeasonBuildIOS = 1000050
+    ArcWithPlayerAndroid = 2060010
+    ArcWithPlayerIOS = 1000050
+
+[SearchBuildLimit]
+    ArcWithPlayerAndroid = 2060010
+    ArcWithPlayerIOS = 1000050
+
+
+[BuildLimit]
+    NewActiveTabIOS = 8940
+	NewActiveTabAndroid = 5499999
+	NewChannelIOS = 9999
+	NewChannelAndroid = 5519999

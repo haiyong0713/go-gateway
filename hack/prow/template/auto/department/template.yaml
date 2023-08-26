@@ -1,0 +1,25 @@
+
+    - name: <<repo>>-<<dir_alias>>-build
+      always_run: true
+      cluster: jsy
+      trusted_labels:
+        - new-project/<<dir>>
+      spec:
+        containers:
+          - image: go-1.12.4-golint-latest
+            imagePullPolicy: IfNotPresent
+            args:
+              - --id=$(BUILD_ID)
+              - --job=$(JOB_NAME)
+              - --root=/root/go/src
+              - --repo=git.bilibili.co/$(REPO_OWNER)/$(REPO_NAME)=$(PULL_REFS)
+              - --command
+              - ./hack/verify-build.sh
+              - app/<<dir>>
+            volumeMounts:
+              - name: modcache
+                mountPath: /root/go/pkg
+        volumes:
+          - name: modcache
+            hostPath:
+              path: /root/go/pkg

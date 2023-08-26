@@ -1,0 +1,31 @@
+syntax = "proto3";
+package app.misaka.v1;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "app";
+
+message Info {
+    Data Data = 1 [(gogoproto.jsontag) = "data"];
+    string IP = 2 [(gogoproto.jsontag) = "ip"];
+    string country = 3 [(gogoproto.jsontag) = "country"];
+    string province = 4 [(gogoproto.jsontag) = "province"];
+    string city = 5 [(gogoproto.jsontag) = "city"];
+    string ISP = 6 [(gogoproto.jsontag) = "isp"];
+    int64 timestamp = 7 [(gogoproto.jsontag) = "@timestamp"];
+}
+
+message Data {
+    int64 logID = 1 [(gogoproto.jsontag) = "log_id"];
+    string mobi_app = 2 [(gogoproto.jsontag) = "mobi_app"];
+    string device = 3 [(gogoproto.jsontag) = "device"];
+    string platform = 4 [(gogoproto.jsontag) = "platform"];
+    string buvid = 5 [(gogoproto.jsontag) = "buvid"];
+    string brand = 6 [(gogoproto.jsontag) = "brand"];
+    string model = 7 [(gogoproto.jsontag) = "model"];
+    string osver = 8 [(gogoproto.jsontag) = "osver"];
+    string build = 9 [(gogoproto.jsontag) = "build"];
+    int64 network = 10 [(gogoproto.jsontag) = "network"];
+    int64 mid = 11 [(gogoproto.jsontag) = "mid"];
+    map<string, string> extended_fields = 12  [(gogoproto.jsontag) = "extended_fields"];
+}

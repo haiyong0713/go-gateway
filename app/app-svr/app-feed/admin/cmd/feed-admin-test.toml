@@ -1,0 +1,671 @@
+
+[log]
+    stdout = true
+
+[clickhouse]
+    [clickhouse.antiCrawler]
+        addr = "olap-yuuni.bilibili.co:80"
+        dsn = "http://jssz_bigdata_cluster_replica:0066355d@olap-yuuni.bilibili.co:80/test_main?read_timeout=10s&write_timeout=20s"
+        active = 5
+        idle = 2
+        idleTimeout ="4h"
+        queryTimeout = "10s"
+        execTimeout = "10s"
+        tranTimeout = "10s"
+        databaseName = "test_main"
+
+[orm]
+dsn = "manager:QhJxu7Qkp7WR1iRw9cpCSQTt0oWqj3k2@tcp(ops-db-5129-w-3306.testdb.bilibili.co:3306)/bilibili_show?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8mb4"
+active = 5
+idle = 5
+idleTimeout = "4h"
+[ormResource]
+dsn = "manager:QhJxu7Qkp7WR1iRw9cpCSQTt0oWqj3k2@tcp(ops-db-5129-w-3306.testdb.bilibili.co:3306)/bilibili_resource?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8mb4"
+active = 5
+idle = 5
+idleTimeout = "4h"
+
+[ormManager]
+    dsn = "manager:QhJxu7Qkp7WR1iRw9cpCSQTt0oWqj3k2@tcp(172.22.34.101:3306)/bilibili_manager?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8mb4"
+    active = 5
+    idle = 5
+    idleTimeout = "4h"
+
+[ormFeature]
+    dsn = "bilibili_feature:smNkoWaiCrX8pSGODMMykIYnEnQOfr6c@tcp(ops-db-5129-w-3318.testdb.bilibili.co:3318)/bilibili_feature?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8mb4"
+    active = 5
+    idle = 5
+    idleTimeout = "4h"
+[ormTag]
+    dsn = "test_3306:UJPZaGKjpb2ylFx3HNhmLuwOYft4MCAi@tcp(172.22.34.101:3306)/platform_tag?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+    idle = 5
+    idleTimeout = "4h"  
+
+[ORMShow]
+    dsn = "show:UJYgc9UkHIaGovEDUXpTU4U0rjBpZtwb@tcp(172.22.34.101:3306)/bilibili_show?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8mb4"
+    active = 5
+    idle = 5
+    idleTimeout = "4h"
+
+[HTTPServer]
+    addr = "0.0.0.0:6683"
+    timeout = "1s"
+
+
+[auth]
+    managerHost = "http://uat-manager.bilibili.co"
+    dashboardHost = "http://dashboard-mng.bilibili.co"
+    dashboardCaller = "manager-go"
+    [auth.DsHTTPClient]
+    key = "manager-go"
+    secret = "949bbb2dd3178252638c2407578bc7ad"
+    dial = "1s"
+    timeout = "1s"
+    keepAlive = "60s"
+    [auth.DsHTTPClient.breaker]
+    window  = "3s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+    [auth.MaHTTPClient]
+    key = "f6433799dbd88751"
+    secret = "36f8ddb1806207fe07013ab6a77a3935"
+    dial = "1s"
+    timeout = "1s"
+    keepAlive = "60s"
+    [auth.MaHTTPClient.breaker]
+    window  = "3s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+    [auth.session]
+    sessionIDLength = 32
+    cookieLifeTime = 1800
+    cookieName = "mng-go"
+    domain = ".bilibili.co"
+    [auth.session.Memcache]
+    name = "go-business/auth"
+    proto = "tcp"
+    addr = "127.0.0.1:11211"
+    active = 10
+    idle = 10
+    dialTimeout = "1s"
+    readTimeout = "1s"
+    writeTimeout = "1s"
+    idleTimeout = "80s"
+
+[httpClient]
+    [httpClient.read]
+    key    = "1f2620da295d326b"
+    secret = "test"
+    dial      = "500ms"
+    timeout   = "2s"
+    keepAlive = "60s"
+    timer = 10
+    [httpClient.DataPlat]
+        key    = "0ee0b7a9628bd3c34d315e59368e2510"
+        secret = "0dc57e975cf0f03bc92a22bd30de75f5"
+        dial      = "500ms"
+        timeout   = "5s"
+        keepAlive = "60s"
+        timer = 10
+    [httpClient.DataPlat2]
+        key    = "0ee0b7a9628bd3c34d315e59368e2510"
+        secret = "0dc57e975cf0f03bc92a22bd30de75f5"
+        clusterName = "clickhouse_common_01"
+        dial      = "500ms"
+        timeout   = "5s"
+        keepAlive = "60s"
+        timer = 10
+    [httpClient.read.breaker]
+        window  = "10s"
+        sleep   = "100ms"
+        bucket  = 10
+        ratio   = 0.5
+        request = 100
+    [httpClient.Game]
+        key = "Xi1Q9DsfdB0PJkH"
+        secret = "95Drb3EQOF0FUWsfbJS5vUa0q"
+        dial = "600ms"
+        timeout = "6000ms"
+        keepAlive = "60s"
+        timer = 16
+    [httpClient.EntryGame]
+        dial = "600ms"
+        timeout = "6000ms"
+        keepAlive = "60s"
+        secret = "8f3550e0c04211e79ddafe210a2e3379"
+        desKey = "0a1c3bc7e7144b6d8d5932a7d0d26c28"
+    [httpClient.ES]
+    key    = "cadf599ba8b3796a"
+    secret = "42fbb979aa742013d713a088f912673b"
+    dial      = "500ms"
+    timeout   = "2s"
+    keepAlive = "60s"
+    timer = 10
+    [httpClient.ES.breaker]
+        window  = "10s"
+        sleep   = "100ms"
+        bucket  = 10
+        ratio   = 0.5
+        request = 100
+    [httpClient.Push]
+    key       = "e7482d29be4a95b8"
+    secret    = "9e803791cdef756e75faee68e12b7442"
+    dial      = "10s"
+    timeout   = "10s"
+    keepAlive = "60s"
+    timer     = 128
+    [httpClient.Push.breaker]
+        window  = "10s"
+        sleep   = "100ms"
+        bucket  = 10
+        ratio   = 0.5
+        request = 100
+    [httpClient.MediaList]
+    key    = "cadf599ba8b3796a"
+    secret = "42fbb979aa742013d713a088f912673b"
+    dial      = "500ms"
+    timeout   = "5s"
+    keepAlive = "60s"
+
+[cfg.SelCfg]
+    Business = "app_show_weekly_selected"
+    Index = "app_show_weekly_selected"
+    ExportTitles = ["期数","位置","视频ID","视频标题","up主mid","up主昵称","一级分区","来源","编辑寄语","状态"]
+
+
+
+[bfs]
+key         = "b525299741c108ef"
+secret      = "ef1d0b536d4bcef04dd7c75014c51f"
+addr        = "http://uat-bfs.bilibili.co/bfs/feed-admin/"
+bucket      = "feed-admin"
+timeout     = "10s"
+maxFileSize = 10485760
+
+[boss]
+    bucket="feed-admin"
+    entryPoint="http://uat-boss.bilibili.co"
+    accessKey="6f376c68f98bcb8d"
+    secretKey="271ef5647d986930ef27a83493b2a577"
+    region="uat"
+    localDir="/data/app"
+
+[timeGap]
+    hotword=0
+
+[rpcServer]
+    network = "tcp"
+    addr = "0.0.0.0:6684"
+    timeout = "1s"
+    idleTimeout = "60s"
+    maxLifeTime = "2h"
+    forceCloseWait = "20s"
+    keepAliveInterval = "60s"
+    keepAliveTimeout = "20s"
+
+[memcache]
+	name = "feed-admin"
+	proto = "tcp"
+    addr = "172.22.33.31:12047"
+    active = 10
+    idle = 10
+    dialTimeout = "1s"
+    readTimeout = "1s"
+    writeTimeout = "1s"
+    idleTimeout = "80s"
+
+[cfg]    
+    HotCroFre = "0 */10 * * * *"
+    DarkCroFre = "0 */10 * * * *"
+    RcmdCroFre = "0 */1 * * * *"
+    BrandCroFre = "0 */1 * * * *"
+    SidebarCroFre = "@every 30s"
+    GameCroFre = "0 */5 * * * *"
+    ChannelCroFre = "0 */1 * * * *"
+     
+[host]
+manager = "http://uat-manager.bilibili.co"
+game = "http://uat-game-center-open-api.bilibili.co"
+entryGame = "http://internal.api.biligame.net"
+live = "http://api.live.bilibili.com"
+api = "http://uat-api.bilibili.co"
+feed = "http://manager-pre.bilibili.co"
+comicInner = "http://manga.bilibili.co"
+dynamic  = "http://uat-api.vc.bilibili.co"
+vip  = "http://uat-show.bilibili.com"
+archive = "http://uat-archive.api.bilibili.co"
+thumbnail  = "http://uat-bfs.bilibili.co"
+easyst = "http://easyst.bilibili.co"
+bigData    = "http://data.bilibili.co"
+berserker = "http://berserker.bilibili.co"
+cmmng = "http://cm-mng.bilibili.co"
+
+[redis]
+	name   = "app-show/recommend"
+	proto  = "tcp"
+	addr   = "172.22.33.31:6916"
+	active = 5
+	idle   = 1
+	dialTimeout  = "30ms"
+	readTimeout  = "200ms"
+	writeTimeout = "200ms"
+	idleTimeout  = "80s"
+	expire = "2h"
+
+[feedredis]
+    name   = "app-feed/feed"
+    proto  = "tcp"
+    addr   = "127.0.0.1:20368"
+    active = 1024
+    idle   = 12
+    dialTimeout  = "80ms"
+    readTimeout  = "150ms"
+    writeTimeout = "150ms"
+    idleTimeout  = "80s"
+
+[message]
+    url = "http://message.bilibili.co/api/notify/send.user.notify.do"
+    [message.Tianma]
+        mc = "1_22_1"
+        title = "您的%s被推荐啦"
+        msg = "您的%s【《%s》】已被选入移动端首页推荐（%s更新），期待您创作更加优秀的新作品~"
+    [message.Popular]
+        mc = "1_17_5"
+        title = "你被推荐到热门啦！"
+        msg = "恭喜你被推荐到热门啦（【%s】更新），期待你创作更加优秀的新作品~"
+
+[aggregationmemcache]
+	name = "feed-admin"
+	proto = "tcp"
+    addr = "127.0.0.1:20382"
+    active = 10
+    idle = 10
+    dialTimeout = "1s"
+    readTimeout = "1s"
+    writeTimeout = "1s"
+    idleTimeout = "80s"
+    aiExpire = "30m"
+    arcExpire = "10m"
+    
+[mysql]
+    [mysql.show]
+    addr   = "127.0.0.1:3306"
+    dsn    = "manager:QhJxu7Qkp7WR1iRw9cpCSQTt0oWqj3k2@tcp(ops-db-5129-w-3306.testdb.bilibili.co:3306)/bilibili_show?timeout=50ms&readTimeout=100ms&writeTimeout=100ms&parseTime=true&loc=Local&charset=utf8mb4"
+    active = 10
+    idle   = 2
+    idleTimeout  = "4h"
+    queryTimeout = "200ms"
+    execTimeout  = "200ms"
+    tranTimeout  = "200ms"
+
+[entranceredis]
+	name   = "app-show/recommend"
+	proto  = "tcp"
+	addr   = "127.0.0.1:20368"
+	active = 5
+	idle   = 1
+	dialTimeout  = "30ms"
+	readTimeout  = "200ms"
+	writeTimeout = "200ms"
+	idleTimeout  = "80s"
+	expire = "2h"
+
+# 每周必看相关缓存
+[SelectedRedis]
+	name   = "feed-admin/selected"
+	proto  = "tcp"
+	addr   = "127.0.0.1:20368"
+	active = 20
+	idle   = 5
+	dialTimeout  = "30ms"
+	readTimeout  = "200ms"
+	writeTimeout = "200ms"
+	idleTimeout  = "80s"
+	expire = "2h"
+
+[bubblememcache]
+	name   = "app-resource/bubble"
+    proto  = "tcp"
+    addr   = "172.22.33.30:12217"
+    active = 5000
+    idle   = 128
+    dialTimeout   = "50ms"
+    readTimeout   = "150ms"
+    writeTimeout  = "90ms"
+    idleTimeout   = "80s"
+    
+[userfeed]
+    game        = "zhangtian"
+    pgc         = "huweixuan"
+    archive     = "dengwei"
+    account     = "wanghuan01"
+    comic       = "lixiang"
+    live        = "weixuan"
+    dynamic     = "weisai"
+    article     = "changxuanran"
+    feed        = "quguolin"
+    mediaList   = "yuzixun"
+
+[databus]
+    key = "8e27ab7e39270b59"
+    secret= "477df6a068d7332a163f95abbad2079c"
+    group= "Resource-MGR2GW-MainAppSvr-P"
+    topic= "Resource-MGR2GW-T"
+    action = "pub"
+    name = "resource-app-entry"
+    proto = "tcp"
+    addr = "172.23.34.14:6205"
+    idle = 5
+    active = 20
+    dialTimeout = "200ms"
+    readTimeout = "500ms"
+    writeTimeout = "500ms"
+    idleTimeout = "80s"  
+
+[OTTSeriesDatabus]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "OTT-Series-MainAppSvr-P"
+    topic = "OTT-Series-T"
+    action = "pub"
+    name = "feed-admin/ottSeriesPub"
+    proto = "tcp"
+    addr = "172.18.21.41:6205"
+    active = 1
+    idle = 1
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s" 
+
+[ArchiveHonorDatabus]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "ArchiveHonor-MainAppSvr-P"
+    topic = "ArchiveHonor-T"
+    action = "pub"
+    name = "feed-admin"
+    proto = "tcp"
+    idle = 5
+    active = 20
+    dialTimeout = "1s"
+    readTimeout = "35s"
+    writeTimeout = "3s"
+    idleTimeout = "80s"
+
+# 配置详情见https://info.bilibili.co/pages/viewpage.action?pageId=137128853#id-%E3%80%90%E6%9B%B4%E6%96%B0%E3%80%91%E5%93%81%E7%89%8C%E9%97%AA%E5%B1%8F%E5%A2%9E%E5%8A%A0%E5%AF%B9%E5%85%A8%E5%B1%8F%E7%89%A9%E6%96%99%E7%9A%84%E6%94%AF%E6%8C%81-Config%E6%96%87%E4%BB%B6%E5%8F%98%E6%9B%B4
+[splashScreen]
+    [splashScreen.img]
+        keepNewDays = 30
+    [splashScreen.logo]
+        white = "http://uat-i0.hdslb.com/bfs/app/1b1a8a4fc78a3b1b2992402ebdc19808b9d251ed.png"
+        pink = "http://uat-i0.hdslb.com/bfs/app/cc1d1a69bb6150b80540f3149e27cef85601e8b8.png"
+    [splashScreen.baseDefaultConfig]
+        showMode = 3
+        configJson = "[{\"position\":1,\"rate\":0,\"img_id\":30},{\"position\":2,\"rate\":0,\"img_id\":27}]"
+        sTime = 1600323316
+        eTime = 1602310516
+        cUser = "system"
+        mUser = "system"
+        cTime = 0
+        mTime = 0
+        immediately = 0
+        state = 3
+        auditState = 1
+
+[popup]
+    bgroupBusinessName = "TIANMA_POPUP"
+    autoHideCountdown = 4
+
+[[plats]]
+    mobiapp = "iphone"
+    name = "iOS(粉)"
+    type = "ios"
+[[plats]]
+    mobiapp = "iphone_b"
+    name = "iOS(蓝)"
+    type = "ios"
+[[plats]]
+    mobiapp = "white"
+    name = "iOS(白)"
+    type = "ios"
+[[plats]]
+    mobiapp = "iphone_G"
+    name = "iOS(国际g)"
+    type = "ios"
+[[plats]]
+    mobiapp = "iphone_i"
+    name = "iOS(国际i)"
+    type = "ios"  
+[[plats]]
+    mobiapp = "iphone_pad"
+    name = "iPad(粉)"
+    type = "ios"
+[[plats]]
+    mobiapp = "ipad"
+    name = "iPad(HD)"
+    type = "ios"
+[[plats]]
+    mobiapp = "ipad_G"
+    name = "iPad(国际g)"
+    type = "ios"
+[[plats]]
+    mobiapp = "ipad_i"
+    name = "iPad(国际i)"
+    type = "ios"
+[[plats]]
+    mobiapp = "android"
+    name = "安卓(粉)"
+    type = "android"
+[[plats]]
+    mobiapp = "android_b"
+    name = "安卓(蓝)"
+    type = "android"
+[[plats]]
+    mobiapp = "android_G"
+    name = "安卓(国际g)"
+    type = "android"
+[[plats]]
+    mobiapp = "android_i"
+    name = "安卓(国际i)"
+    type = "android"
+[[plats]]
+	mobiapp = "android_comic"
+	name = "安卓漫画"
+    type = "android"
+[[plats]]
+    mobiapp = "bstar_i"
+    name = "iOS(星辰)"
+    type = "bstar"
+[[plats]]
+    mobiapp = "bstar_p"
+    name = "iPad(星辰)"
+    type = "bstar"
+[[plats]]
+    mobiapp = "bstar_a"
+    name = "安卓(星辰)"
+    type = "bstar"
+[[plats]]
+    mobiapp = "android_hd"
+    name = "安卓平板"
+    type = "android"
+[[plats]]
+    mobiapp = "android_tv_yst"
+    name = "官方TV版"
+    type = "ott"
+[[plats]]
+    mobiapp = "android_tv"
+    name = "野生TV版"
+    type = "ott"
+[[plats]]
+    mobiapp = "android_pad_bot"
+    name = "智能设备TV版"
+    type = "ott"
+[[plats]]
+    mobiapp = "android_tv_huawei"
+    name = "华为智慧屏"
+    type = "ott"
+[[plats]]
+    mobiapp = "android_bilithings"
+    name = "车载客户端"
+    type = "car"
+[[plats]]
+    mobiapp = "bilistudio"
+    name = "bbs"
+    type = "other"
+[[plats]]
+    mobiapp = "win"
+    name = "win(PC)"
+    type = "other"
+[[plats]]
+    mobiapp = "winphone"
+    name = "win(phone)"
+    type = "other"
+
+[error404Conf]
+    [error404Conf.databus]
+        key = "9765cdac5894f2ba"
+        secret= "f4237d712c3ed1e7fab0137b81418b14"
+        group= "videoupEvent-MainWebSvr-S"
+        topic= "videoupEvent-T"
+        action = "sub"
+        name = "feed-admin-404-error"
+        proto = "tcp"
+        addr = "uat-shylf-databus.bilibili.co:6205"
+        idle = 5
+        active = 20
+        dialTimeout = "200ms"
+        readTimeout = "35s"
+        writeTimeout = "35s"
+        idleTimeout = "80s"
+    [error404Conf.baseConf]
+        eTimeOffset = 600000
+        operator = "system"
+        operatorId = 0
+    [[error404Conf.auditMap]]
+        # 权利人
+        codes = [236, 237, 225, 231, 238, 226]
+        priority = 1
+        reason = "因收到权利人通知，该视频暂时无法观看，敬请谅解。"
+    [[error404Conf.auditMap]]
+        # 版权
+        codes = [213, 241, 214, 217, 219, 215, 216, 218, 220, 221, 228, 222, 229, 233, 223, 234,224, 230, 235]
+        priority = 2
+        reason = "因内容涉及版权原因，该视频暂时无法观看，敬请谅解。"
+    [[error404Conf.auditMap]]
+        # 投诉
+        codes = [227, 232, 239]
+        priority = 3
+        reason = "因接到投诉，经复核内容不适宜，该视频无法观看，敬请谅解。"
+    [[error404Conf.auditMap]]
+        # up主删除
+        codes = [-100]
+        priority = 4
+        reason = "视频内容已被UP主删除，视频无法观看，敬请谅解。"       
+        
+[AllowedTabs]
+    tabs="150,151,40,67"
+
+[RedisConfig]
+	[RedisConfig.resource]
+	name   = "feed-admin/resource"
+	proto  = "tcp"
+	addr   = "127.0.0.1:20425"
+	active = 5000
+	idle   = 128
+	dialTimeout  = "30ms"
+	readTimeout  = "200ms"
+	writeTimeout = "200ms"
+	idleTimeout  = "80s"
+
+[ShowGrpcSH004]
+    zone = "sh004"
+
+[WeeklySelected]
+    subscribedTag = 600
+    attemptCount = 5
+    newSerieCron = "0 53 20 * * 4" # 测试使用
+    #newSerieCron = "0 0 */3 * * 5" # 每周五每3个小时执行一次创建新的每周必看,避免一次服务异常而导致每周必看未创建
+    publishCron = "0 40 21 * * 5" #每周五晚18点0分0秒
+    updateTime = "17h59m59s" # pubtime是周五晚上17点59分59秒，避免18:00:00发布时回源过快
+    playlistMid = 14139334
+    honorLink = "https://www.bilibili.com/h5/weekly-recommend"
+    honorLinkV2 = "https://www.bilibili.com/blackboard/dynamic/337"
+    rollBackRankCron = "0 58 20 * * 4" # 每周必看发布时会将每周必看在热门分类入口设置的位置调到 RankIndex，周一18点恢复到之前的位置
+    rankId = 5
+    rankIndex = 1
+    recoveryNb = 10 # AI卡片大于10张可兜底
+    maxNumber = 20 # 兜底逻辑截断20条生成播单
+
+
+[WeeklySelected.FlowCtrl]
+    secret = "a25eef460c047075ffa0f6713c53a4bac79442eb"
+    source = "hot_weekly_selected"
+    oidLength = 30
+
+[WeeklySelected.Push]
+    Token = "9gltv42mkzv2a8mzw6l3cyo54w8qwxw1"
+    Title = "您订阅的每周精选更新啦"
+    BusinessID = "4"
+    Link = "https://www.bilibili.com/h5/weekly-recommend?from=push"
+
+[WeeklySelected.Danmu]
+    Icon="i0.hdslb.com/bfs/dm/4e03504fd135139efb9dd57d8a6d1c8f97b1715e.png"
+    [[WeeklySelected.Danmu.CidSection]]
+        StartTime=0
+        EndTime=10
+    [WeeklySelected.Danmu.PurifyExtra]
+        PurifyEffective=true
+        EffectivePeriod=1
+        EffectiveMax=1
+        PurifyNonEffective=true
+        NonEffectivePeriod=10
+        NonEffectiveMax=1
+
+[FeedConfig]
+    skipCardUrl = "NO_JUMP_ADDRESS"
+    [FeedConfig.FlowCtrl]
+    secret = "eyrca7ja0rhjua7ia5mdpicxdq626qdjcg3nk03t"
+    source = "feed-admin"
+    oidLength = 30
+
+[Frontpage]
+    [Frontpage.GlobalMenu]
+        id = 0
+        name = "全局"
+        mark = "fp-global"
+        type = 1
+        counter = 1
+        size = "1920*180,220*105"
+
+[PwdAppeal]
+    EncryptKey = "z6yq4TZ3b9UjsIBrVSuLaHFk"
+    ExportLimit = 10000
+    [PwdAppeal.SmsCfg]
+        [PwdAppeal.SmsCfg.1]
+            PassTcode = "ehr_notify_015"
+            RejectTcode = "ehr_notify_016"
+            AppealUrl = "https://www.bilibili.com/h5/teenagers"
+    [PwdAppeal.Boss]
+        Bucket = "pwd-appeal"
+        EntryPoint = "http://uat-boss.bilibili.co"
+        Region = "shylf"
+        AccessKey = "2d0bf6d91d8d31d8"
+        SecretKey = "077f16e22749410cc64c0d3803ddd17b"
+
+[SpmodeRedis]
+    name   = "app-interface/interface"
+    proto  = "tcp"
+    addr   = "127.0.0.1:20341"
+    active = 10
+    idle   = 5
+    dialTimeout  = "80ms"
+    readTimeout  = "150ms"
+    writeTimeout = "150ms"
+    idleTimeout  = "80s"
+    

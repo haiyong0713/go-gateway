@@ -1,0 +1,27 @@
+syntax = "proto3";
+package app.misaka.v1;
+ 
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+ 
+option go_package = "web";
+ 
+message Info {
+    Data Data = 1 [(gogoproto.jsontag) = "data"];
+    string IP = 2 [(gogoproto.jsontag) = "ip"];
+    string country = 3 [(gogoproto.jsontag) = "country"];
+    string province = 4 [(gogoproto.jsontag) = "province"];
+    string city = 5 [(gogoproto.jsontag) = "city"];
+    string ISP = 6 [(gogoproto.jsontag) = "isp"];
+    int64 timestamp = 7 [(gogoproto.jsontag) = "@timestamp"];
+}
+ 
+message Data {
+    int64 logID = 1 [(gogoproto.jsontag) = "log_id"];
+    string browser = 2 [(gogoproto.jsontag) = "browser"];
+    string uri = 3 [(gogoproto.jsontag) = "uri"];
+    string userAgent = 4 [(gogoproto.jsontag) = "user_agent"];
+    string buvid = 5 [(gogoproto.jsontag) = "buvid"];
+    string referrer = 6 [(gogoproto.jsontag) = "referrer"];
+    int64 mid = 7 [(gogoproto.jsontag) = "mid"];
+    map<string, string> extended_fields = 8  [(gogoproto.jsontag) = "extended_fields"];
+}

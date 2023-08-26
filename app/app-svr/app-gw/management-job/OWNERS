@@ -1,0 +1,9 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+- zhoujiahui
+- yujia
+- zhoujiahui
+labels:
+- area/app-svr/app-gw/management-job
+options: {}

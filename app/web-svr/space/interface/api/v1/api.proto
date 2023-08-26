@@ -1,0 +1,254 @@
+syntax = "proto3";
+
+// use {app_id}.{version} as package name
+package space.service.v1;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/empty.proto";
+
+// specify golang package name
+option go_package = "v1";
+
+
+service Space {
+    //官仿号 返回值 -400 参数错误, -404找不到数据
+    rpc Official(OfficialRequest) returns (OfficialReply);
+    // 根据mid查询空间隐私设置
+    rpc Privacy(PrivacyRequest) returns (PrivacyReply);
+    // 获取app端空间头图列表
+    rpc PhotoMallList(PhotoMallListReq) returns (PhotoMallListReply);
+    // 设置app端空间默认头图
+    rpc SetTopPhoto(SetTopPhotoReq) returns (NoReply);
+    // 获取头图
+    rpc TopPhoto(TopPhotoReq) returns (TopPhotoReply);
+    // 个人空间tab
+    rpc UserTab(UserTabReq) returns (UserTabReply);
+    // 清除视频头图
+    rpc TopPhotoArcCancel(TopPhotoArcCancelReq) returns (NoReply);
+    // 空间白名单
+    rpc Whitelist(WhitelistReq) returns(WhitelistReply);
+    // 增加空间白名单
+    rpc AddWhitelist(WhitelistAddReq) returns(WhitelistAddReply);
+    // 修改白名单生效时间
+    rpc UpWhitelist(WhitelistAddReq) returns(WhitelistUpReply);
+    // 白名单查询时间
+    rpc QueryWhitelistValid(WhitelistReq) returns(WhitelistValidTimeReply);
+    // up主活动同步空间tab
+    rpc UpActivityTab(UpActivityTabReq) returns(UpActivityTabResp);
+    // 关注用户后, 相关用户推荐的黑名单
+    rpc UpRcmdBlackList(.google.protobuf.Empty) returns (UpRcmdBlackListReply);
+    // 空间设置
+    rpc SpaceSetting(SpaceSettingReq) returns (SpaceSettingReply);
+}
+
+message SpaceSettingReq {
+    int64 mid = 1 [(gogoproto.moretags) = 'form:"mid"  validate:"gt=0,required"'];
+}
+
+message SpaceSettingReply {
+    int64 channel = 1;
+    // 我的收藏 0:关闭，1:开启
+    int64 FavVideo = 2;
+    // 投过硬币的视频 0:关闭，1:开启
+    int64 CoinsVideo = 3;
+    // 推荐的视频 0:关闭，1:开启
+    int64 LikesVideo = 4;
+    // 订阅番剧 0:关闭，1:开启
+    int64 Bangumi = 5;
+    // 玩过的游戏 0:关闭，1:开启
+    int64 PlayedGame = 6;
+    // 加入的群组 0:关闭，1:开启
+    int64 Groups = 7;
+    // 追漫 0:关闭，1:开启
+    int64 Comic = 8;
+    // 轻视频 0:关闭，1:开启
+    int64 BBQ = 9;
+    // 装扮 0:关闭，1:开启
+    int64 DressUp = 10;
+    // 禁止展示关注的人 0:开启，1:关闭
+    int64 DisableFollowing = 11;
+    // 直播回放  0:关闭，1:开启
+    int64 LivePlayback = 12;
+    // 公开显示佩戴的粉丝勋章，0:开启，1:关闭
+    int64 CloseSpaceMedal = 13;
+    // 公开显示粉丝勋章列表，0:开启，1:关闭
+    int64 OnlyShowWearing = 14;
+    // 公开展示校园信息 0:开启，1:关闭
+    int64 DisableShowSchool = 15;
+    // 公开拥有的数字艺术品 0:开启，1:关闭
+    int64 DisableShowNft = 16;
+}
+
+enum TopPhotoType {
+    UNKNOWN = 0;
+    PIC = 1;
+    ARCHIVE = 2;
+}
+
+message NoReply {}
+
+message TopPhotoArcCancelReq {
+    int64 mid = 1 [(gogoproto.moretags) = 'form:"mid"  validate:"gt=0,required"'];
+}
+
+message OfficialRequest{
+    int64 mid = 1 [(gogoproto.moretags) = 'form:"mid"  validate:"gt=0,required"'];
+}
+
+message OfficialReply{
+    //主键id
+    int64 id = 1;
+    //uid
+    int64 uid = 2;
+    //软件名称
+    string name = 3;
+    //icon
+    string icon = 4;
+    //scheme
+    string scheme =5;
+    //推荐语
+    string rcmd = 6;
+    //ios url
+    string ios_url = 7;
+    //android url
+    string android_url = 8;
+    //按钮文案
+    string button = 9;
+    //是否删除
+    string deleted = 10;
+    //更新时间
+    int64 mtime = 11 [(gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message PrivacyRequest {
+    int64 mid = 1 [(gogoproto.moretags)='validate:"min=1"'];
+}
+
+message PrivacyReply {
+    map<string,int64> privacy = 1;
+}
+
+message PhotoMallListReq {
+    string mobiapp = 1 [(gogoproto.moretags)='validate:"gt=0,required"'];
+    int64 mid = 2 [(gogoproto.moretags)='validate:"gt=0,required"'];
+    string device = 3;
+}
+
+message PhotoMallListReply {
+    repeated PhotoMall list = 1;
+}
+
+message PhotoMall {
+    int64 id = 1 [(gogoproto.jsontag) ="id"];
+    string name = 2 [(gogoproto.jsontag) ="name"];
+    string img = 3 [(gogoproto.jsontag) ="img"];
+    string night_img = 4 [(gogoproto.jsontag) ="night_img"];
+    int64 is_activated = 5 [(gogoproto.jsontag) ="is_activated"];
+}
+
+message SetTopPhotoReq {
+    string mobiapp = 1 [(gogoproto.moretags)='validate:"gt=0,required"'];
+    int64 ID = 2 [(gogoproto.moretags)='validate:"gt=0,required"'];
+    int64 mid = 3 [(gogoproto.moretags)='validate:"gt=0,required"'];
+    TopPhotoType type = 4;
+}
+
+message TopPhotoReq {
+    string mobiapp = 1 [(gogoproto.moretags)='validate:"gt=0,required"'];
+    int64 mid = 2 [(gogoproto.moretags)='validate:"gt=0,required"'];
+    int32 build = 3;
+    string device = 4;
+    int64 loginMid = 5;
+}
+
+message TopPhotoReply {
+    TopPhoto top_photo = 1;
+    TopPhotoArc top_photo_arc = 2;
+}
+
+message TopPhoto {
+    string img_url = 1 [(gogoproto.jsontag) ="img_url"];
+    string night_img_url = 2 [(gogoproto.jsontag) ="night_img_url"];
+    int64 sid = 3 [(gogoproto.jsontag) ="sid"];
+}
+
+message TopPhotoArc {
+    bool show = 1 [(gogoproto.jsontag) ="show"];
+    int64 aid = 2 [(gogoproto.jsontag) ="aid"];
+    string pic = 3 [(gogoproto.jsontag) ="pic"];
+}
+
+
+message WhitelistReq {
+    int64 mid = 1 [(gogoproto.moretags) = 'form:"mid"  validate:"gt=0,required"'];
+}
+
+message WhitelistReply {
+    bool is_white = 1 [(gogoproto.moretags) = 'form:"is_white"'];
+}
+
+message WhitelistValidTimeReply {
+    bool is_white = 1 [(gogoproto.jsontag) = "is_white",json_name= "is_white"];
+    int64 stime = 2 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 etime = 3 [(gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message WhitelistAddReq {
+    int64 mid = 1 [(gogoproto.jsontag) = "mid",json_name= "mid"];
+    int64 stime = 2 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 etime = 3 [(gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message WhitelistAddReply {
+    bool add_ok = 1 [(gogoproto.jsontag) = "add_ok",json_name= "add_ok"];
+}
+
+
+message WhitelistUpReply {
+    bool up_ok = 1 [(gogoproto.jsontag) = "up_ok",json_name= "up_ok"];
+}
+
+
+message UpActivityTabReq {
+    // 请求mid
+    int64 mid = 1 [(gogoproto.jsontag) = "mid",json_name= "mid"];
+    // 操作类型，1-上线，0-下线
+    int32 state = 2 [(gogoproto.jsontag) = "state",json_name= "state"];
+    // 活动页ID
+    int64 tab_cont = 3 [(gogoproto.jsontag) = "tab_cont",json_name= "tab_cont"];
+    // tab名称
+    string tab_name = 4 [(gogoproto.jsontag) = "tab_name",json_name= "tab_name"];
+}
+
+message UpActivityTabResp {
+    // 操作是否成功
+    bool success = 1 [(gogoproto.jsontag) = "success",json_name= "success"];
+}
+
+
+message UserTabReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'form:"mid"  validate:"gt=0,required"'];
+  int32 plat = 2 [(gogoproto.moretags) = 'form:"plat"'];
+  int32 build = 3 [(gogoproto.moretags) = 'form:"build"'];
+}
+
+message UserTabReply {
+    // tab类型，1-商业，2-其他，3-UP主活动
+    int32 tab_type = 1 [(gogoproto.jsontag) ="tab_type",json_name= "tab_type"];
+    int64 mid = 2      [(gogoproto.jsontag) = "mid",json_name= "mid"];
+    // tab名称，最多四个字
+    string tab_name = 3 [(gogoproto.jsontag) ="tab_name",json_name= "tab_name"];
+    // tab顺序
+    int32 tab_order = 4 [(gogoproto.jsontag) ="tab_order",json_name= "tab_order"];
+    // native id
+    int64  tab_cont = 5 [(gogoproto.jsontag) ="tab_cont",json_name= "tab_cont"];
+    // 是否默认定位到该tab
+    int32 is_default = 6 [(gogoproto.jsontag) = "is_default", json_name = "is_default"];
+    // h5 link
+    string h5_link = 7 [(gogoproto.jsontag) = "h5_link", json_name = "h5_link"];
+}
+
+message UpRcmdBlackListReply {
+    // mid列表
+    repeated int64 banned_mids = 1 [(gogoproto.jsontag) ="banned_mids",json_name= "banned_mids"];
+}

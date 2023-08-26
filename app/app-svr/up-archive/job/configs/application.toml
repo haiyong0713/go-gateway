@@ -1,0 +1,33 @@
+
+# This is a TOML document. Boom~
+lockExpire = "24h"
+
+[ArchiveCfg]
+    Buffer = 1000
+    Worker = 10
+    Attempts = 3
+
+[StaffCfg]
+    Buffer = 1000
+    Worker = 10
+    Attempts = 3
+
+[UpArcCfg]
+    Buffer = 1000
+    Worker = 10
+    Attempts = 3
+
+[ArcFlowControlCfg]
+    Buffer = 1000
+    Worker = 10
+    Attempts = 3
+
+[BuildArchiveList]
+    Switch = false
+    LastAid = 0
+    Limit = 1000
+
+[ContentFlowControl]
+    # prod:ljkhjyffwcnlamfv2esiz8ut5wcfcrzdiwocijj2
+    Secret = "piynmcs3rqt0ck5369fguhsnlmqqho6ltsqh0nv0"
+

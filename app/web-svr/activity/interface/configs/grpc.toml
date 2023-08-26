@@ -1,0 +1,16 @@
+[rpcClient2]
+    [rpcClient2.account]
+         timeout = "1s"
+    [rpcClient2.archive]
+         timeout = "1s"
+    [rpcClient2.coin]
+        timeout = "1s"
+    [rpcClient2.suit]
+        timeout = "1s"
+
+[rpcLimiter]
+    disable = false
+    Preflight = false
+    [[rpcLimiter.Methods]]
+        path = "/activity.service.v1.Activity/GRPCDoRelation"
+        rule = "total"

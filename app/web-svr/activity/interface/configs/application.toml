@@ -1,0 +1,2410 @@
+[log]
+    dir = "/tmp/log/activity/"
+
+[auth]
+   disableCSRF = true
+
+[cron]
+    ResAudit = "0 */60 * * * *"
+    SelectArc = "0 */1 * * * *"
+    EntV2 = "0 0/1 * * * *"
+    SpecialArc = "@every 52m"
+    bdf = "0 */5 * * * *"
+    GiantV4 = "0 */5 * * * *"
+    SubRule = "0 */1 * * * *"
+    BwsBluetoothUps = "@every 30s"
+    AllTask = "@every 30s"
+    AllAwards = "@every 1m"
+    OnlinePages = "@every 3s"
+    UpPages = "@every 3s"
+
+Bnj2021ReserveID = 12539
+
+[rule]
+    guessCount = 5
+    maxGuessCoin = 1
+    suitPid = 10
+    suitExpire = 100
+    tickQq = "1m"
+    qqTryCount = 5
+    dTimeout = "3s"
+    qqStartTime = "20180101"
+    qqEndTime = "20181231"
+    qqYear = "2017"
+    playerYear = "2017"
+    bwsMids = [27515430]
+    needInitAchieve = true
+    bwsAchieveBids = [1]
+    bwsSpecBid = 3
+    maxHp = 10
+    specialSid = 10259
+    dialectTags = [13405,10168,10040,10034,14242,14248]
+    dialectRegions = [1,4,160,119,181,3,155,129,36]
+    spylike = 40
+    lotteryActID = 313
+    storyMaxAct  = 10
+    storyEachMaxAct = 3
+    YeGrExpire = 86400
+    S8Sid = 3333
+    S8ArcSid = 10347
+    S8ArtSid = 10349
+    kingStorySid = 38
+    kfcAddress = "https://www.bilibili.com/blackboard/activity-3wkxl_W_P.html?id="
+    bucket = "active"
+    grantPid = 303
+    grantExpire = 14
+    openDynamic = true
+    tenCoupon = "598c4e7a1c58b879"
+    tenCouponExpire = 8640000
+    guessPercent = 0.95
+    guessMaxOdds = 50.0
+    QuestionLimit = 10000
+    MatchSids = [10514,10516,10517,10519]
+	PaySuitExpire = 1
+    PollManageMid=[2231365,27515245,27515307]
+    S9QuesSid = 6
+	S9Right = 15
+	S9SuitID = 413
+	S9SuitExpire = 90
+	S9CacheExpire = 4686900
+    upGroupID = 76
+    upType = 19
+    upSenderUid = 88895139
+    InterQuestionIds = [8, 69]
+    newstarDays = "720h"
+    newstarStop = 1600514606
+    newstarInviteMax = 8
+    newstarRole = 2
+    tokenSalt = "bili_activity"
+    TmMids = [1111119921, 4041516, 27515417]
+    actWhiteList = [111004121,27516070]
+    [rule.tenDailys]
+      "2019-06-17" = 10510
+      "2019-06-18" = 10511
+      "2019-06-19" = 10512
+      "2019-06-20" = 10513
+      "2019-06-21" = 10514
+      "2019-06-22" = 10515
+      "2019-06-23" = 10516
+    [rule.tenImage]
+      "2019-06-17" = "i0.hdslb.com/bfs/activity-plat/static/20190610/ec2cd5468e6caf0b481bfd8ce142374e/5.png"
+      "2019-06-18" = "i0.hdslb.com/bfs/activity-plat/static/20190610/ec2cd5468e6caf0b481bfd8ce142374e/6.png"
+      "2019-06-19" = "i0.hdslb.com/bfs/activity-plat/static/20190610/ec2cd5468e6caf0b481bfd8ce142374e/1.png"
+      "2019-06-20" = "i0.hdslb.com/bfs/activity-plat/static/20190610/ec2cd5468e6caf0b481bfd8ce142374e/1.png"
+      "2019-06-21" = "i0.hdslb.com/bfs/activity-plat/static/20190610/ec2cd5468e6caf0b481bfd8ce142374e/2.png"
+      "2019-06-22" = "i0.hdslb.com/bfs/activity-plat/static/20190610/ec2cd5468e6caf0b481bfd8ce142374e/3.png"
+      "2019-06-23" = "i0.hdslb.com/bfs/activity-plat/static/20190610/ec2cd5468e6caf0b481bfd8ce142374e/4.png"
+     [rule.tenH5Image]
+      "2019-06-17" = "i0.hdslb.com/bfs/activity-plat/static/20190610/ec2cd5468e6caf0b481bfd8ce142374e/5.png"
+      "2019-06-18" = "i0.hdslb.com/bfs/activity-plat/static/20190610/ec2cd5468e6caf0b481bfd8ce142374e/6.png"
+      "2019-06-19" = "i0.hdslb.com/bfs/activity-plat/static/20190610/ec2cd5468e6caf0b481bfd8ce142374e/1.png"
+      "2019-06-20" = "i0.hdslb.com/bfs/activity-plat/static/20190610/ec2cd5468e6caf0b481bfd8ce142374e/1.png"
+      "2019-06-21" = "i0.hdslb.com/bfs/activity-plat/static/20190610/ec2cd5468e6caf0b481bfd8ce142374e/2.png"
+      "2019-06-22" = "i0.hdslb.com/bfs/activity-plat/static/20190610/ec2cd5468e6caf0b481bfd8ce142374e/3.png"
+      "2019-06-23" = "i0.hdslb.com/bfs/activity-plat/static/20190610/ec2cd5468e6caf0b481bfd8ce142374e/4.png"
+     [[rule.AwardRule]]
+        Sid         = 10514
+	    Type        = "suit"
+	    AwardID     = 198
+	    AwardExpire = 10
+	    Stime       = 1567050279
+	    Etime       = 1569772800
+	    LimitExpire = 86400
+     [[rule.AwardRule]]
+        Sid         = 10565
+        Type        = "suit"
+        AwardID     = 413
+        AwardExpire = 90
+        Stime       = 1568600536
+        Etime       = 1600222936
+        LimitExpire = 5356800
+        ExtraSid = 10551
+      [rule.S9Guess]
+        seasonID    = 12
+        suitIDs     = [414,415,416]
+        suitsExpire = 60
+        stime       = 1568600536
+        etime       = 1600222936
+        limitExpire = 5356800
+        limitCount  = 5
+      [rule.AutoSuitIDs]
+        "10695" = 129
+        "10696" = 129
+        "10697" = 129
+        "10698" = 129
+        "10699" = 129
+        "10700" = 129
+    [rule.SpecReserveSids]
+        "12061" = 1
+
+[BwsOnline]
+    PrintPieceMinCount = 1
+    PrintPieceMaxCount = 5
+	MaxEnergy = 10
+	FreeEnergy = 5
+	FreeCoin = 1000
+    ReserveSid = 12095
+    BuyTicketSid = 12095
+    FirstEnergy = 5
+    DefaultBid = 9
+    PrevBid = 8
+    ReserveAward = [47, 48, 49]
+    [BwsOnline.BwPark]
+        AppSecret = "b7bb012fab8562be252ef5a0bd3cc68e"
+        AppKey = "channel-bw"
+        ProjectId = 5115
+        Year = 2021
+        SearchByIdUrl = "https://show.bilibili.com/api/ticket/bwPark/searchByPersonalId"
+        VipTag = "VIP票"
+        BackUpStckIds = [23,24,25]
+        ShortExpireTime = 5
+        OpenCache  =  1
+        DefaultTicketExpireTime = 900
+        [BwsOnline.BwPark.ScreenNameMap]
+            "7月9日"  = 20210709
+            "7月10日" = 20210710
+            "7月11日" = 20210711
+    [[BwsOnline.PiecePR]]
+        id = 1
+        pr = 20
+        level = 1
+        num = 2
+    [[BwsOnline.PiecePR]]
+        id = 1
+        pr = 50
+        level = 1
+        num = 1
+    [[BwsOnline.PiecePR]]
+        id = 2
+        pr = 60
+        level = 2
+        num = 2
+    [[BwsOnline.PiecePR]]
+        id = 2
+        pr = 80
+        level = 2
+        num = 1
+    [[BwsOnline.PiecePR]]
+        id = 3
+        pr = 100
+        level = 3
+        num = 1
+
+[fission]
+    caller = "main.account.fission-service"
+    upCaller = "main.account.fission-job"
+    [fission.sids]
+        "677b595b-9336-11ea-bfa0-246e9693a590" = 1
+        "77308576-9336-11ea-bfa0-246e9693a590" = 1
+        "8224b01d-9336-11ea-bfa0-246e9693a590" = 1
+        "8e48c63e-9336-11ea-bfa0-246e9693a590" = 1
+        "9f27f925-9336-11ea-bfa0-246e9693a590" = 1
+        "61309f45-98db-11ea-bfa0-246e9693a590" = 1
+        "3a3dc68e-99a2-11ea-aa26-246e9693a590" = 1
+        "5e6b1628-9986-11ea-aa26-246e9693a590" = 1
+        "c11d9c68-aee7-11ea-aa26-246e9693a590" = 1
+        "a3b90613-aeed-11ea-aa26-246e9693a590" = 1
+        "93781b65-aef3-11ea-aa26-246e9693a590" = 1
+        "fd829fa4-af00-11ea-aa26-246e9693a590" = 1
+        "11b37159-af7b-11ea-aa26-246e9693a590" = 1
+        "0c5c3976-afa7-11ea-aa26-246e9693a590" = 1
+        "bee62a67-a953-11ea-aa26-246e9693a590" = 1
+        "38733d09-b11c-11ea-aa26-246e9693a590" = 1
+        "4a1f25e8-b11a-11ea-aa26-246e9693a590" = 1
+        "3b5d1900-c0e8-11ea-aa26-246e9693a590" = 1
+        "a7e0cabf-c100-11ea-aa26-246e9693a590" = 1
+        "4be16dc8-c587-11ea-aa26-246e9693a590" = 1
+        "f14dd993-c714-11ea-aa26-246e9693a590" = 1
+        "d3a720d8-dbc2-11ea-aed3-246e9693a590" = 1
+        "9f603f21-dc65-11ea-aed3-246e9693a590" = 1
+        "42bc1e06-dbc4-11ea-aed3-246e9693a590" = 1
+        "8f82399a-dbc4-11ea-aed3-246e9693a590" = 1
+        "b144c0c8-dbc4-11ea-aed3-246e9693a590" = 1
+        "150b84ef-dbc4-11ea-aed3-246e9693a590" = 1
+
+[readDay]
+    sid = 10716
+    Max = 100000
+    EndTime = "2020-04-30T00:00:00+08:00"
+
+[bdf]
+    Sid = 10688
+	DataSid = 67
+	ImageSid = 10708
+	SchoolCount = 200
+
+[bdfonline]
+    sids = [12046,12047]
+    lotterySid = "9c8a69c5-9e4f-11ea-aa26-246e9693a590"
+    LotteryCid = 311
+
+[faction]
+    [faction.Sids]
+        "10742" = "经典派"
+        "10720" = "复兴派"
+        "10706" = "时泪派"
+
+[special]
+    sidOne = 10694
+    expireOne = 90
+
+[bws]
+    adminMids =      [27515430,27515246,1111118939]
+	awardMids =      []
+	lotteryMids =    []
+	lotteryAids =   []
+	SuitExpire  = 10
+	initAchieveBids = [6,8]
+	specialBid = 3
+    bws2018Bid = 1
+    newBid = 5
+    bws2019 = [6,8]
+    bws2019Guang = 6
+    specPid = 55
+    specAid = 21
+    VipCardID = 991
+    VipCardStime = 1564995599
+    VipCardEtime = 1566115200
+    VipCardAid = 16
+    Bws2020Bid = 7
+    Bws2020VoteTs = 300
+    StockAwardID = 1
+    StockAwardID2 = 2
+    StockAwardCouponID =3
+    VipBuyToken = ""
+    Bws20Rand1 = 50
+    Bws202012GamePid = 9
+    Bws202012Bid = 9
+    Bws202012Rank = 1000
+    RankStopHour = 23
+    LotteryUsed = 3
+	RankTop50 =50
+	RankTop1000 =1000
+    Bws20Rand = 50
+    DefaultHeart = 6
+    [bws.GameNeedHeart]
+	  "66"  = 1
+	  "70"  = 2
+	  "71"  = 3
+	  "72"  = 4
+    [bws.BwsUpsCatchNeedStar]
+        "star_1_min"  = 1
+        "star_1_max"  = 2
+	    "star_2_min"  = 3
+        "star_2_max"  = 4
+        "star_3_min"  = 5
+
+
+[interval]
+    newestSubTsInterval = "10m"
+    pullArcTypeInterval = "10m"
+    actSourceInterval = "2m"
+    tmInternal = "10m"
+    QuestionInterval = "5m"
+
+
+[bnj2019]
+    actID = 10411
+    subID = 2555
+    timelinePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20190123/8a3e1fa14e30dc3be9c5324f604e5991/B1d5MnHXE.png"
+    h5timelinePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20190123/8a3e1fa14e30dc3be9c5324f604e5991/H1g-5fnBmE.png"
+    gameCancel = 0
+    [[bnj2019.reward]]
+        step = 1
+        condition = 500000
+    [[bnj2019.reward]]
+        step = 2
+        condition = 1000000
+        rewardID = "111"
+        expire = 365
+        rewardType = "pendant"
+    [[bnj2019.reward]]
+        step = 3
+        condition = 1500000
+        rewardID = "150"
+        expire = 365
+        rewardType = "pendant"
+    [[bnj2019.reward]]
+        step = 4
+        condition = 2000000
+    [[bnj2019.info]]
+        nav = "nav1"
+        pic = "//activity.hdslb.com/blackboard/static/20190103/5f57b396dd5d4d64cd7821de45ca266e/97LMNJ1YD.jpg"
+        h5_pic = "//activity.hdslb.com/blackboard/static/20190103/5f57b396dd5d4d64cd7821de45ca266e/BJx8dDjWE.jpg"
+        aid = 10111426
+        detail = "//uat-i0.hdslb.com/bfs/test/e30aa53a46c7d4790491d4db262d438099a5992d.jpg"
+        h5_detail = "//uat-i0.hdslb.com/bfs/test/e30aa53a46c7d4790491d4db262d438099a5992d.jpg"
+        publish = "2019-01-07T16:15:00+08:00"
+    [[bnj2019.info]]
+        nav = "nav2"
+        pic = "//uat-i0.hdslb.com/bfs/test/8e2ffbadfb3b1d3f351134c7cc41d655940d4e4c.jpg"
+        aid = 10111425
+        detail = "//uat-i0.hdslb.com/bfs/test/8e2ffbadfb3b1d3f351134c7cc41d655940d4e4c.jpg"
+        publish = "2019-01-07T16:15:00+08:00"
+    [[bnj2019.info]]
+        nav = "nav3"
+        pic = "//uat-i0.hdslb.com/bfs/test/686e39316fd228cb42b8e543a371584840ddcbe6.jpg"
+        aid = 10111424
+        detail = "//uat-i0.hdslb.com/bfs/test/686e39316fd228cb42b8e543a371584840ddcbe6.jpg"
+        publish = "2019-01-07T16:15:00+08:00"
+    [[bnj2019.info]]
+        nav = "nav4"
+        pic = "//uat-i0.hdslb.com/bfs/test/884ef578b6154ac3b894ba8cf05bfb800aa95959.jpg"
+        aid = 10111423
+        detail = "//uat-i0.hdslb.com/bfs/test/884ef578b6154ac3b894ba8cf05bfb800aa95959.jpg"
+        publish = "2019-01-07T16:15:00+08:00"
+    [[bnj2019.info]]
+        nav = "nav5"
+        pic = "//uat-i0.hdslb.com/bfs/test/45d6caf245593004f982485ef0bd301c09cc25a0.jpg"
+        aid = 10111422
+        detail = "//uat-i0.hdslb.com/bfs/test/45d6caf245593004f982485ef0bd301c09cc25a0.jpg"
+        publish = "2019-01-07T16:15:00+08:00"
+    [[bnj2019.info]]
+        nav = "nav6"
+        pic = "//uat-i0.hdslb.com/bfs/test/f23b96f000a555a6bedd778bcc0596e0682e10c1.jpg"
+        aid = 10111421
+        detail = "//uat-i0.hdslb.com/bfs/test/f23b96f000a555a6bedd778bcc0596e0682e10c1.jpg"
+        publish = "2019-01-07T16:15:00+08:00"
+    [[bnj2019.info]]
+        nav = "nav7"
+        pic = "//uat-i0.hdslb.com/bfs/test/ec6f206d644ec703f44b721409074071ff3a6fa4.jpg"
+        aid = 10111420
+        detail = "//uat-i0.hdslb.com/bfs/test/ec6f206d644ec703f44b721409074071ff3a6fa4.jpg"
+        publish = "2019-01-07T16:15:00+08:00"
+
+[image]
+    Sid  = 10462
+    tenSid = 10492
+    tenTaskID = 7
+    GrantPid = 129
+    StudyTaskSid = 10535
+    MikuGrantEndTime = 1568520000
+    MikuHeadEndTime = 1568520000
+    MikuLiveEndTime = 1567267199
+    MikuSid = 10544
+    MikuGrantPid = 129
+    AppointSid  = 10506
+    AppointLid  = 3557
+    SpecTaskID   = 5
+    LotteryID    = 317
+    LotteryName  = "脑洞点1点"
+    LotteryAwardAmount = 1
+    LotteryAmount   = 5
+    LotteryCoinOne  = "1711"
+    LotteryCoinOneAmount = 1.0
+    LotteryCoinTwo       = "1712"
+    LotteryCoinTwoAmount = 2.0
+    LotteryCurrOne       = "1713"
+    LotteryCurrOneAmount = 1
+    MikuGrantExpire = 15
+    MikuStepCurr = [8000000, 16000000, 25000000, 39000000]
+    yearSid = 10671
+    yearLevel = 2
+    [image.yearAward]
+       "1" = 233
+       "2" = 520
+       "3" = 880
+       "4" = 2330
+       "5" = 5000
+       "6" = 10000
+    [image.newTask]
+        "10671" = 10671
+        "10662" = 10662
+        "10664" = 10664
+        "10702" = 10702
+    [image.specialJsonList]
+
+[noCancelReserve]
+    12087 = true
+    12108 = true
+    12807 = true
+
+[fateSpecial]
+    sid = 10437
+    NightStartHour = 14
+    NightEndHour = 12
+
+[star]
+    Sid = 10528
+	JoinSid = 10527
+	JoinLid = 3873
+	DownLid = 3874
+
+[[stars]]
+    Sid = 10690
+	JoinSid = 10527
+	JoinLid = 3873
+	DownLid = 3874
+	FanLimit = 50000
+
+[stein]
+    sid = 10541
+    stime = 1565366400
+	LikeCount = 5
+	SuitPid = 198
+	SuitExpire = 5
+
+[Live]
+	Source        = 601
+	HeadRewardID  = 245
+	PropsRewardID = 30296
+	HeadType      = 5
+	PropsType     = 8
+	ExpireTime   = 1567267199
+    Num = 12
+
+[Eleven]
+   ElevenSid = 10569
+   LotteryID = 337
+   AmountLimit = 100
+   LotteryName = "未中奖"
+   ArcVid = 52
+   CoinNum = 5.0
+
+[Scholarship]
+	Sid = 10570
+	StepCurr = [10, 20, 20, 30, 30, 40, 40, 50, 50]
+	StudyLikeTask = 200
+    OtherLikeTask = 201
+    LotterySid = 338
+    GrantPid = 129
+    GrantExpire = 90
+    SignupTask = 198
+    Stime = 1573790400
+    SignupLimit = 21
+    AmountLimit = 100
+    LikeNumLimit1 = 7
+    LikeNumLimit2 = 10
+    JoinTask = 186
+    OtherSid = [10573, 10572, 10567]
+    FirstPrize = 204
+    SecondPrize = 203
+    ThirdPrize = 202
+    CertificateVID = 53
+    CertificateLimitNum1 = 1
+    CertificateLimitNum2 = 2
+    CertificateLimitNum3 = 4
+    AllLikeNum = 5
+    ArcVid = 54
+    LikeSid = 101
+    CountStudyLikeID = 205
+    CountLikeID = 206
+
+[SpringCardAct]
+    LotterySid = "2d82d70e-25f9-11ea-bfa0-246e9693a590"
+    ArcVid = 62
+    Sid = 10662
+    InviteSid = 10664
+    CardA = 86
+    CardB = 87
+    CardC = 88
+    CardD = 89
+    CardE = 90
+    CardF = 100
+    InviteTimesID = 152
+    TimesID = 151
+    NumLimit = 125
+    Cid = 163
+
+[lottery]
+    SpyScore = 60
+    FigerScore = 40
+    NewLotteryTime100 = 1606801797
+    NewLotteryTime = 1602844847
+    NewLotteryTime75 = 1606801797
+    NewLotteryTime50 = 1605769722
+    NotifyCode      ="0_39"
+	MessageTitle        ="活动中奖通知"
+	ActivityText        ="查看详情"
+	AddressText         ="填写地址"
+    CouponText = "查看券码"
+    CouponLink = "https://www.bilibili.com/blackboard/activity-QfNeYNh8s.html?lottery_id="
+	AddressLink         ="https://www.bilibili.com/blackboard/preview/lottery-address.html?lottery_id="
+    EntityContent = "恭喜您在抽奖活动中获得实物奖品，请在抽奖活动界面中的抽奖记录内寻找相应链接填写收货地址，我们将尽快为您寄出！"
+    CoinContent = "恭喜您在抽奖活动中获得硬币奖励，系统已自动向您的账户中发放%s个硬币！"
+    MemberContent = "恭喜您在抽奖活动中获得大会员奖励，系统已自动为您充值！"
+    MemberCouponContent = "恭喜您在抽奖活动中获得大会员优惠券，系统已自动发放到您的账户中，点击购买>> https://account.bilibili.com/account/big"
+    CouponContent = "恭喜您在抽奖活动中获得优惠券一张，优惠券码为>> %s"
+    GrantContent = "恭喜您在抽奖活动中获得头像挂件%d天，系统已自动发放到您的账户中，可以去个人中心->我的头像中查看并佩戴哦！"
+    AppKey = "nBF6jpB7"
+    AppToken = "XZUGqmAf1rRmu7l0dhogFIPPvveHOgSy2WtQ957JPeE="
+    payoneyear="d0aea475-1349-11eb-aed3-246e9693a590"
+    NewLotterSid = [
+        "d2ef9170-dbc6-11ea-8597-246e966235d8",
+		"55e004d4-e12b-11ea-8597-246e966235d8",
+		"57623e16-d86d-11ea-aed3-246e9693a590",
+		"567a0670-f262-11ea-aed3-246e9693a590",
+		"cd6eefa3-eddb-11ea-8597-246e966235d8",
+		"2371b54e-ec27-11ea-8597-246e966235d8",
+		"9235426d-e82e-11ea-8597-246e966235d8",
+		"3cd1fa12-f714-11ea-8597-246e966235d8",
+		"7bde782d-fbf8-11ea-8597-246e966235d8",
+		"a2cf8294-fbd6-11ea-8597-246e966235d8",
+		"75df47ff-ff32-11ea-8597-246e966235d8",
+		"63e9c82e-ff32-11ea-8597-246e966235d8",
+		"93db39fa-0138-11eb-8597-246e966235d8",
+		"f4bd1026-0265-11eb-8597-246e966235d8",
+		"46cc0d6c-02d4-11eb-8597-246e966235d8",
+		"49a98fce-02d4-11eb-8597-246e966235d8",
+		"4c0cc5e4-02d4-11eb-8597-246e966235d8",
+		"5e2de343-0d23-11eb-8597-246e966235d8",
+		"14c8eb68-0251-11eb-aed3-246e9693a590",
+        "abe2e4f5-0e9b-11eb-aed3-246e9693a590",
+        "5c6b91aa-11ee-11eb-aed3-246e9693a590",
+        "d0aea475-1349-11eb-aed3-246e9693a590",
+        "c380b50c-1340-11eb-aed3-246e9693a590",
+        "b8ef63b1-295c-11eb-aed3-246e9693a590",
+        "751ed767-2a5c-11eb-aed3-246e9693a590",
+        "5f6ac561-2955-11eb-aed3-246e9693a590",
+        "23bcf75d-3530-11eb-aed3-246e9693a590",
+        "394d738a-3dd2-11eb-b017-246e9693a590",
+        "aca66a86-3dd2-11eb-b017-246e9693a590",
+        "7f42c5a0-3df2-11eb-b017-246e9693a590",
+        "d8528543-3e0f-11eb-b017-246e9693a590",
+        "f7fcc126-4342-11eb-b017-246e9693a590",
+    ]
+    [lottery.Pay]
+        Token    ="c70f64bef342022acabc1653c05d2b5c"
+	    CustomerID ="10086"
+    [lottery.vipbuy]
+        sourceId = 9
+        sourceActivityId = "lotteryPlatform"
+
+[articleList]
+    JoinSid = 10553
+    ListSid = 10574
+
+[staff]
+    PicSid = 10575
+
+[taaf]
+    sid = 10547
+    SidV2 = 10597
+    vid = 55
+    tick = "1m"
+    likeTick = "5m"
+
+[steinv2]
+    vid = 56
+    tick = "5m"
+
+[box]
+    sid = 10598
+
+[AnnualVoting]
+    Sid = 10638
+    Max = 3
+    Num = 1
+
+[Vogue]
+    Sid = "90b10c20-9a46-11ea-aa26-246e9693a590"
+    PrizeCost = 25
+
+[bnj2020]
+    Sid = 10689
+    MaxValue = 1000000
+    stime = "2019-12-17T10:00:00+08:00"
+    BlockGame = 0
+    BlockGameAction = 0
+    BlockMaterial = 0
+    FinalTaskID = 275
+    TimelinePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20190123/8a3e1fa14e30dc3be9c5324f604e5991/B1d5MnHXE.png"
+    H5TimelinePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20190123/8a3e1fa14e30dc3be9c5324f604e5991/B1d5MnHXE.png"
+    TaskTick = "1h"
+    DecreaseCD = 60
+    AwardEndTime = "2020-02-24T21:30:00+08:00"
+    NormalList = ["白菜","菠菜","豌豆苗","莴笋","卷心菜","土豆","莲藕","茭白","冬笋","春笋","白萝卜","胡萝卜","黄瓜","冬瓜","丝瓜","鲜豌豆","四季豆","菜花","金针菜","蘑菇","香菇","平菇","金针菇","黄豆芽","绿豆芽","香菜","香蒜","竹荪","魔芋丝","魔芋块","虾滑","鱼滑","墨鱼滑","鲜贝滑","龙虾丸","墨鱼丸","包心鱼丸","潮汕牛肉丸","鲜肉丸","麻辣牛肉","肥羊卷","肥牛卷","调味五花肉","千层毛肚","猪黄喉","牛黄喉","毛血旺","豆花","冻豆腐","酥肉","脆皮肠","虎纹虾","象拔蚌","文蛤","扇贝","带子","青口","牛蛙","鱼头","龙利鱼片","鱿鱼卷","鲍鱼","鸭掌","鸭胗","鸭肠","鹌鹑蛋","油豆皮","腐竹","鸡蛋","海带","饺子","蛋饺","宽粉","土豆粉","方便面","汤圆珍珠","芋圆","红豆","抹茶粉","奶盖","烧仙草"]
+    [bnj2020.SpecialList]
+        Good = ["橡胶果实","猪人王的里脊","史莱姆","走路菇","曼德拉草","腮囊草","龙的尾骨肉排","食人巨蝎的肉钳","水栖马腿肉","生命鲑鱼","海拉鲁米","恶魔山羊奶油","火焰山岩盐","塔邦挞小麦","铠甲南瓜","生命大萝卜","帝王松露","龙息土豆"]
+        GoodDesc = ["乐忠于挑战新口味的你，在众多食材中选择了吃下去会比较需要勇气的食材，倒进锅里后，火锅味道意外的变得极其鲜美了起来…"]
+        Bad = ["波克布林的大肠","夜香草的根茎","龙血草粉末","球形薄荷的果实","紫水晶的粉末","温泉藻泥","猪人的脊髓液","迷幻草精油","狼人的脑垂体","人皮幽灵褪下的皮","曼陀罗汁液","龙牙花蜜","美杜莎的手指","风干木乃伊肉","成年曼哈尔鱼的眼睛","羊角黑鱼的血液","秋水仙球状根茎","牛齿芍药花瓣","静谧公主的种子","沙漠八脚蜥蜴龙尾","巨兔的头","幼年八眼蜘蛛的脚","长生树的树叶","凤凰的蛋壳","海熊的舌头","金色太阳花结晶","美人鱼鱼籽","三脚乌鸦的蛋","鬃毛尾鱼","军团沙丁鱼罐头","百合乌贼","棍棒葱","食人鱼的肝","腌渍椰壳寄居蟹","壶腌生肉","半人马的臀肉","食人花的黏液","九尾狐制成的毛血旺"]
+        BadDesc = ["这个奇怪的食物身边的小伙伴都没有尝试过它的味道，看起来似乎...大概...可能...也许是可以食用的样子，加到火锅里味道变得微妙了起来…","现在挑战未知的食物，似乎已经成为了一种潮流？抱着“应该不会爆炸”吧的flag，你把食材加入了锅里，火锅味道变得诡异了起来...","这个吃了会不会闹肚子呢？你端详着特地网购来的异世界食材。哎呀，不管了买都买了就加进去吧！火锅味道变得酸爽了起来...","这个真的能吃吗？你没有唬我吧？在朋友热情的注视下，你将信将疑的将保鲜盒里的食材加入了锅内，火锅味道变得难以描述了起来..."]
+[[bnj2020.RareList]]
+    id = 1
+    name = "甩不烂的大葱"
+    desc = "质量优良，品质极佳的进口大葱，在男女老少中的人气极高，除了涮锅和卷饼外，似乎还很适合拿来跳舞。"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/iXIUFnkcZ.png"
+    h5pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/MKW2yUPyGl.png"
+    sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/CjyBMOUwy.jpg"
+    cardPic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/NEr3s0xTO.jpg"
+    publish = "2020-01-03T15:00:00+08:00"
+    taskID = 262
+[[bnj2020.RareList]]
+    id = 2
+    name = "没有肉的蝙蝠翅膀"
+    desc = "从赏金猎人的手中花高价收购的，据说这只蝙蝠起码有300岁，如果不用高压锅的话，吃起来会有种嚼老母鸡的感觉。"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/cMKWKC8Oq.png"
+    h5pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/B4KnkyBTD.png"
+    sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/Do-infk~r.jpg"
+    cardPic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/BPvlj6h~l.jpg"
+    publish = "2020-01-03T15:30:00+08:00"
+    taskID = 263
+[[bnj2020.RareList]]
+    id = 3
+    name = "奶奶传下来的红糖"
+    desc = "保存的很好的祖传红糖是由太奶奶传给奶奶，奶奶再传给妈妈，到现在已经只剩小半罐了。大概是加入了什么秘方，尝起来和现在商场卖的红糖不太一样。"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/X0zWbr3Fd.png"
+    h5pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/Bl1-CH2lg.png"
+    sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/tAb3CL16U.jpg"
+    cardPic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/Tq1QtNFl4.jpg"
+    publish = "2020-01-03T16:00:00+08:00"
+    taskID = 264
+[[bnj2020.RareList]]
+    id = 4
+    name = "特别高级的北极贝"
+    desc = "从北大西洋冰冷深海新鲜捕捞上来，凌晨空运到货的北极贝，特地请技艺高超的新南方厨师切片，以保证可以品尝到最佳的口感。"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/vuuSM8LvJ.png"
+    h5pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/4idTBviXT.png"
+    sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/zH1VhAvN5.jpg"
+    cardPic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/-~LD0vyJV.jpg"
+    publish = "2020-01-03T16:30:00+08:00"
+    taskID = 265
+[[bnj2020.RareList]]
+    id = 5
+    name = "刚出土的龟壳"
+    desc = "考古学家兴奋的为它举办了一场新闻发布会，主题是《龟苓膏的祖宗——人类最大发现，3000年前的古人用龟壳烹饪》，不知道古人会不会加入蜂蜜一起吃呢？"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/c1dcMdj6F.png"
+    h5pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/B3BEPFQ-y.png"
+    sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/NWM~ATkui.jpg"
+    cardPic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/IScDpsaEj.jpg"
+    publish = "2020-01-03T17:00:00+08:00"
+    taskID = 266
+[[bnj2020.RareList]]
+    id = 6
+    name = "邪神的尾巴"
+    desc = "看着食材本人在仔细的给自己的肉祛毒→切片→焯水→调味，这个画面有些诡异。但是不得不说，龙尾巴肉还是很好吃的。"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/pcBDHvJ9L.png"
+    h5pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/qW5xCRZqD.png"
+    sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/FWNygv14j.jpg"
+    cardPic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/UApbxR9RS.jpg"
+    publish = "2020-01-03T17:30:00+08:00"
+    taskID = 267
+[[bnj2020.RareList]]
+    id = 7
+    name = "卖得很贵的午餐肉"
+    desc = "收到了特别的新年礼物，是一盒包装很豪华科技感十足的午餐肉，听说是市面上最贵的罐头食品，每一口咬下去都是金钱的味道。"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/Lj1jTEnOt.png"
+    h5pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/bWSyRfuik.png"
+    sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/9UUY0p~X.jpg"
+    cardPic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/M49ftUpj0.jpg"
+    publish = "2020-01-03T18:00:00+08:00"
+    taskID = 268
+[[bnj2020.RareList]]
+    id = 8
+    name = "独角兽的角"
+    desc = "质量优良，品质极佳的进口大葱，在男女老少中的人气极高，除了涮锅和卷饼外，似乎还很适合拿来跳舞。"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/4t7rT-9vJ.png"
+    h5pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/fnHcRQG0.png"
+    sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/ZaGn1jGIN.jpg"
+    cardPic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/up~gr38L.jpg"
+    publish = "2020-01-03T15:00:00+08:00"
+    taskID = 269
+[[bnj2020.RareList]]
+    id = 9
+    name = "称号"
+    desc = "从前有一只独角兽，它喜欢上了领居家的白马，决定以马的身份去追踪真爱。它用拔下来的角换了一筐马草就离开了。听说角吃起来会有烤牛骨髓的味道。"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/La22VryMW.png"
+    h5pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/Z8umC2FFJ4.png"
+    sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/JH7xSu5F5.jpg"
+    cardPic = ""
+    publish = "2020-01-03T15:00:00+08:00"
+    taskID = 270
+[[bnj2020.Info]]
+    name = "情报1"
+    pic = ["//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/LUT61yl5.jpg","//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/nW-r2EJmi.png"]
+    h5pic = ["//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/bAFNRyou.jpg","//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/QV3TdPcDf.png"]
+    detail = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/3RZMylf7.jpg"
+    h5detail = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/HHngD3~1q.jpg"
+    sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/HO7XesAJ.jpg"
+    h5sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/HO7XesAJ.jpg"
+    publish = "2020-01-03T15:00:00+08:00"
+[[bnj2020.Info.Aids]]
+    	aid = 10113302
+    	RcmdReason = "这是一个推荐语推荐语推荐语推荐语推荐语推荐语推"
+[[bnj2020.Info.Aids]]
+    	aid = 10113209
+    	RcmdReason = "不要停下来……（指游戏 、——这句是“鲁迅”说的"
+[[bnj2020.Info.Aids]]
+    	aid = 200052972
+    	RcmdReason = "啦啦啦啦啦啦啦啦啦啦了"
+[[bnj2020.Info.Increase]]
+	P = 0.005
+    IDs = [1]
+[[bnj2020.Info.Increase]]
+	P = 0.01
+[[bnj2020.Info.Decrease]]
+    left = 0
+    right = 3850
+    value = 0
+    type = 1
+[[bnj2020.Info.Decrease]]
+    left = 3850
+    right = 9850
+    value = 1
+    type = 2
+[[bnj2020.Info.Decrease]]
+    left = 9850
+    right = 9950
+    value = 10
+    type = 3
+[[bnj2020.Info.Decrease]]
+    left = 9950
+    right = 10000
+    value = 100
+    type = 4
+[[bnj2020.Info]]
+    name = "情报2"
+    pic = ["//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/LUT61yl5.jpg","//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/nW-r2EJmi.png"]
+    h5pic = ["//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/bAFNRyou.jpg","//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/QV3TdPcDf.png"]
+    detail = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/sdSDQ5UK.jpg"
+    h5detail = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/p2WxKIk-r.jpg"
+    sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/HO7XesAJ.jpg"
+    h5sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/HO7XesAJ.jpg"
+    publish = "2020-01-03T15:30:00+08:00"
+[[bnj2020.Info.Aids]]
+    	aid = 10113302
+    	RcmdReason = "这是一个推荐语推荐语推荐语推荐语推荐语推荐语推"
+[[bnj2020.Info.Aids]]
+    	aid = 10113209
+    	RcmdReason = "不要停下来……（指游戏 、——这句是“鲁迅”说的"
+[[bnj2020.Info.Aids]]
+    	aid = 200117162
+    	RcmdReason = "哈哈哈哈哈哈哈哈哈哈"
+[[bnj2020.Info.Increase]]
+	P = 0.002
+    IDs = [1]
+[[bnj2020.Info.Increase]]
+	P = 0.005
+    IDs = [2]
+[[bnj2020.Info.Increase]]
+	P = 0.01
+[[bnj2020.Info.Decrease]]
+    left = 0
+    right = 3850
+    value = 0
+    type = 1
+[[bnj2020.Info.Decrease]]
+    left = 3850
+    right = 9850
+    value = 1
+    type = 2
+[[bnj2020.Info.Decrease]]
+    left = 9850
+    right = 9950
+    value = 10
+    type = 3
+[[bnj2020.Info.Decrease]]
+    left = 9950
+    right = 10000
+    value = 100
+    type = 4
+[[bnj2020.Info]]
+    name = "情报3"
+    pic = ["//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/LUT61yl5.jpg","//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/nW-r2EJmi.png"]
+    h5pic = ["//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/bAFNRyou.jpg","//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/QV3TdPcDf.png"]
+    detail = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/GW7YvPflB.jpg"
+    h5detail = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/T7gNMMLFx.jpg"
+    sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/HO7XesAJ.jpg"
+    h5sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/HO7XesAJ.jpg"
+    publish = "2020-01-03T16:00:00+08:00"
+[[bnj2020.Info.Aids]]
+    	aid = 10113302
+    	RcmdReason = "这是一个推荐语推荐语推荐语推荐语推荐语推荐语推"
+[[bnj2020.Info.Aids]]
+    	aid = 10113209
+    	RcmdReason = "不要停下来……（指游戏 、——这句是“鲁迅”说的"
+[[bnj2020.Info.Aids]]
+    	aid = 10113218
+    	RcmdReason = "hhhhhhhhhhhhhhhhhhhhhh"
+[[bnj2020.Info.Increase]]
+	P = 0.002
+    IDs = [1,2]
+[[bnj2020.Info.Increase]]
+	P = 0.005
+    IDs = [3]
+[[bnj2020.Info.Increase]]
+	P = 0.01
+[[bnj2020.Info.Decrease]]
+    left = 0
+    right = 3850
+    value = 0
+    type = 1
+[[bnj2020.Info.Decrease]]
+    left = 3850
+    right = 9850
+    value = 1
+    type = 2
+[[bnj2020.Info.Decrease]]
+    left = 9850
+    right = 9950
+    value = 10
+    type = 3
+[[bnj2020.Info.Decrease]]
+    left = 9950
+    right = 10000
+    value = 100
+    type = 4
+[[bnj2020.Info]]
+    name = "情报4"
+    pic = ["//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/LUT61yl5.jpg","//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/nW-r2EJmi.png"]
+    h5pic = ["//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/bAFNRyou.jpg","//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/QV3TdPcDf.png"]
+    detail = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/dgcfCV7QB.jpg"
+    h5detail = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/Tm~zX7qJF.jpg"
+    sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/HO7XesAJ.jpg"
+    h5sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/HO7XesAJ.jpg"
+    publish = "2020-01-03T16:30:00+08:00"
+[[bnj2020.Info.Aids]]
+    	aid = 10113302
+    	RcmdReason = "这是一个推荐语推荐语推荐语推荐语推荐语推荐语推"
+[[bnj2020.Info.Aids]]
+    	aid = 10113209
+    	RcmdReason = "不要停下来……（指游戏 、——这句是“鲁迅”说的"
+[[bnj2020.Info.Aids]]
+    	aid = 640037084
+    	RcmdReason = "测试数据测试数据"
+[[bnj2020.Info.Increase]]
+	P = 0.002
+    IDs = [1,2,3]
+[[bnj2020.Info.Increase]]
+	P = 0.005
+    IDs = [4]
+[[bnj2020.Info.Increase]]
+	P = 0.01
+[[bnj2020.Info.Decrease]]
+    left = 0
+    right = 2000
+    value = 0
+    type = 1
+[[bnj2020.Info.Decrease]]
+    left = 2000
+    right = 4000
+    value = 1
+    type = 2
+[[bnj2020.Info.Decrease]]
+    left = 4000
+    right = 6000
+    value = 10
+    type = 3
+[[bnj2020.Info.Decrease]]
+    left = 6000
+    right = 8000
+    value = 100
+    type = 4
+[[bnj2020.Info.Decrease]]
+    left = 8000
+    right = 10000
+    value = 100
+    type = 4
+[[bnj2020.Info]]
+    name = "情报5"
+    pic = ["//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/LUT61yl5.jpg","//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/nW-r2EJmi.png"]
+    h5pic = ["//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/bAFNRyou.jpg","//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/QV3TdPcDf.png"]
+    detail = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/M6T4thv25.jpg"
+    h5detail = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/QeLymoiJH.jpg"
+    sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/HO7XesAJ.jpg"
+    h5sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/HO7XesAJ.jpg"
+    publish = "2020-01-03T17:00:00+08:00"
+[[bnj2020.Info.Aids]]
+    	aid = 10113302
+    	RcmdReason = "这是一个推荐语推荐语推荐语推荐语推荐语推荐语推"
+[[bnj2020.Info.Aids]]
+    	aid = 10113209
+    	RcmdReason = "不要停下来……（指游戏 、——这句是“鲁迅”说的"
+[[bnj2020.Info.Aids]]
+    	aid = 920008182
+    	RcmdReason = "视频3未过审"
+[[bnj2020.Info.Aids]]
+    	aid = 840033696
+    	RcmdReason = "视频4视频4"
+[[bnj2020.Info.Aids]]
+    	aid = 10113212
+    	RcmdReason = "视频5视频5"
+[[bnj2020.Info.Increase]]
+	P = 0.002
+    IDs = [1,2,3,4]
+[[bnj2020.Info.Increase]]
+	P = 0.005
+    IDs = [5]
+[[bnj2020.Info.Increase]]
+	P = 0.01
+[[bnj2020.Info.Decrease]]
+    left = 0
+    right = 2000
+    value = 0
+    type = 1
+[[bnj2020.Info.Decrease]]
+    left = 2000
+    right = 4000
+    value = 1
+    type = 2
+[[bnj2020.Info.Decrease]]
+    left = 4000
+    right = 6000
+    value = 10
+    type = 3
+[[bnj2020.Info.Decrease]]
+    left = 6000
+    right = 8000
+    value = 100
+    type = 4
+[[bnj2020.Info.Decrease]]
+    left = 8000
+    right = 10000
+    value = 100
+    type = 4
+[[bnj2020.Info]]
+    name = "情报6"
+    pic = ["//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/LUT61yl5.jpg","//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/nW-r2EJmi.png"]
+    h5pic = ["//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/bAFNRyou.jpg","//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/QV3TdPcDf.png"]
+    detail = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/A5mAbAJDl.jpg"
+    h5detail = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/BKfbWp3Sy.jpg"
+    sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/HO7XesAJ.jpg"
+    h5sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/HO7XesAJ.jpg"
+    publish = "2020-01-01T17:30:00+08:00"
+[[bnj2020.Info.Aids]]
+    	aid = 10113302
+    	RcmdReason = "这是一个推荐语推荐语推荐语推荐语推荐语推荐语推"
+[[bnj2020.Info.Aids]]
+    	aid = 10113209
+    	RcmdReason = "不要停下来……（指游戏 、——这句是“鲁迅”说的"
+[[bnj2020.Info.Aids]]
+    	aid = 240114524
+    	RcmdReason = "测试数据测试数据啦啦啦啦啦啦"
+[[bnj2020.Info.Increase]]
+	P = 0.002
+    IDs = [1,2,3,4,5]
+[[bnj2020.Info.Increase]]
+	P = 0.005
+    IDs = [6]
+[[bnj2020.Info.Increase]]
+	P = 0.01
+[[bnj2020.Info.Decrease]]
+    left = 0
+    right = 3850
+    value = 0
+    type = 1
+[[bnj2020.Info.Decrease]]
+    left = 3850
+    right = 9850
+    value = 1
+    type = 2
+[[bnj2020.Info.Decrease]]
+    left = 9850
+    right = 9950
+    value = 10
+    type = 3
+[[bnj2020.Info.Decrease]]
+    left = 9950
+    right = 10000
+    value = 100
+    type = 4
+[[bnj2020.Info.Decrease]]
+    left = 9950
+    right = 10000
+    value = 100
+    type = 4
+[[bnj2020.Info]]
+    name = "情报7"
+    pic = ["//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/LUT61yl5.jpg","//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/nW-r2EJmi.png"]
+    h5pic = ["//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/bAFNRyou.jpg","//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/QV3TdPcDf.png"]
+    detail = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/NItB061Ya.jpg"
+    h5detail = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/UNolDS9lw.jpg"
+    sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/HO7XesAJ.jpg"
+    h5sharePic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/HO7XesAJ.jpg"
+    publish = "2020-01-01T18:00:00+08:00"
+[[bnj2020.Info.Aids]]
+    	aid = 200085055
+    	RcmdReason = "这是一个推荐语推荐语推荐语推荐语推荐语推荐语推"
+[[bnj2020.Info.Aids]]
+    	aid = 440010089
+    	RcmdReason = "不要停下来……（指游戏 、——这句是“鲁迅”说的"
+[[bnj2020.Info.Aids]]
+    	aid = 840113936
+    	RcmdReason = "测试数据测试数据啦啦啦啦啦啦哈哈哈哈哈哈哈哈"
+[[bnj2020.Info.Increase]]
+	P = 0.005
+[[bnj2020.Info.Increase]]
+	P = 0.01
+    IDs = [1,2,3,4,5,6,7]
+[[bnj2020.Info.Decrease]]
+    left = 0
+    right = 2000
+    value = 0
+    type = 1
+[[bnj2020.Info.Decrease]]
+    left = 2000
+    right = 4000
+    value = 1
+    type = 2
+[[bnj2020.Info.Decrease]]
+    left = 4000
+    right = 6000
+    value = 10
+    type = 3
+[[bnj2020.Info.Decrease]]
+    left = 6000
+    right = 8000
+    value = 100
+    type = 4
+[[bnj2020.Info.Decrease]]
+    left = 8000
+    right = 10000
+    value = 10000
+    type = 5
+[[bnj2020.Award]]
+    id = 1
+    name = "2020拜年祭亚克力立牌（套）"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/OgEsNbnO.png"
+    type = 1
+    linkURL = "https://uat-t.bilibili.com/334686060985465829?tab=2"
+    count = 200000
+[[bnj2020.Award]]
+    id = 2
+    name = "漫画优惠券"
+    pic = "http://uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/w6hdvvIBC.png"
+    type = 4
+    linkURL = "https://www.bilibili.com/blackboard/manga/activity-ZAKA5sff.html"
+    count = 500000
+    sourceID = "2033"
+    taskID = 271
+[[bnj2020.Award]]
+    id = 3
+    name = "2020拜年祭限定头像挂件"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/miN~iWxX.png"
+    type = 6
+    linkURL = "https://account.bilibili.com/account/face/mine"
+    count = 800000
+    sourceID = "303"
+    sourceExpire = 100
+    taskID = 272
+[[bnj2020.Award]]
+    id = 4
+    name = "火锅升级至lv.2：加菜值+1"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/a1cSpMMq.png"
+    type = 2
+    count = 1000000
+[[bnj2020.Award]]
+    id = 5
+    name = "娇兰臻彩宝石唇膏钻石壳All in限量礼盒"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/19ZKpXhiZ.png"
+    type = 1
+    count = 1200000
+[[bnj2020.Award]]
+    id = 6
+    name = "会员购优惠券"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/qZmu39Y0l.png"
+    type = 5
+    linkURL = ""
+    count = 1500000
+    sourceID = "5faf8e43324ff9a5"
+    taskID = 273
+[[bnj2020.Award]]
+    id = 7
+    name = "bilibiliBW主题机械键盘（粉白款）"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/GXWG7QuqX.png"
+    type = 1
+    count = 1800000
+[[bnj2020.Award]]
+    id = 8
+    name = "火锅升级至lv.3：加菜值+2"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/nqDlftNY7.png"
+    type = 2
+    count = 2000000
+[[bnj2020.Award]]
+    id = 9
+    name = "乐高星球大战系列75192豪华千年隼"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/XOaB1eMZ5.png"
+    type = 1
+    count = 2200000
+[[bnj2020.Award]]
+    id = 10
+    name = "课程优惠券"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/HM1jGMpq~.png"
+    type = 3
+    linkURL = "https://www.bilibili.com/v/cheese/mine"
+    count = 2500000
+    sourceID = "B20191218125259662742638"
+    taskID = 274
+[[bnj2020.Award]]
+    id = 11
+    name = "888元现金红包"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/VaqcnhajI.png"
+    type = 1
+    count = 2800000
+[[bnj2020.Award]]
+    id = 12
+    name = "火锅升级至lv.4：加菜值+3"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/8Yl7fi5pz.png"
+    type = 2
+    count = 3000000
+[[bnj2020.Award]]
+    id = 13
+    name = "2020拜年祭限定手办"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/xJv0FeeEh.png"
+    type = 1
+    count = 3200000
+[[bnj2020.Award]]
+    id = 14
+    name = "2020现金红包"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/rp1lq1ca8.png"
+    type = 1
+    count = 3500000
+[[bnj2020.Award]]
+    id = 15
+    name = "6666现金红包"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/flfPvNrFy.png"
+    type = 1
+    isHide = 1
+    count = 3800000
+[[bnj2020.Award]]
+    id = 16
+    name = "火锅升级至lv.5：加菜值+4"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/B3g1g6OI7.png"
+    type = 2
+    isHide = 1
+    count = 4000000
+[[bnj2020.Award]]
+    id = 17
+    name = "10,000现金红包"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/Ke6ZODiFE.png"
+    type = 1
+    isHide = 1
+    count = 4500000
+[[bnj2020.Award]]
+    id = 18
+    name = "20,000现金红包"
+    pic = "//uat-i0.hdslb.com/bfs/activity-plat/static/20191225/17471814f06805c535397ca97454d2f6/BXfPkXeoK.png"
+    type = 1
+    isHide = 1
+    count = 5000000
+[bnj2020.Live]
+    Source = 308
+    ExpireTime = 1579449600
+    [[bnj2020.Live.items]]
+        rewardID = 201
+        type = 5
+    [[bnj2020.Live.items]]
+        rewardID = 1
+        startTime = 1577101174
+        type = 6
+        num = 1
+    [[bnj2020.Live.items]]
+        rewardID = 6
+        type = 11
+        [bnj2020.Live.items.extraData]
+            type = "color"
+            value = 15937617
+    [[bnj2020.Live.items]]
+        rewardID = 1
+        type = 8
+        num = 233
+
+[ent]
+    tick = "1m"
+    vid = 61
+    vidV2 = 63
+    upSids = [10642,10641,10640,10639]
+    secondSids = [10688,10687,10686,10638]
+
+[timemachine]
+    TypesTick = "1h"
+	DataTick = "1h"
+    FlagTick = "1h"
+	EventSid = 635
+	TagSid = 633
+	RegionSid = 634
+    FlagSid = 12619
+    Table = "ads_user_year_report_2020_1y_y_20201127"
+    Vid = 82
+    EndLottery = "2021-01-05T00:00:00+08:00"
+    LotteryNew = "394d738a-3dd2-11eb-b017-246e9693a590"
+    LotteryOld = "aca66a86-3dd2-11eb-b017-246e9693a590"
+    LogDate = "20201223"
+    PublishTimeout = 300
+    [timemachine.redis]
+    name = "activity-service"
+    proto = "tcp"
+    addr = "10.23.4.117:6379"
+    idle = 64
+    active = 1024
+    dialTimeout = "50ms"
+    readTimeout = "250ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+    [timemachine.Gift]
+    GiftType = 7
+    GiftName = "大会员满减券"
+    ImgURL = "https://i0.hdslb.com/bfs/activity-plat/static/8a3e1fa14e30dc3be9c5324f604e5991/mzm6T7hm6_w434_h606.png"
+
+[UpAct]
+    WhiteMid = [15555180,27515241,27515232,27515240,32702128,32472080]
+    Image = "http://uat-i0.hdslb.com/bfs/activity-plat/static/20200227/ce4d241380919d495e1e6f11992d3e0f/BSA7ieLA.png"
+
+[Shad]
+    Sid = 10701
+    SuitExpire = 30
+	LotterySid = "cd828933-4c94-11ea-bfa0-246e9693a590"
+	Cid = 179
+	Vid = 64
+
+[Restart2020]
+    Sid = 10702
+	LotterySid = "8a64fadc-56de-11ea-bfa0-246e9693a590"
+	Cid = 198
+	Vid = 65
+
+[YellowGrean]
+    GreenSid = 10703
+    YellowSid = 10706
+	LotterySid = "5e942027-3546-11eb-9025-246e9693a590"
+	Cid = 751
+	Vid = 66
+
+[yellowAndGreen]
+    [[yellowAndGreen.Period]]
+    GreenSid = 10703
+    YellowSid = 10706
+    GreenYingYuanSid = 17996
+    YellowYingYuanSid = 17997
+    LotterySid = "5e942027-3546-11eb-9025-246e9693a590"
+    Cid = 751
+    [[yellowAndGreen.Period]]
+    GreenSid = 18250
+    YellowSid = 18251
+    GreenYingYuanSid = 18245
+    YellowYingYuanSid = 18246
+    LotterySid = "fef642d2-e878-11eb-b017-246e9693a590"
+    Cid = 1141
+
+[MobileGame]
+    Sid = 10720
+	LotterySid = "cbf7cb0e-7484-11ea-bfa0-246e9693a590"
+	Cid = 247
+	Vid = 69
+
+[imagev2]
+    sid = 10523
+    daylimit = 10
+    alllimit = 100
+    etime = "2020-05-17T00:00:00+08:00"
+
+
+[starSpring]
+    Sid = 10703
+	ReserveSid = 10725
+	FollowerLimit = 50000
+    CurrID = 36
+
+[giantV4]
+    sid = 10743
+    lotterySid = "3b62746f-876a-11ea-bfa0-246e9693a590"
+    cid = 269
+
+[Stupid]
+	Sid = 10742
+    LotterySid = "60f7a9c0-8765-11ea-bfa0-246e9693a590"
+	Pid = 198
+	PidExpire = 3
+	LockExpire = 2592000
+	Num = 3
+	Target1 = 1
+	Target2 = 2
+	Target3 = 3
+    Cid =265
+    Vid = 70
+
+[VipSpecial]
+    sid = "7ada6317-902d-11ea-bfa0-246e9693a590"
+
+[ResourceClient]
+    timeout="2s"
+
+StrategyLevel = 0
+
+[antispam]
+    on=true
+    second=60
+    n=100
+    hour=1
+    m=1000
+    [antispam.redis]
+        name = "activity-service"
+        proto = "tcp"
+        addr = "10.23.4.117:6379"
+        idle = 100
+        active = 100
+        dialTimeout = "500ms"
+        readTimeout = "1s"
+        writeTimeout = "1s"
+        idleTimeout = "80s"
+        expire = "10m"
+
+[wxLottery]
+    stime = "2020-04-30T00:00:00+08:00"
+    etime = "2030-05-30T00:00:00+08:00"
+    rewardSid = "ddb7f383-3078-11eb-aed3-246e9693a590"
+    commonSid = "ddb7f383-3078-11eb-aed3-246e9693a590"
+    newCashSid = "2414a816-a096-11ea-aa26-246e9693a590"
+    vipSid = "302bb1d7-a096-11ea-aa26-246e9693a590"
+    normalSid = "35b24f57-a096-11ea-aa26-246e9693a590"
+    DoJumpURL = "https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/customer-message/customer-message.html"
+    AlertURL = "https://www.bilibili.com/blackboard/preview/activity-vkUmnkm_3.html"
+    BuvidUpLotteryExpire = "4h"
+    BuvidPeriod = 86400
+    Vid = 71
+    GiftCron = "0 */5 * * * *"
+    SenderUID = 88895034
+    PlayWindowDuration = 30
+    [wxLottery.MoneyMap]
+        "0.3元红包" = 30
+        "0.5元红包" = 50
+        "1元红包" = 100
+        "3元红包" = 300
+        "5元红包" = 500
+    [wxLottery.JumpURLMap]
+        "1" = "https://www.bilibili.com/blackboard/activity-DSu31EW6f.html"
+        "2" = "https://big.bilibili.com/mobile/voucher"
+        "3" = "https://www.bilibili.com/h5/mall/pendant/mypendant?navhide=1"
+        "4" = "https://pay.bilibili.com/bpay-h5/redbag_withdraw.html?navhide=1&withdrawActivityId=537b72175df741e2cc2d4e7a8eabccfb"
+        "10" = "https://pay.bilibili.com/bpay-h5/redbag_withdraw.html?navhide=1&withdrawActivityId=537b72175df741e2cc2d4e7a8eabccfb"
+    [wxLottery.MessageMap]
+        "1" = "3_25"
+        "2" = "3_24"
+        "3" = "3_23"
+        "4" = "3_22"
+        "10" = "3_22"
+[internalLottery]
+    [InternalLottery.sids]
+        "6f7fd5a8-9f2f-11ea-801a-61aa32f84984" = 1
+[brand]
+    CouponBatchToken = "611436805420200526112751"
+    CouponBatchToken2 = "873673034320200520181130"
+	ResourceBatchToken = "QbxkxWgMHzoarghV"
+	ResourceAppkey = "qnVSWrciDTPVHXpT"
+	CouponExperienceRemark = "用户体验券"
+	QPSLimitResourceCoupon = 150
+	QPSLimitExpire = "60s"
+
+[songfestival]
+    sid = 12071
+[handwrite]
+    GodAllMoney = 10000000
+    TiredAllMoney = 10000000
+    NewAllMoney = 5000000
+    ActPlatActivity = "2020handwrite"
+	ActPlatCounter = "midCoins"
+	AwardCoinLimit  = 10
+    sid = "75bfb7be-be13-11ea-aa26-246e9693a590"
+    ActStart = 1593958300
+    ActEnd = 1693958300
+[remix]
+    Sid  = 12098
+	DaySid   = 1012098
+	TaskID   = 425
+	AllMoney = 10000000
+
+[gameHoliday]
+    ActPlatCounter  ="like_counter_1ef1dg807"
+	ActPlatActivity = "12181"
+	AwardLikeLimit  = 5
+	Sid           = "75bfb7be-be13-11ea-aa26-246e9693a590"
+	Vid            =75
+
+[s10Contribution]
+    ActPlatCounter  ="like_counter_1eh4gb3cu"
+    ActPlatActivity = "12232"
+    AwardLikeLimit  = 5
+    LotteryID             = "baa21d5e-eb60-11ea-aed3-246e9693a590"
+    TotalVid        = 78
+    DayVid          = 80111
+    Sid             =12249
+    isWinSN         = 0
+
+[S10Tasks]
+    Act="S10ActivityFinal"
+    [[S10Tasks.Task]]
+        caption="sign"
+        total=1
+    [[S10Tasks.Task]]
+        caption="share"
+        total=1
+    [[S10Tasks.Task]]
+        caption="pred"
+        total=0
+    [[S10Tasks.Task]]
+        caption="view"
+        total=5
+    [[S10Tasks.Task]]
+        caption="live_view"
+        total=1
+
+
+[S10Client]
+    [S10Client.Coin]
+        timeout = "80ms"
+    [S10Client.Formula]
+        timeout = "80ms"
+
+[S10CoinCfg]
+    McSwitch = false
+    ActivityName = "S10ActivityFinal"
+    SeasonID = 122
+
+[S10Cache]
+    [S10Cache.S10Key]
+        UserExpire = "720h"
+        ListExpire = "720h"
+        ESportsKey  = "esport:contestIDList:lol:122"
+        ContestDetailKey = "esport:contestList:lol:122"
+        GuessMainDetailsKey = "guess:mainDetail:lol:122"
+    [S10Cache.Redis]
+        name = "activity-service"
+        proto = "tcp"
+        addr = "10.23.4.117:6379"
+        idle = 64
+        active = 1024
+        dialTimeout = "50ms"
+        readTimeout = "250ms"
+        writeTimeout = "200ms"
+        idleTimeout = "80s"
+    [S10Cache.Mc]
+        name = "activity-service"
+        proto = "tcp"
+        addr = "10.23.4.117:11211"
+        idle = 64
+        active = 1024
+        dialTimeout = "30ms"
+        readTimeout = "200ms"
+        writeTimeout = "200ms"
+        idleTimeout = "80s"
+
+[articleDay]
+    applyTime=1611763200
+    beginTime=1611849600
+    endTime=1613750399
+    resultTime=1614528000
+[college]
+	FreshMidPeriod =86400
+	MemberJoinActivity ="college2020"
+	MemberJoinFilter   ="filter_mid"
+	MemberJoinCounter  ="follow,videoup,bonus,invite,view,like,share"
+    VersionChangeCron = "@every 1m"
+    CollegeChangeCron = "@every 10m"
+    ViewTimes = 3
+	LikeTimes = 3
+	ShareTimes = 2
+    SearchShowLength = 10
+    MidActivity ="college2020"
+	MidFormula ="total"
+    FollowPoint =100
+	InviterPoint =200
+
+[invite]
+    tokenExpire = "72h"
+	faceTokenExpire = "60s"
+	TelSalt = "$*ActyT:]~"
+    BindExpire = "72h"
+
+
+[S10Matches]
+    [[S10Matches.Matches]]
+        Title="入围赛"
+        Robin=1
+        Points=150
+        Start=1600236000
+        End=1600236000
+        Lottery=1600236000
+        LotteryExpire=1601449433
+    [[S10Matches.Matches]]
+        Title="小组赛"
+        Robin=2
+        Points=150
+        Start=1600585433
+        End=1600585433
+        Lottery=1600585433
+        LotteryExpire=1600768800
+    [[S10Matches.Matches]]
+        Title="八强赛"
+        Robin=3
+        Points=200
+        Start=1600585433
+        End=1600585433
+        Lottery=1600585433
+        LotteryExpire=1600768800
+    [[S10Matches.Matches]]
+        Title="半决赛"
+        Robin=4
+        Points=250
+        Start=1600585433
+        End=1600585433
+        Lottery=1600585433
+        LotteryExpire=1600768800
+    [[S10Matches.Matches]]
+        Title="总决赛"
+        Robin=5
+        Points=300
+        Start=1600585433
+        End=1600585433
+        Lottery=1600585433
+        LotteryExpire=1600768800
+    [[S10Matches.OtherActivity]]
+        MaxPoints=200
+        Name="会员购分会场"
+        Figture="https://i0.hdslb.com/bfs/activity-plat/static/20200916/c4a9becc6e5e0e555db370b87b6e4bac/tDOIaHMO-.png"
+        Link="https://mall.bilibili.com/blackboard/activity-ALwmgK0ZH.html"
+    [[S10Matches.OtherActivity]]
+        MaxPoints=150
+        Name="漫画分会场"
+        Figture="https://i0.hdslb.com/bfs/activity-plat/static/8a3e1fa14e30dc3be9c5324f604e5991/8LMfpMq7K_w1180_h302.jpg"
+        Link="https://www.bilibili.com/blackboard/activity-YX_wkgY-d.html"
+    [[S10Matches.OtherActivity]]
+        MaxPoints=100
+        Name="影视番剧分会场"
+        Figture="https://i0.hdslb.com/bfs/activity-plat/static/8a3e1fa14e30dc3be9c5324f604e5991/J24IUXG00_w1180_h302.png"
+        Link="https://www.bilibili.com/blackboard/activity-WJFpTfw23.html"
+    [[S10Matches.OtherActivity]]
+        MaxPoints=50
+        Name="征稿分会场"
+        Figture="https://i0.hdslb.com/bfs/activity-plat/static/20200909/8a3e1fa14e30dc3be9c5324f604e5991/0pleOVYqQQ.png"
+        Link="fadafesf"
+	[[S10Matches.DefaultBonuses]]
+		ID=-1
+		Name="神秘大奖"
+		Figture="fadafdfad"
+	[[S10Matches.DefaultBonuses]]
+		ID=-1
+		Name="神秘大奖"
+		Figture="fadafdfad"
+	[[S10Matches.DefaultBonuses]]
+		ID=-1
+		Name="神秘大奖"
+		Figture="fadafdfad"
+
+[S10TimePeriod]
+    [S10TimePeriod.Points]
+        start=1578592527
+        end =1601026400
+    [S10TimePeriod.Goods]
+        start=1578940000
+        end =1601449433
+
+[S10General]
+    SplitTable=true
+    Points=500
+    UnicomSecretkey="1111111111"
+    MobileSecretkey="1111111111"
+    FlowRecvLimit=true
+    FlowSwitch=true
+[S10General.Mobile]
+        Switch = true
+        StartAt = "2020-09-29T10:00:00+08:00"
+        [[S10General.Mobile.Stock]]
+            StartAt = "2020-10-28T10:00:00+08:00"
+            EndAt = "2020-10-28T23:00:59+08:00"
+            StartHour = 10
+            EndHour = 23
+        [[S10General.Mobile.Stock]]
+            StartAt = "2020-09-27T14:00:00+08:00"
+            EndAt = "2020-09-27T14:59:59+08:00"
+            StartHour = 14
+            EndHour = 14
+        [[S10General.Mobile.Stock]]
+            StartAt = "2020-09-27T16:00:00+08:00"
+            EndAt = "2020-09-27T16:59:59+08:00"
+            StartHour = 16
+            EndHour = 16
+        [[S10General.Mobile.Stock]]
+            StartAt = "2020-09-27T18:00:00+08:00"
+            EndAt = "2020-09-27T18:59:59+08:00"
+            StartHour = 18
+            EndHour = 18
+        [[S10General.Mobile.Stock]]
+            StartAt = "2020-09-28T22:07:00+08:00"
+            EndAt = "2020-09-28T23:15:59+08:00"
+            StartHour = 22
+            EndHour = 23
+    [S10General.Unicom]
+        Switch = true
+        StartAt = "2020-09-27T22:02:00+08:00"
+        [[S10General.Unicom.Stock]]
+            StartAt = "2020-10-28T12:00:00+08:00"
+            EndAt = "2020-10-28T23:59:59+08:00"
+            StartHour = 12
+            EndHour = 23
+        [[S10General.Unicom.Stock]]
+            StartAt = "2020-09-28T15:00:00+08:00"
+            EndAt = "2020-09-28T15:59:59+08:00"
+            StartHour = 15
+            EndHour = 15
+        [[S10General.Unicom.Stock]]
+            StartAt = "2020-09-27T17:00:00+08:00"
+            EndAt = "2020-09-27T17:59:59+08:00"
+            StartHour = 17
+            EndHour = 17
+        [[S10General.Unicom.Stock]]
+            StartAt = "2020-09-27T18:00:00+08:00"
+            EndAt = "2020-09-27T18:59:59+08:00"
+            StartHour = 18
+            EndHour = 18
+        [[S10General.Unicom.Stock]]
+            StartAt = "2020-09-28T22:07:00+08:00"
+            EndAt = "2020-09-28T22:15:59+08:00"
+            StartHour = 22
+            EndHour = 22
+
+[S10WhiteList]
+    Switch=false
+
+[circuitBreaker]
+    [circuitBreaker.act_platform]
+        enabled = true
+        name = "act_platform"
+        maxRequests = 100
+        internalSeconds = 1
+        timeoutSeconds = 5
+        maxConsecutiveFailures = 100
+        maxRateToOpen = 0.0
+        [circuitBreaker.act_platform.codes]
+            504 = true
+            503 = true
+    [circuitBreaker.act_platform_GetFormulaHistory]
+        enabled = true
+        name = "act_platform_GetFormulaHistory"
+        maxRequests = 100
+        internalSeconds = 1
+        timeoutSeconds = 5
+        maxConsecutiveFailures = 1000
+        maxRateToOpen = 0.5
+        [circuitBreaker.act_platform_GetFormulaHistory.codes]
+            500 = true
+            504 = true
+            503 = true
+            13402 = true
+    [circuitBreaker.act_platform_GetCounterRes]
+            enabled = true
+            name = "act_platform_GetCounterRes"
+            maxRequests = 100
+            internalSeconds = 1
+            timeoutSeconds = 5
+            maxConsecutiveFailures = 1000
+            maxRateToOpen = 0.5
+            [circuitBreaker.act_platform_GetCounterRes.codes]
+                500 = true
+                504 = true
+                503 = true
+                13402 = true
+    [circuitBreaker.act_platform_GetFormulaResult]
+            enabled = true
+            name = "act_platform_GetFormulaResult"
+            maxRequests = 100
+            internalSeconds = 1
+            timeoutSeconds = 5
+            maxConsecutiveFailures = 1000
+            maxRateToOpen = 0.5
+            [circuitBreaker.act_platform_GetFormulaResult.codes]
+                500 = true
+                504 = true
+                503 = true
+                13402 = true
+
+[dubbing]
+    Sid = 12260
+	DaySid = 3000000
+	TaskID = 519
+    sidlist = [12260,12261,12262,12263,12264,12265]
+[NativePage]
+    whiteListByMidExpire = 432000
+    whiteListByMidNullExpire = 3600
+    [NativePage.Redis]
+    name = "native-page"
+	proto = "tcp"
+	addr = "10.23.4.117:6379"
+	idle = 10
+	active = 10
+	dialTimeout = "1s"
+	readTimeout = "1s"
+	writeTimeout = "1s"
+	idleTimeout = "10s"
+
+[customLimiters]
+    back = 10
+[funny]
+    ActPlatCounter  = "like_counter_1einnd96h"
+    ActPlatActivity = "12308"
+    AwardLikeLimit  = 1
+    Sid             = "478ae8ce-fe0b-11ea-aed3-246e9693a590"
+    Vid             = 81
+
+[s10Answer]
+   beginTime=1600099200
+   endTime=1605196800
+   questionInterval = 3
+   canPendantCount = 1
+   detailCron = "0 */1 * * * *"
+   pendantID  = 156
+   pendantExpire = 2592000
+   answerActExpire = "1440h"
+   # round
+    [[s10Answer.answerRound]]
+    roundDate = 1605196800 # 2020-11-13
+    baseID = 8
+    [[s10Answer.answerRound]]
+    roundDate = 1601222400 # 2020-09-28
+    baseID = 6
+    [[s10Answer.answerRound]]
+    roundDate = 1601136000 # 2020-09-27
+    baseID = 6
+    [[s10Answer.answerRound]]
+    roundDate = 1601049600 # 2020-09-26
+    baseID = 8
+    [[s10Answer.answerRound]]
+    roundDate = 1600963200   # 2020-09-25
+    baseID = 3
+    # percent
+    [[s10Answer.answerPercent]]
+    rightBegin = 1
+    rightEnd = 35
+    percentBegin = 1.0
+    percentEnd= 24.0
+    [[s10Answer.answerPercent]]
+    rightBegin = 36
+    rightEnd = 80
+    percentBegin = 25.0
+    percentEnd= 50.0
+    [[s10Answer.answerPercent]]
+    rightBegin = 81
+    rightEnd = 125
+    percentBegin = 51.0
+    percentEnd= 85.0
+    [[s10Answer.answerPercent]]
+    rightBegin = 126
+    rightEnd = 180
+    percentBegin = 86.0
+    percentEnd= 94.0
+    [[s10Answer.answerPercent]]
+    rightBegin = 181
+    rightEnd = 1000
+    percentBegin = 95.0
+    percentEnd= 99.0
+
+[Acg2020]
+    [[Acg2020.ExtraAward]]
+        FinishTask = 2
+        Award = 10000
+    [[Acg2020.ExtraAward]]
+        FinishTask = 3
+        Award = 10000
+    [[Acg2020.Task]]
+        Round = 0
+        StartTime = "2020-09-10T00:00:00+08:00"
+        EndTime = "2020-09-20T00:00:00+08:00"
+        StatTime = "2020-09-20T00:00:00+08:00"
+        AwardTime = "2020-09-21T00:00:00+08:00"
+        FinishCount = 2
+        FinishScore = 2
+        Award = 20000
+    [[Acg2020.Task]]
+        Round = 1
+        StartTime = "2020-09-22T00:00:00+08:00"
+        EndTime = "2020-09-23T00:00:00+08:00"
+        StatTime = "2020-09-24T00:00:00+08:00"
+        AwardTime = "2020-09-24T00:00:00+08:00"
+        FinishCount = 2
+        FinishScore = 50
+        Award = 20000
+    [[Acg2020.Task]]
+        Round = 2
+        StartTime = "2020-09-28T00:00:00+08:00"
+        EndTime = "2020-09-30T00:00:00+08:00"
+        StatTime = "2020-09-30T00:00:00+08:00"
+        AwardTime = "2020-09-30T00:00:00+08:00"
+        FinishCount = 2
+        FinishScore = 50
+        Award = 20000
+
+[doubleEleven]
+    ChannelListID   = 82
+    VideoListVid    = 80
+
+[gaiaRiskPub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group= "GaiaEvent-MainWebSvr-P"
+    topic= "GaiaEvent-T"
+    action="pub"
+    name = "activity/activity-pub"
+    proto = "tcp"
+    addr = ""
+    idle = 100
+    active = 100
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+[RedisTool]
+    Index = 0
+    List = [
+        "172.22.33.31:6882",
+        "172.22.33.31:6883",
+        "172.22.33.30:6892",
+        "172.22.33.30:6893",
+        "172.22.33.32:6882"
+    ]
+
+[Ticket]
+    Mid = [1111119921]
+
+[selection]
+    beginTime=1608652800
+    endTime=1608652800
+    joinTime = 1605023999
+    filterLevel = 20
+    productRole = [3,4]
+    LimitWords = 30
+    voteCategoryExpire = "960h"
+    voteCategoryCron = "0 0 3 1 * ?"
+    voteBegin = 1605715200
+    voteEnd = 1609312516
+    voteJoinTime = 1604073599
+    voteSwitch = 0
+    newKeyTime = 1606896300
+    showVotes = 0
+    voteStage = [
+        { CategoryID = 1, CategoryName = "2020年度动画", CategoryType = 0},
+        { CategoryID = 2, CategoryName = "往年动画", CategoryType = 0},
+        { CategoryID = 3, CategoryName = "2020年度动画角色", CategoryType = 1},
+        { CategoryID = 4, CategoryName = "往年动画角色", CategoryType = 1},
+        { CategoryID = 5, CategoryName = "历代特摄", CategoryType = 5},
+        { CategoryID = 6, CategoryName = "最受期待动画", CategoryType = 6},
+        ]
+
+[fliClient]
+    timeout = "500ms"
+
+[gaiaClient]
+    timeout = "500ms"
+
+[NewYear2021]
+    [NewYear2021.TimePeriod]
+        Start=1605785589
+        End=1609430400
+    [NewYear2021.TaskConfig]
+        Id = 101
+        AwardType="exp"
+        AwardAmount=1000
+        DailyTasks=[
+        { DisplayName="每日游戏任务", Id=201, ActPlatId="happy2021", ActPlatCounterId="game", RequireCount=3, AwardType="exp", AwardAmount=1000 },
+        { DisplayName="每日视频任务", Id=202, ActPlatId="happy2021", ActPlatCounterId="view", RequireCount=3, AwardType="exp", AwardAmount=1000 },
+        { DisplayName="每日分享任务", Id=203, ActPlatId="happy2021", ActPlatCounterId="share", RequireCount=3, AwardType="exp", AwardAmount=1000 },
+        { DisplayName="每日投稿任务", Id=204, ActPlatId="happy2021", ActPlatCounterId="videoup", RequireCount=3, AwardType="exp", AwardAmount=1000 },
+        ]
+
+
+[upWholeActive]
+    parentSid = 10365
+    extraMax = 1
+    extraNum = 1
+    [upWholeActive.extraSids]
+    "12453" = 1
+    "12465" = 2
+    "12466" = 3
+[knowledge]
+Sid = "12453,12465,12466"
+ActiveSid  =[41608]
+[knowledge.LiveStartTime]
+"41608" = 1625587200
+[knowledge.LiveEndTime]
+"41608" = 1626710400
+[knowledge.ActivityEnd]
+"41608" = 1626969600
+
+[Bnj2021ARPub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "Bnj-2021-AR-MainWebSvr-P"
+    topic = "Bnj-2021-AR-T"
+    action = "pub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[Bnj2021LiveLotteryRec]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "Live-Lottery-Rec-MainWebSvr-P"
+    topic = "Live-Lottery-Rec-T"
+    action = "pub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[Bnj2021LiveDrawARCoupon]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "Live-ARDraw-Coupon-MainWebSvr-P"
+    topic = "Live-ARDraw-Coupon-T"
+    action = "pub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[BnjARConfig]
+    [BnjARConfig.ar]
+        duration_of_game = 30
+        pouting_max_times = 0
+        hand_heard_max_times = 0
+        total_blood_of_monster1 = 0
+        total_blood_of_monster2 = 0
+        total_blood_of_monster3 = 0
+        total_blood_of_monster4 = 0
+        firing_rate_of_aircraft_bullets = 0
+        refresh_rate_of_monsters = 0
+        damage_of_bullet = 0
+        damage_of_bomb = 0
+        score_of_kill_monster1 = 0
+        score_of_kill_monster2 = 0
+        score_of_kill_monster3 = 0
+        score_of_kill_monster4 = 0
+        display_duration_of_monster = 0
+        time_to_change_monster_refresh_rate = 0
+        refresh_rate_of_monster1 = 0
+        refresh_rate_of_monster2 = 0
+        refresh_rate_of_monster3 = 0
+        refresh_rate_of_monster4 = 0
+        open_animation_face = 1
+        day_times = 3
+    [BnjARConfig.notice]
+        show = 1
+        notice = "感谢您信任并使用bilibili的产品和服务。我们依据最新的法律要求，更新了《哔哩哔哩弹幕网用户使用协议》，特向您推送本提示。请您仔细阅读并充分理解相关条款。您点击“同意”，即表示您已阅读并同意更新后的用户使用协议，bilibili将尽全力保障您的合法权益并为您提供更优质的产品和服务。我们依据最新的法律要求，更新了《哔哩哔哩弹幕网用户使用协议》，特向您推送本提示。请您仔细阅读并充分理解请您仔细阅读并充分理解请您仔细阅读并充分理解请您仔细阅读并充分理解。我们依据最新的法律要求，更新了《哔哩哔哩弹幕网用户使用协议》，特向您推送本提示。请您仔细阅读并充分理解请您仔细阅读并充分理解请您仔细阅读并充分理解请您仔细阅读并充分理解。。"
+    [BnjARConfig.publish]
+        video_area = "17"
+        video_tag = "2021拜年纪小游戏"
+        text = "发布动态文案"
+
+[[BnjExamBank]]
+id = 1
+start_time = 1608134400
+end_time = 1608307200
+title = "李白姓什么"
+answer_id = 1
+user_option = -1
+
+[[BnjExamBank.options]]
+id = 1
+title = "李"
+
+[[BnjExamBank.options]]
+id = 2
+title = "王"
+
+[[BnjExamBank.options]]
+id = 3
+title = "赵"
+
+[[BnjExamBank.options]]
+id = 4
+title = "刘"
+
+[[BnjExamBank]]
+id = 2
+start_time = 1608307200
+end_time = 1608480000
+title = "中国的英文是什么"
+answer_id = 2
+user_option = -1
+
+[[BnjExamBank.options]]
+id = 1
+title = "zhongguo"
+
+[[BnjExamBank.options]]
+id = 2
+title = "China"
+
+[[BnjExamBank.options]]
+id = 3
+title = "Bhina"
+
+[[BnjExamBank.options]]
+id = 4
+title = "Asia"
+
+[[BnjExamBank]]
+id = 3
+start_time = 1608480000
+end_time = 1609430400
+title = "今年是？年"
+answer_id = 3
+user_option = -1
+
+[[BnjExamBank.options]]
+id = 1
+title = "2018"
+
+[[BnjExamBank.options]]
+id = 2
+title = "2019"
+
+[[BnjExamBank.options]]
+id = 3
+title = "2020"
+
+[[BnjExamBank.options]]
+id = 4
+title = "2021"
+
+
+[system]
+CORPID           = "wx0833ac9926284fa5"
+WXCreateTokenUrl   = "https://qyapi.weixin.qq.com/cgi-bin/gettoken"
+WXGetUserDetailUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/get"
+WXGetUserUserIDUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo"
+WXCreateJSAPITicketUrl = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket"
+OACreateTokenUrl   = "https://oa-hr-api.bilibili.co/api/token/client"
+OAClient = "nianhui"
+OASecret = "8Umw6PHYge30X4Vs3n4OZYpTZ9uP9kO2"
+OAGetAllUsersInfoUrl = "https://oa-hr-api.bilibili.co/api/user"
+NotificationUrl = "https://qyapi.weixin.qq.com/cgi-bin/message/send"
+[system.CORPSecret]
+"2021party" = "-A73j764_A9PKNgk0NSAeNZ5ImTD7_kY2ym2JU9JcYY"
+"sign" = "xlZLSETOOsLLrD8ddBKZxlYsau-rwtjS81eKQtPzMaI"
+
+[party2021]
+UserExtra = ["014981","005013","005012","005011","006384","008069","008235","008307","008306","008497","009923","010188","010186","010240","010190","010268","010416","010679","010691","010721","010727","010801","010793","010855","010861","011024","011234","011548","011599","011578","011813","012090","012110","012217","012310","012345","012476","012533","012542","012596","012610","012612","012653","012657","012797","012784","012828","012826","012838","012910","012887","013100","013307","013269","013254","013267","013313","013232","013259","013240","013279","013234","013347","013348","013345","013651","013597","013679","013672","013763","013774","013911","013857","013897","013878","013933","013931","013985","014048","014008","014023","014006","013986","013997","014044","014108","014124","014106","014090","014131","014089","014215","014169","014164","014187","014207","014189","014261","014255","014256","014392","014383","014375","014363","014477","014552","014513","014558","014517","014599","014616","014628","014613","014728","014707","014714","014715","014786","014760","014766","014778","014775","012675","012674","014627","011999","009193","008751","V00175","V00176","V00006","V00295","V00208","V00237","V00496","V00041","V00288","V00126","V00236","V00569","V00423","V00257","V00218","V00294","014185","V00182","V00172","V00122","012723","013531","008949","006595","008115","006227","009164","015386","015134","014825","012334","015019","015151","013345","010697","015140","011275","014823","015150","014874","015132","014920"]
+[handwrite2021]
+    GodAllMoney = 8000000
+	Tired1Money = 3000000
+	Tired2Money = 3000000
+	Tired3Money = 3000000
+    prefix = "act_handwrite_new"
+
+[amusement]
+  likeactListPs = 25
+  showVotes = 0
+
+[exam_producer]
+    topic = ""
+	addresses = []
+
+[AR_device_producer]
+    topic = ""
+	addresses = []
+
+[operationSource]
+  updateTicker  = 1
+  infoSids = [86,88]
+  operationSids = [86,88,89,90]
+
+[SpringFestival2021]
+    LotterySid = "4439c0bb-53bd-11eb-b017-246e9693a590"
+    Card1GiftID = [577,583]
+    Card2GiftID = [578]
+    Card3GiftID = [579]
+    Card4GiftID = [580]
+    Card5GiftID = [581]
+    Activity = "SpringFestival2021"
+    ActivityID = 1
+    Filter = "filter_mid"
+    Counter = "join"
+    JoinReserveSid = 13012
+    AllowClickFinish = ["ad_inner","ad_brand","sign"]
+    FollowMidUri = "http://activity.hdslb.com/blackboard/static/jsonlist/165/Jb7IyEXUX.json"
+    ogvLinkUri = "http://activity.hdslb.com/blackboard/static/jsonlist/166/9VXyRf1uk.json"
+    MaxCard = 999
+[cards]
+    LotterySid = "a168da05-7a38-11eb-b017-246e9693a590"
+    Card1GiftID = [683]
+    Card2GiftID = [684]
+    Card3GiftID = [685]
+    Card4GiftID = [686]
+    Card5GiftID = [687]
+    Card6GiftID = [688]
+    Card7GiftID = [689]
+    Card8GiftID = [690]
+    Card9GiftID = [691]
+    Activity = "YouthWithYou"
+    ActivityID = 2
+    ActivityUID="activity_youth_card"
+    Filter = "filter_mid"
+    Counter = "join"
+    JoinReserveSid = 13900
+    AllowClickFinish = ["sign","page"]
+    FollowMidUri = "http://activity.hdslb.com/blackboard/static/jsonlist/177/AnioX1dnZ.json"
+    ogvLinkUri = "http://activity.hdslb.com/blackboard/static/jsonlist/166/9VXyRf1uk.json"
+    MaxCard = 999
+
+[winterStudy]
+    pushSid = 13018
+    beginTime = 1626278400
+    endTime = 1628956800
+    progressUseDB = 0
+    actPlatActivity = "classroom"
+    historyCounter = "view"
+    shareCounter = "share"
+    uploadCounter = "videoup"
+    clockInCount = 60
+
+[Wechat]
+    PublicKey     ="71f079db59672ecec5b8d6f252c4b59ab2a8a227mainsite@bilibili.com"
+
+[ReserveDoveAct]
+    Stime = 1614787200
+    Etime = 1617292799
+    Svga  = "https://uat-i0.hdslb.com/bfs/activity-plat/static/20210312/3e7df1e10b27a97cbf38383551a73adb/6Fklgh2dU.svga"
+    LastImg = "https://uat-i0.hdslb.com/bfs/activity-plat/static/20210312/3e7df1e10b27a97cbf38383551a73adb/JXH7HLYrG.png"
+    PlayTimes = [1,0,2]
+    DefaultUpName = ""
+    DefaultUpFace = ""
+    ActUrl = "https://uat-www.bilibili.com/blackboard/activity-tgKJ6zyev.html?"
+    AwardActId = "c4f76498-8187-11eb-b017-246e9693a590"
+    BlessingMsg = ["下次也不一定","文件夹建好了","咕咕~咕咕~","别催了别催了在做了在做了~"]
+
+[UpActReserveWhiteList]
+[UpActReserveWhiteList.Dynamic]
+"Archive" = [27515307,27515255,27515249,27515245,402720140,14139334,14135892,298510241,27515258,27515257,27515256,27515259,2034835373,2092954204,88895133,88895133,2077473875,27515258,2077473875,111005925,2034835373,2055552803,2092954204,2082932737,2037826137,27515245,2055552803,27515254,27515257,27515258,27515259,14139334,14135892]
+"Live" = [27515245,402720140,14139334,14135892,298510241,2077473875,27515258,2077473875,111005925,2034835373,2055552803,2092954204,2082932737,2037826137,27515245,2055552803,27515255,27515254,27515256,27515257,27515258,27515259]
+
+[manu_script_conf]
+[manu_script_conf.wish-tree]
+    id = 1
+    primary_key = "wish-tree"
+    remark = "许愿树活动"
+    maxUpload = 20
+    stime = 1614528000
+    etime = 1619798400
+    appkey = "wish-tree"
+    appsecret = "acda4563a37ede77c1c70306a79483ca"
+    send_propertys = []
+[manu_script_conf.april-fool-answer]
+    id = 2
+    primary_key = "april-fool-answer"
+    remark = "愚人节答题活动"
+    maxUpload = 20
+    stime = 1614528000
+    etime = 1619798400
+    appkey = "april-fool-answer"
+    appsecret = "9696dd73de92f71c04189c7f8ee961fb"
+    send_propertys = []
+[manu_script_conf.520-diary]
+    id = 3
+    primary_key = "520-diary"
+    remark = "520心情日记投稿活动"
+    maxUpload = 10
+    stime = 1620921600
+    etime = 1621440000
+    appkey = "520-diary"
+    appsecret = "sd375os259m1snbtq22764zufvgbddue"
+    send_propertys = ["avid","activity","materials","ctime","mtime"]
+
+[AprilFoolsAct]
+    Sid = "6886e672-85f9-11eb-b017-246e9693a590"
+    ActivityId = 3
+    JsonData = "http://activity.hdslb.com/blackboard/static/jsonlist/184/f7o3b1V0kh.json"
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-29T00:00:00+08:00"
+        Process = 0.0
+        KeyEvent = ""
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-29T11:30:00+08:00"
+        Process = 10.0
+        KeyEvent = ""
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-29T13:00:00+08:00"
+        Process = 20.0
+        KeyEvent = "情报1"
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-29T17:30:00+08:00"
+        Process = 30.0
+        KeyEvent = ""
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-29T19:00:00+08:00"
+        Process = 40.0
+        KeyEvent = "情报2"
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-29T20:00:00+08:00"
+        Process = 45.0
+        KeyEvent = ""
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-29T21:30:00+08:00"
+        Process = 50.0
+        KeyEvent = ""
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-30T08:00:00+08:00"
+        Process = 55.0
+        KeyEvent = ""
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-30T11:00:00+08:00"
+        Process = 60.0
+        KeyEvent = "情报3"
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-30T14:00:00+08:00"
+        Process = 65.0
+        KeyEvent = ""
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-30T18:30:00+08:00"
+        Process = 70.0
+        KeyEvent = ""
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-30T20:00:00+08:00"
+        Process = 75.0
+        KeyEvent = ""
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-30T22:00:00+08:00"
+        Process = 80.0
+        KeyEvent = "情报4"
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-31T09:00:00+08:00"
+        Process = 85.0
+        KeyEvent = ""
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-31T11:30:00+08:00"
+        Process = 90.0
+        KeyEvent = ""
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-31T17:00:00+08:00"
+        Process = 95.0
+        KeyEvent = ""
+    [[AprilFoolsAct.Clues]]
+    	TimePoint = "2021-03-31T19:00:00+08:00"
+        Process = 100.0
+        KeyEvent = "头像"
+
+[UpActReserveAudit]
+    BizID1 = 749
+    BizID2 = 44
+    NetID  = 44
+
+[UpActReserveCreateConfig]
+    PlayRange = 1800
+    PLayContinue = 300
+    LiveMaxNumLimit = 1
+    ArcMaxNumLimit  = 1
+    ForceAuditStime = 1621924455
+    ForceAuditEtime = 1621924456
+    [UpActReserveCreateConfig.ForceAuditFrom]
+        1 = true
+        2 = true
+[UpActReserveRelationInfo4Live]
+    GCacheLen = 100000
+
+[ActDomainConf]
+    ExpireSecond = 5
+
+[UpActReserveAuthConf]
+    EMFLevelThreshold = 3
+    ArcUpGroup = 557
+    LiveUpGroup = 963
+
+[Vote]
+    DataSourceItemsInfoCacheExpire = "30m"
+    OutdatedDataSourceItemsInfoCacheExpire = "48h"
+    VoteRankZsetExpire = "2160h"
+    RealTimeVoteRankWithInfoExpire = "1h"
+    ManualVoteRankWithInfoExpire = "360h"
+    OnTimeVoteRankWithInfoExpire = "168h"
+    OutdatedVoteRankWithInfoExpire = "168h"
+    AdminVoteRankWithInfoExpire = "1h"
+    ActivityCacheExpire = "1s"
+    BlackListCacheExpire = "24h"
+    UserVoteCountExpire = "3m"
+
+[Rewards]
+    VipMallSourceId = "s_95bca4443e40a8cce889"
+    VipMallSourcePlatform = "s_95bca4443e40a8cce889"
+
+[GaoKaoActConf]
+	ActStartTime = 1622015703
+	ActEndTime   = 1624982400
+	MaxExamTime  = 5400
+	MaxScore = 750
+    SpitTag = "---"
+    [GaoKaoActConf.QtypeMap]
+        "LZ" = 679000
+        "WZ" = 678000
+
+
+[UpActReserveCreateMoreLiveReserveMIDs]
+    2077473875 = 10
+
+[FitCounter]
+    HasLimit = "16373_ss_612_ss_3_2_T"
+    NoLimit = "view_time_addr_1f8brrs4j"
+[Cpc100]
+    Vid = 96
+[BindConf]
+    CacheSize = 10
+    [[BindConf.ExternalConfig]]
+        BindExternal = 1
+        ExternalName = "腾讯"
+    [[BindConf.Games]]
+        GameId = 1
+        GameName = "lol"
+        GameTitle = "英雄联盟"
+        ExternalName = "tx"
+        ExternalId = 1
+        Business = "TencentGame"
+        ClientId = "bb8768633c1c4c78"
+        OriginId = "gh_49af166706ae"
+        AppId = "bilibili"
+        SignKey = "123"
+        Version = "1.1"
+        BasePath = "/pages/gameAccountBind/index"
+[SummerCampConf]
+    LotteryPoolId = "d8348dbf-e387-11eb-b017-246e9693a590"
+    LotteryCid = 1107
+    ActivityIdRW     = "18321"
+    ReserveId        = 17969
+    StartPlanPoint   = 150
+    ViewPoint        = 20
+    SharePoint       = 10
+    ArchivePoint     = 30
+    AwardPoint       = 100
+[SCCounterCourseMap]
+    "1" = "view_1"
+    "2" = "view_2"
+    "3" = "view_3"
+    "4" = "view_4"
+    "5" = "view_5"
+    "6" = "view_6"
+    "share" = "share"
+    "archive" = "archive"
+    "view" = "view_total"
+    "award" = "award"
+[BMLGuessAct]
+    ActName = "2021BMLGuessAct"
+    ActBeginTime = 1625671709
+    ActEndTime = 1626062400
+    Common30dayRewardId = 12345
+    Common30dayStock = 1000
+    Common30dayStockVersion = 1
+    CommonForeverRewardId = 12346
+    CommonForeverStock = 100000
+    CommonForeverStockVersion = 1
+    CommonKey = "The only way to make things possible is to believe they are possible"
+    JokerRewardId = 12347
+    JokerRewardStock = 6
+    JokerRewardStockVersion = 1
+    JokerKey = ["38ef2993eba834238c2153f44a63f4de","f386474695a03aaa8616212cb2ee786d","6244bb78bb92de8bf6adee64aa72c99e","ae87dc7810838c0e4e450848b8a39aa4","9345b4e983973212313e4c809b94f75d","8c1ca5ca14cb9a628d490c7779f5b01c"]
+    FrequencyControlTime = 2
+    JokerKeyGuessMax = 100
+
+[MissionActivityConf]
+    SpecialActivityId = 6
+    [MissionActivityConf.CacheRule]
+        ValidBeforeTime = "720h"
+        ValidAfterTime = "720h"
+        ValidActivitySize = 100
+
+[ReserveTotalShowLimitsMap]
+    1 = 0
+    2 = 50
+
+
+[OlympicConf]
+    ContestSourceId = 101
+    QuerySourceId = 102
+    ValidContestSize = 100
+    RefreshCacheSeconds = 30

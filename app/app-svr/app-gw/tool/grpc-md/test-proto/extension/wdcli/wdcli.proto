@@ -1,0 +1,12 @@
+syntax = "proto3";
+package wdcli;
+
+import "google/protobuf/descriptor.proto";
+
+option go_package = "git.bilibili.co/bapis/bapis-go/extension/wdcli;wdcli";
+option java_package = "com.bapis.extension.wdcli";
+option java_multiple_files = true;
+
+extend google.protobuf.FileOptions {
+    string appid = 1000;
+}

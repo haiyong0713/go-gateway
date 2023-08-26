@@ -1,0 +1,11 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+- liweijia
+- yujia
+- zhoujiahui
+labels:
+- area/web-svr
+- area/web-svr/space/job
+- area/web-svr/web/job
+options: {}

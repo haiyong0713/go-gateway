@@ -1,0 +1,77 @@
+[log]
+dir = "/tmp/log/esports/"
+[bm]
+addr = "0.0.0.0:8000"
+timeout = "10s"
+
+[[gameTypes]]
+id = 1
+name = "LOL"
+[[gameTypes]]
+id = 2
+name = "DOTA2"
+[[gameTypes]]
+id = 3
+name = "OWL"
+
+[tunnelPush]
+tunnelBizID = 1006
+templateID = 31002
+link = "https://live.bilibili.com/%d?from=29009&extra_jump_from=29009"
+
+[tunnelBGroup]
+    tunnelBizID = 1006
+    cardUniqueId = 1
+    newBusiness = "esports"
+    newTemplateID = 61010
+    newCardText = "去观看"
+    link = "https://live.bilibili.com/%d?from=29009&extra_jump_from=29009"
+    sendNew = 1
+    newCardLiveID = 2
+
+[tunnelCardMsg]
+    tunnelBizID = 1006
+    cardUniqueId = 3
+    newBusiness = "esports"
+    defaultContestNotifyCode = "0_69"
+    specialContestNotifyCode = "0_68"
+    link = "https://live.bilibili.com/%d?from=40001&extra_jump_from=40001"
+    jumpText = "点击进入直播间"
+
+[appConfig]
+key = "7c7ac0db1aa05587"
+secret = "9a6d62d93290c5f771ad381e9ca23f26"
+
+[push]
+businessID = 1
+businessToken = "fi6xf5xmldudexsh5tgukerohn3mgrl3"
+partSize = 100000
+title = "你订阅的比赛开播了～"
+bodyDefault = "%s %s VS %s 已开播，快来观看比赛吧！ %s"
+bodySpecial = "%s %s 已开播，快来观看比赛吧！%s"
+onlyMids = ""
+
+[sysInforms]
+batchSize = 500
+alertTitle = "你订阅的比赛即将开播了"
+alertBodyDefault = "%s中,你订阅的赛程【%s %s VS %s】即将开播，快前去观看比赛吧! %s"
+alertBodySpecial = "%s中,你订阅的赛程【%s %s】即将开播，快前去观看比赛吧! %s"
+URL = "http://message.bilibili.co/api/notify/send.user.notify.do"
+MC = "1_4_2"
+
+[seasonContestComponent]
+canWatch = true
+startTimeBefore = "720h"
+endTimeAfter = "720h"
+expiredDuration = 86400
+
+[Rule]
+    logoPathPre = "https://uat-i0.hdslb.com"
+    contestJumpURL = "https://www.bilibili.com/h5/match/data/detail/%v"
+    contestGuessURL = "https://www.bilibili.com/h5/match/data/detail/%v"
+    guessOverBeforeSTime = 0
+    lRUCacheMaxContestSize = 1000
+    lRUCacheMaxTeamSize = 500
+    lRUCacheMaxMatchSize = 100
+    lRUCacheMaxSeriesSize = 100
+    esSearchQueryDebug = true

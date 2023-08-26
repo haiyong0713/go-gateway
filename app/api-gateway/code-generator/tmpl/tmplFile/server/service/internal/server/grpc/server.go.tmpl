@@ -1,0 +1,28 @@
+package grpc
+
+import (
+	"time"
+
+	xtime "go-common/library/time"
+
+	pb "git.bilibili.co/platform/{{.ProjectName}}/app/{{.ServicePath}}/service/api"
+
+	"go-common/library/net/rpc/warden"
+	mauth "go-common/component/auth/middleware/grpc"
+)
+
+var auther *mauth.Auth
+// New new a grpc server.
+func New(svc pb.{{.ServiceName}}Server) (ws *warden.Server, err error) {
+	ws = warden.NewServer(&warden.ServerConfig{
+		Addr:    "0.0.0.0:9000",
+		Timeout: xtime.Duration(time.Second),
+	})
+	pb.Register{{.ServiceName}}Server(ws.Server(), svc)
+	auther = mauth.New(nil)
+	{{if .ServiceInterfaceInfo.IsAuthUser -}}
+	ws.Use(auther.UnaryServerInterceptor(false))
+	{{- end}}
+	ws, err = ws.Start()
+	return
+}

@@ -1,0 +1,10 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+- zhangchunlin
+- liweijia
+- yujia
+- zhangxin
+labels:
+- area/app-svr/fawkes/job
+- area/app-svr

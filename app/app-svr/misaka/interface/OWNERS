@@ -1,0 +1,11 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+- liweijia
+- zhaoshichen
+- yujia
+- zhoujiahui
+labels:
+- area/app-svr/misaka/interface
+- area/app-svr
+

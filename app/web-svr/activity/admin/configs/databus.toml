@@ -1,0 +1,15 @@
+[Bnj]
+    SidNew = 10675
+    [bnj.pub]
+        key = "9765cdac5894f2ba"
+        secret = "f4237d712c3ed1e7fab0137b81418b14"
+        group = "ActBnjPreview-MainWebSvr-P"
+        topic = "ActBnjPreview-T"
+        action = "pub"
+        idle = 100
+        active = 100
+        dialTimeout = "1s"
+        readTimeout = "60s"
+        writeTimeout = "1s"
+        idleTimeout = "10s"
+

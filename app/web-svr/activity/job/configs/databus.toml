@@ -1,0 +1,382 @@
+[TunnelDatabusPub]
+    key = "170e302355453683"
+    secret = "3d0e8db7bed0503949e545a469789279"
+    group = "TunnelRelation-MainCommunity-P"
+    topic = "TunnelRelation-T"
+    action = "pub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[ActPlatHistorySub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ActPlatHistory-MainWebSvr-Lottery-S"
+    topic = "ActPlatHistory-T"
+    action = "sub"
+[ActPlatHistorySpSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ActPlatHistory-MainWebSvr-Sp-S"
+    topic = "ActPlatHistory-T"
+    action = "sub"
+
+[missionTaskSub]
+    [missionTaskSub.databus]
+        key = "54fbb24b74afdcfd"
+        secret = "a3d635614c1e31185a2dce471df990d7"
+        group = "ActPlatHistory-MainOperational-S"
+        topic = "ActPlatHistory-T"
+        action = "sub"
+    [missionTaskSub.railgun]
+        worker = 10
+	    buffer =10
+        attempts = 3
+
+
+
+[LotteryAddtimesPub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "LotteryAddTimes-MainWebSvr-P"
+    topic = "LotteryAddTimes-T"
+    action = "pub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+[LotteryAddtimesSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "LotteryAddTimes-MainWebSvr-S"
+    topic = "LotteryAddTimes-T"
+    action = "sub"
+
+[actSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "Lottery-MainWebSvr-Fat-S"
+    topic = "Lottery-T"
+    action = "sub"
+
+[articleLikeSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "StatLike-MainWebSvr-Activity-S"
+    topic = "StatLike-T"
+    action = "sub"
+
+[articleCoinSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "StatCoin-MainWebSvr-Activity-S"
+    topic = "StatCoin-T"
+    action = "sub"
+
+[articlePassSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "Article-MainWebSvr-S"
+    topic = "Article-T"
+    action = "sub"
+
+[bnjSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ActBnjPreview-MainWebSvr-S"
+    topic = "ActBnjPreview-T"
+    action = "sub"
+
+[bnjAwardSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ActBnjAward-MainWebSvr-S"
+    topic = "ActBnjAward-T"
+    action = "sub"
+
+[LiveItemPub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "LiveReward-MainWebSvr-P"
+    topic = "LiveReward-T"
+    action = "pub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[NewYearReservePub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "Year-2021-Booking-Live-MainWebSvr-P"
+    topic = "Year-2021-Booking-Live-T"
+    action = "pub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[MessageDatabusPub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "BizMsg-MainWebSvr-P"
+    topic = "BizMsg-T"
+    action = "pub"
+    dialTimeout = "60ms"
+    readTimeout = "200ms"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+[ActPlatPub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ActPlatActivityPoints-MainWebSvr-P"
+    topic = "ActPlatActivityPoints-T"
+    action = "pub"
+    dialTimeout = "60ms"
+    readTimeout = "200ms"
+    writeTimeout = "300ms"
+    idleTimeout = "10s"
+[replySub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "StatReply-MainWebSvr-Activity-S"
+    topic = "StatReply-T"
+    action = "sub"
+
+[archiveSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ArchiveNotify-MainWebSvr-Activity-S"
+    topic = "ArchiveNotify-T"
+    action = "sub"
+
+[FreeFlowSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ActivityFreeFlow-MainWebSvr-S"
+    topic = "ActivityFreeFlow-T"
+    action = "sub"
+
+ [vipSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "VipBinlog-MainWebSvr-S"
+    topic = "VipBinlog-T"
+    action = "sub"
+
+[liveFollowSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ScheduleEventReward-MainWebSvr-S"
+    topic = "ScheduleEventReward-T"
+    action = "sub"
+
+[lotteryAwardSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "Lottery-Award-MainWebSvr-Activity-S"
+    topic = "Lottery-Award-T"
+    action = "sub"
+
+[FitTunnelPub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "DFCardUser-MainWebSvr-P"
+    topic = "DFCardUser-T"
+    action = "pub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[VipLotterySub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "VipLotteryTimes-MainWebSvr-S"
+    topic = "VipLotteryTimes-T"
+    action = "sub"
+
+[VipCardSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ActivationCard-MainWebSvr-S"
+    topic = "ActivationCard-T"
+    action = "sub"
+
+[OttVipLotterySub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "TvipOrderSucc-MainWebSvr-S"
+    topic = "TvipOrderSucc-T"
+    action = "sub"
+
+[SubRuleStatSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ArcActEvent-MainWebSvr-S"
+    topic = "ArcActEvent-T"
+    action = "sub"
+[CustomizeLotterySub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ActivityCustomLottery-MainWebSvr-S"
+    topic = "ActivityCustomLottery-T"
+    action = "sub"
+
+[ReserveNotifyPub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "Reserve-Notify-MainWebSvr-P"
+    topic = "Reserve-Notify-T"
+    action = "pub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[ReserveNotifySub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "Reserve-Notify-MainWebSvr-Fat-S"
+    topic = "Reserve-Notify-T"
+    action = "sub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[gaiaRiskSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "GaiaHitReport-MainWebSvr-S"
+    topic = "GaiaHitReport-T"
+    action = "sub"
+
+[TunnelGroupDatabusPub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "BGroupMessage-MainWebSvr-P"
+    topic = "BGroupMessage-T"
+    action = "pub"
+    dialTimeout = "1000ms"
+    readTimeout = "2000ms"
+    writeTimeout = "1000ms"
+    idleTimeout = "10s"
+
+[Bnj2021ARSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "Bnj-2021-AR-MainWebSvr-S"
+    topic = "Bnj-2021-AR-T"
+    action = "sub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[Bnj2021LiveUser]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "User-In-LiveRoom-MainWebSvr-S"
+    topic = "User-In-LiveRoom-T"
+    action = "sub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[Bnj2021LiveDrawRec]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "Live-Lottery-Rec-MainWebSvr-S"
+    topic = "Live-Lottery-Rec-T"
+    action = "sub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[Bnj2021LiveDrawARCoupon]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "Live-ARDraw-Coupon-MainWebSvr-S"
+    topic = "Live-ARDraw-Coupon-T"
+    action = "sub"
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[DoRelationSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "DoRelation-MainWebSvr-S"
+    topic = "DoRelation-T"
+    action = "sub"
+
+[RewardsAwardSendingSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ActivityRewardsSending-MainWebSvr-S"
+    topic = "ActivityRewardsSending-T"
+    action = "sub"
+
+[Databus]
+    target = "discovery://default/infra.databus.v2"
+    app_id = "main.web-svr.activity-job"
+    token = "f41603f13e6ef016d3ff6a21a31071e9"
+    [Databus.Topic]
+        BGroupMessage = "BGroupMessage-T"
+        LotteryAddTimes = "LotteryAddTimes-T"
+        UpActReserveRelation = "UpActReserverRelation-Uat-T"
+        UpActReserve = "UpActReserver-Uat-T"
+        UpActReserveRelationTableMonitor = "UpActReserveRelationTableMonitor-Uat-T"
+        UpActReserveRelationChannelAudit = "UpActReserveRelationChannelAudit-Uat-T"
+        UpActReserveLotteryUserReserveState = "UpActReserveLotteryUserReserveState-Uat-T"
+
+[LotteryDatabus]
+    [LotteryDatabus.ActHistoryDatabus]
+        key = "9765cdac5894f2ba"
+        secret = "f4237d712c3ed1e7fab0137b81418b14"
+        group = "ActPlatHistory-MainWebSvr-Lotterypoint-S"
+        topic = "ActPlatHistory-T"
+        action = "sub"
+    [LotteryDatabus.LotteryRailgun]
+        Worker = 10
+	    Buffer =10
+        Attempts = 3
+
+
+[FitDatabusCfg]
+    [FitDatabusCfg.FitActivityHistorySub]
+        key = "9765cdac5894f2ba"
+        secret = "f4237d712c3ed1e7fab0137b81418b14"
+        group = "ActPlatHistory-MainWebSvr-Fit-S"
+        topic = "ActPlatHistory-T"
+        action = "sub"
+    [FitDatabusCfg.FitRailgun]
+        Worker = 10
+        Buffer =10
+        Attempts = 3
+
+[ArchiveBinLogSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "Archive-MainWebSvr-ArchiveBinLog-S"
+    topic = "Archive-T"
+    action = "sub"
+
+[bnjMainWebSvrBinlogSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "Lottery-MainWebSvr-BnjMainWebSvrBinlogS-S"
+    topic = "Lottery-T"
+    action = "sub"
+
+[UpReservePushPub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "DFCardUser-MainWebSvr-P"
+    topic = "DFCardUser-T"
+    action = "pub"

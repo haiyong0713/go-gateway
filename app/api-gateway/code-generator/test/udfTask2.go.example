@@ -1,0 +1,17 @@
+package task
+
+import (
+    "context"
+    "encoding/json"
+    "fmt"
+    archivePb "git.bilibili.co/bapis/bapis-go/archive/service"
+    servicePb "git.bilibili.co/platform/api-gateway/app/demo/service/api"
+)
+
+func (p *TaskFlow) SayWorld3(ctx context.Context, req *archivePb.ArcReply) (reply *servicePb.HelloResp, err error) {
+    data, _ := json.Marshal(req)
+    reply = &servicePb.HelloResp{
+        Content: fmt.Sprintf("hello SayWorld3: %s", string(data)),
+    }
+    return
+}

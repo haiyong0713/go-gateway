@@ -1,0 +1,71 @@
+syntax = "proto3";
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+package feed.admin.v1;
+
+option go_package = "api";
+// do not generate getXXX() method
+option (gogoproto.goproto_getters_all) = false;
+option (gogoproto.goproto_enum_prefix_all) = true;
+
+service FeedAdmin {
+  // 给频道服务端用，返回管理后台所有配置过的频道id
+  rpc OpenChannelIds(OpenChannelIdsReq) returns (OpenChannelIdsReply);
+  // 新建忘记密码申诉
+  rpc CreatePwdAppeal(CreatePwdAppealReq) returns (CreatePwdAppealRly);
+}
+
+message OpenChannelIdsReq {
+  int32 ps = 1 [(gogoproto.moretags) = 'default:"20"'];
+  int32 pn = 2 [(gogoproto.moretags) = 'default:"1"'];
+}
+
+message OpenChannelIdsReply {
+  PageInfo page = 1 [(gogoproto.jsontag) = 'page'];
+  repeated int64 ids = 2 [(gogoproto.jsontag) = 'ids'];
+}
+
+message PageInfo {
+  int32 num = 1 [(gogoproto.jsontag) = 'num'];
+  int32 size = 2 [(gogoproto.jsontag) = 'size'];
+  int32 total = 3 [(gogoproto.jsontag) = 'total'];
+}
+
+// SplashScreenConfigState 闪屏配置状态
+message SplashScreenConfigState {
+  enum Enum {
+    NOTPASSED = 0; // 待通过
+    WAITINGONLINE = 1; // 待生效
+    DEPRECATED = 2; // 已失效
+    ONLINE = 3; // 生效中
+    REJECTED = 4; // 手动下线
+  }
+}
+
+// SplashScreenConfigAuditStatus 闪屏配置审核状态
+message SplashScreenConfigAuditStatus {
+  enum Enum {
+    NOTPASSED = 0; // 待通过或拒绝
+    PASSED = 1; // 通过
+    OFFLINE = 2; // 手动下线
+  }
+}
+
+message CreatePwdAppealReq {
+  // 用户mid
+  int64 mid = 1;
+  // 设备标识
+  string device_token = 2;
+  // 手机号
+  int64 mobile = 3 [(gogoproto.moretags) = 'validate:"required"'];
+  // 模式类型：1 青少年模式；2 课堂模式
+  int64 mode = 4 [(gogoproto.moretags) = 'validate:"required"'];
+  // 照片的上传标识
+  string upload_key = 5 [(gogoproto.moretags) = 'validate:"required"'];
+  // 密码
+  string pwd = 6;
+}
+
+message CreatePwdAppealRly {
+  // 申诉id
+  int64 id = 1;
+}

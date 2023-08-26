@@ -1,0 +1,359 @@
+syntax = "proto3";
+package dynamic.service.feed.svr.v1;
+
+option go_package = "dyn";
+option java_package = "com.bapis.dynamic.interfaces.feed";
+option java_multiple_files = true;
+
+service Feed {
+    // 网关调用 - 获取动态更新数量（客户端）
+    rpc UpdateNum(UpdateNumReq) returns (UpdateNumResp);
+    // 网关调用 - 视频页刷新
+    rpc VideoNew(VideoNewReq) returns (VideoNewRsp);
+    // 网关调用 - 视频页历史
+    rpc VideoHistory(VideoHistoryReq) returns (VideoHistoryRsp);
+    // 网关调用 - 动态基本信息
+    rpc DynBriefs(DynBriefsReq) returns (DynBriefsRsp);
+    // 网关调用 - 视频页最常访问个人feed流
+    rpc VideoPersonal(VideoPersonalReq) returns (VideoPersonalRsp);
+    // 网关调用 - 动态后置信息
+    rpc DynPostInfo(DynPostInfoReq) returns (DynPostInfoRsp);
+}
+
+enum TabType {
+    INVALID_TAB_TYPE = 0;
+    TAB_TYPE_GENERAL = 1;
+    TAB_TYPE_VIDEO   = 2;
+}
+
+message OffsetInfo {
+    uint32  tab         = 1;
+    string type_list   = 2;
+    string offset      = 3;
+}
+
+message UpdateNumReq {
+    uint64 uid                  = 1;
+    repeated OffsetInfo offsets = 2;
+}
+
+message UpdateNumResp {
+    string red_type    = 1; // 红点类型 - count-数字红点 point-普通红点 no_point-没有红点
+    uint64 update_num  = 2; // 更新数量 - 仅当 red_type = 2时有意义
+    string default_tab = 3;
+}
+
+message VideoNewReq {
+    int64 uid                       = 1; // 用户uid
+    string update_baseline          = 2; // 当前客户端缓存的最新一条动态id；用来计算回包中的update_num，表示从该动态id之后有多少条更新;
+    string assist_baseline          = 3; // 视频页的时候传递综合页当前更新的最大值
+    repeated string type_list       = 4; // 动态类型列表
+    VersionCtrlMeta version_ctrl    = 5; // 版本控制元信息
+    FeedInfoCtrl info_ctrl          = 6; // 动态卡片内容控制
+    AttentionInfo attention_info    = 7; // 关注链信息
+}
+
+message VideoNewRsp {
+    int64 update_num        = 1; // 动态更新数量
+    string history_offset   = 2; // 下一页（history接口）的动态偏移
+    string update_baseline  = 3; // 下次刷新时传入
+    bool has_more           = 4; // 是否还有更多
+    repeated DynBrief dyns  = 5; // 动态基本信息列表
+    FoldInfo fold_info      = 6; // 折叠信息
+}
+
+message VideoHistoryReq {
+    int64 uid                       = 1; // 用户uid
+    string offset                   = 2; // 动态偏移
+    int64 page                      = 3; // 用户浏览到哪一页
+    repeated string type_list       = 4; // 动态类型列表
+    VersionCtrlMeta version_ctrl    = 5; // 版本控制元信息
+    FeedInfoCtrl info_ctrl          = 6; // 动态卡片内容控制
+    AttentionInfo attention_info    = 7; // 关注链信息
+}
+
+message VideoHistoryRsp {
+    string history_offset   = 1; // 下一页（history接口）的动态偏移
+    bool has_more           = 2; // 是否还有更多
+    repeated DynBrief dyns  = 3; // 动态基本信息列表
+    FoldInfo fold_info      = 4; // 折叠信息
+}
+
+message DynBriefsReq {
+    repeated int64 dyn_ids          = 1; // 动态ID列表
+    VersionCtrlMeta version_ctrl    = 2; // 版本控制元信息
+    FeedInfoCtrl info_ctrl          = 3; // 动态卡片内容控制
+}
+
+message DynBriefsRsp {
+    repeated DynBrief dyns = 1; // 动态基本信息列表
+}
+
+message VideoPersonalReq {
+    int64 uid               = 1; // 访问者uid，即登录态uid
+    int64 host_uid          = 2; // 被访问者，也就是空间主人的uid
+    bool is_preload         = 3; // 预加载参数；1：预加载，不更新小红点
+    string offset           = 4; // 第一页传空；非第一页传上次返回的next_offset
+}
+
+message VideoPersonalRsp {
+    bool has_more           = 1;
+    string offset           = 2;
+    string read_offset      = 3;
+    repeated DynBrief dyns  = 4;
+    FoldInfo fold_info      = 5;
+}
+
+message DynPostInfoReq {
+    uint64 uid                      = 1;
+    repeated DynPostItem dyns       = 2;
+    VersionCtrlMeta version_ctrl    = 3;
+    PostInfoCtrl info_ctrl          = 4;
+};
+
+message DynPostInfoRsp {
+    map<int64, DynPostInfo> dyns = 1;
+};
+
+message TopicInfo
+{
+    int64 topic_id              = 1; // 话题ID
+    string topic_name           = 2; // 话题名称
+    int32 stat                  = 3; // 是否关联
+    int64 origin_topic_id       = 4;
+    string origin_topic_name    = 5;
+    int32 origin_type           = 6;
+};
+
+message DynExt
+{
+    ExtLottery lott                  = 1; // 抽奖
+    ExtVote vote                     = 2; // 投票
+    ExtLbs lbs                       = 3; // LBS
+    repeated ExtHighLight high_light = 4; // 文本中的高亮信息
+    ExtTopic topic_info              = 5; // 话题
+    ExtOpenGoods open_goods          = 6; // 商品
+    int32 emoji_type                 = 7; // 表情类型
+    DynDispute dispute               = 8; // 小黄条
+    ExtBottom bottom                 = 9; // 底栏
+    ExtFlagCfg flag_cfg              = 10;// 特殊资源标记
+    repeated int64 like_users        = 11;// 点赞外露
+};
+
+enum DynBottomTypes
+{
+    BOTTOM_TYPE_NONE = 0;
+    BOTTOM_SDK_SOURCE = 1;//动态通过指定的SDK创建
+    BOTTOM_TOPIC_LINK = 2;//动态文本中包含需要强化显示的话题
+};
+
+message BottomDetail
+{
+    int64 type          = 1; // 业务类型
+    int64 rid           = 2; // 资源ID
+    string content      = 3; // 文案
+    string jump_url     = 4; // 跳转链接
+    int64 status        = 5;
+    int32 bottom_type   = 6; // 类型，enum DynBottomTypes
+};
+
+message BottomBusiness
+{
+    int64 rid = 1;
+    int64 type = 2;
+};
+
+message ExtBottom
+{
+    repeated BottomBusiness business = 1;
+    repeated BottomDetail bottom_details = 2;
+};
+
+message ExtTopic
+{
+    bool is_attach_topic = 1;
+    repeated TopicInfo topic_infos = 2;
+};
+
+message ExtLottery
+{
+    int64 lottery_id = 1;
+    string title = 2;
+    int64 lottery_time = 3;
+};
+
+message ExtVote
+{
+    int64 vote_id = 1;
+    string title = 2;
+};
+
+message ExtLbs
+{
+    string address          = 1;
+    int64 distance          = 2;
+    int64 type              = 3;
+    string poi              = 4;
+    LbsLoc location         = 5;
+    string show_title       = 6;
+    string title            = 7;
+    string show_distance    = 8;
+};
+
+message ExtHighLight
+{
+    int64 location      = 1; // 位置偏移
+    int64 length        = 2; // 长度
+    string data         = 3; // 数据
+    int64 type          = 4; // 类型
+    string type_id      = 5;
+    string prefix_icon  = 6;
+};
+
+message ExtOpenGoods
+{
+    string itemsId      = 1;
+    int64 shopId        = 2;
+    int64 type          = 3;
+    string linkItemId   = 4;
+    string version      = 5;
+};
+
+message DynDispute
+{
+    string content = 1;
+    string jump_url = 2;
+    string description = 3;
+};
+
+message LbsLoc
+{
+    double lat = 1;
+    double lng = 2;
+};
+
+message ExtFlagCfg
+{
+    bool is_pgc = 1;
+};
+
+message FoldStatement
+{
+    string statement   = 1;
+    string jump_uri    = 2;
+    string description = 3;
+};
+
+message DynBrief
+{
+    int64 dyn_id = 1;
+    int64 type = 2;
+    int64 rid = 3;
+    int64 uid = 4;
+    int64 uid_type = 5;
+    int64 repost_num = 6;
+    string tips = 7;
+    bool visible = 8;
+    int64 ctime = 9;
+    DynExt ext = 10;
+    DynBrief origin = 11;
+    DynAcl acl = 12;
+    int32 r_type = 13;
+};
+
+message DynAcl
+{
+    bool repost_banned = 1;
+    bool comment_banned = 2;
+    bool limit_display  = 3;
+};
+
+enum DynUidType
+{
+    DYNAMIC_UID_DEFAULT = 0;
+    DYNAMIC_UID_UP      = 1; // UP主
+    DYNAMIC_UID_PGC     = 2; // PGC的season
+    DYNAMIC_UID_AD      = 3; // 广告主
+    DYNAMIC_UID_CHEESE  = 4; // 付费视频的season
+};
+
+message Attention
+{
+    int64 uid       = 1;
+    int32 uid_type  = 2; // enum DynUidType
+    bool is_special = 3; // 是否特别关注
+}
+
+message AttentionInfo
+{
+    repeated Attention attention_list = 1; // 关注列表
+}
+
+message Fold
+{
+    repeated int64 dyn_ids = 1;// 折叠的动态id数组
+};
+
+message FoldExt
+{
+    int64 fold_type     = 1; //折叠类型, type=1:用户发布的折叠，type=2：超频折叠, type=3: 联合投稿折叠
+    repeated Fold folds = 2;
+};
+
+message FoldDetail
+{
+    string statement        = 1;
+    repeated int64 dyn_ids  = 2;
+};
+
+message FoldInfo
+{
+    repeated FoldExt fold_mgr           = 1; // 包含多个类型的折叠
+    repeated FoldDetail inplace_fold    = 2; // 就地折叠，受限折叠动态；直接就地将数组中的动态卡片折叠，以statement中的文字显示。
+};
+
+message VersionCtrlMeta
+{
+    string build    = 1;
+    string platform = 2;
+    string mobi_app = 3;
+    string buvid    = 4;
+    string device   = 5;
+    string ip       = 6;
+    string from     = 7;
+};
+
+message DynPostItem
+{
+    int64 dyn_id = 1;
+    repeated string topic_names = 2;
+};
+
+message LikeIcon
+{
+    int64 new_icon_id     = 1;
+    string start_url       = 2;
+    string action_url      = 3;
+    string end_url         = 4;
+};
+
+message DynPostInfo
+{
+    int64 dyn_id = 1;
+    LikeIcon like_show_icon = 2;
+};
+
+message FeedInfoCtrl
+{
+    bool need_like_users            = 1; // 点赞外露
+    bool need_limit_fold_statement  = 2; // 受限折叠文案
+    bool need_bottom                = 3; // 底栏
+    bool need_topic_info            = 4; // 话题信息
+    bool need_like_icon             = 5; // 点赞图标
+}
+
+message PostInfoCtrl
+{
+    bool need_like_icon = 1;
+}
+

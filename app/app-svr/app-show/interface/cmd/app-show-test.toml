@@ -1,0 +1,559 @@
+# This is a TOML document. Boom.
+
+version = "1.1.0"
+user    = "nobody"
+pid     = "/tmp/app-show.pid"
+dir     = "./"
+perf    = "127.0.0.1:6100"
+checkFile = "/data/www/app-show.html"
+family = "app-show"
+address = ""
+trace   = true
+debug   = false
+
+env     = "test"
+tick    = "10m"
+
+[custom]
+    liveRcmdClose = true
+    hotContinuousPlay = 0
+    HotContinuousGray = 100
+    playerArgs = true
+    partImage = "https://i0.hdslb.com/bfs/activity-plat/static/20210331/467746a96c68611c46194c29089d62f5/eD8wsjzfZc.png"
+    partUnImage = "https://i0.hdslb.com/bfs/activity-plat/static/20210331/467746a96c68611c46194c29089d62f5/frJ4deI8im.png"
+
+[customTick]
+    rank = "1s"
+    tick = "3m"
+
+[duration]
+splash = "2h"
+search = "-504h"
+searchDay = 21
+[duration.PGCSearchDay]
+    13 = 93
+    32 = 93
+    33 = 93
+    51 = 93
+    152 = 93
+    167 = 93
+    153 = 93
+    168 = 93
+    169 = 93
+    195 = 93
+    170 = 93
+    177 = 93
+    37 = 93
+    178 = 93
+    179 = 93
+    180 = 93
+    23 = 93
+    83 = 93
+    145 = 93
+    146 = 93
+    147 = 93
+    11 = 93
+    185 = 93
+    187 = 93
+
+[showhotconfig]
+    itemTitle     = "当前热门"
+    bottomText   = "已经到达热门的尽头惹，【\u003cem class=\"keyword\"\u003e关于热门\u003c/em\u003e】"
+    bottomTextCover   = "http://i0.hdslb.com/bfs/archive/10814950191d33ba6eb6f29439e27399c3eeee37.png"
+    bottomTextURL = "https://www.bilibili.com/blackboard/activity-RKWxGjjMb.html"
+    shareDesc    = ""
+    shareTitle   = "哔哩哔哩热门"
+    shareSubTitle  = "全站最热的视频都在这儿，你最喜欢哪一个？"
+    shareIcon     = "https://i0.hdslb.com/bfs/activity-plat/static/20190424/df3e2ff90b315fca2f8d24a29cb68a47/FBbBDzA5y.png"
+
+[ShowSelectedCfg]
+reminder = "每周五晚18:00 更新"
+DisasterMax = 1
+MediaMID = 412466388
+[[ShowSelectedCfg.H5Entrances]]
+Icon = "http://i0.hdslb.com/bfs/archive/552ebe8c4794aeef30ebd1568b59ad35f15e21ad.png"
+Title = "每周必看"
+ModuleID = "weekly-selected"
+URI = "https://uat-www.bilibili.com/h5/weekly-recommend?navhide=1"
+[[ShowSelectedCfg.H5Entrances]]
+Icon = "http://i0.hdslb.com/bfs/archive/3693ec9335b78ca57353ac0734f36a46f3d179a9.png"
+Title = "入站必刷"
+ModuleID = "good-history"
+URI = "https://uat-www.bilibili.com/h5/good-history?navhide=1"
+
+[infoc]
+path = ""
+project = "app-show"
+name = "app-show"
+
+[infoc2]
+taskID = "000026"
+proto = "tcp"
+addr = ""
+chanSize = 10240
+
+[feedinfoc2]
+taskID = "0000236"
+proto = "tcp"
+addr = ""
+chanSize = 10240
+
+[json]
+staticDir = "/app-show-static/"
+
+[host]
+live      = "http://live.bilibili.com"
+bangumi   = "http://bangumi.bilibili.com"
+hetongzi  = "http://data-test.bilibili.co"
+data      = "http://data-test.bilibili.co"
+mipush    = "https://api.xmpush.xiaomi.com"
+apiCo     = "http://api.bilibili.co"
+apiCoX    = "http://api.bilibili.co"
+www       = "http://www.bilibili.com"
+ad        = "http://ad.bilibili.co"
+search    = "http://s.search.bilibili.co"
+activity  = "http://matsuri.bilibili.co"
+apiLiveCo =  "http://api.live.bilibili.co"
+dynamic = "http://api.vc.bilibili.co"
+# ad      = "http://172.16.33.180:8082"
+black       = "http://172.18.7.208"
+gameCo  = "http://game-center-open-api.bilibili.co"
+showCo = "http://show.bilibili.co"
+mangaCo = " http://uat-manga.bilibili.co"
+
+[tracer]
+    family = "app-show"
+    proto = "unixgram"
+    addr = "/var/run/dapper-collect/dapper-collect.sock"
+
+[xlog]
+stdout = true
+
+[app]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+
+[httpClient]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "500ms"
+timeout   = "2s"
+keepAlive = "60s"
+timer = 10
+[httpClient.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpClientAsyn]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "1s"
+timeout   = "2s"
+keepAlive = "60s"
+timer = 10
+[httpClientAsyn.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpData]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "500ms"
+timeout   = "2s"
+keepAlive = "60s"
+timer     = 10
+[httpData.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpMangaCo]
+    key = "6a29f8ed87407c11"
+    secret = "d3c5a85f5b895a03735b5d20a273bc57"
+    dial      = "100ms"
+    timeout   = "500ms"
+    keepAlive = "60s"
+
+[httpDynamic]
+    key = "6a29f8ed87407c11"
+    secret = "d3c5a85f5b895a03735b5d20a273bc57"
+    dial      = "100ms"
+    timeout   = "500ms"
+    keepAlive = "60s"
+
+[httpHotData]
+    key = "6a29f8ed87407c11"
+    secret = "d3c5a85f5b895a03735b5d20a273bc57"
+    dial      = "100ms"
+    timeout   = "500ms"
+    keepAlive = "60s"
+
+[HTTPBusiness]
+    key = "6a29f8ed87407c11"
+    secret = "d3c5a85f5b895a03735b5d20a273bc57"
+    dial      = "100ms"
+    timeout   = "500ms"
+    keepAlive = "60s"
+
+[identify]
+    whiteAccessKey = ""
+    whiteMid = 0
+    [identify.app]
+    key = "e7482d29be4a95b8"
+    secret = "9e803791cdef756e75faee68e12b7442"
+    [identify.memcache]
+    name = "go-business/identify"
+    proto = "tcp"
+    addr = "172.16.33.54:11211"
+    active = 5
+    idle = 10
+    dialTimeout = "1s"
+    readTimeout = "1s"
+    writeTimeout = "1s"
+    idleTimeout = "80s"
+    [identify.host]
+    auth = "http://passport.bilibili.com"
+    secret = "http://open.bilibili.com"
+    [identify.httpClient]
+	key = "e7482d29be4a95b8"
+    secret = "9e803791cdef756e75faee68e12b7442"
+    dial = "30ms"
+    timeout = "100ms"
+    keepAlive = "60s"
+    [identify.httpClient.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+    [identify.httpClient.url]
+    "http://passport.bilibili.co/intranet/auth/tokenInfo" = {timeout = "100ms"}
+    "http://passport.bilibili.co/intranet/auth/cookieInfo" = {timeout = "100ms"}
+    "http://open.bilibili.co/api/getsecret" = {timeout = "500ms"}
+
+[multiHttp]
+	[multiHttp.outer]
+	addrs     = ["0.0.0.0:6101"]
+	maxListen = 100
+	[multiHttp.inner]
+	addrs     = ["0.0.0.0:6102"]
+	maxListen = 100
+	[multiHttp.local]
+	addrs     = ["0.0.0.0:6103"]
+	maxListen = 100
+
+[archiveRPC]
+	group = "test"
+    pullInterval = "10s"
+    [archiveRPC.client]
+    proto = "tcp"
+    timeout = "1s"
+    timer = 1000
+	token = "123456"
+	[archiveRPC.client.breaker]
+    window  ="3s"
+    sleep   ="100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+    [archiveRPC.zookeeper]
+    root = "/microservice/archive-service/"
+    addrs = ["172.16.33.54:2181"]
+    timeout = "30s"
+
+
+[bm]
+    [bm.outer]
+    addr = "0.0.0.0:6683"
+    timeout = "1s"
+
+
+[dynamicRPC]
+    pullInterval = "10s"
+    [dynamicRPC.client]
+    proto = "tcp"
+    addr = "172.16.33.56:6239"
+    timeout = "1s"
+    timer = 1000
+    [dynamicRPC.client.breaker]
+    window  ="3s"
+    sleep   ="100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+    [dynamicRPC.zookeeper]
+    root = "/microservice/dynamic-service/"
+    addrs = ["172.16.33.54:2181"]
+    timeout = "30s"
+
+[accountRPC]
+    pullInterval = "10s"
+    [accountRPC.client]
+    proto = "tcp"
+    addr = "172.16.33.56:6079"
+    timeout = "1s"
+    timer = 1000
+    [accountRPC.client.breaker]
+    window  ="3s"
+    sleep   ="100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+    [accountRPC.zookeeper]
+    root = "/microservice/account-service/"
+    addrs = ["172.16.33.54:2181"]
+    timeout = "30s"
+
+[relationRPC]
+    pullInterval = "10s"
+    [relationRPC.client]
+    proto = "tcp"
+    addr = "172.16.33.56:6079"
+    timeout = "1s"
+    timer = 1000
+    [relationRPC.client.breaker]
+    window  ="3s"
+    sleep   ="100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+    [relationRPC.zookeeper]
+    root = "/microservice/relation-service/"
+    addrs = ["172.16.33.54:2181"]
+    timeout = "30s"
+
+[resourceRPC]
+    pullInterval = "10s"
+    [resourceRPC.client]
+    proto = "tcp"
+    addr = "172.16.33.56:6079"
+    timeout = "1s"
+    timer = 1000
+	[resourceRPC.client.breaker]
+    window  ="3s"
+    sleep   ="100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+    [resourceRPC.zookeeper]
+    root = "/microservice/article-service/"
+    addrs = ["172.16.33.54:2181"]
+    timeout = "30s"
+
+[mysql]
+	[mysql.show]
+	addr   = "172.16.33.205:3308"
+	dsn    = "test_3306:UJPZaGKjpb2ylFx3HNhmLuwOYft4MCAi@tcp(172.22.34.101:3306)/bilibili_show?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+	active = 5
+	idle   = 2
+	idleTimeout ="4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+    [mysql.show.breaker]
+        window = "3s"
+        sleep = "100ms"
+        bucket = 10
+        ratio = 0.5
+        request = 100
+	[mysql.resource]
+	addr   = "172.16.33.205:3308"
+	dsn    = "test_3306:UJPZaGKjpb2ylFx3HNhmLuwOYft4MCAi@tcp(172.22.34.101:3306)/bilibili_resource?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+	active = 5
+	idle   = 2
+	idleTimeout ="4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+    [mysql.resource.breaker]
+        window = "3s"
+        sleep = "100ms"
+        bucket = 10
+        ratio = 0.5
+        request = 100
+
+[redis]
+	[redis.recommend]
+	name   = "app-show/recommend"
+	proto  = "tcp"
+	addr   = "localhost:6379"
+	active = 20
+	idle   = 10
+	dialTimeout  = "50ms"
+	readTimeout  = "100ms"
+	writeTimeout = "100ms"
+	idleTimeout  = "80s"
+	expire = "2h"
+	expireSerie = "720h" # all_series不能过期，如果过期时正好在status=3，就会回源失败出-404
+	[redis.stat]
+	name   = "app-interface/stat"
+	proto  = "tcp"
+	addr   = "172.16.33.54:6380"
+	active = 20
+	idle   = 10
+	dialTimeout  = "50ms"
+	readTimeout  = "50ms"
+	writeTimeout = "50ms"
+	idleTimeout  = "80s"
+	expire = "10s"
+	[redis.feed]
+    name   = "app-job/feed"
+    proto  = "tcp"
+    addr   = "localhost:6379"
+    active = 20
+    idle   = 10
+    dialTimeout  = "50ms"
+    readTimeout  = "100ms"
+    writeTimeout = "100ms"
+    idleTimeout  = "80s"
+    [redis.entrance]
+        name   = "app-job/entrance"
+        proto  = "tcp"
+        addr   = "localhost:6379"
+        active = 20
+        idle   = 10
+        dialTimeout  = "50ms"
+        readTimeout  = "100ms"
+        writeTimeout = "100ms"
+        idleTimeout  = "80s"
+
+[memcache]
+	[memcache.archive]
+	name   = "app-show/archive"
+	proto  = "tcp"
+	addr   = "172.22.33.117:11214"
+	active = 50
+	idle   = 10
+	dialTimeout  = "50ms"
+	readTimeout  = "100ms"
+	writeTimeout = "100ms"
+	idleTimeout  = "80s"
+	expire = "2h"
+    [memcache.cards]
+    name   = "app-wall/cache"
+    proto  = "unix"
+	addr   = "172.22.33.117:11214"
+    active = 1024
+    idle   = 512
+    dialTimeout  = "80ms"
+    readTimeout  = "800ms"
+    writeTimeout = "800ms"
+    idleTimeout  = "80s"
+    expire = "1h"
+    expireAggregation = "168h"
+
+
+[feedTabInfoc]
+taskID = "001205"
+proto = "tcp"
+addr = "172.19.100.20:5402"
+chanSize = 10240
+
+[dislikeDatabus]
+key = "0QNB0ZgFozbKUCQhbTq8"
+secret = "0QNB0ZgFozbKUCQhbTq9"
+group= "TagDislike-SkyHorse-P"
+topic= "Dislike-T"
+action="pub"
+name = "app-feed/dislike"
+proto = "tcp"
+addr = "172.18.33.50:6205"
+active = 2
+idle = 1
+dialTimeout = "30ms"
+readTimeout = "80ms"
+writeTimeout = "80ms"
+idleTimeout = "80s"
+expire = "1h"
+
+[recommend]
+[recommend.host]
+	1 = ["172.16.33.62"]
+[recommend.group]
+	0  = 1
+	1  = 1
+	2  = 1
+	3  = 1
+	4  = 1
+	5  = 1
+	6  = 1
+	7  = 1
+	8  = 1
+	9  = 1
+	10 = 1
+	11 = 1
+	12 = 1
+	13 = 1
+	14 = 1
+	15 = 1
+	16 = 1
+	17 = 1
+	18 = 1
+	19 = 1
+
+[PreciousInfo]
+    Title = "入站必刷"
+    Fid = 351
+    PlaylistMid = 412466388
+    IsFlush = false
+    Explain = "恭喜你找到了五十个宝藏视频"
+
+[aggregation]
+     icon = "http://i0.hdslb.com/bfs/archive/2447ad5be1869d3d5feea3b2eb419c231ef6cbd4.png" #入口的图标
+     iconV2 = "http://uat-i0.hdslb.com/bfs/activity-plat/static/20200616/e93146606f6f83dfbdab1001cab874b3/O1UVaOEB1.png"
+
+[preciousFeed]
+    WhiteListMid = [16252060,4253580]
+    WhiteListBuvid = ["73d2ff2434c9c8134a787b23292b3bda"]
+
+[share]
+    weibo          = true
+    wechat        = true
+    wechatmonment = true
+    qq             = true
+    qzone          = true
+    copy           = true
+    more           = true
+
+[liveShare]
+    weibo          = true
+    wechat        = true
+    wechatmonment = true
+    qq             = true
+    qzone          = true
+    copy           = true
+    more           = true
+
+[buildLimit]
+    StarsSingleAndroid = 6009999
+    StarsSingleIOS = 10000
+    HotCardOptimizeAndroid = 6029999
+    HotCardOptimizaIPhone =  9999999
+    HotCardOptimizaIPad = 9999999
+    SVideoAndroid = 60300000
+    SVideoIOS = 10300
+
+[intl]
+    midControl = [521276568,386265385,390917283,210954454,491433660,517433879,513411707,423726977,488055582,482596443,20819722,222103174,492850806,489344222,486779039,33775467,456664753,472807480,451320374,433587902,473837611,312030557,324473490,38920461,11464329,106086780,49475054,19644014,107255471,21778636,72209046,20165629,535039770,524186740,508654880,352417517,267778743,482843134,54992199,35393135,212375551,503541644,501919876,452161580,167523737,483787858,486618450,483940995,473495962,390779965,473749310,189866857,31283043,452215100,440472785,74482338,323194278,397305833,403010066,228832527,44655542,384298638,43563506,330383888,268810504,323219513,6250993,85486475,33683045,10303206,10330740,33066045,34270978,497190916,513256951,94742139,275930985,236064882,404414222,123996559,30042311,303556964,421690942,430557661,516260902,507410825,489386659,432414054,386921255,354812482,343823722,343289809,386514192,473702887,508257732,500207171,96408644,483978025,427385003,434967552,497987732,518721823,517756801,486497278,20109905,526890129,522554101,433587902,472530957,495336532,518792424,356422930,38516034,508654880,422623286,397513680,404085374,482647474,90108638,403207842,485210792,412088468,518904699,278403232,417230000,436499518,486287718,526235992,434775873,403924385,419482563,366748380,481526696,497812821,56391599,433272939,497846396,482653931,504797853,440333030,473616807,494328141,518796810,515078669,510659864,507489586,502820902,483828253,470599978,439084271,416170464,31156618,382648175,492324159,420750803,520148551,521292909,526455671,526283185,520226004,526221321,416974297,103407735,507534210,436135988,487934470,532880657,522290976,491407387,513256083,369460473,398812937,416209483,352110103,525926914,280390142,524494860,493585346,365431622,328271007,477648880,11082854,343084292,14235376,60548165,123211804,504672822,410156914,274900004,432438039,318451154,105496810,353231264,433289175,317319385,53551103,416220301,264990038,383568662,300312270,298494997,34857447,485718434,513394115,362411536,108701320,41120700,403013455,504587381,417239062,510630528,351672865,303933377,486458667,327982527,388657916,434327171,239287422,32774519,474579551,398563182,63274233,389577269,488660572,402897221,488810399,507291757,28642954,494579807,517078559,474689485,519205253,510932716,503600513,40480079,482915959,454070633,444280268,416511109,320512004,400937243,408497525,392313336,412392678,513836034,396676615,522334414]
+
+[HTTPGameCo]
+key    = "EeOpM531WqQnBvu4"
+secret = "gHtKtXTHZJDqGP1tg9ORFs0YWV3kW12V"
+dial      = "100ms"
+timeout   = "500ms"
+keepAlive = "60s"
+
+[HTTPShowCo]
+key    = "EeOpM531WqQnBvu4"
+secret = "gHtKtXTHZJDqGP1tg9ORFs0YWV3kW12V"
+dial      = "100ms"
+timeout   = "500ms"
+keepAlive = "60s"

@@ -1,0 +1,137 @@
+// 定义项目 API 的 proto 文件 可以同时描述 gRPC 和 HTTP API
+// protobuf 文件参考:
+//  - https://developers.google.com/protocol-buffers/
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+package dance_taiko.service.v1;
+
+option go_package = "api";
+option (gogoproto.goproto_getters_all) = false;
+
+service dance_taiko {
+  rpc Current(.google.protobuf.Empty) returns (CurrentResp) {
+    option (google.api.http) = {
+      get:"/x/dance/game/current"
+    };
+  };
+
+  rpc Create(CreateReq) returns (CreateResp) {
+    option (google.api.http) = {
+    post:"/x/dance/game/create"
+    };
+  };
+
+  rpc Join(JoinReq) returns (JoinResp){
+    option (google.api.http) = {
+      post:"/x/dance/game/join"
+    };
+  };
+
+  rpc Start(StartReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post:"/x/dance/game/start"
+    };
+  };
+
+  rpc status(StatusReq) returns (StatusResp){
+    option (google.api.http) = {
+      get:"/x/dance/game/status"
+    };
+  };
+
+  rpc Finish(FinishReq) returns (.google.protobuf.Empty) {
+    option (google.api.http) = {
+      post:"/x/dance/game/finish"
+    };
+  };
+  rpc ReStart(ReStartReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post:"/x/dance/game/restart"
+    };
+  };
+
+
+}
+message CurrentResp {
+  int64 GameId = 1 [(gogoproto.jsontag) = 'game_id'];
+  string FilePath = 2 [(gogoproto.jsontag) = 'file_path'];
+}
+
+message CreateReq {
+  int64 Aid = 1 [(gogoproto.moretags) = 'form:"aid" validate:"required"'];
+  string Experiential = 2[(gogoproto.moretags) = 'form:"experiential"'];
+}
+
+message CreateResp {
+  int64 GameId = 1 [(gogoproto.jsontag) = 'game_id'];
+}
+
+message JoinReq {
+  int64 GameId = 1 [(gogoproto.moretags) = 'form:"game_id" validate:"required"'];
+  int64 Mid = 2 [(gogoproto.moretags) = 'form:"mid" validate:"required"'];
+}
+
+message JoinResp {
+  int64 ServerTime = 1  [(gogoproto.jsontag) = 'server_time'];
+  int64 Position = 2 [(gogoproto.jsontag) = 'position'];
+}
+
+message StartReq {
+  int64 GameId = 1 [(gogoproto.moretags) = 'form:"game_id" validate:"required"'];
+}
+
+message ReStartReq {
+  int64 GameId = 1 [(gogoproto.moretags) = 'form:"game_id" validate:"required"'];
+}
+
+message AccInfo {
+  int64 ts = 1 [(gogoproto.moretags) = 'form:"ts"'];
+  float x = 2 [(gogoproto.moretags) = 'form:"x"'];
+  float y = 3 [(gogoproto.moretags) = 'form:"y"'];
+  float z = 4 [(gogoproto.moretags) = 'form:"z"'];
+}
+
+message AccUploadReq {
+  int64 GameId = 1 [(gogoproto.moretags) = 'form:"game_id" validate:"required"'];
+  int64 Mid = 2 [(gogoproto.moretags) = 'form:"mid" validate:"required"'];
+  repeated AccInfo Acc = 3 [(gogoproto.moretags) = 'form:"acc_info" validate:"required"'];
+}
+
+
+message StatusReq {
+  int64 GameId = 1 [(gogoproto.moretags) = 'form:"game_id" validate:"required"'];
+}
+
+//玩家的状态
+message PlayerStatus {
+  int64 Mid = 1 [(gogoproto.jsontag) = 'mid'];
+  //昵称
+  string Name = 2 [(gogoproto.jsontag) = 'name'];
+  //头像
+  string Face = 3 [(gogoproto.jsontag) = 'face'];
+  //两次查询间，最近一次的成绩 perfect / good / ok / miss
+  string LastComment = 4 [(gogoproto.jsontag) = 'last_comment'];
+  //当前总分，总分越高排序越高
+  int64 Points = 5 [(gogoproto.jsontag) = 'points'];
+}
+
+message StatusResp {
+  //status: joining, playing, ended
+  string GameDtatus = 1 [(gogoproto.jsontag) = 'game_status'];
+  repeated PlayerStatus PlayerStatus = 2 [(gogoproto.jsontag) = 'player_status'];
+}
+
+message FinishReq {
+  int64 GameId = 1 [(gogoproto.moretags) = 'form:"game_id" validate:"required"'];
+}
+
+message StatAcc {
+    // 动作的时间，单位毫秒
+    int64 Ts = 1 ;
+    // 加速度模长，float64=sqrt(x2+y2+z2)
+    double Acc = 2;
+}

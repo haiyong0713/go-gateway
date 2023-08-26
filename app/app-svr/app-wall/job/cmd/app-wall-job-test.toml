@@ -1,0 +1,217 @@
+# This is a TOML document. Boom
+version = "1.0.0"
+user = "nobody"
+pid = "/tmp/app-wall-job.pid"
+dir = "./"
+perf = "0.0.0.0:7610"
+
+monthly=false
+
+[log]
+	dir = "/data/log/app-wall-job"
+
+[tracer]
+	family = "app-wall-job"
+	proto = "unixgram"
+	addr = "/var/run/dapper-collect/dapper-collect.sock"
+
+[host]
+app      	= "http://app.bilibili.co"
+unicomFlow  = "http://open.10010.com"
+unicom      = "http://123.125.99.7:9001"
+
+[bm]
+	[bm.inner]
+	addr = "0.0.0.0:7611"
+	maxListen = 10
+	timeout = "1s"
+	[bm.local]
+	addr = "0.0.0.0:7612"
+	maxListen = 10
+	timeout = "1s"
+
+[mysql]
+    [mysql.show]
+    addr   = "172.16.33.205:3308"
+    dsn    = "test:test@tcp(172.16.33.205:3308)/bilibili_show?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+    idle   = 2
+    idleTimeout ="4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+    [mysql.show.breaker]
+        window = "3s"
+        sleep = "100ms"
+        bucket = 10
+        ratio = 0.5
+        request = 100
+
+[redis]
+    [redis.wall]
+    name   = "app-wall-job/wall"
+    proto  = "tcp"
+    addr   = "172.16.0.148:6379"
+    active = 10
+    idle   = 10
+    dialTimeout = "1s"
+    readTimeout = "1s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+    lockExpire = "48h"
+    monthLockExpire = "12h"
+
+[seq]
+    businessID =1
+    token      ="Y1zHA2esXfd2T6bc1VRHkFWryD01Aswi"
+
+[seqRPC]
+    pullInterval = "10s"
+    [seqRPC.client]
+    timeout = "200ms"
+    [seqRPC.client.breaker]
+    window  ="3s"
+    sleep   ="100ms"
+    bucket  = 10        
+    ratio   = 0.5
+    request = 100
+    [seqRPC.zookeeper]
+    root = "/microservice/seq-proxy/"
+    addrs = ["172.16.33.169:2181"]
+    timeout = "30s"
+
+[consumer]
+    topic = "app-wall-job"
+    group  = "lancer_main_dw_channel_new_devices"
+    Offset = "new"
+    Brokers = ["172.19.40.183:9092,172.19.40.184:9092,172.19.40.185:9092,172.19.40.186:9092,172.19.40.187:9092,172.19.40.188:92,172.19.40.189:9092,172.19.40.190:9092,172.19.40.191:9092,172.19.40.192:9092"]
+
+[httpClient]
+	key    = "e7482d29be4a95b8"
+	secret = "9e803791cdef756e75faee68e12b7442"
+	dial      = "30ms"
+	timeout   = "100ms"
+	keepAlive = "60s"
+	[httpClient.breaker]
+		window  = "10s"
+		sleep   = "100ms"
+		bucket  = 10
+		ratio   = 0.5
+		request = 100
+
+[HTTPUnicom]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "500ms"
+timeout   = "4s"
+keepAlive = "60s"
+timer     = 10
+    [HTTPUnicom.breaker]
+    window  = "3s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[unicom]
+    packKeyExpired = "24h"
+    keyExpired = "24h"
+    flowProduct = [
+        {id="979"},
+        {id="1032"},
+        ]
+    cardProduct = [
+        {id="10019",integral=220},
+        {id="10020",integral=330},
+        {id="10021",integral=660},
+        ]
+
+[memcache]
+	[memcache.operator]
+	name   = "app-show/archive"
+	proto  = "tcp"
+	addr   = "172.22.33.117:11214"
+	active = 50
+	idle   = 10
+	dialTimeout  = "50ms"
+	readTimeout  = "100ms"
+	writeTimeout = "100ms"
+	idleTimeout  = "80s"
+	expire = "10s"
+
+[reportDatabus]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "ClickMerge-MainAppSvr-S"
+    topic = "ClickMerge-T"
+    action = "sub"
+    offset = "new"
+    name = "report-click/sub"
+    proto = "tcp"
+    addr = "172.18.33.50:6205"
+    active = 1
+    idle = 1
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+
+[comicDatabus]
+	key = "8e27ab7e39270b59"
+	secret = "477df6a068d7332a163f95abbad2079c"
+	group = "ComicView-MainAppSvr-S"
+	topic = "ComicView-T"
+	action = "sub"
+	name = "comic-view/sub"
+	proto = "tcp"
+    addr = "172.18.21.90:6205"
+	active = 5
+	idle = 1
+	dialTimeout = "1s"
+	readTimeout = "1s"
+	writeTimeout = "1s"
+	idleTimeout = "10s"
+    [comicDatabus.discovery]
+    domain = "api.bilibili.co"
+    key = "e7482d29be4a95b8"
+    secret = "9e803791cdef756e75faee68e12b7442"
+    region = "sh"
+    zone = "sh001"
+    env = "uat"
+
+# [consumer]
+# 	topic = "lancer_main_dw_channel_new_devices"
+# 	group  = "app-wall-job"
+# 	offset = "new"
+# 	brokers = ["172.19.40.183:9092"]
+
+[mobile]
+    flowProduct = ["100000000028","100000000030","100000001142","100000001143","100000001144","100000001145","100000001146","100000001199","100000001278","100000001277","100000001272","100000001271"]
+    cardProduct = ["100000001178"]
+
+# 和线上配置保持一致，每次修改，都需要review，需要做版本留存
+[rule]
+    cu = [
+            {m = "break",tf = false,p = "^(POST|PUT)@|.*\\.bilibili\\.com/"},
+            {m = "replace",tf = true,p = "^GET@([0-9]{1,3}\\.){3}[0-9]{1,3}:480/",a = "upos-tf-all-js.bilivideo.com"},
+            {m = "break",tf = true,p = "^GET@(([0-9]{1,3}\\.){3}[0-9]{1,3}|((proxy|upcdn|upos|bfs|acache)-tf-|cn-).*\\.(acgvideo|bilivideo)\\.com)/|/live-bvc/"},
+            {m = "replace",tf = true,p = "^GET@(i|s)[0-9]\\.hdslb\\.com/",a = "bfs-tf-all-js.bilivideo.com"},
+            {m = "replace",tf = true,p = "^GET@upos-.*(u\\.acgvideo|mirror.*\\.bilivideo)\\.com/",a = "upos-tf-all-js.bilivideo.com"},
+            {m = "proxy",tf = true,p = "^GET@(([\\w-]+\\.)*(bilibili|acgvideo|bilivideo|acg|hdslb|biligame|bilibiliyoo|im9|b23|missevan)\\.(com|tv|cn|co|net))/",a = "proxy-tf-all-ws.bilivideo.com"},
+        ]
+    ct = [
+            {m = "break",tf = false,p = "^(POST|PUT)@|.*\\.bilibili\\.com/"},
+            {m = "replace",tf = true,p = "^GET@([0-9]{1,3}\\.){3}[0-9]{1,3}:480/",a = "upos-tf-all-js.bilivideo.com"},
+            {m = "break",tf = true,p = "^GET@(([0-9]{1,3}\\.){3}[0-9]{1,3}|((proxy|upcdn|upos|bfs|acache)-tf-|cn-).*\\.(acgvideo|bilivideo)\\.com)/|/live-bvc/"},
+            {m = "replace",tf = true,p = "^GET@(i|s)[0-9]\\.hdslb\\.com/",a = "bfs-tf-all-js.bilivideo.com"},
+            {m = "replace",tf = true,p = "^GET@upos-.*(u\\.acgvideo|mirror.*\\.bilivideo)\\.com/",a = "upos-tf-all-js.bilivideo.com"},
+            {m = "proxy",tf = true,p = "^GET@(([\\w-]+\\.)*(bilibili|acgvideo|bilivideo|acg|hdslb|biligame|bilibiliyoo|im9|b23|missevan)\\.(com|tv|cn|co|net))/",a = "proxy-tf-all-ws.bilivideo.com"},
+        ]
+    cm = [
+            {m = "break",tf = false,p = "^(POST|PUT)@|.*\\.bilibili\\.com/"},
+            {m = "replace",tf = true,p = "^GET@([0-9]{1,3}\\.){3}[0-9]{1,3}:480/",a = "upos-tf-all-js.bilivideo.com"},
+            {m = "break",tf = true,p = "^GET@(([0-9]{1,3}\\.){3}[0-9]{1,3}|((proxy|upcdn|upos|bfs|acache)-tf-|cn-).*\\.(acgvideo|bilivideo)\\.com)/|/live-bvc/"},
+            {m = "replace",tf = true,p = "^GET@(i|s)[0-9]\\.hdslb\\.com/",a = "bfs-tf-all-js.bilivideo.com"},
+            {m = "replace",tf = true,p = "^GET@upos-.*(u\\.acgvideo|mirror.*\\.bilivideo)\\.com/",a = "upos-tf-all-js.bilivideo.com"},
+            {m = "proxy",tf = true,p = "^GET@(([\\w-]+\\.)*(bilibili|acgvideo|bilivideo|acg|hdslb|biligame|bilibiliyoo|im9|b23|missevan)\\.(com|tv|cn|co|net))/",a = "proxy-tf-all-ws.bilivideo.com"},
+        ]

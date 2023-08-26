@@ -1,0 +1,102 @@
+[log]
+dir = "/data/log/hkt-note-service/"
+
+[httpClients]
+    [httpClients.inner]
+        key    = "cadf599ba8b3796a"
+        secret = "42fbb979aa742013d713a088f912673b"
+        dial      = "500ms"
+        timeout   = "2s"
+        keepAlive = "60s"
+        timer = 10
+[HTTPServer]
+    addr = "0.0.0.0:8179"
+    timeout = "1s"
+[httpClient]
+    key    = "cadf599ba8b3796a"
+    secret = "42fbb979aa742013d713a088f912673b"
+    dial      = "200ms"
+    timeout   = "30s"
+    keepAlive = "60s"
+    timer = 10
+    [httpClient.breaker]
+        window  = "10s"
+        sleep   = "100ms"
+        bucket  = 10
+        ratio   = 0.5
+        request = 100
+[db]
+    [db.noteRead]
+    addr = "172.22.34.101:3318"
+    dsn = "bilibili_note:w9LljXzcDOKfBG8HrJ5f5PjKtDrIBMcH@tcp(172.16.33.101:3318)/bilibili_note?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 20
+    idle = 5
+    idleTimeout ="2h"
+    queryTimeout = "250ms"
+    execTimeout = "500ms"
+    tranTimeout = "500ms"
+    [db.noteRead.breaker]
+    window = "3s"
+    sleep = "100ms"
+    bucket = 10
+    ratio = 0.5
+    request = 100
+    [db.noteWrite]
+        addr = "172.22.34.101:3318"
+        dsn = "bilibili_note:w9LljXzcDOKfBG8HrJ5f5PjKtDrIBMcH@tcp(172.16.33.101:3318)/bilibili_note?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+        active = 20
+        idle = 5
+        idleTimeout ="2h"
+        queryTimeout = "250ms"
+        execTimeout = "500ms"
+        tranTimeout = "500ms"
+        [db.noteWrite.breaker]
+        window = "3s"
+        sleep = "100ms"
+        bucket = 10
+        ratio = 0.5
+        request = 100
+[redis]
+	name   = "hkt-note"
+	proto  = "tcp"
+	addr   = "localhost:6379"
+	active = 20
+	idle   = 10
+	dialTimeout  = "50ms"
+	readTimeout  = "100ms"
+	writeTimeout = "100ms"
+	idleTimeout  = "80s"
+	noteExpire = "36h"
+	aidNoteExpire = "60s"
+	imgExpire = "36h"
+    ArticleExpire = "36h"
+[noteCfg]
+    WebUrlFromSpace = "https://www.bilibili.com/h5/note-app?oid=%d&pagefrom=%s&navhide=1"
+    WebPubUrlFromArc = "https://www.bilibili.com/h5/note-app/view?cvid=%d&from=ugcvideo"
+    WebPubUrlFromSpace = "https://www.bilibili.com/h5/note-app/view?cvid=%d&from=fullpage&navhide=1&-Bct.statusbar.mode=0"
+    UpPubUrl = "https://www.bilibili.com/h5/note-app/view?&pagefrom=ugcvideo&cvid=%d"
+    BfsHost = "//uat-i0.hdslb.com"
+    [noteCfg.forbidCfg]
+        ForbidTypeIds = [130]
+        FeaHost = "http://uat-manager.bilibili.co"
+        PoliticsGroupId = "118"
+        PoliticsType = "19"
+        FeaCron = "0 */5 * * * *"
+[imageToken]
+    key = "4kj07er9pbg8qacd"
+    secret = "ixapejcb3qso8571uym90vltfd4zwk"
+[NotePub]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "NoteNotify-MainAppSvr-P"
+    topic = "NoteNotify-T"
+    action = "pub"
+    name = "hkt-note/interface"
+    proto = "tcp"
+    addr = "172.18.21.41:6205"
+    idle = 1
+    active = 10
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"

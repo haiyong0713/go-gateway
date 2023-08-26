@@ -1,0 +1,125 @@
+hotContestIDList = [1583,1580,1581,1582]
+seriesIgnoreTeamsIDList = [34,1]
+
+[rule]
+    knockTree="600s"
+    s9SwitchSID = 34
+    s9Sleep = "6s"
+    s9GuessMax = 200
+    loadBvid = "60s"
+    jumpURL = "https://www.bilibili.com/h5/match/data/detail/%v"
+    TunnelPushBizID = 1006
+
+[interval]
+    knockTreeCron = "0 */5 * * * ?"
+    s9ContestCron = "0 */1 * * * ?"
+
+[leidata]
+    timeout = "15s"
+    gameSleep = "3m"
+    gameEnd = "30m"
+    owGameID = 100
+    bigLimit = 200
+    lolPlayersCron = "0 0 3 * * ?"
+    dotaPlayersCron = "0 15 3 * * ?"
+    owPlayersCron = "0 30 3 * * ?"
+    infoCron = "0 0 4 * * ?"
+    bigDataCron = "0 0 6 * * ?"
+
+[[gameTypes]]
+id = 1
+name= "LOL"
+dbGameID = 2
+[[gameTypes]]
+id = 2
+name= "DOTA2"
+dbGameID = 4
+[[gameTypes]]
+id = 3
+name= "OWL"
+dbGameID = 9
+
+[seasonContestWatch]
+    seasonID = 122
+    showLPL = true
+    matchType = 1
+    uniqKey = "英雄联盟S10世界赛"
+    startTime = "2020-12-30 11:50:00"
+    endTime = "2021-05-20 11:50:00"
+    fetchAll = true
+    contestAvCIDListCacheKey = "esport:contestAvCIDList:lol:122"
+    contestListCacheKey = "esport:contestList:lol:122"
+    contestIDListCacheKey = "esport:contestIDList:lol:122"
+    contestMatchIDMapCacheKey = "esport:contestMatchIDMap:lol:122"
+    contestSeriesMapCacheKey = "esport:contestSeriesMap:lol:122"
+    cacheKey4TeamAnalysis = "esport:scoreAnalysis:team"
+    cacheKey4PlayerAnalysis = "esport:scoreAnalysis:player"
+    cacheKey4HeroAnalysis = "esport:scoreAnalysis:hero"
+    cacheKey4PosterList = "esport:posterList:lol:122"
+    teamScoreMapCacheKey = "esport:teamScoreMap:lol:122"
+    expiredDuration = 86400
+    [seasonContestWatch.tabCovers]
+    top = "http://uat-i0.hdslb.com/bfs/album/8023a47d00270130e876153118fc58d1983072d4.png"
+    middle = "http://uat-i0.hdslb.com/bfs/album/31b86e76809d261fe61874834c11e65bf5317d10.png"
+    bottom = "http://uat-i0.hdslb.com/bfs/album/42c6a1da7c4d1a69a16ceba268d6feb3721e5867.png"
+    banner = "https://i0.hdslb.com/bfs/activity-plat/static/20200917/091171de1318007d15cd05cdda8f7542/V7yRTz2-5.png"
+    bannerWeb = "https://i0.hdslb.com/bfs/activity-plat/static/20200915/e014f8515a7922abcaf4bbf23d577e5f/rrxZUi4td.png"
+    pointsAct="http://uat-i0.hdslb.com/bfs/album/1b00a5a9d19fb385bec61ef50427b0896a7e0663.png"
+    poster_notify = "http://uat-i0.hdslb.com/bfs/album/1b00a5a9d19fb385bec61ef50427b0896a7e0663.png"
+    [seasonContestWatch.seasonConfiguration]
+    offSeason = false
+    desc = "http://www.baidu.com"
+    [seasonContestWatch.seasonConfiguration.champion]
+    teamName = "SN"
+
+[Score]
+    liveInterval = 5000
+    liveTicker = 1
+
+[RankingDataWatch]
+    RoundIDListCacheKey = "esport:score:ranking:data:round:id"
+    RoundDataCacheKeyPre = "esport:score:ranking:data:round:data:"
+    CurrentRoundIDCacheKey = "esport:score:ranking:data:current:round:id"
+    InterventionCacheKey = "esport:score:ranking:data:intervention"
+    WatchDuration = "1s"
+    UsePic = false
+    PromoteNum = 1
+    EliminateNum = 1
+    [RankingDataWatch.Description]
+    Finalist = "入围赛积分赛各组进行BO1单循环，各组积分第一名的队伍直接晋级正赛小组赛，第2-4名的队伍参加BO5淘汰赛，淘汰赛第二轮获胜队伍与两组的小组第一共同进入正赛小组赛。"
+    Final = "16支战队分4组进行小组单循环积分赛，获胜积1分，失败积0分。各组前两名战队晋级淘汰赛参加八强赛进行bo5对决，每轮胜者分组进入下一轮对决直至决出总冠军。"
+    FinalistPoint = "10支战队分2组进行小组单循环BO1积分赛，获胜积1分，失败积0分。各组排名第一的战队直接晋级正赛小组赛，第2-4名的战队晋级入围赛淘汰赛。"
+    FinalistEliminate = "入围赛积分赛各组积分第2-4名的队伍参加BO5淘汰赛，首轮小组第三对阵同组第四，胜者晋级第二轮对阵异组第二，淘汰赛第二轮的获胜队伍与两组的小组第一进入小组赛各分组参加小组赛。"
+    FinalPoint = "16支战队分4组进行小组单循环积分赛，获胜积1分，失败积0分。各组前两名战队晋级淘汰赛。"
+    FinalEliminate = "小组赛各组积分前两名的队伍参加八强赛进行bo5对决，每轮胜者分组进入下一轮对决直至决出总冠军。"
+
+
+[circuitBreaker]
+    [circuitBreaker.community_favorite_IsFavoreds]
+    enabled = true
+    name = "community_favorite_IsFavoreds"
+    maxRequests = 100
+    internalSeconds = 1
+    timeoutSeconds = 5
+    maxConsecutiveFailures = 100
+    maxRateToOpen = 0.5
+    [circuitBreaker.community_favorite_IsFavoreds.ignoreCodes]
+
+[SeasonContestComponentWatch]
+    canWatch = true
+    goingSeasonTicker = 3
+    commonTicker = 3
+    contestTicker = 3
+
+
+[GoingMatchs]
+    MatchIDs = [1]
+    GoingSeasons = [108,116,117,122,2,118,22,24]
+    [GoingMatchs.ReserveMap]
+    "122" = 111
+    "108" = 14213
+
+[tunnelBGroup]
+    source = "esports"
+    sendNew = 1
+    newContests = [111,222,4001,3999,4002,4005]

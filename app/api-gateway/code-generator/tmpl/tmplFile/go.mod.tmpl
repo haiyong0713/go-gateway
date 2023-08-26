@@ -1,0 +1,10 @@
+module git.bilibili.co/platform/{{.ProjectName}}/app/{{.ServicePath}}
+
+go 1.13
+
+replace (
+	github.com/golang/protobuf => github.com/golang/protobuf v1.3.4
+	go-common => git.bilibili.co/platform/go-common v1.21.6
+	google.golang.org/genproto => google.golang.org/genproto v0.0.0-20191108220845-16a3f7862a1a
+	google.golang.org/grpc => google.golang.org/grpc v1.27.1
+)

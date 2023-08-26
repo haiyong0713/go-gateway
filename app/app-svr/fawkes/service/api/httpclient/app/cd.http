@@ -1,0 +1,209 @@
+# curl 'http://uat-fawkes.bilibili.co/x/admin/fawkes/app/cd/list/filter?app_key=android64&env=prod&filter_key=&steady_state=0&total=1&pn=1&ps=20'
+#  -H 'Accept: */*'
+#  -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7'
+#  -H 'Cookie: buvid_fp=97a552f9f0ea24383c5392124ca6c85f; buvid4=138AE0E1-59BD-AF7E-DB62-E5C82E28291D02274-022012414-YwaIv4Va3kg02LA+6esLcA%3D%3D; buvid3=3A33BF82-EC27-A9E8-765B-33DD1F4CEC4912998infoc; b_nut=1651224212; username=luweidan; b_timer=%7B%22ffp%22%3A%7B%22444.996.fp.risk_3A33BF82%22%3A%22180D643BD70%22%2C%22446.0.fp.risk_3A33BF82%22%3A%22180DF710ADD%22%2C%22333.1019.fp.risk_3A33BF82%22%3A%22180DF7125D2%22%7D%7D; b_lsid=8513EFCF_180E0691DDB; _AJSESSIONID=cb69a699bc163bc187476870d3af3bdb; _dd_s=logs=1&id=60bb67e4-b210-4173-bfb8-8487af5d741f&created=1653473653202&expire=1653474577230; mng-go=3ec41711a385fb04e5519df2e1a52912307532ce004eae6c06586094d1eecda1'
+#  -H 'Proxy-Connection: keep-alive'
+#  -H 'Referer: http://uat-fawkes.bilibili.co/'
+#  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36'
+#  -H 'x1-bilispy-user: fawkes_luweidan'
+#  --compressed \
+GET {{baseUrl}}/app/cd/list/filter?app_key=android64&env=prod&filter_key=&steady_state=0&total=1&pn=1&ps=20
+Accept: */*
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7
+Cookie: {{Cookie}}
+Proxy-Connection: keep-alive
+Referer: http://uat-fawkes.bilibili.co/
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36
+x1-bilispy-user: fawkes_luweidan
+
+###
+
+# curl 'http://uat-fawkes.bilibili.co/x/admin/fawkes/app/cd/config/filter?app_key=android64&env=prod&build_id=8413698'
+#  -H 'Accept: */*'
+#  -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7'
+#  -H 'Cookie: buvid_fp=97a552f9f0ea24383c5392124ca6c85f; buvid4=138AE0E1-59BD-AF7E-DB62-E5C82E28291D02274-022012414-YwaIv4Va3kg02LA+6esLcA%3D%3D; buvid3=3A33BF82-EC27-A9E8-765B-33DD1F4CEC4912998infoc; b_nut=1651224212; username=luweidan; b_timer=%7B%22ffp%22%3A%7B%22444.996.fp.risk_3A33BF82%22%3A%22180D643BD70%22%2C%22446.0.fp.risk_3A33BF82%22%3A%22180DF710ADD%22%2C%22333.1019.fp.risk_3A33BF82%22%3A%22180DF7125D2%22%7D%7D; b_lsid=8513EFCF_180E0691DDB; _AJSESSIONID=cb69a699bc163bc187476870d3af3bdb; _dd_s=logs=1&id=60bb67e4-b210-4173-bfb8-8487af5d741f&created=1653473653202&expire=1653474571082; mng-go=fccbcc1bcb051bba6e0781e8be93dda616aac30c303a8343218b9a95d517a0b3'
+#  -H 'Proxy-Connection: keep-alive'
+#  -H 'Referer: http://uat-fawkes.bilibili.co/'
+#  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36'
+#  -H 'x1-bilispy-user: fawkes_luweidan'
+#  --compressed \
+
+// 配置拉取接口
+GET {{baseUrl}}/app/cd/config/filter?app_key=android64&env=prod&build_id=8413698
+Accept: */*
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7
+Cookie: {{Cookie}}
+Proxy-Connection: keep-alive
+Referer: http://uat-fawkes.bilibili.co/
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36
+x1-bilispy-user: fawkes_luweidan
+
+###
+
+# curl 'http://uat-fawkes.bilibili.co/x/admin/fawkes/app/cd/config/filter/set'
+#  -H 'Accept: */*'
+#  -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7'
+#  -H 'Content-Type: application/x-www-form-urlencoded;charset=UTF-8'
+#  -H 'Cookie: buvid_fp=97a552f9f0ea24383c5392124ca6c85f; buvid4=138AE0E1-59BD-AF7E-DB62-E5C82E28291D02274-022012414-YwaIv4Va3kg02LA+6esLcA%3D%3D; buvid3=3A33BF82-EC27-A9E8-765B-33DD1F4CEC4912998infoc; b_nut=1651224212; username=luweidan; b_timer=%7B%22ffp%22%3A%7B%22444.996.fp.risk_3A33BF82%22%3A%22180D643BD70%22%2C%22446.0.fp.risk_3A33BF82%22%3A%22180DF710ADD%22%2C%22333.1019.fp.risk_3A33BF82%22%3A%22180DF7125D2%22%7D%7D; b_lsid=8513EFCF_180E0691DDB; _AJSESSIONID=cb69a699bc163bc187476870d3af3bdb; mng-go=23e03ca57125fe03e4709980cf54a058e39242fcb60722bb364d2a534a74d82c; _dd_s=logs=1&id=60bb67e4-b210-4173-bfb8-8487af5d741f&created=1653473653202&expire=1653474577230'
+#  -H 'Origin: http://uat-fawkes.bilibili.co'
+#  -H 'Proxy-Connection: keep-alive'
+#  -H 'Referer: http://uat-fawkes.bilibili.co/'
+#  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36'
+#  -H 'x1-bilispy-user: fawkes_luweidan'
+#  --data-raw 'app_key=android64&env=prod&build_id=8413698&network=1&isp=%E7%A7%BB%E5%8A%A8&channel=&city=0&percent=2&device=&status=0&phone_model='
+#  --compressed \
+
+// 配置设置接口（on duplicate key update）
+POST {{baseUrl}}/app/cd/config/filter/set
+Accept: */*
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7
+Cookie: {{Cookie}}
+Origin: http://uat-fawkes.bilibili.co
+Proxy-Connection: keep-alive
+Referer: http://uat-fawkes.bilibili.co/
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36
+x1-bilispy-user: fawkes_luweidan
+Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+
+app_key=android64&env=prod&build_id=8413698&network=1&isp=%E7%A7%BB%E5%8A%A8&channel=&city=0&percent=2&device=&status=0&phone_model=&brand=huawei
+
+###
+
+# curl -X POST
+#	 'http://uat-fawkes.bilibili.co/x/admin/fawkes/app/cd/cdn/publish'
+#	 -H 'Content-Type:application/x-www-form-urlencoded'
+#	 -d 'app_key=android&build_id=1'
+POST {{baseUrl}}/app/cd/cdn/publish
+Content-Type: application/x-www-form-urlencoded
+Referer: {{Referer}}
+x1-bilispy-user:{{Caller}}
+Cookie: {{Cookie}}
+
+app_key=android&build_id=1&filename=whatever.exe
+
+###
+
+POST {{baseUrl}}/app/cd/assets/evolution
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="build_id"
+
+7837041
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="my-icon.png.zip"
+
+< /Users/wdlu/Downloads/my-icon.png.zip
+--WebAppBoundary
+Content-Disposition: form-data; name="md5"
+
+dd98c001faded44aa182f7e81d068245
+--WebAppBoundary
+Content-Disposition: form-data; name="pkg_name"
+
+/my-icon.png
+--WebAppBoundary
+Content-Disposition: form-data; name="app_key"
+
+android_missevan_game_projects
+--WebAppBoundary
+Content-Disposition: form-data; name="unzip"
+
+1
+--WebAppBoundary
+
+###
+
+POST {{baseUrl}}/app/cd/config/upgrad/set
+Connection: keep-alive
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"
+x1-bilispy-user: fawkes_luweidan
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
+sec-ch-ua-platform: "macOS"
+Accept: */*
+Origin: https://fawkes.bilibili.co
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://fawkes.bilibili.co/
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7
+Cookie: {{Cookie}}
+Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+
+app_key=w19e&env=prod&version_id=5023&normal={"min":6010600,"max":6520000}&force={}&exclude_normal=[]&exclude_force=[]&cycle=3&title=增量更新到52&content=增量更新到52测试增量更新到52测试&is_silent=0&policy=0&policy_url=&icon_url=&confirm_btn_text=立即升级&cancel_btn_text=下次再说
+
+###
+
+
+GET {{baseUrl}}/app/cd/list/filter?app_key=android_comic&env=prod&filter_key=3.6.1&steady_state=1&pn=1&ps=20
+Cookie:{{Cookie}}
+
+###
+
+POST {{baseUrl}}/app/hotfix/build
+Connection: keep-alive
+x1-bilispy-user: fawkes_luweidan
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36
+Accept: */*
+Origin: https://fawkes.bilibili.co
+Referer: https://fawkes.bilibili.co/
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7
+Cookie: {{Cookie}}
+Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+
+app_key=android&build_id=6729530&internal_version_code=11111111&git_type=0&git_name=aar%2F6.5.0&ci_env_vars={"heel":"wwww"}
+
+###
+
+# curl 'https://fawkes.bilibili.co/x/admin/fawkes/app/cd/hotfix/versions?pn=1&ps=40&app_key=android&filter='
+#  -H 'Connection: keep-alive'
+#  -H 'sec-ch-ua: "Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"'
+#  -H 'x1-bilispy-user: fawkes_luweidan'
+#  -H 'sec-ch-ua-mobile: ?0'
+#  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36'
+#  -H 'sec-ch-ua-platform: "macOS"'
+
+GET {{baseUrl}}/app/cd/hotfix/versions?pn=1&ps=40&app_key=android&filter=
+Connection: keep-alive
+x1-bilispy-user: fawkes_luweidan
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36
+Accept: */*
+Referer: https://fawkes.bilibili.co/
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7
+Cookie: {{Cookie}}
+###
+
+
+
+GET {{baseUrl}}/app/cd/list?app_key=android&env=test&pn=1&ps=20
+Accept: application/json
+Cookie: {{Cookie}}
+
+###
+
+
+GET {{baseUrl}}/app/cd/list/filter?app_key=w19e&env=test&pn=1&ps=20
+Accept: application/json
+Cookie: {{Cookie}}
+
+###
+
+POST  {{baseUrl}}/app/cd/portal/test
+Content-Type: application/x-www-form-urlencoded
+Cookie: {{Cookie}}
+
+app_key=w19e&build_id=136158&description=test
+
+###
+
+GET {{baseUrl}}/app/cd/list/filter?app_key=w19e&ps=10&env=test&pn=1&bbr_url=true
+Accept: application/json
+Cookie: {{Cookie}}
+
+###
+GET {{baseUrl}}/app/cd/list/filter?app_key=w19e&ps=10&env=test&pn=1
+Accept: application/json
+Cookie: {{Cookie}}
+###
+

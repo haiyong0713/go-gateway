@@ -1,0 +1,8 @@
+[Client]
+dsn = "bilibili_gateway:pdpEUgQazIwDIcQzp9cmpWYF53kxKFnB@tcp(172.23.34.42:5131)/bilibili_gateway?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+active = 5
+idle = 2
+idleTimeout = "4h"
+queryTimeout = "1s"
+execTimeout = "1s"
+tranTimeout = "2s"

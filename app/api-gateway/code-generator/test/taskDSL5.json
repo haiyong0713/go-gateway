@@ -1,0 +1,39 @@
+{
+  "taskList": [
+    {
+      "name": "SayWorld1",
+      "type": "http",
+      "input": [
+        {
+          "name": "req",
+          "value": "$service.request"
+        }
+      ],
+      "output": {
+        "type": "HttpResult"
+      },
+      "url": "http://api.bilibili.com/x/v2/dm/ajax",
+      "method": "GET",
+      "query": [
+        {
+          "src": "req.Aid",
+          "dest": "aid",
+          "mapFunc": "int64Tostring"
+        }
+      ]
+    },
+    {
+      "name": "SayWorld2",
+      "type": "udf",
+      "input": [
+        {
+          "value": "$task.SayWorld1"
+        }
+      ],
+      "output": {
+        "type": "servicePb.HelloResp",
+        "isResponse": true
+      }
+    }
+  ]
+}

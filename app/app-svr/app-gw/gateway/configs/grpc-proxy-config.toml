@@ -1,0 +1,28 @@
+[ProxyConfig]
+
+  [[ProxyConfig.DynService]]
+    ServiceName = "account.service.Account"
+    Target = ""
+    [ProxyConfig.DynService.ClientSDKConfig]
+      AppID = "account.service"
+
+      [[ProxyConfig.DynService.ClientSDKConfig.MethodOption]]
+        Method = "Info3"
+        [ProxyConfig.DynService.ClientSDKConfig.MethodOption.BackupRetryOption]
+          Ratio = 100
+          ForceBackupCondition = "buvid=='1234'"
+          BackupAction = "ecode"
+          BackupPlaceholder = ""
+          BackupECode = -999
+          BackupTarget = ""
+      [ProxyConfig.DynService.ClientSDKConfig.SDKConfig]
+        Debug = false
+    [ProxyConfig.DynService.ClientConfig]
+      Dial = 0
+      Timeout = 0
+      Zone = ""
+      Subset = 0
+      NonBlock = false
+      KeepAliveInterval = 0
+      KeepAliveTimeout = 0
+      KeepAliveWithoutStream = false

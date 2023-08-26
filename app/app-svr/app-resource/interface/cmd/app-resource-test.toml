@@ -1,0 +1,333 @@
+
+tick    = "5m"
+quickerTick    = "1m"
+fawkesLaser = false
+
+interestJSONFile="/data/conf/app-resource/interest.json"
+staticJsonFile="/data/conf/static/static.json"
+
+modLowPool = ["MainSiteBW"]
+modMobiApp = ["iphone","iphone_b","iphone_i","ipad","android","android_b","android_i"]
+
+[cron]
+    loadAbTest = "@every 5m"
+    loadAuditCache = "@every 5m"
+    loadFawkes = "@every 1m"
+    loadModuleCache = "@every 5m"
+    loadNotice = "@every 5m"
+    loadParam = "@every 5m"
+    loadPlugin = "@every 5m"
+    loadShowCache = "@every 5m"
+    loadBubbleCache = "@every 5m"
+    loadSkinExtCache = "@every 30s"
+    loadSidebar = "@every 5m"
+    loadSplash = "@every 5m"
+    loadBirth = "@every 5m"
+    loadWhiteListCache = "@every 5m"
+    loadStaticCache = "@every 5m"
+    loadVersion = "@every 5m"
+    loadBrandSplash = "@every 1m"
+    loadModCache = "@every 1m"
+
+[guideRandom]
+    [guideRandom.random]
+        iphone = 2
+    [guideRandom.buvid]
+        iphone = 2
+
+[host]
+ad = "http://cm.bilibili.co"
+data = "http://data.bilibili.co"
+dp = "http://dataplatform.bilibili.co"
+fawkes = "http://uat-fawkes.bilibili.co"
+api = "http://api.bilibili.co"
+bap = "http://bap.bilibili.co"
+search  = "http://uat-s.search.bilibili.co"
+
+[white]
+[white.list]
+    regex=['^(http(s)?://)?(\w+\.)?(bilibili\.(com|tv|cn)|biligame\.(com|cn)|(bilibiliyoo|im9)\.com|b23\.tv)($|/|\\)']
+
+[ABTest]
+Range = 49
+
+[duration]
+splash = "2h"
+
+[httpClient]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "80ms"
+timeout   = "500ms"
+keepAlive = "60s"
+timer = 10
+
+[httpClientAsyn]
+    key    = "e7482d29be4a95b8"
+    secret = "9e803791cdef756e75faee68e12b7442"
+    dial      = "500ms"
+    timeout   = "60s"
+    keepAlive = "60s"
+    timer = 10
+
+[httpGame]
+    key = "ixoaem55h9ljpiqd"
+    secret = "tq3ntf82rixzzu9s49nkkyydb04vvia0"
+    dial      = "100ms"
+    timeout   = "300ms"
+    keepAlive = "60s"
+
+[HTTPWechat]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "80ms"
+timeout   = "5s"
+keepAlive = "60s"
+
+[log]
+stdout = true
+
+[app]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+
+[bm]
+    [bm.Outer]
+    addr = "0.0.0.0:6851"
+    timeout = "1s"
+
+[mysql]
+    [mysql.show]
+    addr   = "172.16.33.205:3308"
+    dsn    = "test:test@tcp(172.16.33.205:3308)/bilibili_show?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8mb4,utf8"
+    active = 5
+    idle   = 2
+    idleTimeout ="4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+    [mysql.show.breaker]
+        window = "3s"
+        sleep = "100ms"
+        bucket = 10
+        ratio = 0.5
+        request = 100
+    [mysql.resource]
+	addr   = "172.16.33.205:3308"
+	dsn    = "test:test@tcp(172.16.33.205:3308)/bilibili_resource?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+	active = 5
+	idle   = 2
+    idleTimeout ="4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+    [mysql.resource.breaker]
+        window = "3s"
+        sleep = "100ms"
+        bucket = 10
+        ratio = 0.5
+        request = 100
+
+[splash]
+[splash.random]
+	iphone  = ["250", "249"]
+    ipad    = ["255", "254"]
+    android = ["275", "274"]
+
+[domain]
+    addr = [
+        "app.bilibili.com",
+        "app.biliapi.net",
+        "app.bilapi.com"
+    ]
+
+[wechant]
+token = "test"
+secret = "test"
+users = ["test"]
+
+[bubble]
+    isFlush = true
+    [[bubble.items]]
+        btype = "bilibili://main/home"
+        id = 1
+        title = "首页测试气泡"
+        cover = "i0.hdslb.com/bfs/bangumi/c451451d617ed21096b1c5fabb788f8514bfc272.png"
+        uri = "bilibili://pegasus/channel/v2/11225?from=b"
+        stime = "2019-09-19 16:00:00"
+        etime = "2019-10-22 16:00:00"
+        mid = []
+    [[bubble.items]]
+        btype = "bilibili://pegasus/channel/"
+        id = 2
+        title = "频道测试气泡"
+        cover = "i0.hdslb.com/bfs/bangumi/c451451d617ed21096b1c5fabb788f8514bfc272.png"
+        uri = "bilibili://pegasus/channel/v2/11225?from=b"
+        stime = "2019-09-19 16:00:00"
+        etime = "2019-10-22 16:00:00"
+        mid = []
+    [[bubble.items]]
+        btype = "bilibili://following/home"
+        id = 3
+        title = "动态"
+        cover = "i0.hdslb.com/bfs/bangumi/c451451d617ed21096b1c5fabb788f8514bfc272.png"
+        uri = "bilibili://pegasus/channel/v2/11225?from=b"
+        stime = "2019-09-19 16:00:00"
+        etime = "2019-10-22 16:00:00"
+        mid = []
+    [[bubble.items]]
+        btype = "bilibili://mall/home"
+        id = 4
+        title = "会员购"
+        cover = "i0.hdslb.com/bfs/bangumi/c451451d617ed21096b1c5fabb788f8514bfc272.png"
+        uri = "bilibili://pegasus/channel/v2/11225?from=b"
+        stime = "2019-09-19 16:00:00"
+        etime = "2019-10-22 16:00:00"
+        mid = []
+    [[bubble.items]]
+        btype = "bilibili://user_center"
+        id = 5
+        title = "我的"
+        cover = "i0.hdslb.com/bfs/bangumi/c451451d617ed21096b1c5fabb788f8514bfc272.png"
+        uri = "bilibili://pegasus/channel/v2/11225?from=b"
+        stime = "2019-09-19 16:00:00"
+        etime = "2019-10-22 16:00:00"
+        mid = []
+
+[redis]
+    [redis.fawkes]
+        name = "app-resource"
+        proto = "tcp"
+        addr = "127.0.0.1:26741"
+        active = 1024
+        idle   = 128
+        dialTimeout = "1s"
+        readTimeout = "1s"
+        writeTimeout = "1s"
+        idleTimeout = "10s"
+
+[memcache]
+    [memcache.bubble]
+    name   = "app-resource/bubble"
+    proto  = "tcp"
+    addr   = "172.22.33.30:12217"
+    active = 5000
+    idle   = 128
+    dialTimeout   = "50ms"
+    readTimeout   = "150ms"
+    writeTimeout  = "90ms"
+    idleTimeout   = "80s"
+
+cdnTest = [
+    {poolName = "test", modName = "statichwdb", url = "https://upos-sz-statichwdb.bilivideo.com/appstaticboss/d0t4od52k97au6qc5ae1594017963685.mp4", md5 = "420546be90fe4c523449854ef7a49cf6", size = 10474335},
+    {poolName = "test", modName = "db302xl", url = "https://upos-sz-db302xl.bilivideo.com/upos-sz-staticks3.bilivideo.com/appstaticboss/d0t4od52k97au6qc5ae1594017963685.mp4", md5 = "420546be90fe4c523449854ef7a49cf6", size = 10474335},
+    {poolName = "test", modName = "pcdnyf302", url = "https://upos-sz-pcdnyf302.bilivideo.com/upos-sz-staticks3.bilivideo.com/appstaticboss/d0t4od52k97au6qc5ae1594017963685.mp4", md5 = "420546be90fe4c523449854ef7a49cf6", size = 10474335},
+    {poolName = "test", modName = "staticks3", url = "https://upos-sz-staticks3.bilivideo.com/appstaticboss/d0t4od52k97au6qc5ae1594017963685.mp4", md5 = "420546be90fe4c523449854ef7a49cf6", size = 10474335},
+]
+
+[privacy]
+    [privacy.city]
+        title = "允许我发布的内容在同城中展示"
+        subTitle = "详细了解：在同城中展示以获得更多曝光"
+        subTitleURL = "https://www.bilibili.com/blackboard/activity-5uBqP1N3M.html"
+
+[wechatAuth]
+    appid = ""
+    secret = ""
+    clientCredential = "client_credential"
+
+[mod]
+grayDuration = "20m"
+[mod.moduleForbid]
+mall = ["and-v8engine", "and-bcanvas", "test-v8-bcanvas"]
+
+[modLogGray]
+open = false
+whitelist = []
+bucket = 50
+
+[RegistrationDateEventConfig]
+LogoURL = "http://i0.hdslb.com/bfs/archive/1b1a8a4fc78a3b1b2992402ebdc19808b9d251ed.png"
+ShowTimes = 3
+[RegistrationDateEventConfig.Normal]
+ImageURL = ""
+[RegistrationDateEventConfig.Normal.AccountCard]
+Enable = true
+MaxWidth = "320px"
+PaddingTop = "50%"
+[RegistrationDateEventConfig.Normal.Greeting]
+Enable = true
+MaxWidth = "320px"
+PaddingTop = "3%"
+Text = "<font color=\"#000000\" >注册<strong><font color=\"#ff5377\" >{{.passYears}}周年</font></strong>快乐！</font>"
+[RegistrationDateEventConfig.Normal.Text]
+Enable = true
+MaxWidth = "320px"
+PaddingTop = "3%"
+Text = "<font color=\"#000000\" ><font color=\"#ff5377\" >{{.joinYear}}年{{.joinMonth}}月{{.joinDay}}日</font>，我们初次遇见<font color=\"#ff5377\" >{{.passDays}}</font>个日夜，相伴走过了许多风景下一个冬夏，也请多指教呀电波相连，我们的故事永不完结~</font>"
+[RegistrationDateEventConfig.Full]
+ImageURL = ""
+[RegistrationDateEventConfig.Full.AccountCard]
+Enable = true
+MaxWidth = "320px"
+PaddingTop = "50%"
+[RegistrationDateEventConfig.Full.Greeting]
+Enable = true
+MaxWidth = "320px"
+PaddingTop = "3%"
+Text = "<font color=\"#000000\" >注册<strong><font color=\"#ff5377\" >{{.passYears}}周年</font></strong>快乐！</font>"
+[RegistrationDateEventConfig.Full.Text]
+Enable = true
+MaxWidth = "320px"
+PaddingTop = "3%"
+Text = "<font color=\"#000000\" ><font color=\"#ff5377\" >{{.joinYear}}年{{.joinMonth}}月{{.joinDay}}日</font>，我们初次遇见<font color=\"#ff5377\" >{{.passDays}}</font>个日夜，相伴走过了许多风景下一个冬夏，也请多指教呀电波相连，我们的故事永不完结~</font>"
+[RegistrationDateEventConfig.Pad]
+ImageURL = ""
+[RegistrationDateEventConfig.Pad.AccountCard]
+Enable = true
+MaxWidth = "320px"
+PaddingTop = "50%"
+[RegistrationDateEventConfig.Pad.Greeting]
+Enable = true
+MaxWidth = "320px"
+PaddingTop = "3%"
+Text = "<font color=\"#000000\" >注册<strong><font color=\"#ff5377\" >{{.passYears}}周年</font></strong>快乐！</font>"
+[RegistrationDateEventConfig.Pad.Text]
+Enable = true
+MaxWidth = "320px"
+PaddingTop = "3%"
+Text = "<font color=\"#000000\" ><font color=\"#ff5377\" >{{.joinYear}}年{{.joinMonth}}月{{.joinDay}}日</font>，我们初次遇见<font color=\"#ff5377\" >{{.passDays}}</font>个日夜，相伴走过了许多风景下一个冬夏，也请多指教呀电波相连，我们的故事永不完结~</font>"
+
+[experiment]
+    [experiment.config]
+    [experiment.config.appStoreScore]
+        switch = true
+        expName = "appStoreScore"
+        bucket = 100
+        expType = "mid"
+        [[experiment.config.appStoreScore.groups]]
+            groupName = "groupA"
+            start = 10
+            end = 19
+            whiteList = ""
+        [[experiment.config.appStoreScore.groups]]
+            groupName = "groupB"
+            start = 20
+            end = 29
+            whiteList = ""
+        [[experiment.config.appStoreScore.groups]]
+            groupName = "groupC"
+            start = 30
+            end = 39
+            whiteList = ""
+        [[experiment.config.appStoreScore.groups]]
+            groupName = "groupD"
+            start = 40
+            end = 49
+            whiteList = ""
+
+[dolby]
+dolbyConfig = [
+    {brand = "1", model = "11", file = "test1", hash = "test11"},
+    {brand = "2", model = "22", file = "test2", hash = "test22"},
+]

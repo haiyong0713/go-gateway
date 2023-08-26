@@ -1,0 +1,8 @@
+[Search]
+    host = "http://uat-manager.bilibili.co"
+[Search.Client]
+    key = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial = "80ms"
+    timeout = "500ms"
+    keepAlive = "60s"

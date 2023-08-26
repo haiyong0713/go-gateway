@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+package bilibili.app.nativeact.v1;
+
+option go_package = "api";
+option (gogoproto.goproto_getters_all) = true;
+
+message ProgressEvent {
+  // 页面id
+  int64 PageID = 1;
+  // event列表
+  repeated ProgressEventItem Items = 2;
+}
+
+message ProgressEventItem {
+  // 组件标识
+  int64 ItemID = 1;
+  // 组件类型
+  string Type = 2;
+  // 进度条数值
+  int64 Num = 3;
+  // 进度条展示数值
+  string DisplayNum = 4;
+  // h5的组件标识
+  string WebKey = 5;
+  // 活动统计维度：0 用户维度；1 规则维度
+  int64 dimension = 6;
+}

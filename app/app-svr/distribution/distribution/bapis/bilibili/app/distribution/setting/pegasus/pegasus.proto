@@ -1,0 +1,49 @@
+syntax = "proto3";
+package bilibili.app.distribution.pegasus.v1;
+import "bilibili/app/distribution/distribution.proto";
+import "bilibili/app/distribution/options.proto";
+
+option go_package = "git.bilibili.co/bapis/bapis-go/bilibili/app/distribution/setting/pegasus;pegasus";
+option java_package = "com.bapis.bilibili.app.distribution.setting.pegasus";
+option java_multiple_files = true;
+option objc_class_prefix = "BAPIAppDistributionSettingPegasus";
+option (bilibili.app.distribution.v1.preference) = "PegasusDeviceConfig";
+
+message PegasusDeviceConfig {
+    PegasusColumnValue column = 1;
+    FeedModeValue mode = 2;
+    PegasusAutoPlay auto_play = 3;
+}
+
+message PegasusColumnValue {
+    bilibili.app.distribution.v1.Int64Value value = 1 [(bilibili.app.distribution.v1.refenum) = "PegasusColumn", (bilibili.app.distribution.v1.default_value) = { int64_value: 2 }];
+    enum PegasusColumn {
+        PC_UNKNOW = 0;
+        Single = 1;
+        Double = 2;
+        Triple = 3;
+    }
+    bilibili.app.distribution.v1.BoolValue affected_by_server_side = 2 [(bilibili.app.distribution.v1.default_value) = { bool_value: true }];
+}
+
+message FeedModeValue {
+    bilibili.app.distribution.v1.Int64Value value = 1 [(bilibili.app.distribution.v1.refenum) = "FeedMode", (bilibili.app.distribution.v1.default_value) = { int64_value: 1 }];
+    enum FeedMode {
+        FM_UNKNOW = 0;
+        Regular = 1;
+        OnlyFollowing = 2;
+    }
+}
+
+message PegasusAutoPlay {
+    bilibili.app.distribution.v1.Int64Value single = 1 [(bilibili.app.distribution.v1.refenum) = "AutoPlay", (bilibili.app.distribution.v1.default_value) = { int64_value: 2 }];
+    bilibili.app.distribution.v1.Int64Value double = 2 [(bilibili.app.distribution.v1.refenum) = "AutoPlay", (bilibili.app.distribution.v1.default_value) = { int64_value: 3 }];
+    enum AutoPlay {
+        AP_UNKNOW = 0;
+        Disable = 1;
+        WIFIOnly = 2;
+        WIFIAndCellular = 3;
+    }
+    bilibili.app.distribution.v1.BoolValue single_affected_by_server_side = 3 [(bilibili.app.distribution.v1.default_value) = { bool_value: true }];
+    bilibili.app.distribution.v1.BoolValue double_affected_by_server_side = 4 [(bilibili.app.distribution.v1.default_value) = { bool_value: true }];
+}

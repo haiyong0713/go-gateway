@@ -1,0 +1,154 @@
+syntax = "proto3";
+
+package bilibili.app.interface.v1;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "git.bilibili.co/bapis/bapis-go/bilibili/app/interface/v1;v1";
+option java_multiple_files = true;
+option java_package = "com.bapis.bilibili.app.interfaces.v1";
+option objc_class_prefix = "BAPIAppInterfaceV1";
+
+
+service Teenagers {
+  // 修改密码
+  rpc ModifyPwd (ModifyPwdReq) returns (ModifyPwdReply);
+  // 验证密码
+  rpc VerifyPwd (VerifyPwdReq) returns (VerifyPwdReply);
+  // 修改青少年模式状态
+  rpc UpdateStatus (UpdateStatusReq) returns (UpdateStatusReply);
+  // 获取特殊模式状态
+  rpc ModeStatus (ModeStatusReq) returns (ModeStatusReply);
+  // 人脸识别验证
+  rpc FacialRecognitionVerify (FacialRecognitionVerifyReq) returns (FacialRecognitionVerifyReply);
+}
+
+message ModifyPwdReq {
+  // 旧密码
+  string old_pwd = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  // 新密码
+  string new_pwd = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  // 设备指纹
+  string device_token = 3;
+
+}
+
+message ModifyPwdReply {
+}
+
+enum PwdFrom {
+  // 未知的来源
+  UnknownFrom = 0;
+  // 青少年模式防沉迷锁
+  TeenagersAntiAddictionFrom = 1;
+  // 青少年模式宵禁
+  TeenagersCurfewFrom = 2;
+  // 青少年模式登陆
+  TeenagersLoginFrom = 3;
+  // 青少年模式退出登陆
+  TeenagersLogOutFrom = 4;
+  // 亲子平台模式防沉迷锁
+  FamilyAntiAddictionFrom = 5;
+  // 亲子平台模式宵禁
+  FamilyCurfewFrom = 6;
+  // 亲子平台模式退出登陆
+  FamilyLogOutFrom = 7;
+  // 亲子平台模式时间锁
+  FamilyTimeLockFrom = 8;
+  // 青少年模式退出
+  TeenagersQuitPwdFrom = 9;
+  // 青少年模式修改密码
+  TeenagersModifyPwdFrom = 10;
+  // 亲子平台模式退出
+  FamilyQuitFrom = 11;
+}
+
+message VerifyPwdReq {
+  string pwd = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  // 密码验证来源
+  PwdFrom pwd_from = 2;
+  // 是否是动态密码
+  bool is_dynamic = 3;
+  // 是否关闭设备青少年数据,使用动态密码时有效,场景用在亲子平台模式退出登陆时使用
+  bool close_device = 4;
+  // 设备指纹
+  string device_token = 5;
+}
+
+message VerifyPwdReply {
+}
+
+message UpdateStatusReq {
+  string pwd = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  // true 打开, false 关闭
+  bool switch = 2;
+  // 密码来源
+  PwdFrom pwd_from = 3;
+  // 设备指纹
+  string device_token = 4;
+}
+
+message UpdateStatusReply {
+}
+
+message ModeStatusReq {
+  // 设备指纹
+  string device_token = 1;
+}
+
+message ModeStatusReply {
+  repeated UserModel user_models = 1;
+}
+
+enum ModelStatus {
+  // 模式关闭
+  CloseStatus = 0;
+  // 模式开启
+  OpenStatus = 1;
+  // 未向服务端同步过模式（此状态青少年模式独有，版本升级时，客户端同步本地状态到服务端）
+  NotSetStatus = 2;
+}
+
+message Policy {
+  int64 interval = 1;
+  // 客户端青少年宵禁使用本地时间
+  bool use_local_time = 2;
+}
+
+message UserModel {
+  // mid
+  int64 mid = 1;
+  // teenagers:青少年模式。lessons:课堂模式
+  string mode = 2;
+  // 课堂模式密文
+  string wsxcde = 3;
+  // 模式状态
+  ModelStatus status = 4;
+  Policy policy = 5;
+  // 是否强制操作
+  bool is_forced = 6;
+  // 必须进入青少年
+  bool must_teen = 7;
+  // 必须进行实名认证（优先级高于must_teen）
+  bool must_real_name = 8;
+  // 是否家长操作
+  bool is_parent_control = 9;
+}
+
+enum FacialRecognitionVerifyFrom {
+  // 未知的来源
+  VerifyUnknownFrom = 0;
+  // 监护人认证页
+  VerifyFromGuardian = 1;
+  // 身份验证密码申诉
+  VerifyFromAppeal = 2;
+}
+
+message FacialRecognitionVerifyReq {
+  FacialRecognitionVerifyFrom from = 1;
+  // 设备指纹
+  string device_token = 2;
+}
+
+message FacialRecognitionVerifyReply {
+}

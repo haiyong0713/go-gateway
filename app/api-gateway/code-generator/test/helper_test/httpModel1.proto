@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package httpModel1;
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package                      = "httpModel1";
+
+
+message HttpBody {
+    string Body = 1 [(gogoproto.jsontag) = 'body'];
+}
+
+message HttpResult {
+    int64 Code = 1 [(gogoproto.jsontag) = 'code'];
+    string Message = 2 [(gogoproto.jsontag) = 'message'];
+    repeated string Data = 3 [(gogoproto.jsontag) = 'data'];
+}

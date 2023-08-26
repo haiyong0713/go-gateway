@@ -1,0 +1,93 @@
+[mysql]
+    [mysql.like]
+    addr = "172.22.34.101:3306"
+    dsn = "test:pqAgqRbLBa7afOAQ47IBlqvJcOGI9YNd@tcp(172.16.33.205:3308)/bilibili_lottery?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 1
+    idle = 1
+    idleTimeout ="4h"
+    queryTimeout = "500ms"
+    execTimeout = "500ms"
+    tranTimeout = "500ms"
+    [mysql.like.breaker]
+    window  ="3s"
+    sleep   ="100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+    [mysql.read]
+    addr = "172.22.34.102:3306"
+    dsn = "test:pqAgqRbLBa7afOAQ47IBlqvJcOGI9YNd@tcp(172.16.33.205:3308)/bilibili_lottery?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 1
+    idle = 1
+    idleTimeout ="4h"
+    queryTimeout = "500ms"
+    execTimeout = "500ms"
+    tranTimeout = "500ms"
+    [mysql.read.breaker]
+    window  ="3s"
+    sleep   ="100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+    [mysql.bnj]
+    addr = "172.22.34.101:3306"
+    dsn = "test:pqAgqRbLBa7afOAQ47IBlqvJcOGI9YNd@tcp(172.16.33.205:3308)/bilibili_lottery?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 1
+    idle = 1
+    idleTimeout ="4h"
+    queryTimeout = "500ms"
+    execTimeout = "500ms"
+    tranTimeout = "500ms"
+    [mysql.bnj.breaker]
+    window  ="3s"
+    sleep   ="100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+[tidb]
+    [tidb.master]
+    addr = "uat-tidb-4000.testdb.bilibili.co:4000"
+    dsn = "main_lottery:RWXcNcw1X43S1K1nvB51x7iNjMMjP0ba@tcp(10.221.34.182:4000)/main_lottery?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 1
+    idle = 1
+    idleTimeout ="4h"
+    queryTimeout = "100ms"
+    execTimeout = "100ms"
+    tranTimeout = "200ms"
+    [tidb.master.breaker]
+    window  ="3s"
+    sleep   ="100ms"
+    bucket  = 10
+    ratio   = 0.5
+
+[S10MySQL]
+    addr = "172.22.34.101:3306"
+    dsn = "test:pqAgqRbLBa7afOAQ47IBlqvJcOGI9YNd@tcp(172.16.33.205:3308)/bilibili_lottery?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 1
+    idle = 1
+    idleTimeout ="4h"
+    queryTimeout = "500ms"
+    execTimeout = "500ms"
+    tranTimeout = "500ms"
+    [S10MySQL.breaker]
+        window  ="3s"
+        sleep   ="100ms"
+        bucket  = 10
+        ratio   = 0.5
+        request = 100
+
+[RewardsMySQL]
+    addr = "172.22.34.101:3306"
+    dsn = "test:pqAgqRbLBa7afOAQ47IBlqvJcOGI9YNd@tcp(172.16.33.205:3308)/bilibili_lottery?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 1
+    idle = 1
+    idleTimeout ="4h"
+    queryTimeout = "3s"
+    execTimeout = "3s"
+    tranTimeout = "3s"
+    [RewardsMySQL.breaker]
+        window  ="3s"
+        sleep   ="100ms"
+        bucket  = 10
+        ratio   = 0.5
+        request = 100

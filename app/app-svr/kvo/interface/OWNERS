@@ -1,0 +1,12 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+- guanyanliang
+- liweijia
+- wuhao02
+- chenchaojie
+- guhao
+labels:
+- area/app-svr
+- area/app-svr/kvo/interface
+

@@ -1,0 +1,46 @@
+[log]
+stdout = true
+
+[SeasonDB]
+name = "172.16.33.205:3308"
+dsn = "test:test@tcp(172.16.33.205:3308)/archive_result?timeout=200ms&readTimeout=200ms&writeTimeout=200ms&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+active = 5
+idle = 1
+idleTimeout ="4h"
+queryTimeout = "150ms"
+execTimeout = "100ms"
+tranTimeout = "200ms"
+
+[StatDB]
+name = "172.16.33.205:3308"
+dsn = "test:test@tcp(172.16.33.205:3308)/archive_stat?timeout=200ms&readTimeout=200ms&writeTimeout=200ms&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+active = 5
+idle = 1
+idleTimeout ="4h"
+queryTimeout = "150ms"
+execTimeout = "100ms"
+tranTimeout = "200ms"
+
+[memcache]
+name = "archive-service"
+proto = "tcp"
+addr = "172.18.33.61:11226"
+active = 50
+idle = 10
+dialTimeout = "30ms"
+readTimeout = "200ms"
+writeTimeout = "200ms"
+idleTimeout = "80s"
+archiveExpire = "10h"
+videoExpire = "10h"
+
+[redis]
+name = "season-job/redis"
+proto = "tcp"
+addr = "172.22.35.207:20109"
+active = 10
+idle = 1
+dialTimeout = "1s"
+readTimeout = "1s"
+writeTimeout = "1s"
+idleTimeout = "80s"

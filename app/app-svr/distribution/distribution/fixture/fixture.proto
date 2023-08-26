@@ -1,0 +1,60 @@
+syntax = "proto3";
+package bilibili.app.distribution.fixture.v1;
+import "bilibili/app/distribution/distribution.proto";
+import "bilibili/app/distribution/options.proto";
+
+message StructConfig {
+    bilibili.app.distribution.v1.DoubleValue field_double = 1;
+    bilibili.app.distribution.v1.FloatValue field_float = 2;
+    bilibili.app.distribution.v1.Int64Value field_int64 = 3;
+    bilibili.app.distribution.v1.UInt64Value field_uint64 = 4;
+    bilibili.app.distribution.v1.Int32Value field_int32 = 5;
+    bilibili.app.distribution.v1.UInt32Value field_uint32 = 6;
+    bilibili.app.distribution.v1.BoolValue field_bool = 7;
+    bilibili.app.distribution.v1.StringValue field_string = 8;
+    bilibili.app.distribution.v1.BytesValue field_bytes = 9;
+}
+
+message WithDefaultValueStructConfig {
+    bilibili.app.distribution.v1.DoubleValue field_double = 1 [(bilibili.app.distribution.v1.default_value) = { double_value: 1.0 }];
+    bilibili.app.distribution.v1.FloatValue field_float = 2 [(bilibili.app.distribution.v1.default_value) = { float_value: 2.0 }];
+    bilibili.app.distribution.v1.Int64Value field_int64 = 3 [(bilibili.app.distribution.v1.default_value) = { int64_value: 3 }];
+    bilibili.app.distribution.v1.UInt64Value field_uint64 = 4 [(bilibili.app.distribution.v1.default_value) = { uint64_value: 4 }];
+    bilibili.app.distribution.v1.Int32Value field_int32 = 5 [(bilibili.app.distribution.v1.default_value) = { int32_value: 5 }];
+    bilibili.app.distribution.v1.UInt32Value field_uint32 = 6 [(bilibili.app.distribution.v1.default_value) = { uint32_value: 6 }];
+    bilibili.app.distribution.v1.BoolValue field_bool = 7 [(bilibili.app.distribution.v1.default_value) = { bool_value: true }];
+    bilibili.app.distribution.v1.StringValue field_string = 8 [(bilibili.app.distribution.v1.default_value) = { string_value: "7" }];
+    bilibili.app.distribution.v1.BytesValue field_bytes = 9 [(bilibili.app.distribution.v1.default_value) = { bytes_value: "8" }];
+}
+
+message RepeatedStructConfig {
+    repeated bilibili.app.distribution.v1.DoubleValue field_double = 1;
+    repeated bilibili.app.distribution.v1.FloatValue field_float = 2;
+    repeated bilibili.app.distribution.v1.Int64Value field_int64 = 3;
+    repeated bilibili.app.distribution.v1.UInt64Value field_uint64 = 4;
+    repeated bilibili.app.distribution.v1.Int32Value field_int32 = 5;
+    repeated bilibili.app.distribution.v1.UInt32Value field_uint32 = 6;
+    repeated bilibili.app.distribution.v1.BoolValue field_bool = 7;
+    repeated bilibili.app.distribution.v1.StringValue field_string = 8;
+    repeated bilibili.app.distribution.v1.BytesValue field_bytes = 9;
+}
+
+message RepeatedWithDefaultValueStructConfig {
+    repeated bilibili.app.distribution.v1.DoubleValue field_double = 1 [(bilibili.app.distribution.v1.default_value) = { double_value: 1.0 }];
+    repeated bilibili.app.distribution.v1.FloatValue field_float = 2 [(bilibili.app.distribution.v1.default_value) = { float_value: 2.0 }];
+    repeated bilibili.app.distribution.v1.Int64Value field_int64 = 3 [(bilibili.app.distribution.v1.default_value) = { int64_value: 3 }];
+    repeated bilibili.app.distribution.v1.UInt64Value field_uint64 = 4 [(bilibili.app.distribution.v1.default_value) = { uint64_value: 4 }];
+    repeated bilibili.app.distribution.v1.Int32Value field_int32 = 5 [(bilibili.app.distribution.v1.default_value) = { int32_value: 5 }];
+    repeated bilibili.app.distribution.v1.UInt32Value field_uint32 = 6 [(bilibili.app.distribution.v1.default_value) = { uint32_value: 6 }];
+    repeated bilibili.app.distribution.v1.BoolValue field_bool = 7 [(bilibili.app.distribution.v1.default_value) = { bool_value: true }];
+    repeated bilibili.app.distribution.v1.StringValue field_string = 8 [(bilibili.app.distribution.v1.default_value) = { string_value: "7" }];
+    repeated bilibili.app.distribution.v1.BytesValue field_bytes = 9 [(bilibili.app.distribution.v1.default_value) = { bytes_value: "8" }];
+}
+
+message EmbedStructConfig {
+    StructConfig field_struct = 1;
+    WithDefaultValueStructConfig field_default_struct = 2;
+    RepeatedStructConfig field_repeated_struct = 3;
+    RepeatedWithDefaultValueStructConfig field_repeated_default_struct_slice = 4;
+    repeated RepeatedWithDefaultValueStructConfig field_repeated_repeated_default_struct_slice = 5;
+}

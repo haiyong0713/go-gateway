@@ -1,0 +1,138 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+package app.whitelist.v1;
+
+option go_package = "webcontainer";
+option (gogoproto.goproto_getters_all) = false;
+
+service WhiteList {
+  /* 白名单增删改查 */
+
+  rpc AddWhiteList(AddWhiteListReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/webcontainer/whitelist/add"
+    };
+  }
+
+  rpc DelWhiteList(DelWhiteListReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/webcontainer/whitelist/delete"
+    };
+  }
+
+  rpc UpdateWhiteList(UpdateWhiteListReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/webcontainer/whitelist/update"
+    };
+  }
+
+  rpc GetWhiteList(GetWhiteListReq) returns (GetWhiteListResp){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/webcontainer/whitelist"
+    };
+  }
+
+  rpc WhiteListConfig(WhiteListConfigReq) returns (WhiteListConfigResp){
+    option (google.api.http) = {
+      get: "/x/admin/fawkes/app/webcontainer/whitelist/config"
+    };
+  }
+
+  rpc DomainStatusSync(.google.protobuf.Empty) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/webcontainer/whitelist/domain/sync"
+    };
+  }
+
+
+}
+
+message AddWhiteListReq{
+  // 关联的app_key 多个用逗号隔开
+  string app_key = 1 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];
+  string title = 2 [(gogoproto.jsontag) = "title", (gogoproto.moretags) = 'form:"title" validate:"required"'];
+  string domain = 3 [(gogoproto.jsontag) = "domain", (gogoproto.moretags) = 'form:"domain" validate:"required"'];
+  string reason = 4 [(gogoproto.jsontag) = "reason", (gogoproto.moretags) = 'form:"reason" validate:"required"'];
+  // 是否第三方域名
+  google.protobuf.BoolValue is_third_party = 5 [(gogoproto.jsontag) = "is_third_party", (gogoproto.moretags) = 'form:"is_third_party" validate:"required"'];
+  string comet_id = 6 [(gogoproto.jsontag) = "comet_id", (gogoproto.moretags) = 'form:"comet_id"'];
+  // 支持的能力 JsBridge(调用jsb) = 1 QrCode(扫码) = 2; HighLight(高亮) = 3;
+  repeated Feature feature = 7 [(gogoproto.jsontag) = "feature", (gogoproto.moretags) = 'form:"feature" validate:"required"'];
+  // 域名生效时间
+  int64 effective = 8 [(gogoproto.jsontag) = "effective", (gogoproto.moretags) = 'form:"effective" validate:"required"'];
+  // 域名过期时间
+  int64 expires = 9 [(gogoproto.jsontag) = "expires", (gogoproto.moretags) = 'form:"expires" validate:"required"'];
+}
+
+message DelWhiteListReq{
+  int64 id = 1 [(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id" validate:"required"'];
+}
+
+message UpdateWhiteListReq{
+  int64 id = 1 [(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id" validate:"required"'];
+  google.protobuf.BoolValue is_third_party = 2 [(gogoproto.jsontag) = "is_third_party", (gogoproto.moretags) = 'form:"is_third_party"'];
+  repeated Feature feature = 3 [(gogoproto.jsontag) = "feature", (gogoproto.moretags) = 'form:"feature"'];
+  google.protobuf.Int64Value effective = 4 [(gogoproto.jsontag) = "effective", (gogoproto.moretags) = 'form:"effective"']; //生效时间
+  google.protobuf.Int64Value expires = 5 [(gogoproto.jsontag) = "expires", (gogoproto.moretags) = 'form:"expires" ']; //过期时间
+  google.protobuf.BoolValue is_domain_active = 6 [(gogoproto.jsontag) = "is_domain_active", (gogoproto.moretags) = 'form:"is_domain_active"']; //过期时间
+  string title = 7 [(gogoproto.jsontag) = "title", (gogoproto.moretags) = 'form:"feature"'];
+  string reason = 8 [(gogoproto.jsontag) = "reason", (gogoproto.moretags) = 'form:"reason" "'];
+  string comet_id = 9 [(gogoproto.jsontag) = "comet_id", (gogoproto.moretags) = 'form:"comet_id"'];
+}
+
+message GetWhiteListReq{
+  string app_key = 1 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];
+  string domain = 2 [(gogoproto.jsontag) = "domain", (gogoproto.moretags) = 'form:"domain"'];
+  google.protobuf.BoolValue is_third_party = 3 [(gogoproto.jsontag) = "is_third_party", (gogoproto.moretags) = 'form:"is_third_party"'];
+  repeated Feature feature = 4 [(gogoproto.jsontag) = "feature", (gogoproto.moretags) = 'form:"feature"'];
+  google.protobuf.Int64Value effective = 5 [(gogoproto.jsontag) = "effective", (gogoproto.moretags) = 'form:"effective"']; //生效时间
+  google.protobuf.Int64Value expires = 6 [(gogoproto.jsontag) = "expires", (gogoproto.moretags) = 'form:"expires"']; //过期时间
+  string comet_id = 7 [(gogoproto.jsontag) = "comet_id", (gogoproto.moretags) = 'form:"comet_id"'];
+  google.protobuf.BoolValue is_domain_active = 8 [(gogoproto.jsontag) = "is_domain_active", (gogoproto.moretags) = 'form:"is_domain_active"'];
+}
+
+message GetWhiteListResp{
+  repeated WhiteListInfo whitelist = 1;
+}
+
+message WhiteListInfo{
+  int64 id = 1 [(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id"'];
+  string app_key = 2 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];
+  string title = 3 [(gogoproto.jsontag) = "title", (gogoproto.moretags) = 'form:"feature"'];
+  string domain = 4 [(gogoproto.jsontag) = "domain", (gogoproto.moretags) = 'form:"domain"'];
+  string reason = 5 [(gogoproto.jsontag) = "reason", (gogoproto.moretags) = 'form:"reason" "'];
+  bool is_third_party = 6 [(gogoproto.jsontag) = "is_third_party", (gogoproto.moretags) = 'form:"is_third_party"'];
+  string comet_id = 7 [(gogoproto.jsontag) = "comet_id", (gogoproto.moretags) = 'form:"comet_id"'];
+  repeated Feature feature = 8 [(gogoproto.jsontag) = "feature", (gogoproto.moretags) = 'form:"feature"'];
+  int64 effective = 9 [(gogoproto.jsontag) = "effective", (gogoproto.moretags) = 'form:"effective"']; //生效时间
+  int64 expires = 10 [(gogoproto.jsontag) = "expires", (gogoproto.moretags) = 'form:"expires"']; //过期时间
+  int64 ctime = 11 [(gogoproto.jsontag) = "ctime", (gogoproto.moretags) = 'form:"ctime"'];
+  int64 mtime = 12 [(gogoproto.jsontag) = "mtime", (gogoproto.moretags) = 'form:"mtime"'];
+  bool is_domain_active = 13 [(gogoproto.jsontag) = "is_domain_active", (gogoproto.moretags) = 'form:"is_domain_active"'];
+  string comet_url = 14 [(gogoproto.jsontag) = "comet_url", (gogoproto.moretags) = 'form:"comet_url"'];
+}
+
+message WhiteListConfigReq{
+  string app_key = 1 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];
+}
+
+message WhiteListConfigResp{
+  string h5_all_ability_whitelist = 1 [(gogoproto.jsontag) = "h5_all_ability_whitelist", (gogoproto.moretags) = 'form:"h5_all_ability_whitelist"'];
+  string h5_jsbridge_whitelist = 2 [(gogoproto.jsontag) = "h5_jsbridge_whitelist", (gogoproto.moretags) = 'form:"h5_jsbridge_whitelist"'];
+  string h5_highlight_whitelist = 3 [(gogoproto.jsontag) = "h5_highlight_whitelist", (gogoproto.moretags) = 'form:"h5_highlight_whitelist"'];
+  string h5_qrcode_whitelist = 4 [(gogoproto.jsontag) = "h5_qrcode_whitelist", (gogoproto.moretags) = 'form:"h5_qrcode_whitelist"'];
+  string h5_alert_whitelist = 5 [(gogoproto.jsontag) = "h5_alert_whitelist", (gogoproto.moretags) = 'form:"h5_alert_whitelist"'];
+}
+
+// 支持的能力 JsBridge(调用jsb) = 1 QrCode(扫码) = 2; HighLight(高亮) = 3;
+enum Feature{
+  _ = 0;
+  JsBridge = 1;
+  QrCode = 2;
+  HighLight = 3;
+}

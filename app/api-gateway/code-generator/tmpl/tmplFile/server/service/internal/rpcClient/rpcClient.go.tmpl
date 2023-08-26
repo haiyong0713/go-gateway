@@ -1,0 +1,43 @@
+package rpcClient
+
+import (
+    {{range $discoveryId, $rpcClientInfo := .RpcClientMap -}}
+    {{$rpcClientInfo.PbAlias}} "git.bilibili.co/bapis/bapis-go{{$rpcClientInfo.PbPath}}"
+    {{end}}
+    {{if .NeedRpcClient -}}
+    "go-common/library/conf/paladin"
+    "go-common/library/net/rpc/warden"
+    {{end}}
+)
+
+type Rpc struct {
+    RpcClientMap map[string]interface{}
+}
+
+func New() (rpcClient *Rpc, err error) {
+    rpcClientMap := make(map[string]interface{})
+
+    {{if .NeedRpcClient -}}
+    var (
+        ct  paladin.Map
+    )
+
+    if err = paladin.Get("rpcClient.toml").Unmarshal(&ct); err != nil {
+        return
+    }
+    {{end}}
+    {{range $discoveryId, $rpcClientInfo := .RpcClientMap -}}
+    var cfg{{$rpcClientInfo.ServiceName}} warden.ClientConfig
+    if err = ct.Get("{{$rpcClientInfo.ServiceName}}Service").UnmarshalTOML(&cfg{{$rpcClientInfo.ServiceName}}); err != nil {
+        return
+    }
+
+    if rpcClientMap["{{$rpcClientInfo.DiscoveryId}}"], err = {{$rpcClientInfo.PbAlias}}.NewClient(&cfg{{$rpcClientInfo.ServiceName}}); err != nil {
+        return
+    }
+    {{end}}
+
+    return &Rpc{
+        RpcClientMap: rpcClientMap,
+    }, nil
+}

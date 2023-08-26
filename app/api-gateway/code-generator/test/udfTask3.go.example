@@ -1,0 +1,14 @@
+package task
+
+import (
+	"context"
+	"fmt"
+	servicePb "git.bilibili.co/platform/api-gateway/app/demo/service/api"
+)
+
+func (p *TaskFlow) SayWorld2(ctx context.Context, req *WorldResp) (reply *servicePb.HelloResp, err error) {
+	reply = &servicePb.HelloResp{
+		Content: fmt.Sprintf("hello SayWorld2 %s", req.Content),
+	}
+	return
+}

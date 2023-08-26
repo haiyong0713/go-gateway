@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package resource.service.v1;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "v1";
+
+message UgcTabReq {
+    // 分区
+    int64 tid = 1 [(gogoproto.jsontag) = "tid", json_name = "tid"];
+    // tag
+    repeated int64 tag = 2 [(gogoproto.jsontag) = "tag", json_name = "tag"];
+    // up
+    repeated int64 up_id = 3 [(gogoproto.jsontag) = "upid", json_name = "upid"];
+    // 稿件
+    int64 av_id = 4 [(gogoproto.jsontag) = "avid", json_name = "avid"];
+    // 平台
+    int32 plat = 5 [(gogoproto.jsontag) = "plat", json_name = "plat"];
+    // 版本
+    int32 build = 6 [(gogoproto.jsontag) = "build", json_name = "build"];
+}
+
+message UgcTabV2Reply {
+    //不存在返回nil
+    UgcTabReply item = 1;
+}
+message UgcTabReply {
+    // 主键id
+    int64 id = 1 [(gogoproto.jsontag) = "id", json_name = "id"];
+    // Tab样式,1-文字，2-图片
+    int32 tab_type = 2 [(gogoproto.jsontag) = "tab_type", json_name = "tab_type"];
+    // Tab内容，当type为1时tab为文字，为2时为图片地址
+    string tab = 3 [(gogoproto.jsontag) = "tab", json_name = "tab"];
+    // LinkTab,1-H5链接，2-Native ID
+    int32 link_type = 4 [(gogoproto.jsontag) = "link_type", json_name = "link_type"];
+    // Link内容,当link_type为1时为H5链接，为2时为Native ID
+    string link = 5 [(gogoproto.jsontag) = "link", json_name = "link"];
+    // 背景
+    string bg = 6 [(gogoproto.jsontag) = "background", json_name = "background"];
+    // tab字体颜色选中状态
+    string selected = 7 [(gogoproto.jsontag) = "selected", json_name = "selected"];
+    // tab字体颜色
+    string color = 8 [(gogoproto.jsontag) = "color", json_name = "color"];
+}
+
+message UgcInfo {
+    // 分区
+    int64 tid = 1;
+    // tag
+    repeated int64 tag = 2;
+    // up
+    repeated int64 up_id = 3;
+}
+
+message UgcTabBatchReq {
+    // 稿件map
+    map<int64, UgcInfo> arcs = 1;
+    // 平台
+    int32 plat = 2;
+    // 版本
+    int32 build = 3;
+}
+
+message UgcTabBatchReply {
+    // tab配制
+    map<int64, UgcTabReply> tabs = 1;
+}

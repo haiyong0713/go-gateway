@@ -1,0 +1,101 @@
+### 新增project
+POST {{baseUrl}}/app/open/project/add
+Content-Type: application/x-www-form-urlencoded
+Cookie: {{Cookie}}
+
+project_name=shakespeare&owner=huangziwei&description=EP - 移动端稳定性测试平台
+
+###删除project
+POST {{baseUrl}}/app/open/project/active
+Content-Type: application/x-www-form-urlencoded
+Cookie: {{Cookie}}
+
+project_id=37&is_active=true
+
+###
+POST {{baseUrl}}/app/open/project/update
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+{
+  "project_id": 37,
+  "owner": [
+    "a",
+    "b"
+  ],
+  "description": "change"
+}
+
+###
+POST {{baseUrl}}/app/open/project/path/enable
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+{
+  "project_id": 37,
+  "router_access": [
+    {
+      "path": "/x/admin/fawkes/openapi/ci/info1112",
+      "app_key": [],
+      "description": "ci/info接口"
+    }
+  ]
+}
+###
+POST {{baseUrl}}/app/open/project/path/disable
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+{
+  "project_id": 38,
+  "path_id": [20]
+}
+
+###
+POST {{baseUrl}}/app/open/project/path/appkey/update
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+{
+  "project_id": 37,
+  "items": [
+    {
+      "path_id": 19,
+      "app_key": [
+        "w19e",
+        "ios"
+      ],
+      "description": "改一下"
+    }
+  ]
+}
+
+
+### 获取project Info
+GET {{baseUrl}}/app/open/project/info?project_id=37
+Accept: application/json
+Cookie: {{Cookie}}
+
+###
+GET {{baseUrl}}/app/open/project/info/list?project_name=&ps=100&pn=1
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+
+###
+GET {{baseUrl}}/openapi/feedback/list?app_key=w19e&build_id=1475
+Accept: application/json
+fawkes-token:eyJwcm9qZWN0X25hbWUiOiJ0ZXN0bCIsInRpbWVfc3RhbXAiOiIyMDIxLTA5LTIzVDE5OjA1OjU1Ljk5NzQ5KzA4OjAwIn0=
+###
+
+###
+GET {{baseUrl}}/app/open/project/apis
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+###
+GET {{baseUrl}}/app/open/project/path/list?project_id=37
+Accept: application/json
+Cookie: {{Cookie}}
+
+###

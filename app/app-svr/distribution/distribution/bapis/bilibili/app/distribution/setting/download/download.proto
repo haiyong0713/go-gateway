@@ -1,0 +1,15 @@
+syntax = "proto3";
+package bilibili.app.distribution.download.v1;
+import "bilibili/app/distribution/distribution.proto";
+import "bilibili/app/distribution/options.proto";
+
+option go_package = "git.bilibili.co/bapis/bapis-go/bilibili/app/distribution/setting/download;download";
+option java_package = "com.bapis.bilibili.app.distribution.setting.download";
+option java_multiple_files = true;
+option objc_class_prefix = "BAPIAppDistributionSettingDownload";
+option (bilibili.app.distribution.v1.preference) = "DownloadSettingsConfig";
+
+message DownloadSettingsConfig {
+    // 自动下载
+    bilibili.app.distribution.v1.BoolValue enableDownloadAutoStart = 1 [(bilibili.app.distribution.v1.default_value) = { bool_value: true }];
+}

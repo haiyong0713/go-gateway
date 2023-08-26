@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+// use {app_id}.{version} as package name
+package resource.service.v1;
+
+// specify golang package name
+option go_package = "v1";
+
+message Audit {
+    string mobiApp = 1;
+    int32 build = 2 ;
+}
+
+message AuditReply {
+    repeated Audit list = 1;
+}

@@ -1,0 +1,126 @@
+[HTTPServer]
+    addr = "0.0.0.0:8179"
+    timeout = "1s"
+[httpClient]
+    key    = "cadf599ba8b3796a"
+    secret = "42fbb979aa742013d713a088f912673b"
+    dial      = "30ms"
+    timeout   = "800ms"
+    keepAlive = "60s"
+    timer = 10
+    [httpClient.breaker]
+        window  = "10s"
+        sleep   = "100ms"
+        bucket  = 10
+        ratio   = 0.5
+        request = 100
+[db]
+    [db.note]
+    addr = "172.22.34.101:3318"
+    dsn = "bilibili_note:w9LljXzcDOKfBG8HrJ5f5PjKtDrIBMcH@tcp(172.16.33.101:3318)/bilibili_note?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+    idle = 2
+    idleTimeout ="4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+    [db.note.breaker]
+    window = "3s"
+    sleep = "100ms"
+    bucket = 10
+    ratio = 0.5
+    request = 100
+[redis]
+	name   = "hkt-note"
+	proto  = "tcp"
+	addr   = "localhost:6379"
+	active = 20
+	idle   = 10
+	dialTimeout  = "50ms"
+	readTimeout  = "100ms"
+	writeTimeout = "100ms"
+	idleTimeout  = "80s"
+	noteExpire = "36h"
+    ArtExpire = "36h"
+    ArtTmpExpire = "1h"
+[articleCfg]
+    CategoryNote = 100
+[noteCfg]
+    retryFre = "10s"
+    DatabusFre = "50ms"
+    FilterLimit = 100000
+    [noteCfg.Host]
+        filterHost = "http://api.bilibili.co"
+        replyHost = "http://api.bilibili.co"
+    [noteCfg.ReplyCfg]
+        webUrl = "https://www.bilibili.com/h5/note-app/view?cvid=%d&pagefrom=comment"
+        template = "我发布了一篇笔记，快来看看吧\n%s\n%s"
+        replyUrl = "{note:%d}"
+[NoteNotifySub]
+    key = "8e27ab7e39270b59"
+    secret="477df6a068d7332a163f95abbad2079c"
+    group= "NoteNotify-MainAppSvr-S"
+    topic= "NoteNotify-T"
+    action="sub"
+    name = "hkt-note/job"
+    proto = "tcp"
+    idle = 100
+    active = 100
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+    addr = "172.18.21.41:6205"
+[NoteBinlogSub]
+    key = "8e27ab7e39270b59"
+    secret="477df6a068d7332a163f95abbad2079c"
+    group= "NoteBinlog-MainAppSvr-S"
+    topic= "NoteBinlog-T"
+    action="sub"
+    name = "hkt-note/job"
+    proto = "tcp"
+    idle = 100
+    active = 100
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+    addr = "172.18.21.41:6205"
+[NoteAuditSub]
+    key = "8e27ab7e39270b59"
+    secret="477df6a068d7332a163f95abbad2079c"
+    group= "NoteAuditNotify-MainAppSvr-S"
+    topic= "NoteAuditNotify-T"
+    action="sub"
+    name = "hkt-note/job"
+    proto = "tcp"
+    idle = 100
+    active = 100
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+    addr = "172.18.21.41:6205"
+[ArticleBinlogSub]
+    key = "8e27ab7e39270b59"
+    secret="477df6a068d7332a163f95abbad2079c"
+    group= "Article-MainAppSvr-S"
+    topic= "Article-T"
+    action="sub"
+    name = "hkt-note/article-binlog"
+    proto = "tcp"
+    idle = 5
+    active = 10
+    dialTimeout = "500ms"
+    readTimeout = "30s"
+    writeTimeout = "500ms"
+    idleTimeout = "10s"
+
+[cron]
+    RetryNoteCache = "0 */10 * * * *"
+    retryNoteDetailDB = "0 */1 * * * *"
+    RetryNoteDBDel = "30 */1 * * * *"
+[ArticleClient]
+    timeout = "300ms"
+[FrontendClient]
+    timeout = "2s"

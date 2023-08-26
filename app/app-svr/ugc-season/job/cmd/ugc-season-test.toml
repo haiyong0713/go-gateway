@@ -1,0 +1,175 @@
+[log]
+#dir = "/data/log/ugc-season"
+stdout = true
+
+[custom]
+flush = true
+
+[db]
+    [db.archive]
+    name = "bilibili_archive"
+    dsn = "test_3306:UJPZaGKjpb2ylFx3HNhmLuwOYft4MCAi@tcp(172.22.34.101:3306)/bilibili_archive?timeout=200ms&readTimeout=200ms&writeTimeout=200ms&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 20
+    idle = 10
+    idleTimeout = "4h"
+    queryTimeout = "5s"
+    execTimeout = "5s"
+    tranTimeout = "5s"
+    [db.result]
+    name = "archive_result"
+    dsn = "test_3306:UJPZaGKjpb2ylFx3HNhmLuwOYft4MCAi@tcp(172.22.34.101:3306)/archive_result?timeout=200ms&readTimeout=200ms&writeTimeout=200ms&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 20
+    idle = 10
+    idleTimeout = "4h"
+    queryTimeout = "5s"
+    execTimeout = "5s"
+    tranTimeout = "5s"
+    [db.stat]
+    name = "archive_stat"
+    dsn = "test_3306:UJPZaGKjpb2ylFx3HNhmLuwOYft4MCAi@tcp(172.22.34.101:3306)/archive_stat?timeout=200ms&readTimeout=200ms&writeTimeout=200ms&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 20
+    idle = 10
+    idleTimeout = "4h"
+    queryTimeout = "5s"
+    execTimeout = "5s"
+    tranTimeout = "5s"
+
+[SeasonSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "UGCSeason-MainAppSvr-S"
+topic = "UGCSeason-T"
+action = "sub"
+name = "archive-job/seasonsub"
+proto = "tcp"
+idle = 1
+active = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[AccountNotifySub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "AccountNotify-MainAppSvr-S"
+topic = "AccountNotify-T"
+action = "sub"
+name = "archive-job/userCache"
+proto = "tcp"
+addr = "172.18.33.50:6205"
+idle = 1
+active = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "80s"
+
+[SeasonWithArchivePub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "SeasonNotifyArchive-MainAppSvr-P"
+topic = "SeasonNotifyArchive-T"
+action = "pub"
+name = "seasonNotify/archive"
+proto = "tcp"
+addr = "172.18.33.50:6205"
+idle = 5
+active = 10
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "80s"
+
+
+[[ArchiveGRPCs]]
+zone = "sh001"
+
+[[SeasonClients]]
+
+[redis]
+name = "season-job/redis"
+proto = "tcp"
+addr = "127.0.0.1:6379"
+    active = 20
+    idle   = 10
+    dialTimeout  = "50ms"
+    readTimeout  = "100ms"
+    writeTimeout = "100ms"
+    idleTimeout  = "80s"
+
+[ViewSnSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "StatView-MainAppSvr-UgcSeason-S"
+topic = "StatView-T"
+action = "sub"
+
+[CoinSnSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "StatCoin-MainAppSvr-Season-S"
+topic = "StatCoin-T"
+action = "sub"
+
+[LikeSnSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "StatLike-MainAppSvr-Season-S"
+topic = "StatLike-T"
+action = "sub"
+
+[DMSnSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "StatDM-MainAppSvr-Season-S"
+topic = "StatDM-T"
+action = "sub"
+
+[ReplySnSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "StatReply-MainAppSvr-Season-S"
+topic = "StatReply-T"
+action = "sub"
+
+[FavSnSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "StatFav-MainAppSvr-Season-S"
+topic = "StatFav-T"
+action = "sub"
+
+[ShareSnSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "StatShare-MainAppSvr-Season-S"
+topic = "StatShare-T"
+action = "sub"
+
+[memcache]
+    name = "archive-service"
+    proto = "tcp"
+    addr = "172.18.33.61:11211"
+    active = 50
+    idle = 10
+    dialTimeout = "30ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+    archiveExpire = "10h"
+    videoExpire = "10h"
+
+[HTTPClient]
+key       = "6a29f8ed87407c11"
+secret    = "d3c5a85f5b895a03735b5d20a273bc57"
+dial      = "100ms"
+timeout   = "1s"
+keepAlive = "60s"
+timer     = 128
+[HTTPClient.breaker]
+    window ="3s"
+    sleep ="100ms"
+    bucket = 10
+    ratio = 0.5
+    request = 100

@@ -1,0 +1,30 @@
+package service
+
+import (
+    "context"
+    pb "git.bilibili.co/platform/{{.ProjectName}}/app/{{.ServicePath}}/service/api"
+    "git.bilibili.co/platform/{{$.ProjectName}}/app/{{$.ServicePath}}/service/internal/task"
+    "go-common/component/metadata/auth"
+    "go-common/library/log"
+)
+
+func (s *Service) {{.ServiceInterfaceInfo.FuncName}}(ctx context.Context, req *pb.{{.TaskFlowInfo.ServiceInputType}}) (res *pb.{{.TaskFlowInfo.ServiceOutputType}}, err error) {
+    var mid int64
+    if _au, ok := auth.FromContext(ctx); ok {
+        mid = _au.Mid
+    }
+    ctx = context.WithValue(ctx, "mid", mid)
+    return s.{{.ServiceInterfaceInfo.FuncName}}Impl(ctx, req)
+}
+
+func (s *Service) {{.ServiceInterfaceInfo.FuncName}}Impl(ctx context.Context, req *pb.{{.TaskFlowInfo.ServiceInputType}}) (res *pb.{{.TaskFlowInfo.ServiceOutputType}}, err error) {
+    var taskFlow *task.TaskFlow
+    if taskFlow, err = task.NewTaskFlow(ctx, s.RpcClient, s.HttpClient); err != nil {
+        return
+    }
+    log.Infoc(ctx, "request start")
+    res, err = taskFlow.Run(ctx, req)
+    log.Infoc(ctx, "request finish")
+
+    return
+}

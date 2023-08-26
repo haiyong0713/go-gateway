@@ -1,0 +1,18 @@
+syntax = "proto3";
+package bilibili.app.distribution.internaldevice.v1;
+import "bilibili/app/distribution/distribution.proto";
+import "bilibili/app/distribution/options.proto";
+import "bilibili/extension/crane/crane.proto";
+
+option go_package = "git.bilibili.co/bapis/bapis-go/bilibili/app/distribution/setting/internaldevice;internaldevice";
+option java_package = "com.bapis.bilibili.app.distribution.setting.internaldevice";
+option java_multiple_files = true;
+option objc_class_prefix = "BAPIAppDistributionSettingInternaldevice";
+option (bilibili.extension.crane.bili_grpc_host) = "main.grpc.bilibili.com";
+option (bilibili.app.distribution.v1.preference) = "InternalDeviceConfig";
+option (bilibili.app.distribution.v1.disabled) = true;
+
+message InternalDeviceConfig {
+  // 新装/重装app首次打开的时间
+  bilibili.app.distribution.v1.Int64Value fts = 1;
+}

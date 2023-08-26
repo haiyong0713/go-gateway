@@ -1,0 +1,37 @@
+
+# This is a TOML document. Boom~
+demoExpire = "24h"
+
+exampleDevice = ["test1","test2"]
+
+perfect = 0.75
+good = 0.5
+ok = 0.2
+Boundary = 100
+
+Normalizing = true #归一化逻辑是否启动
+
+MaxScore = 5000 # 最高分
+
+[[Frames]]
+Aid = 327957715
+Frames = [6106,7941,9810,10744,12813,13747,17417,19953,21121,23891,24791,26426,28495,30364,33567,38906,39740,40974,44678,47648,53654,55289,56657,58492,60994,62396,65165,68869,70938,74741,76476,79012,82950,84785,88488,90891,93093,95629,97698,101401,103236,104271,106006,108542,109710,114314]
+
+[ottCfg]
+qn = 64
+imgUrl = ""
+playersMax = 4
+defaultScore = 2000
+qrCodeUrl = "bilibili://chronos/runpackage?url=%s&game_id=%d"
+qrCodeMsg = "扫码跳舞"
+qrCodeSize = 256
+[ottCfg.Expire]
+    rankExpire = "168h" # 一周
+    framesExpire = "48h" # 2天
+    gameExpire = "30m"
+
+[bwsCfg]
+host = "http://uat-api.bilibili.com/x/bw2020"
+needEnergy = 1
+gameId = 66
+EnableBws = true # 接入bws的开关

@@ -1,0 +1,16 @@
+Base = "go-gateway/app/web-svr/esports/job/"
+[Options]
+[Options.Switch]
+  "databus.ArchiveNotify-T" = false
+  "databus.EsportsBinlog-T" = true
+
+[Options.CloseAfter]
+
+[DeployOption]
+    writeDeploy = true
+  [DeployOption.Switch]
+    "sub" = false
+    "update_ticker_cron" = true
+    "databus" = true
+#    需多集群部署的消费者
+    "databus_sub_binlog" = true

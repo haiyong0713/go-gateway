@@ -1,0 +1,69 @@
+[memcache]
+    accessExpire = "10s"
+    likeExpire = "300s"
+    likeIPExpire = "30s"
+    perpetualExpire = "0s"
+    kfcExpire = "10m"
+    kfcCodeExpire = "1h"
+    itemExpire = "60s"
+    qqExpire = "600s"
+    bwsExpire = "300s"
+    subStatExpire = "0s"
+    sourceItemExpire = "5m"
+    protocolExpire = "3600s"
+    grantPidExpire ="1h"
+    regularExpire = "36h"
+    CurrencyExpire = "30s"
+    LotteryExpire = "720h"
+    TaskExpire = "600s"
+    UserCheckExpire = "24h"
+    VogueConfExpire = "1m"
+    VogueGoodsExpire = "1m"
+    VogueTaskExpire = "1m"
+    McReserveOnlyExpire = "24h"
+    [memcache.like]
+    name = "activity/test"
+    proto = "tcp"
+    addr = "10.23.4.117:11211"
+    idle = 64
+    active = 1024
+    dialTimeout = "30ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+
+[S10MC]
+    name = "activity-service"
+    proto = "tcp"
+    addr = "10.23.4.117:11211"
+    idle = 64
+    active = 1024
+    dialTimeout = "30ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+
+[S10PointCostMC]
+    name = "activity-service"
+    proto = "tcp"
+    addr = "10.23.4.117:11211"
+    idle = 64
+    active = 1024
+    dialTimeout = "30ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+
+[S10CacheExpire]
+    SignedExpire = "5m"
+    TaskProgressExpire ="10m"
+    RestPointExpire = "1h"
+    CoinExpire = "1m"
+	PointExpire = "720h"
+    LotteryExpire ="5m"
+	ExchangeExpire="5m"
+    RoundExchangeExpire="5m"
+	RestCountGoodsExpire="5m"
+    RoundRestCountGoodsExpire="5m"
+    PointDetailExpire="5m"
+    UserFlowExpire="5m"

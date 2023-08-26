@@ -1,0 +1,84 @@
+[custom]
+aidGray = 100
+padAid  = 34943774
+padCid  = 61219854
+phoneAid  = 34108719
+phoneCid  = 59830850
+padHDAid  = 34108719
+padHDCid  = 59830850
+[custom.SteinsBuild] #547.1 作为x版本
+android = 5471000
+iphone = 8780
+iphoneB = 8040
+message = "互动视频请升级"
+image = "http://i0.hdslb.com//bfs/archive/4895ec546900d07b2163768824a409a089d04eb8.jpg"
+ButtonText= "点击跳转"
+ButtonLink= "bilibili://base/app-upgrade"
+UseCustomLink = false
+LinkHD = "itms-apps://itunes.apple.com/cn/app/bi-li-bi-li-dong-huahd/id1093486973?mt=8"
+LinkPink = "itms-apps://itunes.apple.com/cn/app/bi-li-bi-li-dong-hua/id736536022?mt=8"
+LinkBlue = "itms-apps://itunes.apple.com/us/app/bi-li-bi-li-chun-lan/id1204090346?l=zh&ls=1&mt=8"
+LinkAndroid = "bilibili://base/app-upgrade"
+
+
+[log]
+stdout = true
+
+[host]
+playurl = "http://videodispatch-ugc.bilibili.co"
+playurlBk = "http://videodispatch-ugc-bk.bilibili.co"
+
+[httpClient]
+key    = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial      = "30ms"
+timeout   = "500ms"
+keepAlive = "60s"
+    [httpClient.breaker]
+    window  = "3s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[bm]
+    addr = "0.0.0.0:6131"
+    timeout = "1s"
+
+[accountRPC]
+    timeout = "300ms"
+
+[archiveRPC]
+    timeout = "200ms"
+
+
+[memcache]
+    name   = "app-player-job/player"
+    proto  = "tcp"
+    addr   = "172.22.33.137:11218"
+    active = 50
+    idle   = 10
+    dialTimeout  = "50ms"
+    readTimeout  = "100ms"
+    writeTimeout = "100ms"
+    idleTimeout  = "80s"
+    expireArchive = "2h"
+
+[redis]
+[redis.cdnscore]
+    name   = "app-player-job/player"
+    proto  = "tcp"
+    addr   = "172.18.33.61:6807"
+    active = 20
+    idle   = 10
+    dialTimeout  = "50ms"
+    readTimeout  = "100ms"
+    writeTimeout = "100ms"
+    idleTimeout  = "80s"
+
+[switch]
+   vipControl = true
+
+[hlsSign]
+ key    = "e7482d29be4a95b8"
+ secret = "9e803791cdef756e75faee68e12b7442"

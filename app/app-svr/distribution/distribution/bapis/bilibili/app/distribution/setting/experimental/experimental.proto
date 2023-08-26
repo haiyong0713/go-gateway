@@ -1,0 +1,21 @@
+syntax = "proto3";
+package bilibili.app.distribution.experimental.v1;
+import "bilibili/app/distribution/distribution.proto";
+import "bilibili/app/distribution/options.proto";
+
+option go_package = "git.bilibili.co/bapis/bapis-go/bilibili/app/distribution/setting/experimental;experimental";
+option java_package = "com.bapis.bilibili.app.distribution.setting.experimental";
+option java_multiple_files = true;
+option objc_class_prefix = "BAPIAppDistributionSettingExperimental";
+option (bilibili.app.distribution.v1.preference) = "ExperimentalConfig";
+option (bilibili.app.distribution.v1.storage_driver) = "experimental-flag";
+
+message ExperimentalConfig {
+    bilibili.app.distribution.v1.StringValue flag = 1;
+    repeated Exp exps = 2;
+}
+
+message Exp {
+    bilibili.app.distribution.v1.Int64Value id = 1;
+    bilibili.app.distribution.v1.Int32Value bucket = 2;
+}

@@ -1,0 +1,368 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "go-gateway/app/app-svr/archive/middleware/v1/preload.proto";
+import "go-gateway/app/app-svr/app-card/interface/model/card/proto/common.proto";
+
+package bilibili.app.interface.v1;
+option go_package          = "media";
+option java_multiple_files = true;
+option java_package        = "com.bilibili.grpc.app.interfaces.v1";
+option objc_class_prefix   = "BAPIInterfaceV1Media";
+
+// ogv特殊频道页
+service Media {
+    // ogv特殊频道首页
+    rpc MediaTab(MediaTabReq) returns (MediaTabReply);
+    //详情页
+    rpc MediaDetail(MediaDetailReq) returns (MediaDetailReply);
+    //视频影评
+    rpc MediaVideo(MediaVideoReq) returns (MediaVideoReply);
+    //相关视频
+    rpc MediaRelation(MediaRelationReq) returns (MediaRelationReply);
+    //想看
+    rpc MediaFollow(MediaFollowReq) returns (MediaFollowReply);
+    //发长评论|| 发短评论
+    rpc MediaComment(MediaCommentReq) returns (MediaCommentReply);
+}
+
+message MediaCommentReq {
+    //媒资id
+    string id = 1 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message MediaCommentReply {
+    string err_msg = 1;
+}
+
+message CommentItem {
+    //icon
+    string icon = 1;
+    //跳转地址
+    string url = 2;
+    //文案
+    string title = 3;
+    //类型
+    CommentType type = 4;
+    //动作类型
+    string action_type = 5;
+    //id
+    string id = 6;
+}
+
+// commentType 枚举-按钮类型
+enum CommentType {
+    comment_type_none     = 0;  // 占位
+    comment_type_redirect = 1;  //  直接跳转
+    comment_type_judge    = 2;  //需要check是否满足条件
+}
+
+message MediaRelationReq {
+    //业务id:频道id,媒资id
+    int64 biz_id = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+    // 业务类型 0:频道(default) 1:媒资
+    int64 biz_type = 2 [(gogoproto.moretags) = 'validate:"min=0"'];
+    //频道feed_id
+    int64 feed_id = 3;
+    // 当前偏移，为空表示从头开始
+    string offset = 5;
+    // 请求数量
+    int32 ps = 6;
+}
+
+message MediaRelationReply {
+    // 下一页偏移
+    string offset = 1;
+    // 有无更多
+    bool has_more = 2;
+    //相关视频小卡
+    repeated SmallItem list = 3;
+}
+
+message MediaFollowReq {
+    //业务id:媒资id
+    string id = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+    // 业务类型
+    ButType type = 2 [(gogoproto.moretags) = 'validate:"min=0"'];
+}
+
+message MediaFollowReply {
+}
+
+message MediaVideoReq {
+    //业务id:频道id,媒资id
+    int64 biz_id = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+    // 业务类型 0:频道(default) 1:媒资
+    int64 biz_type = 2 [(gogoproto.moretags) = 'validate:"min=0"'];
+    //频道feed_id
+    int64 feed_id = 3;
+    // 当前偏移，为空表示从头开始
+    string offset = 5;
+    // 请求数量
+    int32 ps = 6;
+    // 秒开用
+    .bilibili.app.archive.middleware.v1.PlayerArgs player_args = 7;
+}
+
+message MediaVideoReply {
+    // 下一页偏移
+    string offset = 1;
+    // 有无更多
+    bool has_more = 2;
+    //视频影评大卡
+    repeated BigItem list = 3;
+}
+
+message SmallItem {
+    // 标题
+    string title = 1;
+    // 封面图
+    string cover_image_uri = 2;
+    // 跳转地址
+    string uri = 3;
+    // 封面右侧文案
+    string cover_right_text = 4;
+    // 封面左1文案
+    string cover_left_text1 = 5;
+    // 封面左1 icon
+    int64 cover_left_icon1 = 6;
+    // 封面左2文案
+    string cover_left_text2 = 7;
+    // 封面左2 icon
+    int64 cover_left_icon2 = 8;
+    // 稿件id
+    int64 param = 9;
+    //用户mid
+    int64 mid = 10;
+}
+
+message BigItem {
+    // 标题
+    string title = 1;
+    // 封面图
+    string cover_image_uri = 2;
+    // 跳转地址
+    string uri = 3;
+    // 封面右侧文案
+    string cover_right_text = 4;
+    // 封面左1文案
+    string cover_left_text1 = 5;
+    // 封面左1 icon
+    int64 cover_left_icon1 = 6;
+    // 封面左2文案
+    string cover_left_text2 = 7;
+    // 封面左2 icon
+    int64 cover_left_icon2 = 8;
+    //用户信息
+    UserCard user_card = 9;
+    //点赞信息
+    LikeButton like_button = 10;
+    // 稿件id
+    int64 param = 11;
+    //分享面版
+    .bilibili.app.card.v1.SharePlane share_plane = 12;
+    //控制面版
+    .bilibili.app.card.v1.PanelMeta three_point_meta = 13;
+    //播放参数
+    .bilibili.app.card.v1.InlineProgressBar inline_progress_bar = 14;
+    //是否autoplay
+    int32 can_play = 15;
+    //播放参数
+    .bilibili.app.card.v1.PlayerArgs player_args = 16;
+    //是否收藏
+    bool is_fav = 17;
+}
+
+message LikeButton {
+    int64 aid                                  = 1;
+    int32 count                                = 2;
+    bool show_count                            = 3;
+    string event                               = 4;
+    int32 selected                             = 5;
+    string event_v2                            = 6;
+    LikeButtonResource like_resource           = 7;
+    LikeButtonResource dis_like_resource       = 8;
+    LikeButtonResource like_night_resource     = 9;
+    LikeButtonResource dis_like_night_resource = 10;
+}
+
+message LikeButtonResource {
+    string url  = 1;
+    string hash = 2;
+}
+
+message LikeCard {
+    //点赞数
+    int64 like = 1;
+    //是否点赞
+    bool is_follow = 2;
+}
+
+message UserCard {
+    // 用户名
+    string user_name = 1;
+    // 用户头像
+    string user_face = 2;
+    // 用户跳转地址
+    string user_url = 3;
+    //用户mid
+    int64 mid = 4;
+}
+
+message MediaDetailReq {
+    //业务id:频道id,媒资id
+    int64 biz_id = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+    // 业务类型 0:频道(default) 1:媒资
+    int64 biz_type = 2 [(gogoproto.moretags) = 'validate:"min=0"'];
+}
+
+message Overview {
+    //标题
+    string title = 1;
+    //剧情简介
+    string text = 2;
+}
+
+//制作信息
+message Staff {
+    //标题
+    string title = 1;
+    //制作信息（非结构化）
+    string text = 2;
+}
+
+message MediaDetailReply {
+    //演职人员
+    Cast cast = 1;
+    //制作信息
+    Staff staff = 2;
+    //剧情简介
+    Overview overview = 3;
+}
+
+message Cast {
+    //演职人员:制作人员（结构化）制作人员（结构化）在前，角色影人（结构化）在后
+    repeated MediaPerson person = 1;
+    //标题
+    string title = 2;
+}
+
+message MediaPerson {
+    //姓名
+    string real_name = 1;
+    //方图（240*240）
+    string square_url = 2;
+    //职位 或者 角色名称
+    string character = 3;
+    //id
+    int64 person_id = 4;
+    // crew,player
+    string type = 5;
+}
+
+message MediaTabReq {
+    //业务id:频道id,媒资id
+    int64 biz_id = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+    // 业务类型 0:频道(default) 1:媒资
+    int64 biz_type = 2 [(gogoproto.moretags) = 'validate:"min=0"'];
+    //source:来源页面spmid
+    string source = 3;
+    //当前页面spmid
+    string spmid = 4;
+    // .args:自定义参数
+    map<string, string> args = 5;
+}
+
+message MediaCard {
+    //封面
+    string cover = 1;
+    //标题
+    string cur_title = 2;
+    //副标题:频道｜产地｜分类
+    string style = 3;
+    //副标题2 上映时间｜时长
+    string label = 4;
+    // 按钮
+    Button but_first = 5;
+    // 按钮2
+    Supernatant but_second = 6;
+    //评分 没有评分为nil
+    Scores scores = 7;
+}
+
+message Scores {
+    //分数
+    float score = 1;
+}
+
+message Supernatant {
+    //按钮文案
+    string title = 1;
+    // card
+    repeated CommentItem item = 2;
+}
+
+//想看和立即观看是否需要分两个结构体，目前是一个
+message Button {
+    // 描述
+    string title = 1;
+    //跳转地址
+    string link = 2;
+    //唯一id
+    string id = 3;
+    // icon
+    int64 icon = 4;
+    //类型
+    ButType but_type = 5;
+    //想看状态: 0=想看 1=已想看
+    int32 follow_state = 6;
+    // 已想看 描述
+    string has_title = 7;
+}
+
+enum ButType {
+    BUT_INVALID = 0;
+    //跳转类型:立即观看
+    BUT_REDIRECT = 1;
+    // 想看
+    BUT_LIKE = 2;
+}
+
+message ShowTab {
+    // tab 类型
+    TabType tab_type = 1;
+    // 标题
+    string title = 2;
+    // 跳转url
+    string url = 3;
+}
+
+enum TabType {
+    TAB_INVALID = 0;
+    // ogv详情
+    TAB_OGV_DETAIL = 6;
+    // o文字影评
+    TAB_OGV_REPLY = 7;
+    // 视频影评
+    TAB_FEED_BID = 8;
+    //相关视频
+    TAB_FEED_SMALL = 9;
+}
+
+message MediaTabReply {
+    //频道大卡
+    MediaCard media_card = 1;
+    //tab信息
+    repeated ShowTab tab = 2;
+    //默认tab index
+    int64 default_tab_index = 3;
+    //频道info
+    ChannelInfo channel_info = 4;
+}
+
+message ChannelInfo {
+    //频道id
+    int64 channel_id = 1;
+    //是否订阅
+    bool subscribed = 2;
+}

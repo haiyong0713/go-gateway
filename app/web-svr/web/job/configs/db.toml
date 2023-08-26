@@ -1,0 +1,9 @@
+[show]
+    addr   = "172.22.34.101:3306"
+	dsn    = "bilibili_show:8bmwBDtgBLB5Cqg31h2FxiRJK3OK6VXq@tcp(127.0.0.1:3306)/bilibili_show?timeout=10s&readTimeout=10s&writeTimeout=10s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+	idle   = 1
+    idleTimeout ="4h"
+    queryTimeout = "10s"
+    execTimeout = "10s"
+    tranTimeout = "10s"

@@ -1,0 +1,9 @@
+[messageClient]
+    key = "fb06a25c6338edbc"
+    secret = "fd10bd177559780c2e4a44f1fa47fa83"
+    dial = "80ms"
+    timeout = "500ms"
+    keepAlive = "60s"
+    timer = 1000
+[Host]
+    Message = "http://message.bilibili.co"

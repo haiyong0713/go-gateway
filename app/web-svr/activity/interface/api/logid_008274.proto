@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "com.bilibili.lancer.proto";
+option java_outer_classname = "Logid008274";
+option go_package = "api";
+
+message BusinessMessage {
+    int64 mid = 1;
+    int64 log_time = 2;
+    int32 op_type = 3;
+}

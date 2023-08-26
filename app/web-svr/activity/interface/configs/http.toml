@@ -1,0 +1,127 @@
+[HTTPServer]
+	addr = "0.0.0.0:6881"
+	timeout = "5s"
+
+[Limiter]
+    Disable = false
+    Preflight = false
+    [[Limiter.Methods]]
+    path = "/x/activity/s10/coin/state"
+    rule = "total"
+    [[Limiter.Methods]]
+    path = "/x/activity/match/s10/sign"
+    rule = "total"
+    [[Limiter.Methods]]
+    path = "/x/activity/selection/submit"
+    rule = "total"
+    [[Limiter.Methods]]
+    path = "/x/activity/relation/do"
+    rule = "total"
+    [[Limiter.Methods]]
+    path = "/x/activity/filter"
+    rule = "total"
+    [[Limiter.Methods]]
+    path = "/x/activity/likes/add/questionnaire"
+    rule = "total"
+    [[Limiter.Methods]]
+    path = "/x/activity/question/gaokao/qa"
+    rule = "total"
+    [[Limiter.Methods]]
+    path = "/x/activity/question/gaokao/report"
+    rule = "total"
+    [[Limiter.Methods]]
+    path = "/x/activity/question/gaokao/rank"
+    rule = "total"
+    [[Limiter.Methods]]
+    path = "/x/activity/bml/online/guess/myrecord"
+    rule = "total"
+    [[Limiter.Methods]]
+    path = "/x/activity/bml/online/guess/do"
+    rule = "total"
+
+[host]
+    sports  = "http://open.sports.qq.com"
+    qqNews  = "http://openapi.inews.qq.com"
+    web     = "http://www.bilibili.com"
+    activity = "http://www.bilibili.com"
+    apiCo   = "http://api.bilibili.co"
+    message = "http://uat-message.bilibili.co"
+    mall = "http://uat-mall.bilibili.co"
+    liveCo = "http://api.live.bilibili.co"
+    dynamic = "http://uat-api.vc.bilibili.co"
+    showCo = "http://uat-show.bilibili.co"
+    comic = "http://uat-manga.bilibili.co"
+    VipBuy = "http://uat-mall.bilibili.co"
+    pay = "http://pay.bilibili.co"
+    MerakCo = "http://merak.bilibili.co"
+    manager = "http://manager.bilibili.co"
+    business = "http://b.bilibili.com"
+
+[httpClient]
+    key = "33ac033ce123e590"
+    secret = "0b2847315d32989a248294e350ac3ede"
+    dial = "30ms"
+    timeout = "500ms"
+    keepAlive = "60s"
+
+[httpMember]
+    key = "7xio6i8k93i5e4er"
+    secret = "495b4aca2ef09a4594a1e3809ecc959e"
+    dial = "30ms"
+    timeout = "500ms"
+    keepAlive = "60s"
+
+[httpDynamic]
+    key = "33ac033ce123e590"
+    secret = "0b2847315d32989a248294e350ac3ede"
+    dial = "30ms"
+    timeout = "2s"
+    keepAlive = "60s"
+
+[httpClientSports]
+    key = "33ac033ce123e590"
+    secret = "0b2847315d32989a248294e350ac3ede"
+    dial = "3s"
+    timeout = "3s"
+    keepAlive = "60s"
+
+[httpClientSingle]
+    key = "33ac033ce123e590"
+    secret = "0b2847315d32989a248294e350ac3ede"
+    dial = "3s"
+    timeout = "3s"
+    keepAlive = "60s"
+
+[httpClientBnj]
+    key = "33ac033ce123e590"
+    secret = "0b2847315d32989a248294e350ac3ede"
+    dial = "30ms"
+    timeout = "300ms"
+    keepAlive = "60s"
+
+[httpClientKfc]
+    key = "33ac033ce123e590"
+    secret = "0b2847315d32989a248294e350ac3ede"
+    dial = "30ms"
+    timeout = "5s"
+    keepAlive = "60s"
+
+[httpClientComic]
+    key = "foo"
+    secret = "bar"
+    dial = "30ms"
+    timeout = "300ms"
+    keepAlive = "60s"
+
+[httpClientAddFavInner]
+    key = "optech"
+    secret = "529cca4236986fca5c0b7f436f48cec7"
+    dial = "30ms"
+    timeout = "500ms"
+    keepAlive = "60s"
+[httpClientRewards]
+    key = "33ac033ce123e590"
+    secret = "0b2847315d32989a248294e350ac3ede"
+    dial = "3s"
+    timeout = "3s"
+    keepAlive = "60s"

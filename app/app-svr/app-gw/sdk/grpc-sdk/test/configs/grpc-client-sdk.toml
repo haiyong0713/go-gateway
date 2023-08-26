@@ -1,0 +1,9 @@
+[SDKBuilderConfig]
+[[SDKBuilderConfig.ClientSDK]]
+AppID="vipinfo.service"
+[SDKBuilderConfig.ClientSDK.BackupRetryOption]
+Ratio=100
+BackupAction="directly_backup"
+BackupECode=-500
+BackupPlaceholder='{"res":{"type":1,"status":0,"due_date":1581696000001,"vip_pay_type":0}}'
+BackupTarget="discovery://default/vipinfo.service"

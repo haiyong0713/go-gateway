@@ -1,0 +1,34 @@
+syntax = "proto3";
+package activity.service;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "currency";
+
+message Currency {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    string Name = 2 [(gogoproto.jsontag) = "name"];
+    string Unit = 3 [(gogoproto.jsontag) = "unit"];
+}
+
+message CurrencyRelation {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    int64 CurrencyID = 2 [(gogoproto.jsontag) = "currency_id"];
+    int64 BusinessID = 3 [(gogoproto.jsontag) = "business_id"];
+    int64 ForeignID = 4 [(gogoproto.jsontag) = "foreign_id"];
+}
+
+message CurrencyUser {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    int64 Mid = 2 [(gogoproto.jsontag) = "mid"];
+    int64 Amount = 3 [(gogoproto.jsontag) = "amount"];
+}
+
+message CurrencyUserLog {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    int64 FromMid = 2 [(gogoproto.jsontag) = "from_mid"];
+    int64 ToMid = 3 [(gogoproto.jsontag) = "to_mid"];
+    int64 ChangeAmount = 4 [(gogoproto.jsontag) = "change_amount"];
+    string Remark = 5 [(gogoproto.jsontag) = "remark"];
+    int64 Ctime = 6 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}

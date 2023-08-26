@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+package bilibili.app.nativeact.v1;
+
+option go_package = "api";
+option (gogoproto.goproto_getters_all) = true;
+
+// 官方认证状态
+message OfficialInfo {
+  // 认证角色（0 未认证，1 UP主认证，2 身份认证，3 企业认证，4 政府认证，5 媒体认证，6 其他认证，7 垂直领域认证）
+  int32 role = 1;
+  // 认证称号
+  string title = 2;
+  // 认证后缀
+  string desc = 3;
+  // 组件格式（12 推荐用户-横卡，26 推荐用户-竖卡）
+  int32 type = 4;
+}
+
+message VipInfo {
+  int32 type = 1;
+  int32 status = 2;
+  int64 due_date = 3;
+  int32 vip_pay_type = 4;
+  int32 theme_type = 5;
+  VipLabel label = 6;
+  // 大会员角标，0：无角标，1：粉色大会员角标，2：绿色小会员角标
+  int32 avatar_subscript = 7;
+  // 昵称色值，可能为空，色值示例：#FFFB9E60
+  string nickname_color = 8;
+  int64 role = 9;
+  // 大会员角标链接 仅pc、h5使用
+  string avatar_subscript_url = 10;
+}
+
+message VipLabel {
+  string path = 1;
+  // 文本值
+  string text = 3;
+  // 对应颜色类型，在mod资源中通过：$app_theme_type.$label_theme获取对应标签的颜色配置信息
+  string label_theme = 4;
+  // 文本颜色, 仅pc、h5使用
+  string text_color = 5;
+  // 背景样式：1:填充 2:描边 3:填充 + 描边 4:背景不填充 + 背景不描边 仅pc、h5使用
+  int32 bg_style = 6;
+  // 背景色：#FFFB9E60 仅pc、h5使用
+  string bg_color = 7;
+  // 边框：#FFFB9E60 仅pc、h5使用
+  string border_color = 8;
+}

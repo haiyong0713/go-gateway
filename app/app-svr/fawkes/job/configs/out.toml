@@ -1,0 +1,6 @@
+[Out]
+    fawkes = "http://127.0.0.1:7981"
+    name = "fawkes-admin"
+    method = "GET"
+    list = "/x/admin/fawkes/business/ci/nas/list"
+    delete = "/x/admin/fawkes/business/ci/nas/delete"

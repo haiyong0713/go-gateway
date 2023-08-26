@@ -1,0 +1,6 @@
+[DataBus]
+    target = "discovery://default/infra.databus.v2"
+    app_id = "main.web-svr.esports"
+    token = "4b6359ee1471e91fdece8e113204fcad"
+    [Databus.Topic]
+    BGroupMessage = "BGroupMessage-T"

@@ -1,0 +1,4 @@
+[ProxyConfig]
+[[ProxyConfig.DynService]]
+ServiceName = "bilibili.app.view.v1.View"
+Target = "app.view"

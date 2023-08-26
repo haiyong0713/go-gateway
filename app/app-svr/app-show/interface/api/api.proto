@@ -1,0 +1,175 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "v1";
+
+message RefreshSeriesListReq {
+    // 类型，如weekly_selected = 每周必看
+    string type = 1;
+}
+
+message NoReply {}
+
+message RefreshSerieReq {
+    // 类型，如weekly_selected = 每周必看
+    string type = 1;
+    // 期数，从1开始
+    int64 number = 2;
+}
+
+service AppShow {
+    // RefreshSeriesList refreshes the series list of one type
+    rpc RefreshSeriesList(RefreshSeriesListReq) returns (NoReply);
+    // RefreshSerie refreshes one serie with the given type and number
+    rpc RefreshSerie(RefreshSerieReq) returns (NoReply);
+    // ActNativeTab get dynamic go to url
+    rpc ActNativeTab(ActNativeTabReq) returns (ActNativeTabReply);
+    rpc AggrSVideo(AggrSVideoReq) returns (AggrSVideoReply);
+    rpc IndexSVideo(IndexSVideoReq) returns (IndexSVideoReply);
+    //获取话题活动下tab分享信息
+    rpc ActShare(ActShareReq) returns (ActShareReply);
+    // 热门精选获取指定期
+    rpc SelectedSerie(SelectedSerieReq) returns (SelectedSerieRly);
+    // 批量获取每周必看期数
+    rpc BatchSerie(BatchSerieReq) returns (BatchSerieRly);
+}
+
+message ActShareReq {
+    string sid         = 1 [(gogoproto.moretags) = 'validate:"required"'];
+    string shareOrigin = 2 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message ActShareReply {
+    //分享内容
+    string shareContent = 1;
+    //分享标题
+    string shareCaption = 2;
+    //分享连接
+    string shareURL = 3;
+    //分享图片
+    string shareImage = 4;
+}
+
+message ActNativeTabReq {
+    repeated int64 pids = 1 [(gogoproto.moretags) = 'validate:"min=1,max=50,dive,min=1"'];
+    int32 category      = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+    string mobiApp      = 3;
+    string device       = 4;
+    string platform     = 5;
+    int64 build         = 6;
+    string buvid        = 7;
+}
+
+message ActNativeTabReply {
+    map<int64, ActNativeTab> list = 1 [(gogoproto.jsontag) = "list"];
+}
+
+message ActNativeTab {
+    string url = 1 [(gogoproto.jsontag) = "url"];
+}
+
+message IndexSVideoReq {
+    int64 entrance_id = 1;
+    // 游标
+    int64 index = 2 [(gogoproto.moretags) = 'validate:"min=0"'];
+}
+
+message IndexSVideoReply {
+    // 列表
+    repeated SVideoItem list = 1;
+    // 翻页游标
+    string offset = 2;
+    // 是否还有更多数据 1=有
+    int32 has_more = 3;
+    // 顶部
+    SVideoTop top = 4;
+}
+
+message AggrSVideoReq {
+    int64 hotword_id = 1;
+    // 游标
+    int64 index = 2;
+}
+
+message AggrSVideoReply {
+    // 列表
+    repeated SVideoItem list = 1;
+    // 翻页游标
+    string offset = 2;
+    // 是否还有更多数据 1=有
+    int32 has_more = 3;
+    // 顶部
+    SVideoTop top = 4;
+}
+
+message SVideoItem {
+    int64 rid   = 1;
+    int64 uid   = 2;
+    int64 index = 3;
+}
+
+message SVideoTop {
+    // 联播页标题
+    string Title = 1;
+    // 联播页导语
+    string Desc = 2;
+}
+
+message BatchSerieReq {
+    // 类型：每周必看 weekly_selected
+    string type           = 1 [(gogoproto.moretags) = 'validate:"required"'];
+    repeated int64 number = 2 [(gogoproto.moretags) = 'validate:"min=1,max=100,dive,min=1"'];
+}
+
+message SelectedSerieReq {
+    // 类型：每周必看 weekly_selected
+    string type = 1 [(gogoproto.moretags) = 'validate:"required"'];
+    // 期数
+    int64 number = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message BatchSerieRly {
+    map<int64, SerieConfig> list = 1 [(gogoproto.jsontag) = "list"];
+}
+
+message SelectedSerieRly {
+    // 本期配置
+    SerieConfig config = 1;
+    // 本期资源列表
+    repeated SelectedRes list = 2;
+}
+
+message SerieConfig {
+    // 期数序号
+    int64 number = 1;
+    // 本期主题
+    string subject = 2;
+    // 期名称展示
+    string label = 3;
+    // 本期提示语
+    string hint = 4;
+    // 主题颜色:1黑 2白
+    int64 color = 5;
+    // 头图
+    string cover = 6;
+    // 分享标题
+    string share_title = 7;
+    // 分享副标题
+    string share_subtitle = 8;
+    // 播单id
+    int64 media_id = 9;
+}
+
+message SelectedRes {
+    // 业务ID，如AVID
+    int64 rid = 1;
+    // 资源类型：稿件 av
+    string rtype = 2;
+    // 对应的期ID
+    int64 serie_id = 3;
+    // 位置信息，从1开始
+    int64 position = 4;
+    // 编辑寄语
+    string rcmd_reason = 5;
+}

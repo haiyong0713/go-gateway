@@ -1,0 +1,11 @@
+[Server]
+    addr = "0.0.0.0:8000"
+    timeout = "1s"
+
+[HTTPClient]
+key = "6a29f8ed87407c11"
+secret = "d3c5a85f5b895a03735b5d20a273bc57"
+dial      = "150ms"
+timeout   = "700ms"
+keepAlive = "60s"
+timer     = 128

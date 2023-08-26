@@ -1,0 +1,1 @@
+ALTER TABLE act_guess_main ADD COLUMN template_type tinyint(4) UNSIGNED NOT NULL DEFAULT 0 comment 'template type: 默认0，获胜队伍1';

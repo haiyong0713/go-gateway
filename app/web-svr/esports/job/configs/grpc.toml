@@ -1,0 +1,5 @@
+[TunnelClient]
+ timeout= "1s"
+
+[EspClient]
+ timeout= "1s"

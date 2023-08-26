@@ -1,0 +1,29 @@
+[Config]
+[Config.Host]
+ Dynamic = "http://api.vc.bilibili.co"
+[Config.Inline]
+    LikeButtonShowCount = true
+    LikeResource = "http://i0.hdslb.com/bfs/archive/b9f49c9b33532c5d05f5ea701ecd063f81910e94.json"
+    LikeResourceHash = "c8b42c2a76890e703b15874175268b4b"
+    DisLikeResource = "http://i0.hdslb.com/bfs/archive/8aee6952487d118b4207c1afa2fd38616bd7545a.json"
+    DisLikeResourceHash = "bdbc35ebc88d178d1f409145dadec806"
+    LikeNightResource = "http://i0.hdslb.com/bfs/archive/3ed718f59e9e9cf1ce148105c9db9559951d5a7d.json"
+    LikeNightResourceHash = "bc9fecf2624a569c05cef8097e20eb37"
+    DisLikeNightResource = "http://i0.hdslb.com/bfs/archive/c9a20055b712068bfe293878639dc9066ba2690b.json"
+    DisLikeNightResourceHash = "c370e8d031381f4716d7564956a8b182"
+    IconDrag = "http://uat-i0.hdslb.com/bfs/feed-admin/6540e93ac087246b0d8daea9c9989db24e265375.json"
+    IconDragHash = "7fa37df41e7c4697dfa38cd26ae26d81"
+    IconStop = "http://uat-i0.hdslb.com/bfs/feed-admin/e2fdd693773b45bd9ec44816a99d87890a505170.json"
+    IconStopHash = "2d9325518a8fa1642e32bc88f2524347"
+
+[customConfig]
+autoplaymids = [108669,1684013,57870006,27833317,96945971,6219077,105232234,3479095,27637930 ,3336336,50838324,266665413,5326930,28009145,98656092,9599990,12754559,5449491]
+TransferSwitch = true
+autoRefreshTime = "20m"
+[customConfig.inline]
+    ShowInlineDanmaku = 1
+[customConfig.showInfoc]
+    taskID = "000027"
+    proto = "tcp"
+    addr = "dataflow.bilibili.co:5402"
+    chanSize = 10240

@@ -1,0 +1,1364 @@
+// 听视频 网关API
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/empty.proto";
+import "go-gateway/app/app-svr/archive/middleware/v1/preload.proto";
+import "go-gateway/app/app-svr/app-interface/interface-legacy/api/history/history.proto";
+import "go-gateway/app/app-svr/playurl/service/api/v2/api.proto";
+import "bilibili/pagination/pagination.proto";
+
+package bilibili.app.listener.v1;
+
+option go_package = "v1";
+option java_multiple_files = true;
+option java_package = "com.bapis.bilibili.app.listener.v1";
+option objc_class_prefix = "BAPIAppListenerV1";
+
+
+// 听视频 对端服务 暴露在公网
+service Listener {
+  rpc Ping(google.protobuf.Empty) returns (google.protobuf.Empty);
+  // playitem换playurl 可用来刷新列表中过期的秒开信息
+  rpc PlayURL(PlayURLReq) returns (PlayURLResp);
+  // 批量获取播客稿件详情 可匿名
+  rpc BKArcDetails(BKArcDetailsReq) returns (BKArcDetailsResp);
+  // 获取用户当前播放列表，设置列表来源的话后端会同时更新列表，返回更新后的列表 可匿名
+  rpc Playlist(PlaylistReq) returns (PlaylistResp);
+  // 批量添加稿件到当前播放列表 可匿名
+  rpc PlaylistAdd(PlaylistAddReq) returns (google.protobuf.Empty);
+  // 批量从当前播放列表删除稿件 可匿名
+  rpc PlaylistDel(PlaylistDelReq) returns (google.protobuf.Empty);
+  // 获取推荐播单 可匿名 注意：服务端不保存推荐播单 该播单为客户端本地维护
+  rpc RcmdPlaylist(RcmdPlaylistReq) returns (RcmdPlaylistResp);
+  // 获取用户播放历史 可匿名
+  rpc PlayHistory(PlayHistoryReq) returns (PlayHistoryResp);
+  // 播放历史上报 可匿名
+  rpc PlayHistoryAdd(PlayHistoryAddReq) returns (google.protobuf.Empty);
+  // 批量删除播放历史 可匿名
+  rpc PlayHistoryDel(PlayHistoryDelReq) returns (google.protobuf.Empty);
+  // 起播上报 可匿名
+  rpc PlayActionReport(PlayActionReportReq) returns (google.protobuf.Empty);
+
+  // 一键三连 需登录
+  rpc TripleLike(TripleLikeReq) returns (TripleLikeResp);
+  // 点赞/取消点赞 点踩/取消点踩 可匿名
+  rpc ThumbUp(ThumbUpReq) returns (ThumbUpResp);
+  // 投币 需登录
+  rpc CoinAdd(CoinAddReq) returns (CoinAddResp);
+  // 收藏稿件 需登录
+  rpc FavItemAdd(FavItemAddReq) returns (FavItemAddResp);
+  //  取消收藏稿件 需登录
+  rpc FavItemDel(FavItemDelReq) returns (FavItemDelResp);
+  // 批量操作多个收藏夹 添加/删除一个稿件 需登录
+  rpc FavItemBatch(FavItemBatchReq) returns (FavItemBatchResp);
+  // 获取一个稿件被我的哪几个收藏夹收藏 需登录
+  rpc FavoredInAnyFolders(FavoredInAnyFoldersReq) returns (FavoredInAnyFoldersResp);
+
+  // 获取用户全部收藏夹列表 不分页 需登录
+  rpc FavFolderList(FavFolderListReq) returns (FavFolderListResp);
+  // 获取用户单个收藏夹内稿件详细信息 分页 需登录
+  rpc FavFolderDetail(FavFolderDetailReq) returns (FavFolderDetailResp);
+  // 创建一个收藏夹 需登录
+  rpc FavFolderCreate(FavFolderCreateReq) returns (FavFolderCreateResp);
+  // 删除一个收藏夹 需登录
+  rpc FavFolderDelete(FavFolderDeleteReq) returns (FavFolderDeleteResp);
+
+  // 发现页精选卡（播单）feed流 可匿名
+  rpc PickFeed(PickFeedReq) returns (PickFeedResp);
+  // 精选卡（播单）详情 可匿名
+  rpc PickCardDetail(PickCardDetailReq) returns (PickCardDetailResp);
+
+  // 播单详情分页获取 可匿名
+  rpc Medialist(MedialistReq) returns (MedialistResp);
+
+  // 通用事件回报 包含引导条曝光上报等
+  rpc Event(EventReq) returns (EventResp);
+}
+
+// 用于标识单个可播放稿件
+message PlayItem {
+  // 用于区分实际的稿件资源类型
+  // UGC:1 OGV:2 Audio:3
+  int32 item_type = 1;
+  // 资源id
+  // 例如 UGC类型就是avid OGV就是epid
+  int64 oid = 3;
+  // 业务subid 保留字段
+  // 一般是cid信息
+  // 按需使用
+  repeated int64 sub_id = 4;
+  // 以下是埋点字段 端上直接透传
+  EventTracking et = 5;
+}
+
+// 通用埋点字段
+// 用于碾碎插入到每个展示元素中
+message EventTracking {
+  // 数据来源
+  // find:发现页 | hist:历史记录
+  // reco:AI推荐 | fav:收藏夹 | ugcss:UGC剧集
+  // manual:用户指定(例如主动跳转)
+  string operator = 1;
+  // 数据批次
+  // 例如 发现页-播单组ID  | 收藏夹-收藏夹type
+  string batch = 2;
+  // 数据组标识
+  // 例如 发现页-播单ID | 收藏夹-收藏夹ID | 推荐—AI这组结果的trackID
+  // UGC剧集-剧集ID
+  string track_id = 3;
+  // 实体类型
+  // av-UGC稿件 | ep-PGC稿件 | au-音频稿件
+  string entity_type = 4;
+  // 实体id
+  // av-avid | ep-epid | au-songID
+  string entity_id = 5;
+  // 埋点字段整合
+  // 目前用于数平全局vv/vt表来源上报
+  string track_json = 6;
+}
+
+// 根据playitem刷新playurl
+message PlayURLReq {
+  // 播客稿件标识 type和oid必传  sub_id不传则返回第一p的播放地址
+  // 指定多个分p时，最多同时返回3个分p的播放地址
+  PlayItem item = 1;
+  // 复用秒开参数
+  bilibili.app.archive.middleware.v1.PlayerArgs player_args = 2;
+}
+
+// 客户端解析稿件的播放地址
+// 注意此接口同样会再次检查稿件的可播状态
+// 端上在解析稿件播放地址时遇到不可播状态
+// 统一处理为停止在当前卡片，toast提示信息
+message PlayURLResp {
+  // 透传回客户端
+  PlayItem item = 1;
+  // 是否可播的状态
+  // 详情参考 DetailItem 的playable字段解释
+  int32 playable = 2;
+  // 不可播的提示信息 端上兜底文案
+  string message = 3;
+  // 不可播的情况下该字段为空
+  // PlayItem的 subid 作为key
+  map<int64, PlayInfo> player_info = 4;
+}
+
+
+message PlayInfo {
+  // 清晰度qn
+  uint32 qn = 1;
+  // 清晰度格式
+  string format = 2;
+  // 当前qn清晰度下对应的视频格式
+  // 1-FLV 2-DASH 3-MP4
+  int32 qn_type = 3;
+  // 视频播放地址信息
+  oneof info {
+    // URL for FLV/MP4
+    PlayURL play_url = 4;
+    // DASH audio
+    PlayDASH play_dash = 5;
+  }
+  // 秒开相关参数透传回客户端
+  uint32 fnver = 6;
+  uint32 fnval = 7;
+
+  // 视频拥有的清晰度描述列表
+  repeated FormatDescription formats = 8;
+  // 视频的编码号
+  uint32 video_codecid = 9;
+  // 视频的总时长, 单位为ms
+  uint64 length = 10;
+
+  // 错误状态码
+  uint32 code = 11;
+  // 错误提示信息
+  string message = 12;
+
+  // 播放地址过期时间（时间戳）
+  uint64 expire_time = 13;
+
+  // 视频云给的音量均衡信息
+  // 因为playurl在bapis登记的和大仓不一样
+  // 所以这块用大仓的定义，结构是一样的
+  playurl.service.v2.VolumeInfo volume = 14;
+}
+
+message PlayURL {
+  repeated ResponseUrl durl = 1;
+}
+
+message ResponseUrl {
+  //视频的分片序列号
+  uint32 order = 1;
+  //视频分片的时长, 单位ms
+  uint64 length = 2;
+  //视频分片的大小, 单位Byte
+  uint64 size = 3;
+  //视频分片的音频头信息
+  string ahead = 4;
+  //视频分片的视频头信息
+  string vhead = 5;
+  //视频分片的url地址
+  string url = 6;
+  //视频分片的备用url地址列表
+  repeated string backup_url = 7;
+  //视频分片的md5,只有离线下载才有值
+  string md5 = 8;
+}
+
+message PlayDASH {
+  //dash的信息
+  uint32 duration = 1;
+  //dash的信息
+  float min_buffer_time = 2;
+  //dash音频信息
+  repeated DashItem audio = 3;
+}
+
+message FormatDescription {
+  // 清晰度qn（80 64 32 16）
+  uint32 quality = 1;
+  // 清晰度格式 （flv flv720 flv480 mp4）
+  string format = 2;
+  // 清晰度描述（"1080P 高清" "720P 高清" "480P 清晰" "360P 流畅"）
+  string description = 3;
+  // 选中态的清晰度描述 （1080P 720P 480P 360P）
+  string display_desc = 4;
+  // 选中态的清晰度描述的角标
+  string superscript = 5;
+}
+
+message DashSegmentBase {
+  //dash的信息
+  string initialization = 1;
+  //dash的信息
+  string index_range = 2;
+}
+
+message DashItem {
+  //dash的清晰度
+  uint32 id = 1;
+  //dash的url地址
+  string base_url = 2;
+  //dash的backup url地址
+  repeated string backup_url = 3;
+  //dash的信息
+  uint32 bandwidth = 4;
+  //dash的信息
+  string mime_type = 5;
+  //dash的信息
+  string codecs = 6;
+  //  //dash的信息
+  //  uint32 width = 7;
+  //  //dash的信息
+  //  uint32 height = 8;
+  //  //dash的信息
+  //  string frame_rate = 9;
+  //  //dash的信息
+  //  string sar = 10;
+  //  //dash的信息
+  //  uint32 start_with_sap = 11;
+  //dash的信息
+  DashSegmentBase segment_base = 12;
+  //dash的信息
+  uint32 codecid = 13;
+  //视频分片的md5,只有dash离线下载才有值
+  string md5 = 14;
+  //视频分片的大小, 单位Byte,只有dash离线下载才有值
+  uint64 size = 15;
+  //  //表示清晰度是否非全二压，1表示非全二压
+  //  //此字段对于dash audio无效
+  //  int32 no_rexcode = 16;
+}
+
+// 批量请求播客稿件详情，不分页，但有最大请求数量限制（<=20)
+message BKArcDetailsReq {
+  // 提供播客稿件标识 item_type 和 oid 必传
+  repeated PlayItem items = 1;
+  // 复用秒开参数
+  bilibili.app.archive.middleware.v1.PlayerArgs player_args = 2;
+}
+
+// 播客稿件详情response
+message BKArcDetailsResp {
+  repeated DetailItem list = 1;
+}
+
+message BKArchive {
+  // aid（UGC） epid（OGV）
+  int64 oid = 1;
+  // 稿件标题
+  string title = 2;
+  // 稿件封面url 绝对地址
+  string cover = 3;
+  // 稿件简介
+  string desc = 4;
+  // 稿件所有分p总时长 （秒）
+  int64 duration = 5;
+  // 稿件分区id
+  int32 rid = 6;
+  // 稿件分区名称
+  string rname = 7;
+  // 稿件发布时间 时间戳
+  int64 publish = 8 [(gogoproto.casttype) = "go-common/library/time.Time"];
+  // 显示的oid
+  // 例如 UGC稿件为bvid  OGV稿件为episode id
+  string displayed_oid = 9;
+  // 原创=1 转载=2 0=历史上可能遗留的脏数据
+  int32 copyright = 10;
+  // 稿件常用权限属性 0=否 1=是 见BKArcRights字段说明
+  BKArcRights rights = 11;
+}
+
+// 稿件常用权限属性
+message BKArcRights {
+  // 是否禁止转载
+  int32 no_reprint = 1;
+}
+
+// 播客稿件分p
+message BKArcPart {
+  // aid （UGC） epid（OGV）
+  int64 oid = 1;
+  // 业务subid
+  // UGC稿件 -> cid
+  // OGV稿件 -> cid
+  int64 sub_id = 2;
+  // 分p对应的标题
+  string title = 3;
+  // 分p 时长（秒）
+  int64 duration = 4;
+  // 分p 序号（从1开始）
+  int32 page = 5;
+}
+
+message DetailItem {
+  // 播客稿件标识
+  // 该字段中除了sub_id以外的字段均有效
+  PlayItem item = 1;
+  // 播客稿件详细信息 包括标题/简介/总时长/封面/分区等等
+  BKArchive arc = 2;
+  // 播客稿件分p信息 包括分p标题，分p时长等
+  repeated BKArcPart parts = 3;
+  // 稿件up主信息
+  Author owner = 4;
+  // 稿件互动数据
+  BKStat stat = 5;
+  // 最后播放过的分p subid（作为播放历史列表的时候必须存在）
+  int64 last_part = 6;
+  // 上面分p的播放进度（秒，-1表示已播完）（作为播放历史列表的时候必须存在）
+  int64 progress = 7;
+  // 是否可播放的状态
+  // -2: up主删除
+  // -1: 稿件失效，不可播（播放列表中按置灰不可播处理）
+  // 0: 可播
+  // 1: 不可播置灰，点击时toast提示服务端下发message信息（例如："暂不支持该类型稿件"）
+  // 2: 不置灰但连播时跳过（版权中台要求） 主动点击时toast提示下发的message信息
+  //    补充说明：版权稿件目前处理为不下发分p信息，所以播放时会由播放器统一跳过。
+  // 未来可能增加新的状态，老版本可能接收到其他未识别的非0状态，此时统一视为不可播，置灰并提示下发的message信息
+  int32 playable = 8;
+  // 不可播放时的提示信息
+  string message = 9;
+  // 秒开地址 key为分p里的subid 默认只有第一p的秒开地址
+  map<int64, PlayInfo> player_info = 10;
+  // 关联的稿件元信息（可选）
+  // 目前用于音频关联视频稿件跳转
+  PlayItem associated_item = 11;
+  // 播放历史产生的时间（时间戳）
+  // 服务端记录的用户上次观看此稿件的时间
+  int64 last_play_time = 12;
+  // 播放历史分类的tag
+  // 例如：今天/昨天/更早 等等
+  // 主要用作端上播放历史页按时间段分类
+  string history_tag = 13;
+  // 播放历史产生时的设备类型
+  // 和主站播放历史页的设备类型相同
+  bilibili.app.interface.v1.DeviceType device_type = 14;
+  // 该稿件所属的UGC合集信息 已经是合集跳入的情况下不下发
+  // 听视频内部是按收藏夹子类型处理合集的
+  // 查询合集内资源信息时，请使用听视频的收藏夹详情接口
+  FavFolder ugc_season_info = 15;
+}
+
+// up主信息
+message Author {
+  // up的member id
+  int64 mid = 1;
+  // up的名字
+  string name = 2;
+  // up的头像url 绝对地址
+  string avatar = 3;
+  // up主的关注状态
+  FollowRelation relation = 4;
+}
+
+message FollowRelation {
+  // 关注状态
+  enum RelationStatus {
+    // 默认占位符 无实际意义
+    UNSPECIFIED = 0;
+    // 未关注
+    NO_FOLLOW = 1;
+    // 正在关注
+    FOLLOWING = 2;
+    // （以下是保留字段）暂未实现
+    // 被关注
+    FOLLOWED = 3;
+    // 互相关注
+    MUTUAL_FOLLOWING = 4;
+    // 特别关注
+    SPECIAL_FOLLOWING = 5;
+  }
+  RelationStatus status = 1;
+}
+
+// 稿件互动数据
+message BKStat {
+  // 点赞数
+  int32 like = 1;
+  // 投币数
+  int32 coin = 2;
+  // 收藏数
+  int32 favourite = 3;
+  // 评论数
+  int32 reply = 4;
+  // 分享数
+  int32 share = 5;
+  // 播放数
+  int32 view = 6;
+  // 是否点赞
+  bool has_like = 7;
+  // 是否投币
+  bool has_coin = 8;
+  // 是否收藏
+  bool has_fav = 9;
+}
+
+enum PlaylistSource {
+  // 默认 使用上次服务端保存的列表
+  DEFAULT = 0;
+  // 获取指定用户的全部音频投稿，替换当前播单
+  MEM_SPACE = 1;
+  // 从音频合辑获取，替换当前播单
+  AUDIO_COLLECTION = 2;
+  // 单个音频进列表，替换当前播单
+  // 常用于主站收藏/动态音频卡/视频关联的音频卡
+  AUDIO_CARD = 3;
+  // 从用户收藏夹获取，替换当前播单
+  // 使用该类型的时候必须在extra_id字段额外提供收藏夹类型
+  USER_FAVOURITE = 4;
+  // TODO:（保留）从up主视频稿件详情获取
+  // 目前从UP稿件三点进入是推荐播单，请使用RcmdPlaylist接口
+  UP_ARCHIVE = 5;
+  // TODO: (保留) 从音频缓存获取，替换当前播单
+  // Deprecated: 无用设计
+  AUDIO_CACHE = 6;
+  // 从发现页播单获取，替换当前播单
+  PICK_CARD = 7;
+  // 从播单带入续播，用于空间投稿/稍后再看/每周必看/系列连播/合集 等
+  // 使用该类型时必须在extra_id字段透传播单类型，在id字段填写物料id
+  MEDIA_LIST = 8;
+}
+
+// 列表顺序 通常和ListSort配合使用
+enum ListOrder {
+  // 默认 服务端按场景自行判断
+  NO_ORDER = 0;
+  // 正序
+  ORDER_NORMAL = 1;
+  // 逆序
+  ORDER_REVERSE = 2;
+  // 随机
+  ORDER_RANDOM = 3;
+}
+
+// 列表排序字段
+enum ListSortField {
+  // 默认 服务端按场景自行判断
+  NO_SORT = 0;
+  // 按创建时间
+  SORT_CTIME = 1;
+  // 按播放量
+  SORT_VIEWCNT = 2;
+  // 按收藏量
+  SORT_FAVCNT = 3;
+}
+
+// 通用列表排序选项
+message SortOption {
+  // 列表排序方式（正序/逆序/随机等）
+  ListOrder order = 1;
+  // 列表按什么字段排序（创建时间/播放量/收藏量）
+  ListSortField sort_field = 2;
+}
+
+// 请求当前播放列表
+message PlaylistReq {
+  // （可选）播单来源
+  // ！！重要！！
+  // from 参数只应该在首次跳转播单页的时候使用！
+  // 服务端会读取来源的信息然后将来源拷贝一份存入服务端播单，
+  // 后续对播单的翻页请求请直接把from置为默认值DEFAULT，
+  // 否则每次翻页都会触发服务端重新拉取源列表的逻辑！！
+  PlaylistSource from = 1;
+  // 不同播单来源下id代表不同的含义
+  //  - DEFAULT: id无意义，服务端忽略
+  //  - MEM_SPACE: id=mid 指定要获取音频投稿的用户id
+  //  - AUDIO_COLLECTION: id=menu_id 指定要获取的音频歌单id
+  //  - USER_FAVOURITE: id=fav_folder_id 指定用户收藏夹的folder id
+  //  - AUDIO_CARD: id=songid 老音频系统song id
+  //  - UP_ARCHIVE: id=aid 稿件aid
+  //  - PICK_CARD: id=card_id 播单id
+  //  - MEDIA_LIST: id=biz_id 播单物料id
+  int64 id = 2;
+  // （可选）设置返回列表的锚点，设置到oid维度即可
+  // 服务端返回的列表会尽可能包含这个锚点稿件，并在响应的单页中尽量将锚点置于列表中间位
+  // 用于首次获取列表，例如从收藏夹列表中间某个部位跳转带入播客播放
+  // 分页有设置时会忽略该设置
+  PlayItem anchor = 3;
+  // 分页参数，默认返回20条数据
+  PageOption page_opt = 4;
+  // 秒开参数
+  bilibili.app.archive.middleware.v1.PlayerArgs player_args = 5;
+  // 对于id参数的补充信息
+  //  - from=USER_FAVOURITE 时，该字段表示folder type 且 必须提供
+  //  - from=PICK_CARD, 该字段表示 pick id 且 必须提供
+  //  - from=AUDIO_COLLECTION，该字段表示 menu type 且必须提供
+  //  - from=MEDIA_LIST，该字段表示播单类型(对应type字段)，且必须提供
+  int64 extra_id = 6;
+  // 列表排序参数
+  // 目前用于播单相关的续播场景，只在from!=DEFAULT的时候生效
+  SortOption sort_opt = 7;
+}
+
+// 分页请求参数
+message PageOption {
+  // 请求页大小 不传默认20个
+  uint32 page_size = 1;
+  // 翻页方向
+  enum Direction {
+    // 默认 向下滚动
+    SCROLL_DOWN = 0;
+    // 向上滚动
+    SCROLL_UP = 1;
+  }
+  Direction direction = 2;
+  // 稿件标识 用于翻页锚点 返回这个稿件之后/之前的一页
+  // 不填就只返回列表前20个
+  // 设置到oid维度即可
+  PlayItem last_item = 3;
+}
+
+message PlaylistResp {
+  // 播放列表总长度（只统计aid/epid维度）
+  // 总数可能并不精确 以reach_start reach_end为准
+  uint32 total = 1;
+  // 是否已经到列表顶端
+  bool reach_start = 2;
+  // 是否已经到列表底端
+  bool reach_end = 3;
+  // 播放列表
+  repeated DetailItem list = 4;
+  // 标识播放列表中最近播放的稿件
+  // 通常用于指定anchor时，顺带获取该稿件的播放历史
+  PlayItem last_play = 5;
+  // 上面播放的稿件进度
+  int64 last_progress = 6;
+}
+
+// 播单批量插入条目
+message PlaylistAddReq {
+  // 播客稿件标识 类型和oid必填
+  repeated PlayItem items = 1;
+  // （可选）插入位置 不传默认列表尾部
+  oneof pos {
+    // 插入到列表中指定item的后面
+    // 填写到oid维度即可
+    PlayItem after = 2;
+    // 插入列表头
+    bool head = 3;
+    // 插入列表尾
+    bool tail = 4;
+  }
+}
+
+// 播单批量删除条目
+message PlaylistDelReq {
+  // 播客稿件标识 填写到oid维度即可
+  repeated PlayItem items = 1;
+  // 是否清空当前播放列表
+  bool truncate = 2;
+}
+
+// 播放历史列表请求
+message PlayHistoryReq {
+  // 分页请求参数 只支持向下翻页
+  PageOption page_opt = 1;
+  // 客户端侧今日0时的unix时间戳（秒）
+  // 取设备上的本地时区今天0点0分0秒然后转换成时间戳即可
+  int64 local_today_zero = 2;
+}
+
+// 播放历史列表response
+message PlayHistoryResp {
+  // 总共历史个数
+  uint32 total = 1;
+  // 是否已经到底部
+  bool reach_end = 2;
+  // 播放历史列表
+  repeated DetailItem list = 3;
+}
+
+// 播放历史插入
+message PlayHistoryAddReq {
+  // 播客稿件标识信息
+  // 作为播放历史使用时，所有字段都需要填写
+  // item_type -> 直接回传下发的type
+  // oid       -> 直接回传下发的oid
+  // sub_id    -> 设置为播放到的分p sub_id
+  PlayItem item = 1;
+  // 播放进度（秒，-1表示已播放完）
+  int64 progress = 2;
+  // 稿件时长（秒）
+  int64 duration = 3;
+  // 区分连播还是点播
+  // 【推荐模式】下，上报走【连播】类型
+  // 【播单模式】下，上报走【点播】类型
+  // 1-连播  2-点播
+  int32 play_style = 4;
+}
+
+// 播放历史批量删除
+message PlayHistoryDelReq {
+  // 播客稿件标识 填写到oid维度即可
+  repeated PlayItem items = 1;
+  // 是否清空播放历史
+  bool truncate = 2;
+}
+
+// 一键三连
+message TripleLikeReq {
+  // 播客稿件标识 需要填写到sub id
+  PlayItem item = 1;
+}
+
+message TripleLikeResp {
+  // 三连后的toast信息
+  string message = 1;
+  // 是否点赞成功
+  bool thumb_ok = 2;
+  // 是否投币成功
+  bool coin_ok = 3;
+  // 是否收藏成功
+  bool fav_ok = 4;
+}
+
+// 点赞
+message ThumbUpReq {
+  // 播客稿件标识 需要填写到sub id
+  PlayItem item = 1;
+  // 操作类型 默认点赞
+  enum ThumbType {
+    LIKE = 0;
+    CANCEL_LIKE = 1;
+    DISLIKE = 2;
+    CANCEL_DISLIKE = 3;
+  }
+  // 点赞/取消点赞 点踩/取消点踩
+  ThumbType action = 2;
+}
+
+message ThumbUpResp {
+  // 点赞相关操作成功时服务端下发的toast信息
+  // 为空时端上显示兜底提示
+  string message = 1;
+}
+
+// 投币
+message CoinAddReq {
+  // 播客稿件标识 需要填写到sub id
+  PlayItem item = 1;
+  // 投币数量
+  int32 num = 2;
+  // 是否同时点赞
+  bool thumb_up = 3;
+}
+
+message CoinAddResp {
+  // 投币成功时服务端下发的toast信息
+  // 为空时端上显示兜底提示
+  string message = 1;
+}
+
+// 起播上报 无条件上报即可 不区分点播连播
+message PlayActionReportReq {
+  // 播客稿件标识 需要填写到sub id
+  PlayItem item = 1;
+  // 数仓标识 用户页面来源
+  string from_spmid = 2;
+}
+
+// 获取推荐播单
+message RcmdPlaylistReq {
+  enum RcmdFrom {
+    // 不设置跳转场景
+    UNSPECIFIED = 0;
+    // 从up的视频稿件跳转（视频详情页三点）
+    UP_ARCHIVE = 1;
+    // 从首页入口进入
+    INDEX_ENTRY = 2;
+    // 从视频详情页半屏入口进入（外露的听视频icon）
+    ARCHIVE_VIEW = 3;
+  }
+  // 设置跳转推荐模式的场景
+  RcmdFrom from = 1;
+  // 不同跳转场景下id具有不同的含义
+  // - UNSPECIFIED: id无意义 服务端忽略
+  // - UP_ARCHIVE: id=aid 需要带入推荐列表的稿件aid
+  // - ARCHIVE_VIEW: id=aid 播放页需要带入的稿件aid
+  // - INDEX_ENTRY: id暂无意义 服务端忽略
+  int64 id = 2;
+  // 是否需要在返回的推荐播单头部添加上次播放的内容
+  bool need_history = 3;
+  // 是否需要顶部起点卡片
+  bool need_top_cards = 4;
+  // 秒开参数
+  bilibili.app.archive.middleware.v1.PlayerArgs player_args = 5;
+  // 翻页请求参数 首页不传
+  // 后续页面传递响应里的next
+  bilibili.pagination.Pagination page = 6;
+  // 注解信息 目前需要传递
+  //  * session_id = 当前连播的session标识
+  //  * from_trackid = from_aid的trackid，天马等推荐场景会有这个
+  map<string, string> annotations = 7;
+}
+
+// 服务端使用的翻页offset结构编码
+// 客户端无需关心
+message RcmdOffset {
+  // 来源
+  int64 rcmd_from = 1;
+  // 对象id 含义和来源有关
+  int64 id = 2;
+  // 页码
+  int32 page = 3;
+  // 连播标识
+  string session_id = 4;
+  // AI用
+  string from_trackid = 5;
+}
+
+// 推荐播单响应 不分页  下发列表长度由服务端控制
+message RcmdPlaylistResp {
+  // 推荐稿件list
+  repeated DetailItem list = 1;
+  // 列表头部的历史条目个数
+  int64 history_len = 2;
+  // 容器顶部起点卡片
+  // 【重要】端上对于不认识的卡片类型直接丢弃不要做渲染！
+  repeated TopCard top_cards = 3;
+  // 下一页的翻页参数 next为空的情况下代表已经到底了
+  bilibili.pagination.PaginationReply next_page = 4;
+}
+
+enum TopCardType {
+  // 默认 无用
+  UNSPECIFIED = 0;
+  // 历史记录 落地页为听场景下的历史记录
+  LISTEN_HISTORY = 1;
+  // 收藏夹召回卡 落地页为收藏详情页
+  FAVORITE_FOLDER = 2;
+  // UP主召回卡 落地页为UP稿件播单页
+  UP_RECALL = 3;
+  // 今日精选卡 落地页为发现页
+  PICK_TODAY = 4;
+}
+
+message TopCard {
+  // 卡片模块名称（最近在听/我的收藏/我的关注等）
+  // 当【卡片数据】里的text为空时，卡片的模块名称应居中展示
+  string title = 1;
+  // 点击卡片对应的播放方式
+  enum PlayStrategy {
+    NO_INTERRUPT = 0; // 默认 不打断播放 如果正在播放中 则切进mini播放器
+    PLAY_TARGET = 1; // 自动起播卡片上外露的稿件
+    PLAY_FIRST = 2; // 自动起播对应列表中第一个稿件
+  }
+  // 点击卡片后的播放方式
+  PlayStrategy play_style = 2;
+  // 卡片类型
+  TopCardType card_type = 3;
+  // 卡片数据
+  oneof card {
+    TpcdHistory listen_history = 4; // 历史记录卡
+    TpcdFavFolder fav_folder = 5;   // 收藏夹召回卡
+    TpcdUpRecall up_recall = 6;     // UP主召回卡
+    TpcdPickToday pick_today = 7;   // 今日精选卡
+  }
+  // 卡片位次 从1开始
+  int64 pos = 8;
+  // 卡片标题前的icon 可能没有
+  string title_icon = 9;
+}
+
+message TpcdHistory {
+  // 外露的稿件完整信息
+  DetailItem item = 1;
+  // 一般来说是外露稿件的标题
+  string text = 2;
+  // 外露稿件的封面
+  string pic = 3;
+}
+
+message TpcdFavFolder {
+  // 外露的稿件完整信息
+  DetailItem item = 1;
+  // 一般来说是外露稿件的标题
+  string text = 2;
+  // 外露稿件的封面
+  string pic = 3;
+  // 收藏夹id
+  int64 fid = 4;
+  // 收藏夹类型
+  int32 folder_type = 5;
+}
+
+message TpcdUpRecall {
+  // 召回的UP主mid
+  int64 up_mid = 1;
+  // 一般来说是up主的名称
+  string text = 2;
+  // up主头像
+  string avatar = 3;
+  // 对应播单的类型
+  int64 medialist_type = 4;
+  // 对应播单bizId
+  int64 medialist_biz_id = 5;
+  // 要起播的稿件的完整信息
+  DetailItem item = 6;
+}
+
+message TpcdPickToday {
+  // 外露的稿件完整信息
+  DetailItem item = 1;
+  // 一般来说是外露稿件的标题
+  string text = 2;
+  // 外露稿件的封面
+  string pic = 3;
+  // 运营精选的播单组id
+  int64 pick_id = 4;
+  // 运营精选的播单id
+  int64 pick_card_id = 5;
+}
+
+message FavFolderAuthor {
+  // member id
+  int64 mid = 1;
+  // 用户名
+  string name = 2;
+}
+
+// 用户收藏夹
+message FavFolder {
+  // 收藏夹id
+  int64 fid = 1;
+  // 收藏夹类型 每个业务接入方会有一种收藏夹类型
+  // 例如： 2-视频收藏夹 21-UGC合集
+  int32 folder_type = 2;
+  // 收藏夹创建人信息
+  FavFolderAuthor owner = 3;
+  // 收藏夹名称
+  string name = 4;
+  // 收藏夹封面
+  string cover = 5;
+  // 收藏夹描述
+  string desc = 6;
+  // 收藏夹内资源数目
+  int32 count = 7;
+  // 收藏夹属性位
+  // 0- 0公开 1非公开
+  // 1- 0默认收藏夹 1非默认（用户创建）
+  // 2- 1待审
+  // 3- 1管理员删除
+  // 4- 1名称待审
+  // 5- 1简介待审
+  // 6- 1封面待审
+  // 7- 1敏感待审
+  int32 attr = 8;
+  // 收藏夹状态
+  //  0 正常
+  // -1 已失效
+  int32 state = 9;
+  // 是否已收藏/订阅该收藏夹
+  // 0-否 1-是
+  int32 favored = 10;
+  // 创建时间 时间戳
+  int64 ctime = 11 [(gogoproto.casttype) = "go-common/library/time.Time"];
+  // 修改时间 时间戳
+  int64 mtime = 12 [(gogoproto.casttype) = "go-common/library/time.Time"];
+  // 收藏数
+  int32 stat_fav_cnt = 13;
+  // 分享数
+  int32 stat_share_cnt = 14;
+  // 点赞数
+  int32 stat_like_cnt = 15;
+  // 播放数
+  int32 stat_play_cnt = 16;
+  // 评论数
+  int32 stat_reply_cnt = 17;
+  // （仅限FavFolderList接口使用）
+  // 判断传入的稿件是否在这个收藏夹里
+  // 0-不在 1-在
+  int32 fav_state = 18;
+}
+
+
+// 获取用户收藏夹列表
+message FavFolderListReq {
+  // （可选）指定获取哪几类收藏夹
+  // 不传则默认返回 视频 和 收藏与订阅 的收藏夹列表
+  // 在添加收藏时，浮窗内查询应该指定只查询视频收藏夹（type=2）即可
+  repeated int32 folder_types = 1;
+  // （可选）传入一个稿件信息，返回的收藏夹列表中会包含一个字段
+  // 判断该稿件是否在某个收藏夹里
+  PlayItem item = 2;
+}
+
+message FavFolderListResp {
+  // 收藏夹列表 不分页
+  repeated FavFolder list = 1;
+}
+
+// 用户收藏资源
+message FavItem {
+  // 资源类型
+  // 一个收藏夹内可能存在多种类型的资源，见oid字段例子
+  int32 item_type = 1;
+  //  不同的item type情况下oid意义不同
+  // 2（视频）- avid【已映射为 UGC-1】
+  // 24（OGV）- epid【已映射为 OGV-2】
+  // 12（音频）- song id【已映射为 Audio-3】
+  int64 oid = 2;
+  // 所属 folder id
+  int64 fid = 3;
+  // 收藏该资源的用户id
+  int64 mid = 4;
+  // 修改时间
+  int64 mtime = 5 [(gogoproto.casttype) = "go-common/library/time.Time"];
+  // 创建时间
+  int64 ctime = 6 [(gogoproto.casttype) = "go-common/library/time.Time"];
+  // 以下是埋点字段 端上直接透传
+  EventTracking et = 7;
+}
+
+// 单个收藏资源详细信息
+message FavItemDetail {
+  // 收藏资源标识
+  FavItem item = 1;
+  // 资源的up主信息
+  FavItemAuthor owner = 2;
+  // 资源的计数信息
+  FavItemStat stat = 3;
+  // 资源封面
+  string cover = 4;
+  // 资源标题
+  string name = 5;
+  // 资源时长 秒
+  int64 duration = 6;
+  // 资源条目的显示状态
+  // -1 稿件已失效
+  //  0 正常显示
+  //  1 不支持的稿件（置灰）
+  // 对于其他非0状态一律视作"不支持的稿件"并置灰
+  int32 state = 7;
+  // 服务端下发toast信息 点击不可播资源时提示
+  string message = 8;
+  // 该收藏资源的分p数
+  int32 parts = 9;
+}
+
+message FavItemAuthor {
+  // member id
+  int64 mid = 1;
+  // up主名称
+  string name = 2;
+}
+
+message FavItemStat {
+  // 播放数
+  int32 view = 1;
+  // 评论数
+  int32 reply = 2;
+}
+
+// 获取收藏夹内资源详细信息
+message FavFolderDetailReq {
+  // 收藏夹id 必传
+  int64 fid = 1;
+  // 收藏夹类型 必传
+  int32 folder_type = 2;
+  // 要访问的收藏夹创建者id
+  // 不知道的话可以不传
+  int64 fav_mid = 3;
+  // 翻页锚点 只能向后翻页
+  // 只传 item_type 和 oid 即可
+  // 不传默认第一页
+  FavItem last_item = 4;
+  // 页面大小 默认20条
+  uint32 page_size = 5;
+  // 是否一并返回收藏夹的详细信息
+  // 不需要就不传 会拖慢处理
+  bool need_folder_info = 6;
+}
+
+message FavFolderDetailResp {
+  // 收藏夹资源总数
+  uint32 total = 1;
+  // 是否已经到底
+  bool reach_end = 2;
+  // 收藏资源列表
+  repeated FavItemDetail list = 3;
+  // 收藏夹详细信息
+  FavFolder folder_info = 4;
+}
+
+// 创建收藏夹
+message FavFolderCreateReq {
+  // 收藏夹名称
+  string name = 1;
+  // 收藏夹描述信息
+  string desc = 2;
+  // 是否公开 默认公开 0-公开 1-私密
+  int32 public = 3;
+  // 创建的收藏夹类型 默认 2（视频收藏夹）
+  int32 folder_type = 4;
+}
+
+message FavFolderCreateResp {
+  // 创建好的收藏夹id
+  int64 fid = 1;
+  // 创建好的收藏夹type
+  int32 folder_type = 2;
+  // 服务端下发toast
+  // 若为空则端上兜底文案
+  string message = 3;
+}
+
+message FavFolderDeleteReq {
+  // 要删除的收藏夹id
+  int64 fid = 1;
+  // 要删除的收藏夹type
+  int32 folder_type = 2;
+}
+
+message FavFolderDeleteResp {
+  // 服务端下发toast
+  // 若为空则端上兜底文案
+  string message = 1;
+}
+
+message FavItemAddReq {
+  // 要加入的收藏夹id
+  int64 fid = 1;
+  // 收藏夹类型
+  int32 folder_type = 2;
+  // 播单item或者收藏item二选一
+  oneof item {
+    // 适用于播放器场景收藏 需要填写至sub id字段
+    PlayItem play = 3;
+    // 适用于收藏页场景
+    FavItem fav = 4;
+  }
+}
+
+message FavItemAddResp {
+  // 服务端下发toast
+  // 若为则空端上兜底文案
+  string message = 1;
+}
+
+message FavItemDelReq {
+  // 收藏夹id
+  int64 fid = 1;
+  // 收藏夹类型
+  int32 folder_type = 2;
+  // 播单item或者收藏item二选一
+  oneof item {
+    // 适用于播放器场景收藏 需要填写至sub id字段
+    PlayItem play = 3;
+    // 适用于收藏页场景
+    FavItem fav = 4;
+  }
+}
+
+message FavItemDelResp {
+  // 服务端下发toast
+  // 若为则空端上兜底文案
+  string message = 1;
+}
+
+message FavFolderAction {
+  // 收藏夹id
+  int64 fid = 1;
+  // 收藏夹类型
+  int32 folder_type = 2;
+  // 动作（添加到这个收藏夹还是从这删除）
+  enum Action {
+    UNSPECIFIED = 0;
+    // 添加
+    ADD = 1;
+    // 删除
+    DEL = 2;
+  }
+  Action action = 3;
+}
+
+// 在多个收藏夹中增删某个item
+message FavItemBatchReq {
+  // 要操作的收藏夹信息
+  repeated FavFolderAction actions = 1;
+  // 要操作的item
+  oneof item {
+    PlayItem play = 2;
+    FavItem fav = 3;
+  }
+}
+
+message FavItemBatchResp {
+  // 服务端下发toast
+  // 若为空 则端上兜底文案
+  string message = 1;
+}
+
+message FavoredInAnyFoldersReq {
+  // 要检查的收藏夹类型 默认 2 （只检查视频收藏夹）
+  repeated int32 folder_types = 1;
+  // 要检查的item
+  PlayItem item = 2;
+}
+
+message FavFolderMeta {
+  int64 fid = 1;
+  int32 folder_type = 2;
+}
+
+message FavoredInAnyFoldersResp {
+  // 返回所有包含查询item的收藏夹metadata
+  repeated FavFolderMeta folders = 1;
+  // 透传客户端给的item
+  PlayItem item = 2;
+}
+
+
+message PickFeedReq {
+  // 翻页用
+  int64 offset = 1;
+}
+
+message PickFeedResp {
+  // 下一页的offset
+  int64 offset = 1;
+  // 精选卡列表
+  // 如果为空则代表已经翻到底了
+  repeated PickCard cards = 2;
+}
+
+// 单个精选卡（其实对应单个播单）
+message PickCard {
+  // 所属播单组的id
+  int64 pick_id = 1;
+  // 精选卡的id
+  int64 card_id = 2;
+  // 精选卡的大标题 例如 "9月26日精选"
+  // 端上控制在一行内显示，超长则三点截断
+  // 如果没下发则不展示，下面的卡顺次上移
+  string card_name = 3;
+  // 卡内的模块 端上直接按顺序拼接展示
+  // 【重要】如果遇到类型不认识的模块，直接丢弃！不要渲染！
+  repeated CardModule modules = 4;
+}
+
+message CardModule {
+  // 模块类型
+  CardModuleType module_type = 1;
+  // 卡内模块
+  // 【重要】如果遇到类型不认识的模块，直接丢弃！不要渲染！
+  oneof module {
+    PkcmHeader module_header = 2;        // 播单头
+    PkcmArchive module_archive = 3;      // 单个稿件
+    PkcmCenterButton module_cbtn = 4;    // 居中按钮
+  }
+}
+
+enum CardModuleType {
+  Module_invalid = 0;   // 占位 无用
+  Module_header = 1;    // 播单头
+  Module_archive = 2;   // 单个稿件
+  Module_cbtn = 3;      // 居中按钮
+}
+
+// 模块-精选卡内的播单头
+message PkcmHeader {
+  // 播单头标题  例如"怀旧金曲"
+  string title = 1;
+  // 播单描述  例如"5个单集，共2小时10分钟"
+  string desc = 2;
+  // 右侧按钮icon 端上兜底播放icon
+  string btn_icon = 3;
+  // 右侧按钮文案 端上兜底 播放全部
+  string btn_text = 4;
+  // 右侧按钮跳链
+  string btn_uri = 5;
+}
+
+// 模块-精选卡内的单个稿件
+message PkcmArchive {
+  // 稿件信息
+  PickArchive arc = 1;
+  // 推荐原因 为空则不展示
+  string pick_reason = 2;
+}
+
+message PickArchive {
+  // 稿件标识
+  PlayItem item = 1;
+  // 标题
+  string title = 2;
+  // up主信息
+  PickArchiveAuthor owner = 3;
+  // 封面url
+  string cover = 4;
+  // 稿件时长（秒）
+  int64 duration = 5;
+  // 稿件分p数量
+  int32 parts = 6;
+  // 播放数
+  int32 stat_view = 7;
+  // 回复数
+  int32 stat_reply = 8;
+  // 稿件状态
+  // 0正常 -1失效
+  // 以防未来扩充其他状态:
+  // 约定state>=0是正常展示状态，state<0按失效处理
+  int32 state = 9;
+  // 失效稿件的提示信息
+  string message = 10;
+}
+
+message PickArchiveAuthor {
+  // member id
+  int64 mid = 1;
+  // 用户名
+  string name = 2;
+}
+
+// 模块-精选卡内占据一行的居中按钮
+message PkcmCenterButton {
+  // 头部icon 不下发就不显示
+  string icon_head = 1;
+  // 尾部icon 不下发就不显示
+  string icon_tail = 2;
+  // 要显示的文字 端上兜底 查看更多
+  string title = 3;
+  // 跳链
+  string uri = 4;
+}
+
+message PickCardDetailReq {
+  // 播单id
+  int64 card_id = 1;
+  // 播单组id
+  int64 pick_id = 2;
+}
+
+message PickCardDetailResp {
+  // 播单id
+  int64 card_id = 1;
+  // 所属播单组id
+  int64 pick_id = 2;
+  // 播单模块
+  repeated CardModule modules = 3;
+}
+
+// 通用事件上报
+message EventReq {
+  enum EventType {
+    // 默认 无效
+    INVALID = 0;
+    // 听视频引导条曝光
+    GUIDE_BAR_SHOW = 1;
+  }
+  // 事件类型
+  EventType event_type = 1;
+  // 事件关联的稿件 至少填写类型和oid
+  PlayItem item = 2;
+}
+
+message EventResp {
+
+}
+
+message MedialistReq {
+  // 播单类型
+  int64 list_type = 1;
+  // 播单biz id
+  int64 biz_id = 2;
+  // 翻页的offset 首页不传
+  // 暂时不做跳入时指定锚点稿件
+  string offset = 3;
+}
+
+message MedialistResp {
+  // 播单资源总数
+  int64 total = 1;
+  // 是否还有下一页
+  bool has_more = 2;
+  // 翻页offset
+  string offset = 3;
+  // 资源列表
+  repeated MedialistItem items = 4;
+  // 播单up主信息
+  MedialistUpInfo up_info = 5;
+}
+
+message MedialistItem {
+  // 稿件标识
+  PlayItem item = 1;
+  // 稿件标题
+  string title = 2;
+  // 稿件封面
+  string cover = 3;
+  // 稿件总时长（秒）
+  int64 duration = 4;
+  // 稿件分p数
+  int32 parts = 5;
+  // 稿件up主mid
+  int64 up_mid = 6;
+  // 稿件up主名称
+  string up_name = 7;
+  // 稿件状态
+  // -1：已失效
+  // 0：正常
+  // 1：不支持的稿件（置灰不可点击）
+  // 约定状态<0按失效展示，>0按不支持展示
+  int32 state = 8;
+  // 非正常状态（0以外）的解释信息
+  string message = 9;
+  // 播放数
+  int64 stat_view = 10;
+  // 评论数
+  int64 stat_reply = 11;
+}
+
+message MedialistUpInfo {
+  // 用户mid
+  int64 mid = 1;
+  // 头像
+  string avatar = 2;
+  // 粉丝数
+  int64 fans = 3;
+  // up主名称
+  string name = 4;
+}

@@ -1,0 +1,7 @@
+[message]
+    Title = "剧情树待重新发布"
+    Content = "您的互动视频《%s》 av%d 由于剧情树中应用了未通过审核的视频， 请尝试重新编辑后再提交剧情树。"
+    MC = "1_24_1"
+[elimination]
+    CronExpr = "*/10 * * * * *" # 每周二凌晨3点
+    PeriodValid = 90 #保留90天数据

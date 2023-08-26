@@ -1,0 +1,27 @@
+[Server]
+    addr = "0.0.0.0:8000"
+    timeout = "1s"
+
+[host]
+    api = "http://api.bilibili.co"
+
+[httpClient]
+    key = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial = "1s"
+    timeout = "1s"
+    keepAlive = "60s"
+
+[sysInformsHTTPClient]
+    key = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial = "50ms"
+    timeout = "1s"
+    keepAlive = "60s"
+
+[httpReply]
+    key = "96923574ed650ef9"
+    secret = "35113863f243e6a84b8bbdafa2ba76cd"
+    dial = "3s"
+    timeout = "10s"
+    keepAlive = "60s"

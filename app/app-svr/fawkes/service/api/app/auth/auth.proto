@@ -1,0 +1,188 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+
+package app.auth.v1;
+
+option go_package = "auth";
+option (gogoproto.goproto_getters_all) = false;
+
+service Auth {
+  /* 新增权限组 */
+  rpc AddAuthItemGroup(AddAuthItemGroupReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/auth/group/add"
+    };
+  }
+
+  /* 更新权限组 */
+  rpc UpdateAuthItemGroup(UpdateAuthItemGroupReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/auth/group/update"
+    };
+  }
+
+  /* 新增权限点 */
+  rpc AddAuthItem(AddAuthItemReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/auth/item/add"
+    };
+  }
+
+  /* 更新权限点 */
+  rpc UpdateAuthItem(UpdateAuthItemReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/auth/item/update"
+    };
+  }
+
+  /* 启用权限点 */
+  rpc ActiveAuthItem(ActiveAuthItemReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/auth/item/switch"
+    };
+  }
+
+  /* 删除权限点 */
+  rpc DeleteAuthItem(DeleteAuthItemReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/auth/item/delete"
+    };
+  }
+
+  /* 给角色授权 */
+  rpc GrantRole(GrantRoleReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/auth/grant"
+    };
+  }
+
+  /* 拉取所有权限点 */
+  rpc ListAuth(ListAuthReq) returns (ListAuthResp){
+    option (google.api.http) = {
+      get: "/x/admin/fawkes/auth/list"
+    };
+  }
+
+}
+
+
+message AddAuthItemGroupReq{
+  //组名
+  string group_name = 1 [(gogoproto.jsontag) = "group_name", (gogoproto.moretags) = 'form:"group_name" validate:"required"'];
+}
+
+message UpdateAuthItemGroupReq{
+  //组id
+  int64  group_id = 1 [(gogoproto.jsontag) = "group_id", (gogoproto.moretags) = 'form:"group_id" validate:"required"'];
+  //组名
+  string group_name = 2 [(gogoproto.jsontag) = "group_name", (gogoproto.moretags) = 'form:"group_name" validate:"required"'];
+}
+
+
+message AddAuthItemReq{
+  //组id
+  int64 group_id = 1 [(gogoproto.jsontag) = "group_id", (gogoproto.moretags) = 'form:"group_id" validate:"required"'];
+  //权限项名字
+  string item_name = 2 [(gogoproto.jsontag) = "item_name", (gogoproto.moretags) = 'form:"item_name" validate:"required"'];
+  //前端key
+  string fe_key = 3 [(gogoproto.jsontag) = "fe_key", (gogoproto.moretags) = 'form:"fe_key"'];
+  //后端url
+  string be_url = 4 [(gogoproto.jsontag) = "be_url", (gogoproto.moretags) = 'form:"be_url"'];
+  //后端url参数 key1=value1&k2=v2
+  string url_param = 5 [(gogoproto.jsontag) = "url_param", (gogoproto.moretags) = 'form:"url_param"'];
+}
+
+message UpdateAuthItemReq{
+  int64 item_id = 1 [(gogoproto.jsontag) = "item_id", (gogoproto.moretags) = 'form:"item_id" validate:"required"'];
+  string item_name = 2 [(gogoproto.jsontag) = "item_name", (gogoproto.moretags) = 'form:"item_name"'];
+  string fe_key = 3 [(gogoproto.jsontag) = "fe_key", (gogoproto.moretags) = 'form:"fe_key"'];
+  string be_url = 4 [(gogoproto.jsontag) = "be_url", (gogoproto.moretags) = 'form:"be_url"'];
+  //后端url参数 key1=value1&k2=v2
+  string url_param = 5 [(gogoproto.jsontag) = "url_param", (gogoproto.moretags) = 'form:"url_param"'];
+}
+
+message ActiveAuthItemReq{
+  int64 item_id = 1 [(gogoproto.jsontag) = "item_id", (gogoproto.moretags) = 'form:"item_id" validate:"required"'];
+  bool is_active = 2 [(gogoproto.jsontag) = "is_active", (gogoproto.moretags) = 'form:"is_active"'];
+}
+
+message DeleteAuthItemReq{
+  //权限项id
+  int64 item_id = 1 [(gogoproto.jsontag) = "item_id", (gogoproto.moretags) = 'form:"item_id" validate:"required"'];
+}
+
+message GrantRoleReq{
+  repeated Grant item = 1 [(gogoproto.jsontag) = "item", (gogoproto.moretags) = 'form:"item" validate:"required"'];
+}
+
+// 授权信息
+message Grant{
+  //权限项id
+  int64 item_id = 1 [(gogoproto.jsontag) = "item_id", (gogoproto.moretags) = 'form:"item_id" validate:"required"'];
+  //角色
+  int64 role_value = 2 [(gogoproto.jsontag) = "role_value", (gogoproto.moretags) = 'form:"role_value" validate:"required"'];
+  //是否授权
+  bool is_granted = 3 [(gogoproto.jsontag) = "is_granted", (gogoproto.moretags) = 'form:"is_granted" validate:"required"'];
+}
+
+message ListAuthReq{
+  int64 role_value = 1 [(gogoproto.jsontag) = "role_value", (gogoproto.moretags) = 'form:"role_value"'];
+}
+
+message ListAuthResp{
+  repeated Group group = 1[(gogoproto.jsontag) = "item", (gogoproto.moretags) = 'form:"item"'];
+  repeated Role role = 2 [(gogoproto.jsontag) = "role", (gogoproto.moretags) = 'form:"role"'];
+}
+
+message Group {
+  //权限组id
+  int64 group_id = 1 [(gogoproto.jsontag) = "group_id", (gogoproto.moretags) = 'form:"group_id"'];
+  //权限组名字
+  string group_name = 2 [(gogoproto.jsontag) = "group_name", (gogoproto.moretags) = 'form:"group_name"'];
+  //操作人
+  string operator = 3 [(gogoproto.jsontag) = "operator", (gogoproto.moretags) = 'form:"operator"'];
+  //权限项
+  repeated Item item = 4 [(gogoproto.jsontag) = "item", (gogoproto.moretags) = 'form:"item"'];
+  int64 ctime = 5 [(gogoproto.jsontag) = "ctime", (gogoproto.moretags) = 'form:"ctime"'];
+  int64 mtime = 6 [(gogoproto.jsontag) = "mtime", (gogoproto.moretags) = 'form:"mtime"'];
+}
+
+message Role {
+  int64 id = 1[(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id"'];
+  string name = 2[(gogoproto.jsontag) = "name", (gogoproto.moretags) = 'form:"name"'];
+  string eName = 3[(gogoproto.jsontag) = "ename", (gogoproto.moretags) = 'form:"ename"'];
+  int64 value = 4[(gogoproto.jsontag) = "value", (gogoproto.moretags) = 'form:"value"'];
+  int64 state = 5[(gogoproto.jsontag) = "state", (gogoproto.moretags) = 'form:"state"'];
+}
+
+message Item {
+  int64 item_id = 1 [(gogoproto.jsontag) = "item_id", (gogoproto.moretags) = 'form:"item_id"'];
+  string item_name = 2 [(gogoproto.jsontag) = "item_name", (gogoproto.moretags) = 'form:"item_name"'];
+  string fe_key = 3 [(gogoproto.jsontag) = "fe_key", (gogoproto.moretags) = 'form:"fe_key"'];
+  string be_url = 4 [(gogoproto.jsontag) = "be_url", (gogoproto.moretags) = 'form:"be_url"'];
+  //后端url参数 key1=value1&k2=v2
+  string url_param = 5 [(gogoproto.jsontag) = "url_param", (gogoproto.moretags) = 'form:"url_param"'];
+  string operator = 6 [(gogoproto.jsontag) = "operator", (gogoproto.moretags) = 'form:"operator"'];
+  repeated int64 role_access = 7 [(gogoproto.jsontag) = "role_access", (gogoproto.moretags) = 'form:"role_access"'];
+  int64 ctime = 8 [(gogoproto.jsontag) = "ctime", (gogoproto.moretags) = 'form:"ctime"'];
+  int64 mtime = 9 [(gogoproto.jsontag) = "mtime", (gogoproto.moretags) = 'form:"mtime"'];
+  int64 group_id = 10 [(gogoproto.jsontag) = "group_id", (gogoproto.moretags) = 'form:"group_id"'];
+  bool is_active = 11 [(gogoproto.jsontag) = "is_active", (gogoproto.moretags) = 'form:"is_active"'];
+}
+
+message PermissionValidaReq{
+  int64 item_id = 1 [(gogoproto.jsontag) = "item_id", (gogoproto.moretags) = 'form:"item_id" validate:"required"'];
+  int64 role_value = 2 [(gogoproto.jsontag) = "role_value", (gogoproto.moretags) = 'form:"role_value" validate:"required"'];
+  int64 is_granted = 3 [(gogoproto.jsontag) = "is_granted", (gogoproto.moretags) = 'form:"is_granted" validate:"required"'];
+}
+
+message PermissionValidaResp{
+  int64 item_id = 1 [(gogoproto.jsontag) = "item_id", (gogoproto.moretags) = 'form:"item_id" validate:"required"'];
+  int64 role_value = 2 [(gogoproto.jsontag) = "role_value", (gogoproto.moretags) = 'form:"role_value" validate:"required"'];
+  int64 is_granted = 3 [(gogoproto.jsontag) = "is_granted", (gogoproto.moretags) = 'form:"is_granted" validate:"required"'];
+}
+

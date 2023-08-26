@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package bilibili.broadcast.message.fawkes;
+
+option go_package = "broadcast";
+
+import "google/protobuf/empty.proto";
+
+service Module {
+    rpc WatchModule(google.protobuf.Empty) returns (stream ModuleNotifyReply);
+}
+
+enum Action {
+    UNKNOWN = 0; // 未知
+    DELETE = 1; // 删除
+}
+
+message ModuleNotifyReply {
+    Action atcion = 1;
+    string app_key  = 2;
+    string pool_name = 3;
+    string module_name = 4;
+}

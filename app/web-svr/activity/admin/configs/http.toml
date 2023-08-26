@@ -1,0 +1,28 @@
+[HTTPServer]
+    addr = "0.0.0.0:7741"
+    maxListen = 1000
+    timeout = "10m"
+    readTimeout = "10m"
+    writeTimeout = "10m"
+
+[httpClient]
+    key = "b1014d7c339a5649"
+    secret = "75b74b612aa792b112e6504cae44c319"
+    dial = "10s"
+    timeout = "10s"
+    keepAlive = "60s"
+    [httpClient.breaker]
+    window  ="3s"
+    sleep   ="100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[Host]
+  api = "http://uat-api.bilibili.co"
+  message = "http://message.bilibili.co"
+  show = "http://uat-show.bilibili.co"
+  mng = "http://uat-manager.bilibili.co"
+  dynamic = "http://uat-api.vc.bilibili.co"
+  MerakCo = "http://merak.bilibili.co"
+

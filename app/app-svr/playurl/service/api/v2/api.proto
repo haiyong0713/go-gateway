@@ -1,0 +1,988 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+package playurl.service.v2;
+
+option go_package = "v2";
+
+service PlayURL {
+    // 获取播放地址
+    rpc PlayURL(PlayURLReq) returns (PlayURLReply);
+    // 获取投屏地址
+    rpc Project(ProjectReq) returns (ProjectReply);
+    // 获取播放地址和云控配置信息
+    rpc PlayView(PlayViewReq) returns (PlayViewReply);
+    // 编辑云控的配置面板信息
+    rpc PlayConfEdit(PlayConfEditReq) returns (PlayConfEditReply);
+    // 云控配置信息
+    rpc PlayConf(PlayConfReq) returns (PlayConfReply);
+    // chronos配置信息
+    rpc ChronosPkg(ChronosPkgReq) returns (ChronosPkgReply);
+    //画中画&airplay投屏-获取hls播放列表
+    rpc HlsScheduler(HlsCommonReq) returns (HlsSchedulerReply);
+    //画中画&airplay投屏-获取m3u8
+    rpc MasterScheduler(HlsCommonReq) returns (MasterSchedulerReply);
+    //画中画&airplay投屏-获取m3u8 metadata
+    rpc M3u8Scheduler(HlsCommonReq) returns (M3u8SchedulerReply);
+    //在线人数查询接口
+    rpc PlayOnline(PlayOnlineReq) returns (PlayOnlineReply);
+}
+
+message PlayOnlineReq {
+    // aid
+    int64 aid = 1;
+    // cid
+    int64 cid = 2;
+    // business
+    OnlineBusiness business = 3;
+}
+
+enum OnlineBusiness {
+    OnlineUnknown = 0;
+    OnlineUGC     = 1;
+    OnlineOGV     = 2;
+}
+
+message PlayOnlineReply {
+    //key:web,total
+    //value:count
+    map<string, int64> count = 1;
+    //是否不展示在线人数
+    bool is_hide = 2;
+}
+
+// PlayConfReq 控制面板信息req
+message PlayConfReq {
+    //客户端设备唯一标识
+    string buvid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+    //登陆用户mid
+    int64 mid = 2;
+    //平台
+    string platform = 3;
+    //build版本号
+    int32 build = 4;
+    //app: 手机品牌
+    string brand = 5;
+    // app: 手机型号
+    string model = 6;
+    // 1:ugc 2:ogv
+    int32 fMode = 7;
+    // 设备指纹信息
+    string fPLocal = 8;
+}
+
+// PlayConfReply 控制面板信息reply
+message PlayConfReply {
+    //云控配置信息
+    PlayAbilityConf play_conf = 1;
+}
+
+// 编辑控制面板
+message PlayConfEditReq {
+    //面板控制信息
+    repeated PlayConfState play_conf = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    //客户端设备唯一标识
+    string buvid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+    //平台
+    string platform = 3;
+    //build版本号
+    int32 build = 4;
+    //app: 手机品牌
+    string brand = 5;
+    //app: 手机型号
+    string model = 6;
+    //1:ugc 2:ogv
+    int32 fMode = 7;
+    // 设备指纹
+    string fp_local = 8;
+}
+
+// 空结构体
+message NoReply {
+}
+
+// 云控状态信息
+message PlayConfState {
+    //云控类型
+    ConfType conf_type = 1;
+    //true:展示 false:隐藏
+    bool show = 2;
+    //云控详情
+    FieldValue field_value = 3;
+    //播放配置的值
+    ConfValue conf_value = 4;
+}
+
+// 云控详情
+message FieldValue {
+    oneof value {
+        //保存特定字断,是否展示
+        bool switch = 1;
+    }
+}
+
+//  PlayViewReply 播放页返回结果
+message PlayViewReply {
+    //播放地址列表
+    PlayUrlInfo play_url = 1;
+    //云控配置信息-用户维度
+    PlayAbilityConf play_conf = 2;
+    // Chronos灰度管理
+    Chronos chronos = 3;
+    //云控是否可用配置-稿件维度
+    PlayArcConf play_arc = 4;  //兼容chronos
+    //播放事件
+    Event event = 5;
+    //ab实验相关的逻辑
+    AB ab = 6;
+    //音量均衡信息
+    VolumeInfo volume = 7;
+    //限免和副标题
+    VipConf vip_conf = 8;
+}
+
+message VipConf {
+    //是否限免 1：限免
+    int32 limit_free=1;
+    //副标题
+    string subtitle = 2;
+}
+
+// 音量均衡信息
+message VolumeInfo {
+    double measured_i         = 1;
+    double measured_lra       = 2;
+    double measured_tp        = 3;
+    double measured_threshold = 4;
+    double target_offset      = 5;
+    double target_i           = 6;
+    double target_tp          = 7;
+}
+
+message AB {
+    Glance glance = 1;  //试看大会员清晰度（group对应B：只有一次toast提醒，C：每一次都有toast提醒）
+    Group group   = 2;
+}
+
+message Glance {
+    //能否试看(包括:视频有除杜比外大会员清晰度且时长大于2min,登录用户且非大会员，命中ab实验B，C组)
+    bool can_watch = 1;
+    //试看次数
+    int64 times = 2;
+    //试看时长
+    int64 duration = 3;
+}
+
+enum Group {
+    UnknownGroup = 0;  //未知分组
+    A            = 1;
+    B            = 2;
+    C            = 3;
+}
+
+// Event is
+message Event {
+    //震动事件
+    Shake shake = 1;
+}
+
+// Shake Event
+message Shake {
+    //震动文件地址
+    string file = 1;
+}
+
+// Chronos灰度管理
+message Chronos {
+    //唯一标志
+    string md5 = 1;
+    //文件地址
+    string file = 2;
+}
+
+// PlayUrlInfo .
+message PlayUrlInfo {
+    // 视频云信息
+    ResponseMsg playurl = 1;
+    // 透传信息
+    ExtInfo ext_info = 2;
+    // play 1:升级提示信息
+    int32 IsSteinsUpgrade = 3;
+}
+
+// PlayConf 播放三点配置信息
+message PlayAbilityConf {
+    //后台播放
+    CloudConf background_play_conf = 1;
+    //镜像反转
+    CloudConf flip_conf = 2;
+    //返回视频的是否支持投屏
+    CloudConf cast_conf = 3;
+    //反馈
+    CloudConf feedback_conf = 4;
+    //字幕
+    CloudConf subtitle_conf = 5;
+    //播放速度
+    CloudConf playback_rate_conf = 6;
+    //定时停止播放
+    CloudConf time_up_conf = 7;
+    //播放方式
+    CloudConf playback_mode_conf = 8;
+    //画面尺寸
+    CloudConf scale_mode_conf = 9;
+    //顶
+    CloudConf like_conf = 10;
+    //踩
+    CloudConf dislike_conf = 11;
+    //投币
+    CloudConf coin_conf = 12;
+    //充电
+    CloudConf elec_conf = 13;
+    //分享
+    CloudConf share_conf = 14;
+    //截图/gif
+    CloudConf screen_shot_conf = 15;
+    //锁屏
+    CloudConf lock_screen_conf = 16;
+    //相关推荐
+    CloudConf recommend_conf = 17;
+    //倍速
+    CloudConf playback_speed_conf = 18;
+    //清晰度
+    CloudConf definition_conf = 19;
+    //选集
+    CloudConf selections_conf = 20;
+    //下一集
+    CloudConf next_conf = 21;
+    //编辑弹幕
+    CloudConf edit_dm_conf = 22;
+    //小窗
+    CloudConf small_window_conf = 23;
+    //播放震动
+    CloudConf shake_conf = 24;
+    //外层面板弹幕设置（实验组1）
+    CloudConf outer_dm_conf = 25;
+    //三点内弹幕设置（实验组2）
+    CloudConf inner_dm_conf = 26;
+    //全景
+    CloudConf panorama_conf = 27;
+    //杜比
+    CloudConf dolby_conf = 28;
+    //滤镜
+    CloudConf color_filter_conf = 29;
+    //无损音频
+    CloudConf loss_less_conf = 30;
+}
+
+enum ConfType {
+    // default
+    NoType = 0;
+    //镜像反转
+    FLIPCONF = 1;
+    //视频投屏
+    CASTCONF = 2;
+    //反馈
+    FEEDBACK = 3;
+    //字幕
+    SUBTITLE = 4;
+    //播放速度
+    PLAYBACKRATE = 5;
+    //定时停止播放
+    TIMEUP = 6;
+    //播放方式
+    PLAYBACKMODE = 7;
+    //画面尺寸
+    SCALEMODE = 8;
+    //后台播放
+    BACKGROUNDPLAY = 9;
+    //顶
+    LIKE = 10;
+    //踩
+    DISLIKE = 11;
+    //投币
+    COIN = 12;
+    //充电
+    ELEC = 13;
+    //分享
+    SHARE = 14;
+    //截图/gif
+    SCREENSHOT = 15;
+    //锁屏
+    LOCKSCREEN = 16;
+    //相关推荐
+    RECOMMEND = 17;
+    //倍速
+    PLAYBACKSPEED = 18;
+    //清晰度
+    DEFINITION = 19;
+    //选集
+    SELECTIONS = 20;
+    //下一集
+    NEXT = 21;
+    //编辑弹幕
+    EDITDM = 22;
+    //小窗
+    SMALLWINDOW = 23;
+    //播放震动
+    SHAKE = 24;
+    //外层面板弹幕设置（实验组1）
+    OUTERDM = 25;
+    //三点内弹幕设置（实验组2）
+    INNERDM = 26;
+    //全景
+    PANORAMA = 27;
+    //杜比
+    DOLBY = 28;
+    //滤镜
+    COLORFILTER = 29;
+    //无损音频
+    LOSSLESS = 30;
+}
+
+// CloudConf .
+message CloudConf {
+    //true:展示 false:隐藏
+    bool show = 1;
+    //云控详情
+    FieldValue field_value = 2;
+    //播放配置的值
+    ConfValue conf_value = 3;
+}
+
+message ConfValue {
+    oneof value {
+        //开关配置中的值
+        bool switch_val = 1;
+        //枚举配置中选中的值
+        int64 selected_val = 2;
+    }
+}
+
+// PlayArcConf 播放三点配置信息-稿件维度
+message PlayArcConf {
+    //后台播放
+    ArcConf background_play_conf = 1;
+    //镜像反转
+    ArcConf flip_conf = 2;
+    //返回视频的是否支持投屏
+    ArcConf cast_conf = 3;
+    //反馈
+    ArcConf feedback_conf = 4;
+    //字幕
+    ArcConf subtitle_conf = 5;
+    //播放速度
+    ArcConf playback_rate_conf = 6;
+    //定时停止播放
+    ArcConf time_up_conf = 7;
+    //播放方式
+    ArcConf playback_mode_conf = 8;
+    //画面尺寸
+    ArcConf scale_mode_conf = 9;
+    //顶
+    ArcConf like_conf = 10;
+    //踩
+    ArcConf dislike_conf = 11;
+    //投币
+    ArcConf coin_conf = 12;
+    //充电
+    ArcConf elec_conf = 13;
+    //分享
+    ArcConf share_conf = 14;
+    //截图/gif
+    ArcConf screen_shot_conf = 15;
+    //锁屏
+    ArcConf lock_screen_conf = 16;
+    //相关推荐
+    ArcConf recommend_conf = 17;
+    //倍速
+    ArcConf playback_speed_conf = 18;
+    //清晰度
+    ArcConf definition_conf = 19;
+    //选集
+    ArcConf selections_conf = 20;
+    //下一集
+    ArcConf next_conf = 21;
+    //编辑弹幕（包含弹幕开关 弹幕设置 弹幕框）
+    ArcConf edit_dm_conf = 22;
+    //小窗
+    ArcConf small_window_conf = 23;
+    //播放震动
+    ArcConf shake_conf = 24;
+    //外层面板弹幕设置（实验组1）
+    ArcConf outer_dm_conf = 25;
+    //三点内弹幕设置（实验组2）
+    ArcConf inner_dm_conf = 26;
+    //全景
+    ArcConf panorama_conf = 27;
+    //杜比
+    ArcConf dolby_conf = 28;
+    //屏幕录制
+    ArcConf screen_recording_conf = 29;
+    //播放滤镜
+    ArcConf color_filter_conf = 30;
+    //无损音频
+    ArcConf loss_less_conf = 31;
+}
+
+// ArcConf 稿件维度
+message ArcConf {
+    //是否可用（可见）
+    bool is_support = 1;
+    //是否禁用
+    bool disabled = 2;
+    //提示信息
+    ExtraContent extra_content = 3;
+    //不支持的场景：1:首映
+    repeated int64 unsupport_scene = 4;
+}
+
+message ExtraContent {
+    //禁用的原因
+    string disabled_reason = 1;
+    //禁用的错误码
+    int64 disabled_code = 2;
+}
+
+enum NetworkType {
+    NT_UNKNOWN = 0;  // 未知
+    WIFI       = 1;  // WIFI
+    CELLULAR   = 2;  // 移动网络
+    OFFLINE    = 3;  // 未连接
+    OTHERNET   = 4;  // 其他网络
+    ETHERNET   = 5;  // 以太网
+}
+
+enum TFType {
+    TF_UNKNOWN = 0;  // 正常计费
+    U_CARD     = 1;  // 联通卡
+    U_PKG      = 2;  // 联通包
+    C_CARD     = 3;  // 移动卡
+    C_PKG      = 4;  // 移动包
+    T_CARD     = 5;  // 电信卡
+    T_PKG      = 6;  // 电信包
+}
+
+message PlayViewReq {
+    //稿件aid
+    int64 aid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    //稿件cid
+    int64 cid = 2 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    //清晰度
+    int64 qn = 3;
+    //平台
+    string platform = 4;
+    //默认0 播放器请求端使用的, 功能版本号
+    int32 fnver = 5;
+    //默认0 播放器请求端使用的, 功能标识
+    int32 fnval = 6;
+    //登陆用户mid
+    int64 mid = 7;
+    //返回备用url的个数（最多可能的个数）
+    uint32 backup_num = 8;
+    //下载参数 0-非下载 1-下载flv 2-下载dash
+    uint32 download = 9;
+    //返回url是否强制使用域名(非ip地址), 1-http域名 2-https域名
+    int32 force_host = 10;
+    //是否需要4k清晰度
+    bool fourk = 11;
+    //低版本引导升级aid
+    int64 upgrade_aid = 12;
+    //低版本引导升级cid
+    int64 upgrade_cid = 13;
+    //设备：phone、ipad
+    string device = 14;
+    //平台：iphone、white、ipad、android、android_i、android_G、iphone_i、ipad_i、android_tv（后面带 I 是表示海外版、android_G 安卓谷歌版）
+    string mobi_app = 15;
+    //低版本需要（是否校验支持互动视频否 1:是）
+    int32 verify_steins = 16;
+    //是否是h5网页请求
+    bool h5_hq = 17;
+    //build版本号
+    int32 build = 18;
+    //客户端设备唯一标识
+    string buvid = 19;
+    //是否开始vip设备管控 1:开启
+    int32 verify_vip = 20;
+    //青少年模式
+    int32 teenagersMode = 21;
+    //网络类型
+    NetworkType net_type = 22;
+    //免流类型
+    TFType tf_type = 23;
+    //课堂模式
+    int32 lessonsMode = 24;
+    // 业务来源
+    BusinessSource business_source = 25;
+    // 设备指纹
+    string fp_local = 26;
+    //是否开启音量均衡，1开启
+    int64 voice_balance = 27;
+    // true代表为大众车载请求，false代表不是大众车载请求，默认为false
+    bool is_dazhongcar = 28;
+}
+
+enum BusinessSource {
+    // 未知类型
+    UNKNOWN = 0;
+    // story业务
+    STORY = 1;
+}
+
+message PlayURLReq {
+    //稿件aid
+    int64 aid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    //稿件cid
+    int64 cid = 2 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    //清晰度
+    int64 qn = 3;
+    //平台
+    string platform = 4;
+    //默认0 播放器请求端使用的, 功能版本号
+    int32 fnver = 5;
+    //默认0 播放器请求端使用的, 功能标识
+    int32 fnval = 6;
+    //登录mid
+    int64 mid = 7;
+    //返回备用url的个数（最多可能的个数）
+    uint32 backup_num = 8;
+    //是否是离线下载请求, 1为请求flv，2请求dash,其他均无效
+    uint32 download = 9;
+    //返回url是否强制使用域名(非ip地址), force_host=1使用http域名，force_host=2使用https域名, 0为使用ip地址
+    int32 force_host = 10;
+    //是否需要4K视频, fourk=true表示需要4K视频, 其他都是不需要
+    bool fourk = 11;
+    //低版本引导升级aid
+    int64 upgrade_aid = 12;
+    //低版本引导升级cid
+    int64 upgrade_cid = 13;
+    //设备：phone、ipad
+    string device = 14;
+    //平台：iphone、white、ipad、android、android_i、android_G、iphone_i、ipad_i、android_tv（后面带 I 是表示海外版、android_G 安卓谷歌版）
+    string mobi_app = 15;
+    //低版本需要（是否校验支持互动视频否 1:是）
+    int32 verify_steins = 16;
+    //是否是h5网页请求
+    bool h5_hq = 17;
+    //build版本号
+    int32 build = 18;
+    //客户端设备唯一标识
+    string buvid = 19;
+    //是否开始vip设备管控 1:开启
+    int32 verify_vip = 20;
+    //网络类型
+    NetworkType net_type = 21;
+    //免流类型
+    TFType tf_type = 22;
+    //是否开启音量均衡，1开启
+    int64 voice_balance = 23;
+    // true代表为大众车载请求，false代表不是大众车载请求，默认为false
+    bool is_dazhongcar = 24;
+}
+
+message PlayURLReply {
+    //播放地址
+    ResponseMsg playurl = 1;
+    //音量均衡信息
+    VolumeInfo volume = 2;
+}
+
+message ExtInfo {
+    //vip管控提示信息
+    VipControl vip_control = 1;
+}
+
+// 账号是管控信息
+message VipControl {
+    // 是否触发管控
+    bool control = 1;
+    // 管控原因
+    string msg = 2;
+}
+
+// ResponseMsg .
+message ResponseMsg {
+    //错误状态码
+    uint32 code = 1;
+    //错误描述
+    string message = 2;
+    //视频类型 1-flv 2-dash 3-mp4（只标识一个清晰度的格式）
+    int32 type = 3;
+    //返回视频的清晰度
+    uint32 quality = 4;
+    //返回视频的格式
+    string format = 5;
+    //返回视频的拥有的清晰度格式的列表
+    string accept_format = 6;
+    //返回视频的拥有的清晰度描述的列表
+    repeated string accept_description = 7;
+    //返回视频的拥有的清晰度列表
+    repeated uint32 accept_quality = 8;
+    //返回视频的总时长, 单位为ms
+    uint64 timelength = 9;
+    //返回视频的编码号
+    uint32 video_codecid = 10;
+    //透传返回请求的fnver
+    uint32 fnver = 11;
+    //透传返回请求的fnval
+    uint32 fnval = 12;
+    //返回视频的是否支持投影
+    bool video_project = 13;
+    //返回视频播放url的列表，有durl则没dash字段
+    repeated ResponseUrl durl = 14;
+    //返回DASH视频的MPD格式文件,有dash则没durl字段
+    ResponseDash dash = 15;
+    //表示cid是否非全二压，1表示非全二压
+    int32 no_rexcode = 16;
+    //返回视频的拥有的清晰度描述的列表
+    repeated FormatDescription support_formats = 17;
+    //返回视频拥有的最高清晰度
+    FormatDescription high_format = 18;
+}
+
+// ResponseUrl .
+message ResponseUrl {
+    //视频的分片序列号
+    uint32 order = 1;
+    //视频分片的时长, 单位ms
+    uint64 length = 2;
+    //视频分片的大小, 单位Byte
+    uint64 size = 3;
+    //视频分片的音频头信息
+    string ahead = 4;
+    //视频分片的视频头信息
+    string vhead = 5;
+    //视频分片的url地址
+    string url = 6;
+    //视频分片的备用url地址列表
+    repeated string backup_url = 7;
+    //视频分片的md5,只有离线下载才有值
+    string md5 = 8;
+}
+
+// ResponseDash .
+message ResponseDash {
+    //dash的信息
+    uint32 duration = 1;
+    //dash的信息
+    float min_buffer_time = 2;
+    //dash视频信息
+    repeated DashItem video = 3;
+    //dash视频信息
+    repeated DashItem audio = 4;
+    // dolby
+    DolbyItem dolby = 5;
+    //无损音频
+    LossLessItem loss_less_item = 6;
+}
+
+message LossLessItem {
+    bool is_lossless_audio = 1;
+    //无损音频信息
+    DashItem audio = 2;
+}
+
+// DolbyItem .
+message DolbyItem {
+    enum Type {
+        // NONE
+        NONE = 0;
+        // 普通杜比音效
+        COMMON = 1;
+        // 全景杜比音效
+        ATMOS = 2;
+    }
+    //杜比类型
+    Type type = 1;
+    // 杜比音频信息
+    repeated DashItem audio = 2;
+}
+
+// DashSegmentBase .
+message DashSegmentBase {
+    //dash的信息
+    string initialization = 1;
+    //dash的信息
+    string index_range = 2;
+}
+
+// DashItem .
+message DashItem {
+    //dash的清晰度
+    uint32 id = 1;
+    //dash的url地址
+    string base_url = 2;
+    //dash的backup url地址
+    repeated string backup_url = 3;
+    //dash的信息
+    uint32 bandwidth = 4;
+    //dash的信息
+    string mime_type = 5;
+    //dash的信息
+    string codecs = 6;
+    //dash的信息
+    uint32 width = 7;
+    //dash的信息
+    uint32 height = 8;
+    //dash的信息
+    string frame_rate = 9;
+    //dash的信息
+    string sar = 10;
+    //dash的信息
+    uint32 start_with_sap = 11;
+    //dash的信息
+    DashSegmentBase segment_base = 12;
+    //dash的信息
+    uint32 codecid = 13;
+    //视频分片的md5,只有dash离线下载才有值
+    string md5 = 14;
+    //视频分片的大小, 单位Byte,只有dash离线下载才有值
+    uint64 size = 15;
+    //表示清晰度是否非全二压，1表示非全二压
+    //此字段对于dash audio无效
+    int32 no_rexcode = 16;
+}
+
+message FormatDescription {
+    //清晰度qn
+    uint32 quality = 1;
+    //清晰度格式
+    string format = 2;
+    //清晰度描述
+    string description = 3;
+    //6.9版本开始新描述
+    string new_description = 4;
+    //选中态的清晰度描述
+    string display_desc = 5;
+    //选中态的清晰度描述的角标
+    string superscript = 6;
+    //清晰度支持的编码格式
+    repeated string codecs = 7;
+}
+
+message HlsCommonReq {
+    //稿件aid
+    int64 aid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    //稿件cid
+    int64 cid = 2 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    //请求清晰度
+    int64 qn = 3;
+    //平台：ios、android
+    string platform = 4;
+    //默认0 播放器请求端使用的, 功能版本号
+    int32 fnver = 5;
+    //默认0 播放器请求端使用的, 功能标识, 每位(为1)标识一个功能
+    int32 fnval = 6;
+    //登陆用户mid
+    int64 mid = 7;
+    // 兜底返回播放数
+    uint32 backup_num = 8;
+    //区分0:ugc, 1:pgc, 2:pugv请求
+    Business business = 9;
+    //返回url是否强制使用域名(非ip地址), force_host=1 返回http域名,2 返回https域名 其他均无效, 默认无效离线下载默认=2
+    int32 force_host = 10;
+    //区分 0:airplay投屏和1:画中画请求
+    RequestType request_type = 11;
+    //设备：phone、ipad
+    string device = 12;
+    //平台：iphone、white、ipad、android、android_i、android_G、iphone_i、ipad_i、android_tv（后面带 I 是表示海外版、android_G 安卓谷歌版）
+    string mobi_app = 13;
+    // 投屏设备 默认其他=0，OTT设备=1
+    int32 device_type = 14;
+    // 网络类型
+    NetworkType net_type = 15;
+    // 免流类型
+    TFType tf_type = 16;
+    //客户端设备号
+    string buvid = 17;
+    // 是否开启vip管控
+    int32 verify_vip = 18;
+    // 版本号
+    int32 build = 19;
+    //区分qn来源 2：audio 1：video请求
+    QnCategory qn_category = 20;
+    //是否开启dolby
+    int64 dolby = 21;
+    //青少年模式
+    int64 teenagers_mode = 22;
+    //课堂模式
+    int64 lessons_mode = 23;
+}
+
+message HlsSchedulerReply {
+    // 播放列表
+    HlsResponseMsg playurl = 1;
+}
+
+message MasterSchedulerReply {
+    // 视频音频和视频相关qn
+    MasterScheduler info = 1;
+}
+
+message MasterScheduler {
+    //错误状态码
+    uint32 code = 1;
+    //错误描述
+    string message = 2;
+    //视频meta信息
+    M3u8Video Video = 3;
+    //音频meta信息
+    M3u8Audio Audio = 4;
+    //返回等于或低于请求清晰度的所有hls资源
+    repeated M3u8Video videos = 5;
+}
+
+message M3u8Video {
+    //视频清晰度
+    uint32 qn = 1;
+    //带宽
+    uint32 bandwidth = 2;
+    //分辨率
+    string resolution = 3;
+    //编码格式
+    string codecs = 4;
+    //清晰度描述
+    string name = 5;
+    //帧率
+    string frame_rate = 6;
+    //平均带宽
+    uint32 average_bandwidth = 7;
+}
+
+message M3u8Audio {
+    //音频qn
+    uint32 qn = 1;
+    //编码格式
+    string codecs = 2;
+    //视频qn
+    uint32 group_id = 3;
+}
+
+message HlsResponseMsg {
+    //错误状态码
+    uint32 code = 1;
+    //错误描述
+    string message = 2;
+    //视频类型 1:flv 2:mp4 3:hls
+    ResponseType type = 3;
+    //返回视频的清晰度
+    uint32 quality = 4;
+    //返回视频的格式
+    string format = 5;
+    //返回视频的总时长, 单位为ms
+    uint64 timelength = 6;
+    //返回视频的编码号
+    uint32 video_codecid = 7;
+    //返回视频的是否支持投影
+    bool video_project = 8;
+    //返回视频播放url的列表，type为hls时，没有这个字段
+    repeated ResponseUrl durl = 9;
+    //返回视频拥有的格式列表
+    repeated FormatDescription support_formats = 10;
+}
+
+// ResponseType
+enum ResponseType {
+    NONE = 0;
+    //flv
+    FLV = 1;
+    //mp4
+    MP4 = 2;
+    //hls
+    HLS = 3;
+}
+
+message M3u8ResponseMsg {
+    //错误状态码
+    uint32 code = 1;
+    //错误描述
+    string message = 2;
+    // 音频或视频m3u8信息
+    string m3u8_data = 3;
+}
+
+message M3u8SchedulerReply {
+    // 视频或者音频播放详细信息
+    M3u8ResponseMsg info = 1;
+}
+
+message ProjectReq {
+    //稿件aid
+    int64 aid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    //稿件cid
+    int64 cid = 2 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    //清晰度
+    int64 qn = 3;
+    //平台
+    string platform = 4;
+    //默认0 播放器请求端使用的, 功能版本号
+    int32 fnver = 5;
+    //默认0 播放器请求端使用的, 功能标识
+    int32 fnval = 6;
+    //登录mid
+    int64 mid = 7;
+    //返回备用url的个数（最多可能的个数）
+    uint32 backup_num = 8;
+    //是否是离线下载请求, 1为请求flv，2请求dash,其他均无效
+    uint32 download = 9;
+    //返回url是否强制使用域名(非ip地址), force_host=1使用http域名，force_host=2使用https域名, 0为使用ip地址
+    int32 force_host = 10;
+    //是否需要4K视频, fourk=true表示需要4K视频, 其他都是不需要
+    bool fourk = 11;
+    //设备：phone、ipad
+    string device = 12;
+    //平台：iphone、white、ipad、android、android_i、android_G、iphone_i、ipad_i、android_tv（后面带 I 是表示海外版、android_G 安卓谷歌版）
+    string mobi_app = 13;
+    // 使用协议 默认乐播=0，自建协议=1，云投屏=2，airplay=3
+    int32 protocol = 14;
+    // 投屏设备 默认其他=0，OTT设备=1
+    int32 device_type = 15;
+    // 业务 ugc/pgc/pugv
+    Business business = 16;
+    //客户端设备唯一标识
+    string buvid = 17;
+}
+
+message ProjectReply {
+    //播放地址
+    ResponseMsg playurl = 1;
+}
+
+enum Business {
+    //ugc
+    UGC = 0;
+    //pgc
+    PGC = 1;
+    //pugv
+    PUGV = 2;
+}
+
+enum QnCategory {
+    MixType = 0;
+    Video   = 1;
+    Audio   = 2;
+}
+
+enum RequestType {
+    AIRPLAY = 0;  // airplay 投屏请求
+    PIP     = 1;  // 画中画请求
+}
+
+message PlayConfEditReply {
+}
+
+message ChronosPkgReq {
+    int64 aid       = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    int64 cid       = 2 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    int64 mid       = 3;
+    string mobi_app = 4;
+    int32 build     = 5;
+    string buvid    = 6;
+    string platform = 7;
+}
+
+message ChronosPkgReply {
+    string md5 = 1;
+    // chronos资源包
+    string file = 2;
+}

@@ -1,0 +1,8 @@
+[Server]
+    addr = "0.0.0.0:8000"
+    timeout = "1s"
+
+[appKeys]
+    "9768818cb9219bce" = "a870ba182928f2d7a28fecfca7bc09d1"
+    "592abb4efe6682a5" = "137829dd0d7f00d71ad620a83be58559"
+    "wzyd" = "bpS3yG5uMmbx5NwSXwfsqwU79hFUAyb5"

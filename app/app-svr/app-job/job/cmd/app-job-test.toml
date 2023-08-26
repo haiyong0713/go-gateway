@@ -1,0 +1,616 @@
+version = "1.0.0"
+user    = "nobody"
+pid     = "/tmp/app-job.pid"
+dir     = "./"
+debug   = false
+tick = "1m"
+fawkesLaser = false
+WeChatToken = "uYsRqXPjnbyXDCba"
+WeChatSecret = "tUILeGIXJHFSUdwfLjBHDZJXmLgYpgEy"
+WeChantUsers = "peiyifei,luoxiaofan,sunyu,liweijia,zhangxin,yujia"
+
+#[xlog]
+#dir = "/data/log/app-job/"
+
+[push]
+    [push.fawkeslaser]
+    appid = 1
+    businessid = 52
+    linktype = 12
+    token = "iukob2bneuq0rpfms7z4bnl051vc5w7x"
+
+[view]
+flush = false
+
+[AISelectedSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "WeeklySelected-MainAppSvr-S"
+topic = "WeeklySelected-T"
+action = "sub"
+name = "app-job/AISelectedSub"
+proto = "tcp"
+addr = "172.18.21.41:6205"
+idle = 1
+active = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[SelResBinlogSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "SelResBinlog-MainAppSvr-S"
+topic = "SelResBinlog-T"
+action = "sub"
+name = "app-job/SelResBingSub"
+proto = "tcp"
+addr = "172.18.21.41:6205"
+idle = 1
+active = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[ArchiveHonorPub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "ArchiveHonor-MainAppSvr-P"
+topic = "ArchiveHonor-T"
+action = "pub"
+name = "app-job/ArchiveHonorPub"
+proto = "tcp"
+addr = "172.18.21.41:6205"
+active = 1
+idle = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[ShowClient]
+    Zone = "sh001" #嘉定call嘉定的app-show的grpc，云立方call云立方的
+
+[WeeklySel]
+NewSerieCron = "0 44 14 * * *" # uat试一下每周三0点
+PublishCron = "0 44 14 * * *" # 周五2分钟一次
+RollBackRankCron = "0 */20 * * * *" # 周一18点
+UpdateTime = "18h"
+RecoveryNb = 5
+PlaylistMid = 14135892
+MaxNumber = 2
+HonorLink = "https://www.bilibili.com/h5/weekly-recommend"
+RankId = 4
+RankIndex = 1
+[WeeklySel.Push]
+Token = "9gltv42mkzv2a8mzw6l3cyo54w8qwxw1"
+Title = "您订阅的每周精选更新啦"
+BusinessID = "4"
+Link = "https://www.bilibili.com/h5/weekly-recommend?from=push"
+
+[WechatAlert]
+Host = "http://merak.bilibili.co/"
+Key = "71f079db59672ecec5b8d6f252c4b59ab2a8a227mainsite@bilibili.com"
+Secret = "37ba757817b4e9c45c7e97f6ed5eee4e1c7bac52"
+[WechatAlert.AI]
+Names = ['test']
+Template = "【热门预警】本期每周精选AI内容未输入：本期每周精选的AI内容还未输入，请AI同学及时排查，并请运营同学做好人工挑选准备"
+Title = "【热门预警】本期每周精选AI内容未输入"
+Cron = "0 30 10 * * 2" #每周一 每十分钟一次
+[WechatAlert.Audit]
+Names = ['test']
+Template = "【热门预警】本期每周精选内容未审核：本期每周精选还未审核通过，请运营同学尽快确认内容，18点前完成审核。"
+Title = "【热门预警】本期每周精选内容未审核"
+Cron = "0 30 10 * * 2" #每周一 每十分钟一次
+
+[host]
+app      = "http://app.bilibili.co"
+config    = "http://config.bilibili.co"
+api      = "http://api.bilibili.co"
+hetongzi = "http://data.bilibili.co"
+apiCo    = "http://api.bilibili.co"
+vc       = "http://api.vc.bilibili.co"
+fawkes    = "http://fawkes.bilibili.co"
+data     = "http://data.bilibili.co"
+bap      = "http://bap.bilibili.co"
+Manager  = "http://manager.bilibili.co"
+
+[HotLabel]
+    isdiff = true
+    bucket = "archive"
+    dir = "/popular/hotlabel"
+    wmKey = "hot_label"
+    wmpaddingx = 5
+    wmpaddingy = 5
+    wmscale = 0.14
+    wmpos = "nw"
+
+[HotLabels]
+    isdiff = true
+    bucket = "archive"
+    dir = "/popular/hotlabel"
+    [HotLabels.TopLeft]
+        suffix = ""
+        wmKey = "hot_label"
+        wmpaddingx = 5
+        wmpaddingy = 5
+        wmscale = 0.225
+        wmpos = "nw"
+        wmtransparency = 0.9
+    [HotLabels.TopRight]
+        suffix = "_ne"
+        wmKey = "hot_label_2"
+        wmpaddingx = 20
+        wmpaddingy = 520
+        wmscale = 0.085
+        wmpos = "se"
+        wmtransparency = 0.9
+    [HotLabels.Bottom]
+        suffix = "_south"
+        wmKey = "hot_label_1"
+        wmpaddingx = 5
+        wmpaddingy = 5
+        wmscale = 0.25
+        wmpos = "se"
+        wmtransparency = 0.9
+
+[httpClient]
+key       = "e7482d29be4a95b8"
+secret    = "9e803791cdef756e75faee68e12b7442"
+dial      = "10s"
+timeout   = "10s"
+keepAlive = "60s"
+timer     = 128
+[httpClient.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[httpClientAsyn]
+key       = "e7482d29be4a95b8"
+secret    = "9e803791cdef756e75faee68e12b7442"
+dial      = "10s"
+timeout   = "10s"
+keepAlive = "60s"
+timer     = 10
+[httpClientAsyn.breaker]
+    window  = "10s"
+    sleep   = "100ms"
+    bucket  = 10
+    ratio   = 0.5
+    request = 100
+
+[bm]
+    [bm.inner]
+    addr = "0.0.0.0:6671"
+    timeout = "1s"
+
+[mysql]
+    [mysql.show]
+    addr   = "172.22.34.101:3306"
+	dsn    = "show:UJYgc9UkHIaGovEDUXpTU4U0rjBpZtwb@tcp(172.22.34.101:3306)/bilibili_show?timeout=1s&readTimeout=1s&writeTimeout=1s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+	active = 10
+    idle   = 2
+    idleTimeout  = "4h"
+    queryTimeout = "1000ms"
+    execTimeout  = "1000ms"
+    tranTimeout  = "1000ms"
+    [mysql.show.breaker]
+        window  = "3s"
+        sleep   = "100ms"
+        bucket  = 10
+        ratio   = 0.5
+        request = 100
+    [mysql.manager]
+    addr = "172.22.34.101:3306"
+    dsn = "manager:QhJxu7Qkp7WR1iRw9cpCSQTt0oWqj3k2@tcp(172.22.34.101:3306)/bilibili_manager?timeout=100ms&readTimeout=200ms&writeTimeout=200ms&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 2
+    idle = 1
+    idleTimeout  = "4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+
+[archiveNotifySub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "ArchiveNotify-MainAppSvr-Appjob-S"
+topic = "ArchiveNotify-T"
+action = "sub"
+
+[ottSeriesPub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "OTT-Series-MainAppSvr-P"
+topic = "OTT-Series-T"
+action = "pub"
+name = "app-job/ottSeriesPub"
+proto = "tcp"
+addr = "172.18.21.41:6205"
+active = 1
+idle = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[accountNotifySub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "AccountNotify-MainAppSvr-AppJob-S"
+topic = "AccountNotify-T"
+action = "sub"
+offset = "old"
+name = "app-job/accountNotifySub"
+proto = "tcp"
+addr = "172.18.21.41:6205"
+active = 1
+idle = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[statViewSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "StatView-MainAppSvr-S"
+topic = "StatView-T"
+action = "sub"
+offset = "new"
+name = "app-job/view"
+proto = "tcp"
+addr = "172.18.21.41:6205"
+active = 1
+idle = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[statDMSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "StatDM-MainAppSvr-S"
+topic = "StatDM-T"
+action = "sub"
+offset = "new"
+name = "app-job/dm"
+proto = "tcp"
+addr = "172.18.21.41:6205"
+active = 1
+idle = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[statFavSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "StatFav-MainAppSvr-S"
+topic = "StatFav-T"
+action = "sub"
+offset = "new"
+name = "app-job/fav"
+proto = "tcp"
+addr = "172.18.21.41:6205"
+active = 1
+idle = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[statCoinSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "StatCoin-MainAppSvr-S"
+topic = "StatCoin-T"
+action = "sub"
+offset = "new"
+name = "app-job/coin"
+proto = "tcp"
+addr = "172.18.21.41:6205"
+active = 1
+idle = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[statReplySub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "StatReply-MainAppSvr-S"
+topic = "StatReply-T"
+action = "sub"
+offset = "new"
+name = "app-job/reply"
+proto = "tcp"
+addr = "172.18.21.41:6205"
+active = 1
+idle = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[statShareSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "StatShare-MainAppSvr-S"
+topic = "StatShare-T"
+action = "sub"
+offset = "new"
+name = "app-job/share"
+proto = "tcp"
+addr = "172.18.21.41:6205"
+active = 1
+idle = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[statLikeSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "StatLike-MainAppSvr-S"
+topic = "StatLike-T"
+action = "sub"
+offset = "new"
+name = "app-job/like"
+proto = "tcp"
+addr = "172.18.21.41:6205"
+active = 1
+idle = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[statRankSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "StatRank-MainAppSvr-S"
+topic = "StatRank-T"
+action = "sub"
+offset = "new"
+name = "app-job/rank"
+proto = "tcp"
+addr = "172.18.21.41:6205"
+active = 1
+idle = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[memcache]
+    [memcache.feed]
+    name   = "app-job/feed"
+    proto  = "tcp"
+    addr   = "127.0.0.1:20236"
+    active = 1024
+    idle   = 64
+    dialTimeout  = "30ms"
+    readTimeout  = "800ms"
+    writeTimeout = "800ms"
+    idleTimeout  = "80s"
+    expireMaxAid = "48h"
+    [memcache.cache]
+    name   = "app-feed/cache"
+    proto  = "tcp"
+    addr   = "127.0.0.1:20236"
+    active = 5
+    idle   = 1
+    dialTimeout  = "30ms"
+    readTimeout  = "150ms"
+    writeTimeout = "150ms"
+    idleTimeout  = "80s"
+    expireCache  = "24h"
+    ExpireAggregation = "720h"
+    [memcache.cards]
+    name   = "app-feed/cache"
+    proto  = "tcp"
+    addr   = "127.0.0.1:20236"
+    active = 5
+    idle   = 1
+    dialTimeout  = "30ms"
+    readTimeout  = "150ms"
+    writeTimeout = "150ms"
+    idleTimeout  = "80s"
+    expireCache  = "24h"
+    [memcache.aggregation]
+    name   = "app-feed/aggregation"
+    proto  = "tcp"
+    addr   = "127.0.0.1:20382"
+    active = 5
+    idle   = 1
+    dialTimeout  = "30ms"
+    readTimeout  = "150ms"
+    writeTimeout = "150ms"
+    idleTimeout  = "80s"
+    expireCache  = "720h"
+
+[redis]
+    [redis.feed]
+    name   = "app-feed/feed"
+    proto  = "tcp"
+    addr   = "127.0.0.1:20368"
+    active = 1024
+    idle   = 12
+    dialTimeout  = "80ms"
+    readTimeout  = "150ms"
+    writeTimeout = "150ms"
+    idleTimeout  = "80s"
+    [redis.contribute]
+    name   = "app-interface/contribute"
+    proto  = "tcp"
+    addr   = "127.0.0.1:20368"
+    active = 1024
+    idle   = 12
+    dialTimeout  = "80ms"
+    readTimeout  = "150ms"
+    writeTimeout = "150ms"
+    idleTimeout  = "80s"
+    [redis.Show]
+	name   = "app-show/recommend"
+	proto  = "tcp"
+	addr   = "127.0.0.1:20368"
+	active = 5
+	idle   = 1
+	dialTimeout  = "30ms"
+	readTimeout  = "200ms"
+	writeTimeout = "200ms"
+	idleTimeout  = "80s"
+	expire = "2h"
+    expireSerie = "72h"
+    [redis.Interface]
+	name   = "app-show/recommend"
+	proto  = "tcp"
+	addr   = "127.0.0.1:20368"
+	active = 5
+	idle   = 1
+	dialTimeout  = "30ms"
+	readTimeout  = "200ms"
+	writeTimeout = "200ms"
+	idleTimeout  = "80s"
+	expire = "2h"
+    expireSerie = "72h"
+    [redis.Entrance]
+   	name   = "app-show/recommend"
+   	proto  = "tcp"
+   	addr   = "localhost:6379"
+   	active = 20
+   	idle   = 10
+   	dialTimeout  = "50ms"
+   	readTimeout  = "100ms"
+   	writeTimeout = "100ms"
+   	idleTimeout  = "80s"
+   	expire = "2h"
+   	expireSerie = "720h" # all_series不能过期，如果过期时正好在status=3，就会回源失败出-404
+	[redis.recommend]
+	name   = "app-show/recommend"
+	proto  = "tcp"
+	addr   = "127.0.0.1:20368"
+	active = 5
+	idle   = 1
+	dialTimeout  = "30ms"
+	readTimeout  = "200ms"
+	writeTimeout = "200ms"
+	idleTimeout  = "80s"
+	expire = "2h"
+    expireSerie = "72h"
+    [redis.resource]
+	name   = "app-resource/resource"
+	proto  = "tcp"
+	addr   = "127.0.0.1:20425"
+	active = 5
+	idle   = 1
+	dialTimeout  = "30ms"
+	readTimeout  = "200ms"
+	writeTimeout = "200ms"
+	idleTimeout  = "80s"
+	expire = "2h"
+    expireSerie = "72h"
+
+[contributeSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group= "AppContribute-MainAppSvr-S"
+topic= "AppContribute-T"
+action ="sub"
+name = "app-job/contributeSub"
+proto = "tcp"
+addr = "172.18.21.90:6205"
+active = 1
+idle = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[cardDatabus]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "AiCardJob-MainAppSvr-S"
+    topic = "AiCardJob-T"
+    action = "sub"
+    offset = "new"
+    name = "app-feed/cardsub"
+    proto = "tcp"
+    addr = "172.18.21.41:6205"
+    active = 1
+    idle = 1
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+
+[aggregation]
+    image = "http://i0.hdslb.com/bfs/archive/30768b1189c4fbf919e92edb5b3c7fb2ae403eb1.jpg" #默认图片
+[GoodHis]
+    fid = 351
+    mid = 412466388
+    url = "https://www.bilibili.com/h5/good-history?navhide=1"
+
+[contribute]
+cluster = false
+
+[aggregationSub]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group= "UpCRMMoniSpidersToB-MainAppSvr-S"
+    topic= "UpCRMMoniSpidersToB-T"
+    action = "sub"
+    offset = "new"
+    name = "app-feed/cardsub"
+    proto = "tcp"
+    addr = "172.18.21.41:6205"
+    active = 1
+    idle = 1
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+
+[mogulDatabus]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "Mogul-MainAppSvr-S"
+    topic = "Mogul-T"
+    action = "sub"
+    name = "app-job/mogulsub"
+
+[popular]
+PopularCardCron = "@every 10s"
+
+[Custom]
+TopActivityInterval = 60
+SelectedTid = 600
+TagSwitchOn = false
+FavSwitchOn = true
+
+[Broadcast]
+ResourceToken = "uat-resource"
+
+[ResourceMngSub]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "Resource-MGR2GW-MainAppSvr-S"
+topic = "Resource-MGR2GW-T"
+action = "sub"
+name = "resource-mng"
+proto = "tcp"
+idle = 1
+active = 1
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"

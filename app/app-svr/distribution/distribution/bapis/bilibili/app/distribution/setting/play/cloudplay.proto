@@ -1,0 +1,25 @@
+syntax = "proto3";
+package bilibili.app.distribution.play.v1;
+import "bilibili/app/distribution/distribution.proto";
+import "bilibili/app/distribution/options.proto";
+import "bilibili/extension/crane/crane.proto";
+
+option go_package = "git.bilibili.co/bapis/bapis-go/bilibili/app/distribution/setting/play;play";
+option java_package = "com.bapis.bilibili.app.distribution.setting.play";
+option java_multiple_files = true;
+option objc_class_prefix = "BAPIAppDistributionSettingPlay";
+option (bilibili.extension.crane.bili_grpc_host) = "main.grpc.bilibili.com";
+option (bilibili.app.distribution.v1.preference) = "CloudPlayConfig";
+
+message CloudPlayConfig {
+    //全景声
+    bilibili.app.distribution.v1.BoolValue enablePanorama = 1 [(bilibili.app.distribution.v1.default_value) = { bool_value: true }];
+    //杜比
+    bilibili.app.distribution.v1.BoolValue enableDolby = 2;
+    //震动
+    bilibili.app.distribution.v1.BoolValue enableShake = 3;
+    //后台播放
+    bilibili.app.distribution.v1.BoolValue enableBackground = 4;
+    //无损
+    bilibili.app.distribution.v1.BoolValue enableLossLess= 5;
+}

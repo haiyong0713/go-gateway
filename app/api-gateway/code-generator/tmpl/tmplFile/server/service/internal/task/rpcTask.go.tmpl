@@ -1,0 +1,20 @@
+package task
+
+import (
+    "context"
+    {{range $pbAlias, $pbPath := .TaskInfo.ImportPb -}}
+    {{$pbAlias}} "{{$pbPath}}"
+    {{end}}
+)
+
+func (p *TaskFlow) {{.TaskInfo.Name}}(ctx context.Context
+        {{- range $listId, $taskInputInfo := .TaskInfo.InputList -}}
+        , {{$taskInputInfo.Name}} *{{$taskInputInfo.ParamType}}
+        {{- end -}}
+        ) (res *{{.TaskInfo.OutputInfo.ReturnType}}, err error) {
+    return p.__getRpcClient(ctx, "{{.TaskInfo.DiscoveryId}}").({{.RpcClientInfo.PbAlias}}.{{.RpcClientInfo.ServiceName}}Client).{{.TaskInfo.RpcInterface}}(ctx
+        {{- range $listId, $taskInputInfo := .TaskInfo.InputList -}}
+        , {{$taskInputInfo.Name}}
+        {{- end -}}
+        )
+}

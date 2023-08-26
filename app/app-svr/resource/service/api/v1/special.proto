@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+// use {app_id}.{version} as package name
+package resource.service.v1;
+
+// specify golang package name
+option go_package = "v1";
+
+message SpecialCard {
+    int64 id = 1;
+    string title = 2;
+    string desc = 3;
+    string cover = 4;
+    string single_cover = 5;
+    string gif_cover = 6;
+    string bg_cover = 7;
+    string reason = 8;
+    string tab_uri = 9;
+    int32 re_type = 10 ;
+    string re_value = 11;
+    string badge = 12;
+    string size = 13;
+    string power_pic_sun = 14;
+    string power_pic_night = 15;
+    double  power_pic_width = 16;
+    double power_pic_height = 17;
+}
+
+message SpecialCardReply{
+    repeated SpecialCard list = 1;
+}

@@ -1,0 +1,36 @@
+{
+  "taskList": [
+    {
+      "name": "SayWorld1",
+      "type": "mapping",
+      "input": [
+        {
+          "name": "req1",
+          "value": "$service.request"
+        }
+      ],
+      "output": {
+        "type": "WorldResp"
+      },
+      "mappingRule": [
+        {
+          "src": "req1.Name",
+          "dest": "Content"
+        }
+      ]
+    },
+    {
+      "name": "SayWorld2",
+      "type": "udf",
+      "input": [
+        {
+          "value": "$task.SayWorld1"
+        }
+      ],
+      "output": {
+        "type": "servicePb.HelloResp",
+        "isResponse": true
+      }
+    }
+  ]
+}

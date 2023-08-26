@@ -1,0 +1,363 @@
+syntax = "proto3";
+// 重要重要重要！！！注意要用 github.com/gogo/protobuf/proto
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+package hkt.node.service;
+
+option go_package = "api";
+option (gogoproto.goproto_getters_all) = false;
+
+service HktNote {
+  rpc NoteSize(NoteSizeReq) returns (NoteSizeReply);
+  rpc NoteInfo(NoteInfoReq) returns (NoteInfoReply);
+  rpc NoteList(NoteListReq) returns (NoteListReply);
+  rpc ImgAdd(ImgAddReq) returns (ImgAddReply);
+  rpc Img(ImgReq) returns (ImgReply);
+  rpc NoteCount(NoteCountReq) returns (NoteCountReply);
+  rpc NoteListInArc(NoteListInArcReq) returns (NoteListInArcReply);
+  rpc SimpleNotes(SimpleNotesReq) returns (SimpleNotesReply);
+  rpc SimpleArticles(SimpleArticlesReq) returns (SimpleArticlesReply);
+  rpc PublishImgs(PublishImgsReq) returns (PublishImgsReply);
+  rpc PublishNoteInfo(PublishNoteInfoReq) returns (PublishNoteInfoReply);
+  // 稿件是否允许记笔记
+  rpc ArcsForbid(ArcsForbidReq) returns (ArcsForbidReply);
+  // 稿件下是否有UP主笔记
+  rpc UpArc(UpArcReq) returns (UpArcReply);
+  // 稿件播放页笔记tag
+  rpc ArcTag(ArcTagReq) returns (ArcTagReply);
+  rpc AutoPullCvid(AutoPullAidCivdReq) returns (AutoPullAidCivdReply);
+  // 获取稿件下公开笔记个数
+  rpc ArcNotesCount(ArcNotesCountReq) returns (ArcNotesCountReply);
+  // 评论区笔记图文展示数据
+  rpc BatchGetReplyRenderInfo(BatchGetReplyRenderInfoReq) returns (BatchGetReplyRenderInfoRes);
+  // 根据根据专栏id获取评论id 返回值为0表示无对应评论id
+  rpc GetAttachedRpid(GetAttachedRpidReq) returns (GetAttachedRpidReply);
+}
+
+message UpArcReq {
+  int64 oid = 1 [(gogoproto.moretags) = 'form:"oid" validate:"gt=0"'];
+  int64 oid_type = 2 [(gogoproto.moretags) = 'form:"oid_type"'];
+  int64 upper_id = 3 [(gogoproto.moretags) = 'form:"upper_id" validate:"gt=0"'];
+}
+
+message UpArcReply {
+  // 存在up主笔记则note_id>0,否则=0
+  int64 note_id = 1 [(gogoproto.jsontag) = "note_id"];
+  string jump_link = 2 [(gogoproto.jsontag) = "jump_link"];
+}
+
+message ArcsForbidReq {
+  repeated int64 aids = 1 [(gogoproto.moretags) = 'form:"aids'];
+}
+
+message ArcsForbidReply {
+  map<int64, bool> items = 1 [(gogoproto.jsontag) = "items,omitempty"];
+}
+
+message PublishNoteInfoReq {
+  int64 cvid = 1 [(gogoproto.moretags) = 'form:"cvid" validate:"gt=0"'];
+}
+
+message PublishNoteInfoReply {
+  string title = 1 [(gogoproto.jsontag) = "title,omitempty"];
+  string summary = 2 [(gogoproto.jsontag) = "summary,omitempty"];
+  string content = 3 [(gogoproto.jsontag) = "content,omitempty"];
+  repeated NoteTag tags = 4 [(gogoproto.jsontag) = "tags,omitempty"];
+  int64 cid_count = 5 [(gogoproto.jsontag) = "cid_count,omitempty"];
+  int64 pub_status = 6 [(gogoproto.jsontag) = "pub_status,omitempty"];
+  string pub_reason = 7 [(gogoproto.jsontag) = "pub_reason,omitempty"];
+  int64 oid = 8 [(gogoproto.jsontag) = "oid,omitempty"];
+  int64 oid_type = 9 [(gogoproto.jsontag) = "oid_type,omitempty"];
+  int64 cvid = 10 [(gogoproto.jsontag) = "cvid,omitempty"];
+  int64 note_id = 11 [(gogoproto.jsontag) = "note_id,omitempty"];
+  int64 mid = 12 [(gogoproto.jsontag) = "mid,omitempty"];
+  int64 arc_cvid_cnt = 13 [(gogoproto.jsontag) = "arc_cvid_cnt,omitempty"];
+  int64 mtime = 14 [(gogoproto.jsontag) = "mtime,omitempty"];
+  int64 pub_time = 15  [(gogoproto.jsontag) = "pub_time,omitempty"];
+  bool has_pub_success_before = 16 [(gogoproto.jsontag) = "has_pub_success_before,omitempty"];
+}
+
+message PublishImgsReq {
+  repeated int64 image_ids = 1 [(gogoproto.moretags) = 'form:"image_ids" validate:"required,dive,gt=0"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'form:"mid" validate:"required"'];
+}
+
+message PublishImgInfo {
+  int64 image_id = 1 [(gogoproto.jsontag) = "image_id"];
+  string location = 2 [(gogoproto.jsontag) = "location"];
+}
+
+message PublishImgsReply {
+  map<int64, PublishImgInfo> items = 1 [(gogoproto.jsontag) = "items,omitempty"];
+  string host = 2 [(gogoproto.jsontag) = "host"];
+}
+
+message NoteListInArcReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'form:"mid" validate:"gt=0"'];
+  int64 oid = 2 [(gogoproto.moretags) = 'form:"oid" validate:"gt=0"'];
+  int64 oid_type = 3 [(gogoproto.moretags) = 'form:"oid_type" validate:"lt=2"'];
+}
+
+message NoteListInArcReply {
+  repeated int64 noteIds = 1;
+}
+
+
+message NoteCountReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'form:"mid" validate:"gt=0"'];
+}
+
+message NoteCountReply {
+  int64 note_count = 1;
+  int64 from_archive = 2;
+  int64 from_cheese = 3;
+}
+
+message NoteSizeReq {
+  int64 note_id = 1;
+  int64 mid = 2 [(gogoproto.moretags) = 'form:"mid" validate:"gt=0"'];
+}
+
+message NoteSizeReply {
+  // 该用户笔记使用总容量,kb
+  int64 total_size = 1;
+  // 当前笔记使用总容量,kb
+  int64 single_size = 2;
+}
+
+message ImgAddReq {
+  string location = 1;
+  int64 mid = 2;
+}
+
+message ImgAddReply {
+  int64 image_id = 1;
+}
+
+message ImgReq {
+  int64 image_id = 1 [(gogoproto.moretags) = 'form:"image_id" validate:"gt=0"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'form:"mid" validate:"gt=0"'];
+}
+
+message ImgReply {
+  string location = 1;
+}
+
+enum NoteListType {
+  USER_ALL = 0;
+  USER_PUBLISHED = 1;
+  ARCHIVE_PUBLISHED = 2;
+}
+
+message NoteListReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'form:"mid"'];
+  int64 pn = 2 [(gogoproto.moretags) = 'form:"pn" default:"1" validate:"min=1"'];
+  int64 ps = 3 [(gogoproto.moretags) = 'form:"ps" default:"10" validate:"min=1,max=50"'];
+  NoteListType type = 4 [(gogoproto.moretags) = 'form:"type"'];
+  int64 oid = 5 [(gogoproto.moretags) = 'form:"oid"'];
+  int64 oid_type = 6 [(gogoproto.moretags) = 'form:"oid_type"'];
+  int64 uper_mid = 7 [(gogoproto.moretags) = 'form:"uper_mid"'];
+
+}
+
+message NoteListReply {
+  repeated NoteSimple list = 1 [(gogoproto.jsontag) = "list,omitempty"];
+  Page page = 2 [(gogoproto.jsontag) = "page,omitempty"];
+  NoteSize note_size = 3 [(gogoproto.jsontag) = "note_size,omitempty"];
+}
+
+message NoteSimple {
+  string title = 1 [(gogoproto.jsontag) = "title,omitempty"];
+  string summary = 2 [(gogoproto.jsontag) = "summary,omitempty"];
+  string mtime = 3 [(gogoproto.jsontag) = "mtime,omitempty"];
+  ArcSimple arc = 4 [(gogoproto.jsontag) = "arc,omitempty"];
+  int64 note_id = 5 [(gogoproto.jsontag) = "note_id,omitempty"];
+  int64 audit_status = 6 [(gogoproto.jsontag) = "audit_status"];
+  string web_url = 7 [(gogoproto.jsontag) = "web_url"];
+  string note_id_str = 8 [(gogoproto.jsontag) = "note_id_str,omitempty"];
+  // 客态笔记相关
+  // 专栏id
+  int64 cvid = 9 [(gogoproto.jsontag) = "cvid,omitempty"];
+  // 专栏审核状态，1-进行中，2-已通过 3-已驳回 4-已锁定 5-待审核 6-审核失败
+  int64 pub_status = 10 [(gogoproto.jsontag) = "pub_status,omitempty"];
+  // 列表展示文案，审核状态/更新时间
+  string message = 11 [(gogoproto.jsontag) = "message,omitempty"];
+  // 专栏发布时间
+  string pubtime = 12 [(gogoproto.jsontag) = "pubtime,omitempty"];
+  // 专栏作者id
+  int64 mid = 13 [(gogoproto.jsontag) = "mid,omitempty"];
+  // 该稿件是否可记笔记
+  bool forbid_note_entrance = 14 [(gogoproto.jsontag) = "forbid_note_entrance"];
+  // 专栏点赞数
+  int64 likes = 15 [(gogoproto.jsontag) = "likes"];
+  // 是否点赞
+  bool has_like = 16 [(gogoproto.jsontag) = "has_like"];
+}
+
+message NoteSize {
+  string total = 1;
+  string used = 2;
+  string percentage = 3;
+}
+
+message ArcSimple {
+  int64 oid = 1 [(gogoproto.jsontag) = "oid"];
+  string bvid = 2 [(gogoproto.jsontag) = "bvid,omitempty"];
+  string pic = 3 [(gogoproto.jsontag) = "pic,omitempty"];
+  string desc = 4 [(gogoproto.jsontag) = "desc,omitempty"];
+  int64 status = 5 [(gogoproto.jsontag) = "status"];
+  int64 oid_type = 6 [(gogoproto.jsontag) = "oid_type"];
+  // TODO del aid
+  int64 aid = 7 [(gogoproto.jsontag) = "aid"];
+}
+
+message Page {
+  int64 total = 1 [(gogoproto.jsontag) = "total"];
+  int64 size = 2 [(gogoproto.jsontag) = "size"];
+  int64 num = 3 [(gogoproto.jsontag) = "num"];
+}
+
+message NoteInfoReq {
+  int64 note_id = 1 [(gogoproto.moretags) = 'form:"note_id" validate:"gt=0"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'form:"mid" validate:"gt=0"'];
+}
+
+message NoteInfoReply {
+  string title = 1 [(gogoproto.jsontag) = "title,omitempty"];
+  string summary = 2 [(gogoproto.jsontag) = "summary,omitempty"];
+  string content = 3 [(gogoproto.jsontag) = "content,omitempty"];
+  repeated NoteTag tags = 4 [(gogoproto.jsontag) = "tags,omitempty"];
+  int64 cid_count = 5 [(gogoproto.jsontag) = "cid_count,omitempty"];
+  int64 audit_status = 6 [(gogoproto.jsontag) = "audit_status"];
+  int64 oid = 7 [(gogoproto.jsontag) = "oid,omitempty"];
+  int64 pub_status = 8 [(gogoproto.jsontag) = "pub_status,omitempty"];
+  string pub_reason = 9 [(gogoproto.jsontag) = "pub_reason,omitempty"];
+  int64 pub_version = 10 [(gogoproto.jsontag) = "pub_version,omitempty"];
+}
+
+enum SimpleNoteType {
+  DEFAULT = 0;
+  PUBLISH = 1; // 公开笔记信息
+}
+
+message SimpleNotesReq {
+  repeated int64 note_ids = 1 [(gogoproto.moretags) = 'form:"note_ids" validate:"required,dive,gt=0"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'form:"mid" validate:"required"'];
+  // 数据类型 0-默认 1-包括公开笔记信息
+  SimpleNoteType tp = 3 [(gogoproto.moretags) = 'form:"tp"'];
+}
+
+message SimpleNoteCard {
+  int64 note_id = 1 [(gogoproto.jsontag) = "note_id"];
+  int64 oid = 2 [(gogoproto.jsontag) = "oid"];
+  int64 oid_type = 3 [(gogoproto.jsontag) = "oid_type"];
+  int64 mid = 4 [(gogoproto.jsontag) = "mid"];
+  // 公开笔记信息
+  int64 pub_status = 5 [(gogoproto.jsontag) = "pub_status"];
+  string pub_reason = 6 [(gogoproto.jsontag) = "pub_reason"];
+}
+
+message SimpleNotesReply {
+  map<int64, SimpleNoteCard> items = 1 [(gogoproto.jsontag) = "items,omitempty"];
+}
+
+
+message NoteTag {
+  int64 cid = 1 [(gogoproto.jsontag) = "cid"];
+  int64 status = 2 [(gogoproto.jsontag) = "status"];
+  int64 index = 3 [(gogoproto.jsontag) = "index"];
+  int64 seconds = 4 [(gogoproto.jsontag) = "seconds"];
+  int64 pos = 5 [(gogoproto.jsontag) = "pos"];
+}
+
+message NoteSync {
+  int64 note_id = 1 [(gogoproto.jsontag) = "note_id"];
+  string hash = 2 [(gogoproto.jsontag) = "hash"];
+}
+
+message SimpleArticlesReq {
+  repeated int64 cvids = 1 [(gogoproto.moretags) = 'form:"cvids" validate:"required,dive,gt=0"'];
+}
+
+message SimpleArticleCard {
+  int64 cvid = 1 [(gogoproto.jsontag) = "note_id"];
+  int64 oid = 2 [(gogoproto.jsontag) = "oid"];
+  int64 oid_type = 3 [(gogoproto.jsontag) = "oid_type"];
+  int64 mid = 4 [(gogoproto.jsontag) = "mid"];
+  int64 note_id = 5 [(gogoproto.jsontag) = "note_id"];
+}
+
+message SimpleArticlesReply {
+  map<int64, SimpleArticleCard> items = 1 [(gogoproto.jsontag) = "items,omitempty"];
+}
+
+
+//稿件播放页的笔记tag
+message ArcTagReq {
+  int64 oid = 1 [(gogoproto.moretags) = 'form:"oid" validate:"gt=0"'];
+  int64 oid_type = 2 [(gogoproto.moretags) = 'form:"oid_type"'];
+  //当前稿件uper的mid
+  int64 upper_id = 3 [(gogoproto.moretags) = 'form:"upper_id" validate:"gt=0"'];
+  //当前登录用户的mid
+  int64 login_mid = 4 [(gogoproto.moretags) = 'form:"login_mid"'];
+  //稿件二级分区id
+  int32 sub_type_id = 5 [(gogoproto.moretags) = 'form:"sub_type_id" validate:"gt=0"'];
+}
+
+message ArcTagReply {
+  // 存在up主笔记则note_id>0,否则=0 用于埋点
+  int64 note_id = 1 [(gogoproto.jsontag) = "note_id", json_name = "note_id"];
+  // tag跳转链接
+  string jump_link = 2 [(gogoproto.jsontag) = "jump_link", json_name = "jump_link"];
+  //tag展示文案
+  string tag_show_text = 3  [(gogoproto.jsontag) = "tag_show_text", json_name = "tag_show_text"];
+  // 稿件下公开笔记个数
+  int64 notes_count = 4 [(gogoproto.jsontag) = "notes_count", json_name = "notes_count"];
+  // 命中直接拉起笔记的专栏id
+  int64 auto_pull_cvid = 5 [(gogoproto.jsontag) = "auto_pull_cvid", json_name = "auto_pull_cvid"];
+}
+
+message AutoPullAidCivdReq {
+  repeated string aidToCvids = 1 [(gogoproto.moretags) = 'form:"aidToCvids" validate:"required"'];
+}
+
+message AutoPullAidCivdReply {
+
+}
+
+message ArcNotesCountReq {
+  int64 oid = 1 [(gogoproto.moretags) = 'form:"oid" validate:"gt=0"'];
+  int64 oid_type = 2 [(gogoproto.moretags) = 'form:"oid_type"'];
+}
+
+message ArcNotesCountReply {
+  // 稿件下公开笔记个数
+  int64 notes_count = 1 [(gogoproto.jsontag) = "notes_count", json_name = "notes_count"];
+}
+
+
+message BatchGetReplyRenderInfoReq {
+  repeated int64 cvids = 1 [(gogoproto.moretags) = 'form:"cvids" validate:"required"'];
+}
+
+message BatchGetReplyRenderInfoRes {
+  map<int64, ReplyRenderInfoItem> items = 1 [(gogoproto.jsontag) = "items", json_name = "items"];
+}
+
+message ReplyRenderInfoItem{
+  // 笔记的摘要
+  string summary = 1 [(gogoproto.jsontag) = "summary", json_name = "summary"];
+  // 笔记的截屏图片,可能为空
+  repeated string images = 2 [(gogoproto.jsontag) = "images", json_name = "images"];
+  // 点击跳转url
+  string click_url = 3 [(gogoproto.jsontag) = "click_url", json_name = "click_url"];
+  // 最近一次修改展示文案
+  string last_mtime_text = 4 [(gogoproto.jsontag) = "last_mtime_text", json_name = "last_mtime_text"];
+}
+
+message GetAttachedRpidReq {
+  int64 cvid = 1 [(gogoproto.jsontag) = "cvid", json_name = "cvid"];
+}
+message GetAttachedRpidReply {
+  int64 rpid = 1 [(gogoproto.jsontag) = "rpid", json_name = "rpid"];
+}

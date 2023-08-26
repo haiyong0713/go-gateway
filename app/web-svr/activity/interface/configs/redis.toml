@@ -1,0 +1,141 @@
+[redis]
+    name = "activity-service"
+    proto = "tcp"
+    addr = "10.23.4.117:6379"
+    idle = 64
+    active = 1024
+    dialTimeout = "50ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+    expire = "10s"
+    matchExpire = "24h"
+    followExpire = "2400h"
+    userAchExpire = "1h"
+    userPointExpire = "1h"
+    achCntExpire = "1h"
+    hotDotExpire = "720h"
+    randomExpire = "300s"
+    stochasticExpire = "60s"
+    resetExpire = "5s"
+    rewardExpire = "720h"
+    guessExpire = "24h"
+    esLikesExpire = "60s"
+    UserTaskExpire = "600s"
+    SingleCurrencyExpire = "720h"
+    LikeMidTotalExpire = "300s"
+    LotteryIPExpire = "5s"
+    LotteryExpire = "720h"
+    LotteryWinListExpire = "600s"
+    OnGoingActivityExpire = "300s"
+    likeTotalExpire = "24h"
+    LotteryTimesExpire = "24h"
+    LikeTokenExpire = "360h"
+    AppstoreExpire = "30s"
+    WxLotteryLogExpire = "24h"
+    WxRedDotExpire = "720h"
+    TaskStateExpire = "24h"
+    AwardSubjectExpire = "24h"
+    BwsOnlineExpire = "24h"
+    BwsOnlineUserExpire = "1h"
+    BwsbluetoothExpire = "5m"
+    newstarExpire = "24h"
+    QPSLimitExpire ="60s"
+    actArcsExpire = "1h"
+    CollegeMidCollegeExpire = "1h"
+    actExpire = "240h"
+    FirstShareExpire = "120h"
+    LightVideoCountExpire = "30m"
+    RankConfigExpire = "30m"
+    BwsRankUserExpire = "720h"
+    BwsOfflineUserExpire = "300s"
+    UserYearReport2020Expire = "1m"
+    MidCardExpire = "24h"
+    SpringFestivialActivityEndExpire = "1440h"
+    SevenDayExpire = "168h"
+    OneDayExpire = "24h"
+    FitPlanListExpire = "24h"
+    FitPlanDetailByIdExpire = "24h"
+    SummerCampCourseListExpire = "10m"
+    SummerCampUserCostExpire   = "10m"
+    SummerCampUserExchangeFlagExpire = "12h"
+    RewardConfListExpire = "10m"
+    FiveMinutesExpire = "5m"
+    [redis.cache]
+        name = "activity-service"
+        proto = "tcp"
+        addr = "10.23.4.117:6379"
+        idle = 64
+        active = 1024
+        dialTimeout = "50ms"
+        readTimeout = "200ms"
+        writeTimeout = "200ms"
+        idleTimeout = "80s"
+    [redis.store]
+        name = "activity-service"
+        proto = "tcp"
+        addr = "10.23.4.117:6379"
+        idle = 64
+        active = 1024
+        dialTimeout = "50ms"
+        readTimeout = "200ms"
+        writeTimeout = "200ms"
+        idleTimeout = "80s"
+
+[S10Redis]
+    name = "activity-service"
+    proto = "tcp"
+    addr = "10.23.4.117:6379"
+    idle = 64
+    active = 1024
+    dialTimeout = "50ms"
+    readTimeout = "250ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+
+[S10PointShopRedis]
+    name = "activity-service"
+    proto = "tcp"
+    addr = "10.23.4.117:6379"
+    idle = 64
+    active = 1024
+    dialTimeout = "50ms"
+    readTimeout = "250ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+
+[backup_mq]
+    name = "activity-service"
+    proto = "tcp"
+    addr = "10.23.4.117:6379"
+    idle = 64
+    active = 1024
+    dialTimeout = "50ms"
+    readTimeout = "250ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+
+
+[VoteRedis]
+    name = "activity-service"
+    proto = "tcp"
+    addr = "10.23.4.117:6379"
+    idle = 64
+    active = 1024
+    dialTimeout = "50ms"
+    readTimeout = "250ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+
+[StockRedis]
+    name = "stock-cache-redis"
+    proto = "tcp"
+    addr = "10.23.4.117:6379"
+    idle = 64
+    active = 1024
+    dialTimeout = "50ms"
+    readTimeout = "250ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+    ConfExpire = "300s"
+    DataExpire = "1h"

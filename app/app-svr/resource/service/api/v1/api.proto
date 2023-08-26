@@ -1,0 +1,1023 @@
+syntax = "proto3";
+
+// use {app_id}.{version} as package name
+package resource.service.v1;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "audit.proto";
+import "card.proto";
+import "menu.proto";
+import "converge.proto";
+import "download.proto";
+import "special.proto";
+import "entry.proto";
+import "ugctab.proto";
+import "player.proto";
+import "popups.proto";
+import "frontpage.proto";
+
+// specify golang package name
+option go_package = "v1";
+
+// The greeting service definition.
+service Resource {
+    //相关推荐列表
+    //-400:RequestErr -404:NothingFound
+    rpc Relate(RelateRequest) returns (SpecialReply) {};
+    // 获取web_rcmd
+    rpc WebRcmd(NoArgRequest) returns (WebRcmdReply) {};
+    // 资源位banners
+    rpc Banners2(BannersRequest) returns (BannersReply) {};
+    rpc FeedBanners(FeedBannersRequest) returns (FeedBannersReply) {};
+    // 获取 404 配置
+    rpc CustomConfig(CustomConfigRequest) returns (CustomConfigReply) {};
+    // 获取入口是否屏蔽
+    rpc EntrancesIsHidden(EntrancesIsHiddenRequest) returns (EntrancesIsHiddenReply) {};
+    // 获取 搜索OGV后台sid值
+    rpc SearchOgv(SearchOgvReq) returns (SearchOgvReply) {};
+    // 获取运营资源皮肤配置
+    rpc SkinConf(NoArgRequest) returns (SkinConfReply) {};
+    // 获取web player icon配置数据
+    rpc WebPlayerIcon(WebPlayerIconRequest) returns (WebPlayerIconReply) {};
+    // 获取模块icon资源配置
+    rpc MngIcon(MngIconRequest) returns (MngIconReply) {};
+    // 获取我的页模块配置
+    rpc MineSections(MineSectionsRequest) returns (MineSectionsReply) {};
+    // audit
+    rpc AppAudit(NoArgRequest) returns (AuditReply) {};
+    // card_follow
+    rpc CardFollow(NoArgRequest) returns (CardFollowReply) {};
+    // feed tab Menu
+    rpc Menu(NoArgRequest) returns (MenuReply) {};
+    // feed Active
+    rpc Active(NoArgRequest) returns (ActiveReply) {};
+    // feed Special card
+    rpc Special(NoArgRequest) returns (SpecialCardReply) {};
+    // feed game DownLoad card
+    rpc DownLoad(NoArgRequest) returns (DownLoadCardReply) {}
+    // feed converge card
+    rpc Converge(NoArgRequest) returns (ConvergeCardReply) {}
+    // 获取在线配置
+    rpc ParamList(ParamReq) returns (ParamReply) {};
+    // 获取是否点击过tab运营资源
+    rpc MenuExtVer(MenuExtVerReq) returns (MenuExtVerReply);
+    // add tab运营资源
+    rpc AddMenuExtVer(AddMenuExtVerReq) returns (AddMenuExtVerReply);
+    // information region card
+    rpc InformationRegionCard(NoArgRequest) returns (InformationRegionCardReply) {}
+    // 天马卡片
+    rpc CardPosRecs(CardPosRecReplyRequest) returns (CardPosRecReply) {}
+    // gorpc接口迁移: 获取全部资源位数据
+    rpc ResourceAllNew(NoArgRequest) returns (ResourceAllReply) {};
+    // gorpc接口迁移: 获取全部内容投放数据
+    rpc AssignmentAllNew(NoArgRequest) returns (AssignmentAllReply) {};
+    // gorpc接口迁移: 获取默认banner配置
+    rpc DefBannerNew(NoArgRequest) returns (DefBannerReply) {};
+    // gorpc接口迁移: 获取banner配置
+    rpc ResourceNew(ResourceRequest) returns (ResourceReply) {};
+    // gorpc接口迁移: 批量获取默认banner配置
+    rpc ResourcesNew(ResourcesRequest) returns (ResourcesReply) {};
+    // gorpc接口迁移: Banners -> grpc Banners2
+    // gorpc接口迁移: PasterAPP
+    rpc PasterAPPNew(PasterAPPRequest) returns (PasterAPPReply) {};
+    // gorpc接口迁移: IndexIcon
+    rpc IndexIconNew(NoArgRequest) returns (IndexIconReply) {};
+    // gorpc接口迁移: PlayerIcon
+    rpc PlayerIconNew(NoArgRequest) returns (PlayerIconReply) {};
+    // gorpc接口迁移: PlayerIcon2
+    rpc PlayerIcon2New(PlayerIconRequest) returns (PlayerIconReply) {};
+    // gorpc接口迁移: PlayerIcon2 -404 优化
+    rpc PlayerIcon2NewV2(PlayerIconRequest) returns (PlayerIconV2Reply) {};
+    // gorpc接口迁移: Cmtbox
+    rpc CmtboxNew(CmtboxRequest) returns (CmtboxReply) {};
+    // gorpc接口迁移: SideBars
+    rpc SideBarsNew(NoArgRequest) returns (SideBarsReply) {};
+    // gorpc接口迁移: AbTest
+    rpc AbTestNew(AbTestRequest) returns (AbTestReply) {};
+    // gorpc接口迁移: PasterCID
+    rpc PasterCIDNew(NoArgRequest) returns (PasterCIDReply) {};
+    // 单个查询运营tab数据
+    rpc AppActive(AppActiveRequest) returns (AppActiveReply) {}
+    // 天马运营tab menu
+    rpc AppMenu(AppMenusRequest) returns (AppMenuReply) {}
+    // 实时获取app entry配置
+    rpc GetAppEntryState(GetAppEntryStateReq) returns (GetAppEntryStateRep);
+    // 实时获取app entry配置 -404优化
+    rpc GetAppEntryStateV2(GetAppEntryStateReq) returns (GetAppEntryStateV2Rep);
+    // 获取ugc tab配置
+    rpc UgcTab(UgcTabReq) returns (UgcTabReply);
+    // 获取ugc tab配置 -404优化
+    rpc UgcTabV2(UgcTabReq) returns (UgcTabV2Reply);
+    // 批量获取ugc tab配置
+    rpc UgcTabBatch(UgcTabBatchReq) returns (UgcTabBatchReply);
+    // 获取S10分品类热门稿件aid集合
+    rpc GetS10PopEntranceAids(GetS10PopEntranceAidsReq) returns (GetS10PopEntranceAidsReply);
+    // 根据tid获取匹配的免流配置
+    rpc GetPlayerCustomizedPanel(GetPlayerCustomizedPanelReq) returns (GetPlayerCustomizedPanelRep);
+    // 根据tid获取匹配的免流配置-404优化
+    rpc GetPlayerCustomizedPanelV2(GetPlayerCustomizedPanelReq) returns (GetPlayerCustomizedPanelV2Rep);
+    // 业务弹窗规范
+    rpc PopUps(PopUpsReq) returns (PopUpsReply);
+    // 获取tab ext
+    rpc GetTabExt(GetTabExtReq) returns (GetTabExtRep);
+    // PC Web版头
+    rpc FrontPage(FrontPageReq) returns (FrontPageResp);
+    // 是否为up主
+    rpc IsUploader(IsUploaderReq) returns (IsUploaderReply);
+    // 获取首页模块配置
+    rpc HomeSections(HomeSectionsRequest) returns (HomeSectionsReply) {};
+}
+
+message MenuExtVerReq {
+    int64 id     = 1 [(gogoproto.moretags) = 'form:"id" validate:"gt=0,required"'];
+    string ver   = 2 [(gogoproto.moretags) = 'form:"ver" validate:"required"'];
+    string buvid = 3 [(gogoproto.moretags) = 'form:"buvid" validate:"required"'];
+}
+
+message MenuExtVerReply {
+    // 大于0表示缓存内有值
+    int32 click = 1;
+}
+
+message AddMenuExtVerReq {
+    int64 id     = 1 [(gogoproto.moretags) = 'form:"id" validate:"gt=0,required"'];
+    string ver   = 2 [(gogoproto.moretags) = 'form:"ver" validate:"required"'];
+    string buvid = 3 [(gogoproto.moretags) = 'form:"buvid" validate:"required"'];
+}
+
+message AddMenuExtVerReply {
+}
+
+// NoArgReq
+message NoArgRequest {}
+
+message Param {
+    int64 ID          = 1 [(gogoproto.jsontag) = "id"];
+    string Name       = 2 [(gogoproto.jsontag) = "name"];
+    string Value      = 3 [(gogoproto.jsontag) = "value"];
+    string Remark     = 4 [(gogoproto.jsontag) = "remark"];
+    int64 Plat        = 5 [(gogoproto.jsontag) = "plat"];
+    int64 Build       = 6 [(gogoproto.jsontag) = "build"];
+    string Conditions = 7 [(gogoproto.jsontag) = "conditions"];
+    int64 Department  = 8 [(gogoproto.jsontag) = "department"];
+}
+
+message ParamReq {
+    repeated int64 Plats = 1;
+}
+
+message ParamReply {
+    repeated Param list = 1;
+}
+
+// Hidden is
+message Hidden {
+    int64 id = 1;
+    // 首页顶bar入口 对应sidebar.id
+    int64 sid = 2;
+    // 分区入口 对应region_copy.id
+    int64 rid = 3;
+    // 渠道id 逗号分隔
+    string channel = 4;
+    // 渠道id map
+    map<string, string> channel_map = 5;
+    // 屏蔽策略id
+    int64 pid   = 6;
+    int64 stime = 7 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 etime = 8 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    // 【我的】页入口 对应sidebar.id
+    int64 cid = 9;
+    //渠道屏蔽的条件
+    string hidden_condition = 10;
+    // 一级模块id
+    int64 module_id = 11;
+    // 模糊匹配渠道id list
+    repeated string channel_fuzzy = 12;
+    //动态是否屏蔽(0-否 1-是)
+    int64 hide_dynamic = 13;
+}
+
+// HiddenLimit is
+message HiddenLimit {
+    int64 id          = 1;
+    int64 oid         = 2;
+    string conditions = 3;
+    int64 build       = 4;
+    // 平台：0:Android 1:iphone 5:iphone_i 8:Android_i
+    int32 plat = 5;
+}
+
+message EntranceHiddenReply {
+    repeated HiddenInfo list = 1;
+}
+
+message HiddenInfo {
+    Hidden info                = 1;
+    repeated HiddenLimit limit = 2;
+}
+
+message EntrancesIsHiddenRequest {
+    // 数据id 首页入口对应sid 分区入口对应rid 【我的】页入口对应cid
+    repeated int64 oids = 1;
+    // 数据类型 0:首页入口 1:分区入口 2:【我的】页入口 3:一级模块入口 4:动态
+    int32 otype = 2;
+    // build号
+    int64 build = 3;
+    // 平台：0:Android 1:iphone 5:iphone_i 8:Android_i'
+    int32 plat = 4;
+    // 渠道 如xiaomi,oppo
+    string channel = 5 [(gogoproto.moretags) = 'validate:"required"'];
+    // 647之后使用map来传数据类型和数据id
+    map<int64, OidList> oid_items = 6;
+}
+
+message OidList {
+    repeated int64 oids = 1;
+}
+
+message EntrancesIsHiddenReply {
+    // 二级模块的屏蔽信息
+    map<int64, bool> Infos = 1;
+    // 一级模块的屏蔽信息
+    map<int64, bool> ModuleInfos = 2;
+    // 动态是否屏蔽
+    bool HideDynamic = 3;
+}
+
+//相关推荐请求参数
+message RelateRequest {
+    //pgc seasonID
+    int64 id        = 1;
+    string mobi_app = 2;
+    string device   = 3;
+    int32 build     = 4;
+}
+
+//SearchOgvReq .
+message SearchOgvReq {
+    int64 id = 1 [(gogoproto.moretags) = 'form:"id" validate:"gt=0,required"'];
+}
+
+//SearchOgvReply .
+message SearchOgvReply {
+    repeated int64 sids = 1 [(gogoproto.jsontag) = "sids", json_name = "sids"];
+}
+
+message FeedBannersRequest {
+    repeated banner_meta meta = 1;
+    int64 plat                = 2;
+    int64 build               = 3;
+    int64 mid                 = 5;
+    int64 res_id              = 6;
+    string channel            = 7;
+    string ip                 = 8;
+    string buvid              = 9;
+    string network            = 10;
+    string mobi_app           = 11;
+    string device             = 12;
+    bool is_ad                = 13;
+    string open_event         = 14;
+    string ad_extra           = 15;
+    string version            = 16;
+    int64 splash_id           = 17;
+}
+
+message banner_meta {
+    int64 id           = 1;
+    string type        = 2;
+    string inline_type = 3;
+    string inline_id   = 4;
+}
+
+message FeedBannersReply {
+    repeated Banner banner = 1;
+    string Version         = 2;
+}
+
+message BannersRequest {
+    int32 plat        = 1;
+    int32 build       = 2;
+    int64 aid         = 3;
+    int64 mid         = 4;
+    string resIDs     = 5;
+    string channel    = 6;
+    string ip         = 7;
+    string buvid      = 8;
+    string network    = 9;
+    string mobi_app   = 10;
+    string device     = 11;
+    bool is_ad        = 12;
+    string open_event = 13;
+    string ad_extra   = 14;
+    string version    = 15;
+    int64 splash_id   = 16;
+}
+
+message BannersReply {
+    map<int32, Banners> Banners = 1;
+    string Version              = 2;
+}
+
+message Banners {
+    repeated Banner Banners = 1;
+}
+
+message Banner {
+    int64 id                    = 1 [(gogoproto.jsontag) = "id"];
+    int64 parent_id             = 2 [(gogoproto.jsontag) = "-"];
+    int32 plat                  = 3 [(gogoproto.jsontag) = "-"];
+    string module               = 4 [(gogoproto.jsontag) = "-"];
+    string position             = 5 [(gogoproto.jsontag) = "-"];
+    string title                = 6 [(gogoproto.jsontag) = "title"];
+    string image                = 7 [(gogoproto.jsontag) = "image"];
+    string hash                 = 8 [(gogoproto.jsontag) = "hash"];
+    string u_r_i                = 9 [(gogoproto.jsontag) = "uri"];
+    string goto                 = 10 [(gogoproto.jsontag) = "-"];
+    string value                = 11 [(gogoproto.jsontag) = "-"];
+    string param                = 12 [(gogoproto.jsontag) = "-"];
+    string channel              = 13 [(gogoproto.jsontag) = "-"];
+    int32 build                 = 14 [(gogoproto.jsontag) = "-"];
+    string condition            = 15 [(gogoproto.jsontag) = "-"];
+    string area                 = 16 [(gogoproto.jsontag) = "-"];
+    int64 rank                  = 17 [(gogoproto.jsontag) = "-"];
+    string rule                 = 18 [(gogoproto.jsontag) = "-"];
+    int32 type                  = 19 [(gogoproto.jsontag) = "-"];
+    int64 start                 = 20 [(gogoproto.jsontag) = "stime"];
+    int64 end                   = 21 [(gogoproto.jsontag) = "-"];
+    int64 m_time                = 22 [(gogoproto.jsontag) = "-"];
+    int64 resource_id           = 23 [(gogoproto.jsontag) = "resource_id"];
+    string request_id           = 24 [(gogoproto.jsontag) = "request_id,omitempty"];
+    int64 creative_id           = 25 [(gogoproto.jsontag) = "creative_id,omitempty"];
+    int64 src_id                = 26 [(gogoproto.jsontag) = "src_id,omitempty"];
+    bool is_ad                  = 27 [(gogoproto.jsontag) = "is_ad"];
+    bool is_ad_replace          = 28 [(gogoproto.jsontag) = "-"];
+    bool is_ad_loc              = 29 [(gogoproto.jsontag) = "is_ad_loc,omitempty"];
+    int64 cm_mark               = 30 [(gogoproto.jsontag) = "cm_mark"];
+    string ad_cb                = 31 [(gogoproto.jsontag) = "ad_cb,omitempty"];
+    string show_url             = 32 [(gogoproto.jsontag) = "show_url,omitempty"];
+    string click_url            = 33 [(gogoproto.jsontag) = "click_url,omitempty"];
+    string client_ip            = 34 [(gogoproto.jsontag) = "client_ip,omitempty"];
+    int64 index                 = 35 [(gogoproto.jsontag) = "index"];
+    int64 server_type           = 36 [(gogoproto.jsontag) = "server_type"];
+    bytes extra                 = 37 [(gogoproto.jsontag) = "extra"];
+    int64 creative_type         = 38 [(gogoproto.jsontag) = "creative_type"];
+    string sub_title            = 39 [(gogoproto.jsontag) = "sub_title,omitempty"];
+    int64 splash_id             = 40;
+    banner_meta banner_meta     = 41 [(gogoproto.jsontag) = "banner_meta", (gogoproto.nullable) = false];
+    int64 inline_use_same       = 42 [(gogoproto.jsontag) = "inline_use_same"];
+    int64 inline_barrage_switch = 43 [(gogoproto.jsontag) = "inline_barrage_switch"];
+}
+
+message SpecialReply {
+    //主键id
+    int64 id = 1;
+    //特殊卡片标题
+    string title = 2;
+    //特殊卡片描述
+    string desc = 3;
+    //特殊卡片单列封面
+    string cover = 4;
+    //特殊卡片双列封面
+    string scover = 5;
+    //跳转类型 URL:0 游戏小卡:1 稿件:2 番剧:3 直播:4 专栏:6 每日精选:7 歌单:8 歌曲:9 相簿:10 小视频:11
+    int32 re_type = 6;
+    //跳转参数
+    string re_value = 7;
+    //角标文字
+    string corner = 8;
+    //卡片类型 1特殊小卡 2特殊大卡 3置顶卡片
+    int32 card = 9;
+    //特殊大卡参数 如果是1020*300则封面比例为34 如果是1020*378则封面比例为27
+    string siz = 10;
+    //位置
+    int32 position = 11;
+    //推荐理由
+    string rec_reason = 12;
+}
+
+message WebRcmdReply {
+    // web详情页相关推荐
+    repeated WebRcmd Rcmd = 1 [(gogoproto.jsontag) = "-"];
+    // web详情页相关推荐卡片设置
+    repeated WebRcmdCard RcmdCard = 2 [(gogoproto.jsontag) = "-"];
+}
+
+message WebRcmd {
+    // 主键ID
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    // 卡片类型 1:特殊卡片 2:视频卡片 3:游戏卡片
+    int32 CardType = 2 [(gogoproto.jsontag) = "card_type"];
+    // 卡片ID
+    string CardValue = 3 [(gogoproto.jsontag) = "card_value"];
+    // 分区
+    repeated int64 Partition = 4 [(gogoproto.jsontag) = "partition"];
+    // tag
+    repeated int64 Tag = 5 [(gogoproto.jsontag) = "tag"];
+    // 稿件
+    repeated int64 AvID = 6 [(gogoproto.jsontag) = "avid"];
+    // 卡片优先级
+    int32 Priority = 7 [(gogoproto.jsontag) = "Priority"];
+    // 优先级配置字段
+    int32 Order = 8 [(gogoproto.jsontag) = "order"];
+}
+
+message WebRcmdCard {
+    // 主键ID
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    // 卡片类型 1:web相关推荐特殊卡片
+    int32 Type = 2 [(gogoproto.jsontag) = "type"];
+    // 标题
+    string Title = 3 [(gogoproto.jsontag) = "title"];
+    // 描述
+    string Desc = 4 [(gogoproto.jsontag) = "desc"];
+    // 封面
+    string Cover = 5 [(gogoproto.jsontag) = "cover"];
+    // 卡片类型 1:url
+    int32 ReType = 6 [(gogoproto.jsontag) = "re_type"];
+    // 跳转链接
+    string ReValue = 7 [(gogoproto.jsontag) = "re_value"];
+}
+
+message CustomConfigRequest {
+    int32 TP  = 1 [(gogoproto.jsontag) = "tp", (gogoproto.moretags) = 'form:"tp" validate:"required"', json_name = "tp"];
+    int64 Oid = 2 [(gogoproto.jsontag) = "oid", (gogoproto.moretags) = 'form:"oid" validate:"required"', json_name = "oid"];
+}
+
+message CustomConfigReply {
+    int32 TP                = 1 [(gogoproto.jsontag) = "tp"];
+    int64 Oid               = 2 [(gogoproto.jsontag) = "oid"];
+    string Content          = 3 [(gogoproto.jsontag) = "content"];
+    string URL              = 4 [(gogoproto.jsontag) = "url"];
+    string HighlightContent = 5 [(gogoproto.jsontag) = "highlight_content"];
+    string Image            = 6 [(gogoproto.jsontag) = "image"];
+    string ImageBig         = 7 [(gogoproto.jsontag) = "image_big"];
+    int64 STime             = 8 [(gogoproto.jsontag) = "stime"];
+    int64 ETime             = 9 [(gogoproto.jsontag) = "etime"];
+    int64 State             = 10 [(gogoproto.jsontag) = "state"];
+}
+
+// 主题配置状态 0 下线 1 上线 -1 删除
+message SkinExtState {
+    enum Enum {
+        OFFLINE = 0;
+        ONLINE  = 1;
+        DELETED = -1;
+    }
+}
+
+// SkinExt 主题配置信息
+message SkinExt {
+    int64 ID = 1 [(gogoproto.jsontag) = "id", json_name = "id"];
+    // 资源id
+    int64 SkinID = 2 [(gogoproto.jsontag) = "skin_id", json_name = "skin_id"];
+    // 资源名称
+    string SkinName         = 3 [(gogoproto.jsontag) = "skin_name", json_name = "skin_name"];
+    int64 Attribute         = 4 [(gogoproto.jsontag) = "attribute", json_name = "attribute"];
+    SkinExtState.Enum State = 5 [(gogoproto.jsontag) = "state", json_name = "state"];
+    int64 Ctime             = 6 [(gogoproto.jsontag) = "ctime", json_name = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Mtime             = 7 [(gogoproto.jsontag) = "mtime", json_name = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Stime             = 8 [(gogoproto.jsontag) = "stime", json_name = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Etime             = 9 [(gogoproto.jsontag) = "etime", json_name = "etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    // LocationPolicyGID 区域限制策略组ID
+    int64 LocationPolicyGID = 10 [(gogoproto.jsontag) = "location_policy_gid", json_name = "location_policy_gid"];
+    string UserScopeType    = 11 [(gogoproto.jsontag) = "user_scope_type", json_name = "user_scope_type"];
+    string UserScopeValue   = 12 [(gogoproto.jsontag) = "user_scope_value", json_name = "user_scope_value"];
+    string DressUpType      = 13 [(gogoproto.jsontag) = "dress_up_type", json_name = "dress_up_type"];
+    string DressUpValue     = 14 [(gogoproto.jsontag) = "dress_up_value", json_name = "dress_up_value"];
+}
+
+// SkinLimitState 主题配置版本信息状态 0 删除 1 上线
+message SkinLimitState {
+    enum Enum {
+        DELETED = 0;
+        ONLINE  = 1;
+    }
+}
+
+// SkinLimit 主题配置版本信息
+message SkinLimit {
+    int64 ID                  = 1 [(gogoproto.jsontag) = "id", json_name = "id"];
+    int64 SID                 = 2 [(gogoproto.jsontag) = "s_id", json_name = "s_id"];
+    string Conditions         = 3 [(gogoproto.jsontag) = "conditions", json_name = "conditions"];
+    int64 Build               = 4 [(gogoproto.jsontag) = "build", json_name = "build"];
+    SkinLimitState.Enum State = 5 [(gogoproto.jsontag) = "state", json_name = "state"];
+    int32 Plat                = 6 [(gogoproto.jsontag) = "plat", json_name = "plat"];
+    int64 Mtime               = 7 [(gogoproto.jsontag) = "mtime", json_name = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Ctime               = 8 [(gogoproto.jsontag) = "ctime", json_name = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message SkinConfReply {
+    repeated SkinInfo List = 1 [(gogoproto.jsontag) = "list", json_name = "list"];
+}
+
+message SkinInfo {
+    SkinExt Info             = 1 [(gogoproto.jsontag) = "info", json_name = "info"];
+    repeated SkinLimit Limit = 2 [(gogoproto.jsontag) = "limit", json_name = "limit"];
+}
+
+message WebPlayerIconRequest {
+    int64 Aid             = 1 [(gogoproto.jsontag) = "season_id"];
+    repeated int64 TagIDs = 2 [(gogoproto.jsontag) = "tag_ids"];
+    int32 TypeID          = 3 [(gogoproto.jsontag) = "type_id"];
+    int64 SeasonID        = 4 [(gogoproto.jsontag) = "season_id"];
+    int64 Mid             = 5 [(gogoproto.jsontag) = "mid"];
+}
+
+message WebPlayerIconReply {
+    PlayerIcon Icon = 1 [(gogoproto.jsontag) = "icon"];
+}
+
+message PlayerIcon {
+    string URL1  = 1 [(gogoproto.jsontag) = "url1"];
+    string Hash1 = 2 [(gogoproto.jsontag) = "hash1"];
+    string URL2  = 3 [(gogoproto.jsontag) = "url2"];
+    string Hash2 = 4 [(gogoproto.jsontag) = "info"];
+    int64 Ctime  = 5 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+// MngIconRequest
+message MngIconRequest {
+    // 数据id
+    repeated int64 oids = 1 [(gogoproto.moretags) = 'validate:"required,dive,gt=0"'];
+    // 平台：0:Android 1:iphone 5:iphone_i 8:Android_i'
+    int32 plat = 2;
+    // 登录用户mid
+    int64 mid = 3;
+}
+
+// MngIconReply
+message MngIconReply {
+    map<int64, MngIcon> info = 1;
+}
+
+message MngIcon {
+    // 自增id
+    int64 id = 1;
+    // icon地址
+    string icon = 2;
+    // 全局红点 1-是 0-否
+    int32 global_red = 3;
+    // 影响范围 1-全部用户 2-登录用户 3-指定名单用户
+    int32 effect_group = 4;
+    // 影响用户获取接口 （如effect_group=3 则由业务方提供接口判断）
+    string effect_url = 5;
+    // 配置模块
+    repeated IconModule module = 6;
+    // 开始时间
+    int64 stime = 7 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    // 结束时间
+    int64 etime = 8 [(gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message IconModule {
+    int32 plat = 1;
+    int64 oid  = 2;
+}
+
+message MineSectionsRequest {
+    int32 plat     = 1;
+    int32 build    = 2;
+    int64 mid      = 3;
+    string lang    = 4;
+    string channel = 5;
+    string ip      = 6;
+    // 是否为up主
+    bool is_uploader = 7;
+    // 是否为已开播主播
+    bool is_live_host = 8;
+    // 历史粉丝数峰值
+    int64 fans_count = 9;
+    // buvid
+    string buvid = 10;
+}
+
+message MineSectionsReply {
+    repeated Section sections = 1;
+}
+
+// 首页的模块
+message HomeSectionsRequest {
+    // 平台
+    int32 plat = 1;
+    // 版本
+    int32 build = 2;
+    // 用户mid
+    int64 mid = 3;
+    // 语言
+    string lang = 4;
+    // 渠道
+    string channel = 5;
+    // ip地址
+    string ip = 6;
+    // buvid
+    string buvid = 7;
+}
+
+message HomeSectionsReply {
+    repeated Section sections = 1;
+}
+
+message Section {
+    int64 id                   = 1;
+    string title               = 2;
+    int32 style                = 3;
+    string button_name         = 4;
+    string button_url          = 5;
+    string button_icon         = 6;
+    int32 button_style         = 7;
+    string title_color         = 8;
+    string subtitle            = 9;
+    string subtitle_url        = 10;
+    string subtitle_color      = 11;
+    string background          = 12;
+    string background_color    = 13;
+    repeated SectionItem items = 14;
+    int32 audit_show           = 15;
+    int32 is_mng               = 16;
+    // 运营位样式：当style为3时，此字段有意义，0-通用运营位，1-投稿引导强化卡
+    int32 op_style_type = 17;
+}
+
+message SectionItem {
+    int64 id             = 1;
+    string title         = 2;
+    string uri           = 3;
+    string icon          = 4;
+    int32 need_login     = 5;
+    int32 red_dot        = 6;
+    int32 global_red_dot = 7;
+    int32 display        = 8;
+    MngIcon mng_icon     = 9;
+    bool red_dot_for_new = 10;
+    // 运营位标题
+    string op_title = 11;
+    // 运营位副标题
+    string op_sub_title = 12;
+    // 运营位标题图标
+    string op_title_icon = 13;
+    // 运营位链接文案
+    string op_link_text = 14;
+    // 运营位链接图标
+    string op_link_icon = 15;
+    // 运营位链接类型
+    SectionItemOpLinkType.Enum op_link_type = 16;
+    // tab id
+    string tab_id = 17;
+    // animate
+    string animate = 18;
+    // 底部tab选中后的图标样式
+    string logo_selected = 19;
+    // 判定红点的url
+    string red_dot_url = 20;
+    // 运营位标题颜色
+    string op_title_color = 21;
+    // 运营位背景颜色
+    string op_background_color = 22;
+    // 运营位跳链颜色
+    string op_link_container_color = 23;
+}
+
+message SectionItemOpLinkType {
+    enum Enum {
+        // 按钮
+        BUTTON = 0;
+        // 跳链有文案
+        LINK_WITH_TEXT = 1;
+        // 跳链无文案
+        LINK_WITHOUT_TEXT = 2;
+        // 弹窗触发器
+        DIALOG_OPENER = 3;
+        // NA页面id，需要在下发时，在param上做拼接
+        NA_PAGE_ID = 4;
+        // 运营条公告类型
+        NOTICE = 5;
+    }
+}
+
+message InformationRegionCardReply {
+    repeated InformationRegionCard information_region_cards = 1;
+}
+
+message InformationRegionCard {
+    int32 card_type     = 1;
+    int64 rid           = 2;
+    int32 card_position = 3;
+    int32 isCover       = 4;
+    int32 position_idx  = 5;
+}
+
+message GetS10PopEntranceAidsReq {}
+
+message GetS10PopEntranceAidsReply {
+    // 最多返回200个aid
+    repeated int64 aids = 1;
+}
+
+message ResourceAllReply {
+    repeated ResourceInfo resources = 1;
+}
+
+message ResourceInfo {
+    int32 id                        = 1;
+    int32 platform                  = 2;
+    string name                     = 3;
+    int32 parent                    = 4;
+    int32 counter                   = 5;
+    int32 position                  = 6;
+    string rule                     = 7;
+    string size                     = 8;
+    string preview                  = 9;
+    string description              = 10;
+    string mark                     = 11;
+    repeated Assignment assignments = 12;
+    int64 ctime                     = 13 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime                     = 14 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 level                     = 15;
+    int32 type                      = 16;
+    int32 is_ad                     = 17;
+}
+
+message Assignment {
+    int32 id              = 1;
+    string name           = 2;
+    string contract_id    = 3;
+    int32 resource_id     = 4;
+    string pic            = 5;
+    string litpic         = 6;
+    string url            = 7;
+    string rule           = 8;
+    int32 weight          = 9;
+    string agency         = 10;
+    float price           = 11;
+    int32 state           = 12;
+    int32 atype           = 13;
+    string username       = 14;
+    int32 player_category = 15;
+    int64 stime           = 16 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 etime           = 17 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 ctime           = 18 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime           = 19 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 activity_id     = 20;
+    int64 activity_stime  = 21 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 activity_etime  = 22 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int32 category        = 23;
+    string sub_title      = 24;
+}
+
+message AssignmentAllReply {
+    repeated Assignment assignments = 1;
+}
+
+message DefBannerReply {
+    Assignment defBanner = 1;
+}
+
+message ResourceRequest {
+    int32 resID = 1;
+}
+
+message ResourceReply {
+    ResourceInfo resource = 1;
+}
+
+message ResourcesRequest {
+    repeated int32 resIDs = 1;
+}
+
+message ResourcesReply {
+    map<int32, ResourceInfo> resources = 1;
+}
+
+message PasterAPPRequest {
+    int32 platform = 1;
+    int32 adType   = 2;
+    string aid     = 3;
+    string typeID  = 4;
+    string buvid   = 5;
+}
+
+message PasterAPPReply {
+    int64 aid        = 1;
+    int64 cid        = 2;
+    int64 duration   = 3;
+    int32 type       = 4;
+    int32 allow_jump = 5;
+    string url       = 6;
+}
+
+message IndexIconReply {
+    map<string, IndexIcon> indexIcon = 1;
+}
+
+message IndexIcon {
+    repeated IndexIconItem indexIconItem = 1;
+}
+
+message IndexIconItem {
+    int64 id              = 1;
+    int32 type            = 2;
+    string title          = 3;
+    repeated string links = 4;
+    string icon           = 5;
+    int32 weight          = 6;
+    string userName       = 7;
+    int64 sttime          = 8 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 endtime         = 9 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 deltime         = 10 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 ctime           = 11 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime           = 12 [(gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message PlayerIconRequest {
+    int64 aid             = 1;
+    repeated int64 tagIDs = 2;
+    int32 typeID          = 3;
+    int64 mid             = 4;
+    bool showPlayIcon     = 5;
+    string mobiApp        = 6;
+    string device         = 7;
+    int32 build           = 8;
+}
+
+message PlayerIconV2Reply {
+    //不存在返回nil
+    PlayerIconReply item = 1;
+}
+
+message PlayerIconReply {
+    string url1         = 1;
+    string hash1        = 2;
+    string url2         = 3;
+    string hash2        = 4;
+    int64 ctime         = 5 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int32 type          = 6;
+    string typeValue    = 7;
+    int64 mtime         = 8 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    string dragLeftPng  = 9;   //icon左拖拽静态图
+    string middlePng    = 10;  //icon居中静态图
+    string dragRightPng = 11;  //icon右拖拽静态图
+    IconData dragData   = 12; // 拖拽meat.json & 雪碧图
+    IconData nodragData = 13; // 非拖拽meta.json & 雪碧图
+}
+
+message IconData {
+    string meta_json = 1;  // meta.json
+    string sprits_img = 2; // 雪碧图
+}
+
+message CmtboxRequest {
+    int64 id = 1;
+}
+
+message CmtboxReply {
+    int64 id              = 1;
+    int64 load_cid        = 2;
+    string server         = 3;
+    string port           = 4;
+    string size_factor    = 5;
+    string speed_factor   = 6;
+    string max_onscreen   = 7;
+    string style          = 8;
+    string style_param    = 9;
+    string top_margin     = 10;
+    string state          = 11;
+    string renqi_visible  = 12;
+    string renqi_fontsize = 13;
+    string renqi_fmt      = 14;
+    string renqi_offset   = 15;
+    string renqi_color    = 16;
+    int64 ctime           = 17 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime           = 18 [(gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message SideBarsReply {
+    repeated SideBar sideBar       = 1;
+    map<int64, SideBarLimit> limit = 2;
+}
+
+message SideBar {
+    int64 id             = 1;
+    int32 tip            = 2;
+    int32 rank           = 3;
+    string logo          = 4;
+    string logo_white    = 5;
+    string name          = 6;
+    string param         = 7;
+    int32 module         = 8;
+    int32 plat           = 9;
+    int32 build          = 10;
+    string conditions    = 11;
+    int64 online_time    = 12 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int32 need_login     = 13;
+    string white_url     = 14;
+    int32 menu           = 15;
+    string logo_selected = 16;
+    string tab_id        = 17;
+    string red_dot_url   = 18;
+    string language      = 19;
+    int32 global_red_dot = 20;
+    int64 red_dot_limit  = 21;
+    string animate       = 22;
+    int32 white_url_show = 23;
+}
+
+message SideBarLimit {
+    repeated SideBarLimitItem SideBarLimitItem = 1;
+}
+
+message SideBarLimitItem {
+    int64 id         = 1;
+    int32 build      = 2;
+    string condition = 3;
+}
+
+message AbTestRequest {
+    string groups = 1;
+    string ip     = 2;
+}
+
+message AbTestReply {
+    map<string, AbTest> abtest = 1;
+}
+
+message AbTest {
+    int64 groupId      = 1;
+    string groupName   = 2;
+    int64 flowPercent  = 3;
+    string paramValues = 4;
+    int64 utime        = 5;
+}
+
+message PasterCIDReply {
+    map<int64, int64> paster = 1;
+}
+
+message GetTabExtReq {
+    int64 plat        = 1 [(gogoproto.jsontag) = "plat", json_name = "plat"];
+    int64 build       = 2 [(gogoproto.jsontag) = "build", json_name = "build"];
+    string buvid      = 3 [(gogoproto.jsontag) = "buvid", json_name = "buvid"];
+    repeated Tab tabs = 4 [(gogoproto.jsontag) = "tabs", json_name = "tabs"];
+}
+message Tab {
+    int64 tabId = 1 [(gogoproto.jsontag) = "tab_id", json_name = "tab_id"];
+    int64 tType = 2 [(gogoproto.jsontag) = "tType", json_name = "tType"];
+}
+
+message GetTabExtRep {
+    // tab运营资源配置信息
+    repeated TabExt tabExts = 1 [(gogoproto.jsontag) = 'tabExts', json_name = "tabExts"];
+}
+
+message TabExt {
+    // 未激活状态资源
+    string inactiveIcon = 1 [(gogoproto.jsontag) = "inactive_icon,omitempty", json_name = "inactive_icon"];
+    // 未激活状态动画类型
+    int64 inactive = 2 [(gogoproto.jsontag) = "inactive,omitempty", json_name = "inactive"];
+    // 未激活状态动画控制
+    int64 inactiveType = 3 [(gogoproto.jsontag) = "inactive_type,omitempty", json_name = "inactive_type"];
+    // 激活状态资源
+    string activeIcon = 4 [(gogoproto.jsontag) = "active_icon,omitempty", json_name = "active_icon"];
+    // 激活状态动画类型
+    int64 active = 5 [(gogoproto.jsontag) = "active,omitempty", json_name = "active"];
+    // 激活状态动画控制
+    int64 activeType = 6 [(gogoproto.jsontag) = "active_type,omitempty", json_name = "active_type"];
+    // 文本高亮色
+    string fontColor = 7 [(gogoproto.jsontag) = "font_color,omitempty", json_name = "font_color"];
+    // 状态栏颜色
+    int64 barColor = 8 [(gogoproto.jsontag) = "bar_color,omitempty", json_name = "bar_color"];
+    // tab头部色值
+    string tabTopColor = 9 [(gogoproto.jsontag) = "tab_top_color,omitempty", json_name = "tab_top_color"];
+    // tab中间颜色值
+    string tabMiddleColor = 10 [(gogoproto.jsontag) = "tab_middle_color,omitempty", json_name = "tab_middle_color"];
+    // tab底部色值
+    string tabBottomColor = 11 [(gogoproto.jsontag) = "tab_bottom_color,omitempty", json_name = "tab_bottom_color"];
+    // 背景图片1
+    string bgImage1 = 13 [(gogoproto.jsontag) = "bg_image1,omitempty", json_name = "bg_image1"];
+    // 背景图片2
+    string bgImage2 = 14 [(gogoproto.jsontag) = "bg_image2,omitempty", json_name = "bg_image2"];
+    // 开关配置，第一位：开启tab图标配置，第二位：开启背景色配置，第三位：开启背景图片配置，第四位：开启跟随业务方模式
+    int64 attribute = 15 [(gogoproto.jsontag) = "attribute,omitempty", json_name = "attribute"];
+    // tab ID
+    int64 tabId = 16 [(gogoproto.jsontag) = "tab_id", json_name = "tab_id"];
+    // tab类型
+    int64 tType = 17 [(gogoproto.jsontag) = "tType", json_name = "tType"];
+    // tab运营资源点击
+    Click click = 18 [(gogoproto.jsontag) = "click,omitempty", json_name = "click"];
+}
+
+message Click {
+    // 图片资源版本号
+    string ver = 1 [(gogoproto.jsontag) = "ver,omitempty", json_name = "ver"];
+    // tab资源配置自增id
+    int64 id = 2 [(gogoproto.jsontag) = "id,omitempty", json_name = "id"];
+    // 点击类型
+    string type = 3 [(gogoproto.jsontag) = "type,omitempty", json_name = "type"];
+}
+
+message IsUploaderReq {
+    int64 mid = 1 [(gogoproto.jsontag) = "mid", (gogoproto.moretags) = 'form:"mid" validate:"required"', json_name = "mid"];
+}
+
+message IsUploaderReply {
+    bool isUploader = 1;
+}

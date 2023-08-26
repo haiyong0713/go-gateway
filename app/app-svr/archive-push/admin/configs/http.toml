@@ -1,0 +1,19 @@
+[Server]
+    addr = "0.0.0.0:6088"
+    timeout = "1s"
+
+[Client]
+    key = "6a29f8ed87407c11"
+    secret = "d3c5a85f5b895a03735b5d20a273bc57"
+    dial = "50ms"
+    timeout = "3s"
+    [Client.breaker]
+        window  = "10s"
+        sleep   = "100ms"
+        bucket  = 10
+        ratio   = 0.5
+        request = 100
+
+[Hosts]
+    manager = "http://uat-manager.bilibili.co"
+    api = "http://uat-api.bilibili.co"

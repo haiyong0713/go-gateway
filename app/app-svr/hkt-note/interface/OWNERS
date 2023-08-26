@@ -1,0 +1,9 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+- mokaixi
+- zhaodandan
+
+labels:
+- area/app-svr/hkt-note/interface
+options: {}

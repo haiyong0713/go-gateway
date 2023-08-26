@@ -1,0 +1,18 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+- liuguodong
+- liweijia
+- zhoujiahui
+- yujia
+- luoxiaofan
+labels:
+- area/app-svr
+reviewers:
+- guanyanliang
+- zhangxin
+- wuhao02
+- sunyu
+- luoxiaofan
+- huyang
+- qinjian

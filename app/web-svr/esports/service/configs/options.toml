@@ -1,0 +1,6 @@
+Base = "go-gateway/app/web-svr/esports/service/"
+[Options]
+[Options.Switch]
+    "databus.BGroupMessage-T" = false
+
+[Options.CloseAfter]

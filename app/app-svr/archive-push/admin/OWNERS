@@ -1,0 +1,9 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+- shiliang
+- zhouhaotian
+labels:
+- area/app-svr
+- area/app-svr/archive-push/admin
+options: {}

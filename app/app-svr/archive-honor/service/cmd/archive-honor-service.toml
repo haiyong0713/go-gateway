@@ -1,0 +1,56 @@
+[Host]
+Dynamic   = "http://uat-api.vc.bilibili.co"
+
+[HonorDB]
+    name = "172.16.33.205:3310"
+    dsn = "archive_extra:@tcp(172.16.33.205:3310)/archive_extra?timeout=200ms&readTimeout=200ms&writeTimeout=200ms&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+    idle = 1
+    idleTimeout ="4h"
+    queryTimeout = "150ms"
+    execTimeout = "100ms"
+    tranTimeout = "200ms"
+
+[redis]
+    name = "archive-honor/redis"
+    proto = "tcp"
+    addr = "127.0.0.1:20359"
+    active = 10
+    idle = 1
+    dialTimeout = "1s"
+    readTimeout = "1s"
+    writeTimeout = "1s"
+    idleTimeout = "80s"
+
+[ArchiveHonorSub]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "ArchiveHonor-MainAppSvr-S"
+    topic = "ArchiveHonor-T"
+    action = "sub"
+    idle = 100
+    active = 100
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+
+[StatRankSub]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "StatRank-MainAppSvr-Honor-S"
+    topic = "StatRank-T"
+    action = "sub"
+    idle = 100
+    active = 100
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+
+[httpClient]
+key = "6a29f8ed87407c11"
+secret = "d3c5a85f5b895a03735b5d20a273bc57"
+dial      = "100ms"
+timeout   = "500ms"
+keepAlive = "60s"

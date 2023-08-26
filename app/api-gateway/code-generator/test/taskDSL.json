@@ -1,0 +1,29 @@
+{
+  "taskList": [
+    {
+      "name": "SayWorld1",
+      "type": "udf",
+      "input": [
+        {
+          "value": "$service.request"
+        }
+      ],
+      "output": {
+        "type": "WorldResp"
+      }
+    },
+    {
+      "name": "SayWorld2",
+      "type": "udf",
+      "input": [
+        {
+          "value": "$task.SayWorld1"
+        }
+      ],
+      "output": {
+        "type": "servicePb.HelloResp",
+        "isResponse": true
+      }
+    }
+  ]
+}

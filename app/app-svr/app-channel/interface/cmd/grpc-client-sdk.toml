@@ -1,0 +1,138 @@
+# tab -> Subscribe
+# tab23 -> Subscribe
+# list -> ChannelList
+# mine -> Subscribe ViewChannel
+# sort -> UpdateSubscribe
+# square -> MyChannels
+# square/alpha -> ScanedChannels AmazingChannels
+# detail -> ChannelDetail
+# multiple -> ResourceList
+# selected -> ResourceList
+# rank -> RankCard
+# share -> ChannelDetail
+# red -> NewNotify2
+# recommend -> AmazingChannels
+# square2 -> ChannelList MyChannels2 ViewChannel HotChannel
+# recommend2 -> HotChannel MyChannels
+[SDKBuilderConfig]
+[[SDKBuilderConfig.ClientSDK]]
+AppID="main.channel.channel-interface"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "Category"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "ChannelList"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "Subscribe"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "UpdateSubscribe"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "RecentChannel"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "MyChannels"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "ChannelDetail"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "ResourceList"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "RankCard"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "Infos"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "ScanedChannels"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "NewNotify"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "AmazingChannels"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "ViewChannel"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "HotChannel"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "MyChannels2"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "NewNotify2"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=0
+BackupAction="directly_backup"
+BackupTarget="discovery://default/main.channel.channel-standby"

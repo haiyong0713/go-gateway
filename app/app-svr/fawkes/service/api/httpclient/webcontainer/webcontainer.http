@@ -1,0 +1,34 @@
+# curl 'http://uat-fawkes.bilibili.co/x/admin/fawkes/app/webcontainer/whitelist'
+#  -H 'Accept: */*'
+#  -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7'
+#  -H 'Cookie: _gitlab_token=YjFhMTA3NmVkYTE1ZjMwN2ExYjA3MWIwMjk4ZGRlYzFiZjE5YTRmNzIzZTZjNmE5NmEwMWU2YTliNjIyNTQwMg==; _AJSESSIONID=cf5b87db50611a1ee8fe252c0220083c; username=luweidan; SecurityProxySessionID=V1_ODVjN2U5OGYtZGVjNC0zMGJhLTkzNWItOTE1NTE3MDVlMDBk; mng-go=1217338cba82c236babe9ab83112f15915bcfb02fe3f79db48849af156518337; _dd_s=logs=1&id=f37475e3-e6a9-4a32-b055-4be6d77badd9&created=1650617221958&expire=1650618132352'
+#  -H 'Origin: http://uat-fawkes.bilibili.co'
+#  -H 'Proxy-Connection: keep-alive'
+#  -H 'Referer: http://uat-fawkes.bilibili.co/'
+#  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+#  -H 'content-type: application/json'
+#  -H 'x1-bilispy-user: fawkes_luweidan'
+#  --data-raw '{}'
+#  --compressed \
+POST {{baseUrl}}/app/webcontainer/whitelist
+Accept: */*
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7
+Cookie: {{Cookie}}
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36
+x1-bilispy-user: fawkes_luweidan
+Content-Type: application/json
+
+{"app_key":"android"}
+
+###
+
+GET {{baseUrl}}/app/webcontainer/whitelist/config?app_key=android
+Accept: */*
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7
+Cookie: {{Cookie}}
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36
+x1-bilispy-user: fawkes_luweidan
+Content-Type: application/json
+
+###
+

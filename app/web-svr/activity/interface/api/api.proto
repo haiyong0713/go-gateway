@@ -1,0 +1,3957 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+package activity.service.v1;
+
+option go_package = "api";
+// do not generate getXXX() method
+option (gogoproto.goproto_getters_all) = false;
+
+service Activity {
+    // 常规许愿/稿件活动类信息保存
+    rpc CommonActivityUserCommit(CommonActivityUserCommitReq) returns (CommonActivityUserCommitReply);
+    // 常规许愿/稿件活动类信息送机审 , job接口回调
+    rpc CommonActivityAuditPub(CommonActivityAuditPubReq) returns (NoReply);
+    // 增加库存
+    rpc IncrStockInCache(GiftStockReq) returns (NoReply);
+    rpc SyncGiftStockInCache(GiftStockReq) returns (SyncGiftStockResp);
+    rpc BwParkBeginReserveList(BwParkBeginReserveReq) returns (BwParkBeginReserveResp);
+    // 根据sid查询活动列表信息
+    rpc ActLikes(ActLikesReq) returns (LikesReply);
+    // 点赞活动稿件
+    rpc ActLiked(ActLikedReq) returns (ActLikedReply);
+    // native 活动页面配置信息
+    rpc NatConfig(NatConfigReq) returns (NatConfigReply);
+    // native 活动基础页面配置信息
+    rpc BaseConfig(BaseConfigReq) returns (BaseConfigReply);
+    // 活动信息
+    rpc ActSubject(ActSubjectReq) returns (ActSubjectReply);
+    // 批量获取活动信息
+    rpc ActSubjects(ActSubjectsReq) returns (ActSubjectsReply);
+    // 获取活动和扩展信息
+    rpc ActSubProtocol(ActSubProtocolReq) returns (ActSubProtocolReply);
+    // 批量获取活动和扩展信息
+    rpc ActSubsProtocol(ActSubsProtocolReq) returns (ActSubsProtocolReply);
+    // 根据fid和type查询话题信息
+    rpc NatInfoFromForeign(NatInfoFromForeignReq) returns (NatInfoFromForeignReply);
+    // 根据module_id查询配置信息
+    rpc ModuleConfig(ModuleConfigReq) returns (ModuleConfigReply);
+    // 根据module_id获取配置的id信息
+    rpc ModuleMixExt(ModuleMixExtReq) returns (ModuleMixExtReply);
+    // 根据module_id获取所有配置的id信息
+    rpc ModuleMixExts(ModuleMixExtsReq) returns (ModuleMixExtsReply);
+    // 后台添加竞猜
+    rpc GuessAdd(GuessAddReq) returns (NoReply);
+    // 后台修改竞猜时间
+    rpc GuessEdit(GuessEditReq) returns (NoReply);
+    // 后台删除一组竞猜
+    rpc GuessGroupDel(GuessGroupDelReq) returns (GuessGroupReply);
+    // 后台修改竞猜结果
+    rpc GuessUpResult(GuessUpResultReq) returns (NoReply);
+    // 业务ID后台竞猜列表
+    rpc GuessAllList(GuessListReq) returns (GuessListAllReply);
+    // 业务ID竞猜列表
+    rpc GuessList(GuessListReq) returns (GuessListReply);
+    // 多个业务ID竞猜列表
+    rpc GuessLists(GuessListsReq) returns (GuessListsReply);
+    // 用户添加竞猜
+    rpc GuessUserAdd(GuessUserAddReq) returns (NoReply);
+    // 用户竞猜列表
+    rpc UserGuessList(UserGuessListReq) returns (UserGuessListReply);
+    // 用户单个竞猜组
+    rpc UserGuessGroup(UserGuessGroupReq) returns (GuessUserGroup);
+    // 用户竞猜战绩
+    rpc UserGuessData(UserGuessDataReq) returns (UserGuessDataReply);
+    // 用户单个比赛竞猜
+    rpc UserGuessMatch(UserGuessMatchReq) returns (UserGuessMatchReply);
+    // 用户竞猜胜负结果
+    rpc UserGuessResult(UserGuessResultReq) returns (UserGuessResultReply);
+    // 用户多个比赛竞猜
+    rpc UserGuessMatchs(UserGuessMatchsReq) returns (UserGuessMatchsReply);
+    // 报名预约活动
+    rpc AddReserve(AddReserveReq) returns (NoReply);
+    // 取消预约活动
+    rpc DelReserve(DelReserveReq) returns (NoReply);
+    // 预约状态
+    rpc ReserveFollowing(ReserveFollowingReq) returns (ReserveFollowingReply);
+    // 批量查询预约状态
+    rpc ReserveFollowings(ReserveFollowingsReq) returns (ReserveFollowingsReply);
+    // up活动打卡
+    rpc UpActDoTask(UpActDoTaskReq) returns (UpActDoTaskReply);
+    // up活动信息
+    rpc UpActInfo(UpActInfoReq) returns (UpActInfoReply);
+    // up已预约打卡活动tag列表
+    rpc ClockInTag(ClockInTagReq) returns (ClockInTagReply);
+    // 活动参与稿件数量（视频数据源和打卡数据源）
+    rpc ActLikeCount(ActLikeCountReq) returns (ActLikeCountReply);
+    // 批量获取话题活动信息接口-仅仅返回有效状态
+    rpc NativePages(NativePagesReq) returns (NativePagesReply);
+    // 批量获取话题活动信息接口-仅仅返回有效状态:从内存获取
+    rpc NativeLoadPages(NativePagesReq) returns (NativePagesReply);
+    // 批量获取话题活动信息接口&动态广场页配置信息-仅仅返回有效状态
+    rpc NativePagesExt(NativePagesExtReq) returns (NativePagesExtReply);
+    // 获取榜单有效期内的话题列表&动态广场页配置信息
+    rpc NativeValidPagesExt(NativeValidPagesExtReq) returns (NativeValidPagesExtReply);
+    // 获取单个活动信息-所有状态都返回
+    rpc NativePage(NativePageReq) returns (NativePageReply);
+    // 领奖组件获取奖励状态接口
+    rpc AwardSubjectState(AwardSubjectStateReq) returns (AwardSubjectStateReply);
+    // 领奖组件领奖接口
+    rpc RewardSubject(RewardSubjectReq) returns (NoReply);
+    // 话题活动聚合tab
+    rpc NatTabModules(NatTabModulesReq) returns (NatTabModulesReply);
+    // 根据话题id获取话题跳转地址--供动态测使用
+    rpc NativePagesTab(NativePagesTabReq) returns (NativePagesTabReply);
+    // up裂变抽奖
+    rpc FissionLotteryDo(FissionLotteryDoReq) returns (FissionLotteryDoReply);
+    // up裂变更新库存
+    rpc FissionLotteryUpNum(FissionLotteryUpNumReq) returns (FissionLotteryUpNumReply);
+    // 抽奖记录
+    rpc LotteryUserRecord(LotteryUserRecordReq) returns (LotteryUserRecordReply);
+    // 获取视频投稿活动分区投稿数
+    rpc ArcSubTypeCount(ArcSubTypeCountReq) returns (ActSubTypeCountReply);
+    // 获取是否有小程序抽奖信息
+    rpc WxLotteryAward(WxLotteryAwardReq) returns (WxLotteryAwardReply);
+    // 获取bws活动特殊碎片
+    rpc SendBwsOnlinePiece(SendBwsOnlinePieceReq) returns (NoReply);
+    // bws检查用户是否可玩游戏
+    rpc BwsGamePlayable(BwsGamePlayableReq) returns (NoReply);
+    // bws用户玩完游戏上报数据扣除heart
+    rpc BwsGamePlay(BwsGamePlayReq) returns (NoReply);
+     // bws用户信息
+    rpc Bws2020Member(Bws2020MemberReq) returns (Bws2020MemberReply);
+    // up主发起活动白名单接口
+    rpc IsUpActUid(IsUpActUidReq) returns (IsUpActUidReply);
+    // up主发起活动列表接口
+    rpc UpActNativePages(UpActNativePagesReq) returns (UpActNativePagesReply);
+    // up主发起活动-进审核态
+    rpc UpActNativePageBind(UpActNativePageBindReq) returns (UpActNativePageBindReply);
+    // 同步行为统计规则
+    rpc SyncSubjectRules(SyncSubjectRulesReq) returns (NoReply);
+    // 同步用户统计结果
+    rpc SyncUserState(SyncUserStateReq) returns (NoReply);
+    // 同步预约积分结果
+    rpc SyncUserScore(SyncUserScoreReq) returns (NoReply);
+    // 获取剩余抽奖次数
+    rpc LotteryUnusedTimes(LotteryUnusedTimesdReq) returns (LotteryUnusedTimesReply);
+    // 执行抽奖
+    rpc DoLottery(DoLotteryReq) returns (DoLotteryReply);
+    // 获取奖池商品（慎用）
+    rpc LotteryGift(LotteryGiftReq) returns (LotteryGiftReply);
+    // 增加抽奖次数
+    rpc LotteryAddTimes(LotteryAddTimesReq) returns (LotteryAddTimesReply);
+    // 中奖记录
+    rpc LotteryWinList(LotteryWinListReq) returns (LotteryWinListReply);
+    // 活动用户在某个活动下的稿件
+    rpc ListActivityArcs(ListActivityArcsReq) returns (ListActivityArcsReply);
+    // S10总积分
+    rpc TotalPoints(TotalPointsdReq) returns (TotalPointsReply);
+    // 拜年纪AR分享数据获取
+    rpc BNJ2021ShareData(BNJ2021ShareReq) returns (BNJ2021ShareReply);
+    // 拜年纪分享抽奖奖品数据获取
+    rpc BNJ2021LastLotteryData(BNJ2021LastLotteryReq) returns (BNJ2021LastLotteryReply);
+    // 拜年纪AR奖券兑换
+    rpc BNJARExchange(BNJ2021ARExchangeReq) returns (BNJ2021ARExchangeReply);
+    // 拜年纪AR奖券增加
+    rpc BNJARIncrCoupon(BNJ2021ARCouponReq) returns (BNJ2021ARCouponReply);
+    // 答题统计更新
+    rpc UpdateExamStats(ExamStatsReq) returns (ExamStatsReply);
+    // 拜年纪端上跳转链接
+    rpc AppJumpUrl(AppJumpReq) returns (AppJumpReply);
+    // S10任务进度
+    rpc TasksProgress(TasksProgressReq) returns (TasksProgressReply);
+    // S10用户是否参与竞猜
+    rpc HasUserPredict(HasUserPredictReq) returns (HasUserPredictReply);
+    // 投递任务
+    rpc TaskPub(TaskPubReq) returns (NoReply);
+    // 开学季活动——判断用户是否发布了自己学校的稿件
+    rpc CollegeAidIsActivity(CollegeAidIsActivityReq) returns (CollegeAidIsActivityRes);
+    // 获取当前预约状态
+    rpc GetReserveProgress(GetReserveProgressReq) returns (GetReserveProgressRes);
+    // 获取发起人的有效活动列表
+    rpc SponsorNativePages(SponsorNativePagesReq) returns (SponsorNativePagesReply);
+    // 获取page下所有的进度组件
+    rpc GetNatProgressParams(GetNatProgressParamsReq) returns (GetNatProgressParamsReply);
+    // 获取活动关联平台信息
+    rpc ActRelationInfo(ActRelationInfoReq) returns (ActRelationInfoReply);
+    // 活动关联平台预约
+    rpc ActRelationReserve(ActRelationReserveReq) returns (ActRelationReserveReply);
+    // 活动预约查询（包含用户和访客维度）
+    rpc ActRelationReserveInfo(ActRelationReserveInfoReq) returns (ActRelationReserveInfoReply);
+    // 活动关联平台衍生操作
+    rpc GRPCDoRelation(GRPCDoRelationReq) returns (NoReply);
+    // up主活动数据源列表
+    rpc UpList(UpListReq) returns (UpListReply);
+    // 活动关联平台取消预约
+    rpc RelationReserveCancel(RelationReserveCancelReq) returns (NoReply);
+    // [内部]定时同步活动关联平台数据从DB到内存
+    rpc InternalSyncActRelationInfoDB2Cache(InternalSyncActRelationInfoDB2CacheReq) returns (InternalSyncActRelationInfoDB2CacheReply);
+    // [内部]单条数据更新缓存或删除缓存
+    rpc InternalUpdateItemDataWithCache(InternalUpdateItemDataWithCacheReq) returns (InternalUpdateItemDataWithCacheReply);
+    // [内部]定时同步ActivitySubject数据从DB到内存
+    rpc InternalSyncActSubjectInfoDB2Cache(InternalSyncActSubjectInfoDB2CacheReq) returns (InternalSyncActSubjectInfoDB2CacheReply);
+    // [内部]定时同步ActivitySubject预约IDs从DB到内存
+    rpc InternalSyncActSubjectReserveIDsInfoDB2Cache(InternalSyncActSubjectReserveIDsInfoDB2CacheReq) returns (InternalSyncActSubjectReserveIDsInfoDB2CacheReply);
+    // Deprecated: 仅供内部job调用interface使用, 外部调用请使用新接口RewardsSendAwardV2
+    // 奖励平台发放奖励
+    rpc RewardsSendAward(RewardsSendAwardReq) returns  (RewardsSendAwardReply);
+    // 奖励平台发放奖励
+    rpc RewardsSendAwardV2(RewardsSendAwardV2Req) returns  (RewardsSendAwardReply);
+    // 奖励平台发放奖励
+    rpc RetryRewardsSendAward(RetryRewardsSendAwardReq) returns  (NoReply);
+    // 2021拜年祭抽奖(只抽奖, 不发放)
+    rpc Bnj2021Lottery(Bnj2021LotteryReq) returns  (Bnj2021LotteryReply);
+    // 预约视频数据源tag
+    rpc ActReserveTag(ActReserveTagReq) returns (ActReserveTagReply);
+    // up主预约关联活动基本信息
+    rpc UpActReserveRelationInfo(UpActReserveRelationInfoReq) returns (UpActReserveRelationInfoReply);
+    //  发动态成功 关联表做绑定
+    rpc CreateUpActReserveRelation(CreateUpActReserveRelationReq) returns (CreateUpActReserveRelationReply);
+    // up主取消关联
+    rpc CancelUpActReserve(CancelUpActReserveReq) returns (CancelUpActReserveReply);
+    // 预约活动基本信息
+    rpc UpActReserveInfo(UpActReserveInfoReq) returns (UpActReserveInfoReply);
+    // up主是否可以发起预约
+    rpc CanUpCreateActReserve(CanUpCreateActReserveReq) returns (CanUpCreateActReserveReply);
+    // 春节集卡获取邀请获取token
+    rpc SpringFestival2021InviteToken(SpringFestival2021InviteTokenReq) returns (SpringFestival2021InviteTokenReply);
+    // 春节集卡送卡获取token
+    rpc SpringFestival2021SendCardToken(SpringFestival2021SendCardTokenReq) returns (SpringFestival2021SendCardTokenReply);
+    // 春节集卡用户获得卡情况
+    rpc SpringFestival2021MidCard(SpringFestival2021MidCardReq) returns (SpringFestival2021MidCardReply);
+    // 青春有你集卡用户获得卡情况
+    rpc Cards2021MidCard(CardsMidCardReq) returns (CardsMidCardReply);
+    // 邀请获取token
+    rpc InviteToken(InviteTokenReq) returns (InviteTokenReply);
+    // 送卡获取token
+    rpc SendCardToken(SendCardTokenReq) returns (SendCardTokenReply);
+     // 投稿侧获取允许绑定的预约sid列表
+    rpc UpActReserveCanBindList(UpActReserveCanBindListReq) returns (UpActReserveCanBindListReply);
+    //  投稿查询已经绑定过的预约活动信息
+    rpc UpActReserveBindList(UpActReserveBindListReq) returns (UpActReserveBindListReply);
+    // 稿件和预约绑定
+    rpc BindActReserve(BindActReserveReq) returns (BindActReserveReply);
+    // 进度组件数值
+    rpc ActivityProgress(ActivityProgressReq) returns (ActivityProgressReply);
+    // up主发起预约
+    rpc CreateUpActReserve(CreateUpActReserveReq) returns (CreateUpActReserveReply);
+    // 获取预约活动总人数
+    rpc GetActReserveTotal(GetActReserveTotalReq) returns (GetActReserveTotalReply);
+    // 愚人节鸽子活动--是否可参加检查接口
+    rpc CheckReserveDoveAct(CheckReserveDoveActReq) returns (CheckReserveDoveActReply);
+    // up主发起预约空间卡片展示
+    rpc UpActUserSpaceCard(UpActUserSpaceCardReq) returns (UpActUserSpaceCardReply);
+    // up主发起预约核销
+    rpc UpActReserveVerification4Cancel(UpActReserveVerification4CancelReq) returns (UpActReserveVerification4CancelReply);
+
+    // 奖励平台添加奖励
+    rpc RewardsAddAward(RewardsAddAwardReq) returns (NoReply);
+    // 奖励平台删除奖励
+    rpc RewardsDelAward(RewardsDelAwardReq) returns (NoReply);
+    // 奖励平台修改奖励
+    rpc RewardsUpdateAward(RewardsAwardInfo) returns (NoReply);
+    // 奖励平台查看奖励
+    rpc RewardsListAward(RewardsListAwardReq) returns (RewardsListAwardReply);
+    // 奖励平台查看所有支持的奖励类型
+    rpc RewardsListAwardType(RewardsListAwardTypeReq) returns (RewardsListAwardTypeReply);
+    // 奖励平台根据奖品id获取奖品信息
+    rpc RewardsGetAwardConfigById(RewardsGetAwardConfigByIdReq) returns (RewardsAwardInfo);
+    // 奖励平台添加活动
+    rpc RewardsAddActivity(RewardsAddActivityReq) returns (NoReply);
+    // 奖励平台删除活动
+    rpc RewardsDelActivity(RewardsDelActivityReq) returns (NoReply);
+    // 奖励平台修改活动
+    rpc RewardsUpdateActivity(RewardsUpdateActivityReq) returns (NoReply);
+    // 奖励平台查看活动列表
+    rpc RewardsListActivity(RewardsListActivityReq) returns (RewardsListActivityReply);
+    // 奖励平台查看活动详情(列出所有活动下的奖品)
+    rpc RewardsGetActivityDetail(RewardsGetActivityDetailReq) returns (RewardsGetActivityDetailReply);
+    // 根据时间查询直播数据（直播独享）
+    rpc UpActReserveRelationInfoByTime(UpActReserveRelationInfoByTimeReq) returns (UpActReserveRelationInfoByTimeReply);
+    // 根据条件查询直播数据
+    rpc UpActReserveRelationDBInfoByCondition(UpActReserveRelationDBInfoByConditionReq) returns (UpActReserveRelationDBInfoByConditionReply);
+    // 直播未开播自动化过期
+    rpc UpActReserveLiveStateExpire(UpActReserveLiveStateExpireReq) returns (UpActReserveLiveStateExpireReply);
+    // 仅获取直播数据
+    rpc UpActReserveRelationInfo4Live(UpActReserveRelationInfo4LiveReq) returns (UpActReserveRelationInfo4LiveReply);
+    // 提供给动态服务 通过资源ID来获取动态id
+    rpc GetSidAndDynamicIDByOid(GetSidAndDynamicIDByOidReq) returns (GetSidAndDynamicIDByOidReply);
+    // 投票组件-添加活动
+    rpc AddVoteActivity(AddVoteActivityReq) returns (NoReply);
+    // 投票组件-删除活动
+    rpc DelVoteActivity(DelVoteActivityReq) returns (NoReply);
+    // 投票组件-修改活动
+    rpc UpdateVoteActivity(UpdateVoteActivityReq) returns (NoReply);
+    // 投票组件-查看活动
+    rpc ListVoteActivity(ListVoteActivityReq) returns (ListVoteActivityResp);
+    // 投票组件-查看所有需要刷新数据源/排名的活动
+    rpc ListVoteActivityForRefresh(ListVoteActivityForRefreshReq) returns (ListVoteActivityForRefreshResp);
+    // 投票组件-修改投票规则
+    rpc UpdateVoteActivityRule(UpdateVoteActivityRuleReq) returns (NoReply);
+    // 投票组件-添加数据组
+    rpc AddVoteActivityDataSourceGroup(AddVoteActivityDataSourceGroupReq) returns (NoReply);
+    // 投票组件-修改数据组
+    rpc UpdateVoteActivityDataSourceGroup(UpdateVoteActivityDataSourceGroupReq) returns (NoReply);
+    // 投票组件-删除数据组
+    rpc DelVoteActivityDataSourceGroup(DelVoteActivityDataSourceGroupReq) returns (NoReply);
+    // 投票组件-查看数据组
+    rpc ListVoteActivityDataSourceGroups(ListVoteActivityDataSourceGroupsReq) returns (ListVoteActivityDataSourceGroupsResp);
+    // 投票组件-添加黑名单配置
+    rpc AddVoteActivityBlackList(AddVoteActivityBlackListReq) returns (NoReply);
+    // 投票组件-删除黑名单配置
+    rpc DelVoteActivityBlackList(DelVoteActivityBlackListReq) returns (NoReply);
+    // 投票组件-修改干预票数配置
+    rpc UpdateVoteActivityInterveneVoteCount(UpdateVoteActivityInterveneVoteCountReq) returns (NoReply);
+    // 投票组件-查看活动的投票结果(内部)
+    rpc GetVoteActivityRankInternal(GetVoteActivityRankInternalReq) returns (GetVoteActivityRankInternalResp);
+
+    //投票组件-刷新投票活动底层数据源(Job调用)
+    rpc RefreshVoteActivityDSItems(RefreshVoteActivityDSItemsReq) returns (NoReply);
+    //投票组件-刷新投票活动排行榜(外部排名, Job调用)
+    rpc RefreshVoteActivityRankExternal(RefreshVoteActivityRankExternalReq) returns (NoReply);
+    //投票组件-刷新投票活动排行榜(内部排名, Job调用)
+    rpc RefreshVoteActivityRankInternal(RefreshVoteActivityRankInternalReq) returns (NoReply);
+    //投票组件-刷新投票活动票数Zset(Job调用)
+    rpc RefreshVoteActivityRankZset(RefreshVoteActivityRankZsetReq) returns (NoReply);
+
+    // 奖励平台-根据mid和幂等ID查询发放情况
+    rpc RewardsCheckSentStatus(RewardsCheckSentStatusReq) returns (RewardsCheckSentStatusResp);
+    // 动态新版本权限接口
+    rpc CanUpActReserve4Dynamic(CanUpActReserve4DynamicReq) returns (CanUpActReserve4DynamicReply);
+    // 权限校验全量接口
+    rpc CanUpActReserveFull(CanUpActReserveFullReq) returns (CanUpActReserveFullReply);
+    // 关联他人预约权限校验
+    rpc CanUpRelateOthersActReserve(CanUpRelateOthersActReserveReq) returns (CanUpRelateOthersActReserveReply);
+    // 关联预约权限校验
+    rpc CanUpRelateReserveAuth(CanUpRelateReserveAuthReq) returns (CanUpRelateReserveAuthReply);
+    // 查询是否发起过预约
+    rpc UpActReserveRecord(UpActReserveRecordReq) returns (UpActReserveRecordReply);
+    // 榜单排行结果
+    rpc RankResult(RankResultReq) returns (RankResultResp);
+
+    //投票组件-用户进行投票
+    rpc VoteUserDo(VoteUserDoReq) returns (VoteUserDoResp);
+    //投票组件-用户取消投票
+    rpc VoteUserUndo(VoteUserUndoReq) returns (VoteUserUndoResp);
+    //投票组件-查看活动下的投票排行
+    rpc GetVoteActivityRank(GetVoteActivityRankReq) returns (GetVoteActivityRankResp);
+    // 问卷全部答题接口
+    rpc QuestionAnswerAll(QuestionAnswerAllReq) returns (QuestionAnswerAllReply);
+    // 动态、抽奖等审核结果
+    rpc UpActReserveRelationDependAudit(UpActReserveRelationDependAuditReq) returns (UpActReserveRelationDependAuditReply);
+    // 账号和三方绑定
+    // 获取绑定配置
+    rpc GetBindConfig(GetBindConfigReq) returns (GetBindConfigResp);
+    // 更新绑定配置
+    rpc SaveBindConfig(BindConfigInfo) returns (NoReply);
+    // 获取绑定配置列表
+    rpc GetBindConfigList(GetBindConfigListReq) returns (GetBindConfigListResp);
+    // 绑定配置时获取游戏映射
+    rpc GetBindGames(NoReply) returns (GetBindGamesResp);
+    // 获取第三个维护关系
+    rpc GetBindExternals(NoReply) returns (GetBindExternalsResp);
+    // 更新配置缓存
+    rpc RefreshBindConfigCache(NoReply) returns (NoReply);
+    // 新版本权限接口
+    rpc CanUpActReserveByType(CanUpActReserveByTypeReq) returns (CanUpActReserveByTypeReply);
+    // 删除知识分享官缓存
+    rpc DelKnowledgeCache(DelKnowledgeCacheReq) returns (NoReply);
+    // 用户预约白名单接口
+    rpc CheckBindBWParkTicket(CheckBindBWParkTicketReq) returns (CheckBindBWParkTicketResp);
+    // 批量将bw门票绑定数据缓存到redis
+    rpc BatchCacheBindRecords(BatchCacheBindRecordsReq) returns (BatchCacheBindRecordsResp);
+    // 库存模块-1、创建库存规则记录
+    rpc CreateStockRecord(CreateStockRecordReq) returns (CreateStockRecordResp);
+    // 库存模块-2、更新库存规则配置
+    rpc UpdateStockRecord(CreateStockRecordReq) returns (UpdateStockRecordResp);
+    // 库存模块-3、批量获取库存的规则列表
+    rpc BatchQueryStockRecord(GetStocksReq) returns (BatchStockRecord);
+    // 库存模块-4、消费库存
+    rpc ConsumerStockById(ConsumerStockReq) returns (ConsumerStockResp);
+    // 库存模块-5、查询库存
+    rpc GetStocksByIds(GetStocksReq) returns (GetStocksResp);// 任务活动相关
+    // 库存模块-6、回退库存
+    rpc FeedBackStocks(FeedBackStocksReq) returns (FeedBackStocksResp);
+    // 库存模块-7、确认库存
+    rpc AckStockOrders(FeedBackStocksReq) returns (FeedBackStocksResp);
+    // 库存模块-8、获取有效库存列表
+    rpc EffectiveStockList(EffectiveStockListReq) returns (EffectiveStockListResp);
+    // 库存模块-9、随机获取几个
+    rpc GetStockOrderById(GetStockOrderByIdReq) returns (GetStockOrderByIdResp);
+
+    // 获取活动列表 Admin
+    rpc GetMissionActivityList(GetMissionActivityListReq) returns (GetMissionActivityListResp);
+    // 获取活动详情 Admin
+    rpc GetMissionActivityInfo(GetMissionActivityInfoReq) returns (MissionActivityDetail);
+    // 更改活动状态 Admin
+    rpc ChangeMissionActivityStatus(ChangeMissionActivityStatusReq) returns (NoReply);
+    // 保存任务活动 Admin
+    rpc SaveMissionActivity(MissionActivityDetail) returns (NoReply);
+    // 获取活动的任务列表 Admin
+    rpc GetMissionTasks(GetMissionTasksReq) returns (GetMissionTasksResp);
+    // 活动下的任务全量保存 Admin
+    rpc SaveMissionTasks(SaveMissionTasksReq) returns (NoReply);
+    // 保存活动下的某个任务 Admin
+    rpc SaveMissionTask(MissionTaskDetail) returns (NoReply);
+    // 删除活动下任务 Admin
+    rpc DelMissionTask(DelMissionTaskReq) returns (NoReply);
+    // 获取活动下某个任务详情 Admin
+    rpc GetMissionTaskInfo(GetMissionTaskInfoReq) returns (MissionTaskDetail);
+    // 任务活动下某个用户的完成状态
+    rpc GetMissionTaskCompleteStatus(GetMissionTaskCompleteStatusReq) returns (GetMissionTaskCompleteStatusResp);
+    // 通过任务id获取其对应的任务详情
+    rpc GetMissionTaskDetail(GetMissionTaskDetailReq) returns (MissionTaskDetail);
+    // 消费节点组进度消息构造任务的完成
+    rpc GroupConsumerForTaskComplete(GroupConsumerForTaskCompleteReq) returns (NoReply);
+    // 获取有效的任务活动
+    rpc GetValidMissionActivityIds(NoReply) returns (GetValidMissionActivityIdsResp);
+    // 库存对账接口
+    rpc MissionCheckStock(MissionCheckStockReq) returns (MissionCheckStockResp);
+    // 刷新任务活动的相关缓存
+    rpc RefreshValidMissionActivityCache(RefreshValidMissionActivityCacheReq) returns (NoReply);
+    // 按分表获取任务活动领取中的记录
+    rpc GetMissionReceivingRecords(GetMissionReceivingRecordsReq) returns (GetMissionReceivingRecordsResp);
+    // 对任务活动领取中的记录进行领取重试
+    rpc RetryMissionReceiveRecord(RetryMissionReceiveRecordReq) returns (NoReply);
+    // 获取奥运会单赛程详情
+    rpc GetOlympicContestDetail(GetOlympicContestDetailReq) returns (GetOlympicContestDetailResp);
+    // 获取奥运会query词的配置信息
+    rpc GetOlympicQueryConfig(GetOlympicQueryConfigReq) returns (GetOlympicQueryConfigResp);
+    //投票组件-向用户增加临时票数(当天过期)
+    rpc VoteUserAddTmpTimes(VoteUserAddTmpTimesReq) returns (NoReply);
+    //投票组件-查询投票项的贡献列表
+    rpc VoteGetItemContributionRank(VoteGetItemContributionRankReq) returns (VoteGetItemContributionRankResp);
+    //投票组件-查询用户可用票数
+    rpc VoteUserGetTimes(VoteUserGetTimesReq) returns (VoteUserGetTimesResp);
+    //投票组件-向用户增加票数
+    rpc VoteUserAddTimes(VoteUserAddTimesReq) returns (NoReply);
+}
+
+message GetOlympicQueryConfigReq {
+    bool skipCache = 1;
+}
+
+message GetOlympicQueryConfigResp {
+    repeated OlympicQueryConfig queryConfigs = 1;
+}
+
+message OlympicQueryConfig {
+    int64  contestId = 1;
+    string queryWord = 2;
+    int64  state     = 3;
+}
+
+message GetOlympicContestDetailResp {
+    int64  id            = 1;
+    string gameStage     = 2;
+    int64  stime         = 3;
+    string homeTeamName  = 4;
+    string awayTeamName  = 5;
+    string homeTeamUrl   = 6;
+    string awayTeamUrl   = 7;
+    int64  homeScore     = 8;
+    int64  awayScore     = 9;
+    int64  contestStatus = 10;
+    string seasonTitle   = 11;
+    string seasonUrl     = 12;
+    string videoUrl      = 13;
+    string bottomUrl     = 14;
+    int32  showRule      = 15;
+}
+
+message GetOlympicContestDetailReq {
+    int64 id = 1;
+    bool skipCache = 2;
+}
+
+message GetMissionReceivingRecordsReq {
+  int64 actId = 1;
+  int32 tableIndex = 2;
+}
+
+message GetMissionReceivingRecordsResp {
+  repeated ReceivingRecord list = 1;
+}
+
+message ReceivingRecord {
+  int64 receiveId = 1;
+  int64 mid = 2;
+  int64 actId = 3;
+}
+
+message RetryMissionReceiveRecordReq {
+  int64 receiveId = 1;
+  int64 mid = 2;
+  int64 actId = 3;
+}
+
+message MissionCheckStockReq {
+  string UniqueId = 1 [(gogoproto.moretags) = 'form:"unique_id" validate:"required"'];
+  string StockNo = 2 [(gogoproto.moretags) = 'form:"stock_no" validate:"required"'];
+}
+
+message MissionCheckStockResp {
+  bool Status = 1 [(gogoproto.jsontag) = "status", json_name = "status"];
+}
+
+
+message RefreshValidMissionActivityCacheReq {
+  int64 actId = 1;
+}
+
+message GetValidMissionActivityIdsResp {
+  repeated int64 actIds = 1;
+}
+
+message GroupConsumerForTaskCompleteReq {
+  int64 groupId = 1;
+  int64 mid = 2;
+  int64 total = 3;
+  int64 timestamp = 4;
+}
+
+message GetMissionTaskDetailReq {
+  int64 taskId = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message GetMissionTaskCompleteStatusReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 taskId = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 serialNum = 3;
+}
+
+message GetMissionTaskCompleteStatusResp {
+  bool completeStatus = 1;
+}
+
+message DelMissionTaskReq {
+  int64 actId = 1;
+  int64 taskId = 2;
+}
+
+message SaveMissionTasksReq {
+  int64                      actId = 1 [(gogoproto.jsontag) = "act_id", json_name = "act_id", (gogoproto.moretags) = 'validate:"min=1"'];
+  repeated MissionTaskDetail tasks = 2 [(gogoproto.jsontag) = "tasks", json_name = "tasks"];
+}
+
+message GetMissionTasksResp {
+  repeated MissionTaskDetail taskList = 1 [(gogoproto.jsontag) = "task_list", json_name = "task_list"];
+}
+
+message MissionTaskDetail {
+  int64               actId = 1 [(gogoproto.jsontag) = "act_id", json_name = "act_id"];
+  int64               taskId = 2 [(gogoproto.jsontag) = "task_id", json_name = "task_id"];
+  repeated TaskGroups groups = 3 [(gogoproto.jsontag) = "groups", json_name = "groups"];
+  int64               taskPeriod = 4 [(gogoproto.jsontag) = "task_period", json_name = "task_period"];
+  string              taskPeriodExtra = 5 [(gogoproto.jsontag) = "task_period_extra", json_name = "task_period_extra"];
+  int64               rewardId = 6 [(gogoproto.jsontag) = "reward_id", json_name = "reward_id"];
+  TaskStockConfig     stockConfig = 7 [(gogoproto.jsontag) = "stock_config", json_name = "stock_config"];
+  int64               stockId = 8 [(gogoproto.jsontag) = "stock_id", json_name = "stock_id"];
+}
+
+message TaskGroups {
+  int64 groupId = 1 [(gogoproto.jsontag) = "group_id", json_name = "group_id"];
+  int64 completeScore = 2 [(gogoproto.jsontag) = "complete_score", json_name = "complete_score"];
+}
+
+message TaskStockConfig {
+  string cycleLimit = 1 [(gogoproto.jsontag) = "cycle_limit", json_name = "cycle_limit"];
+}
+
+message GetMissionTasksReq {
+  int64 id = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message GetMissionTaskInfoReq {
+  int64 actId = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 taskId = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message ChangeMissionActivityStatusReq {
+  int64 actId = 1 [(gogoproto.jsontag) = "act_id", json_name = "act_id"];
+  int64 status = 2 [(gogoproto.jsontag) = "status", json_name = "status"];
+}
+
+message GetMissionActivityInfoReq {
+  int64 actId = 1;
+  int32 skipCache = 2;
+}
+
+message GetMissionActivityListReq {
+  int64 pn = 1;
+  int64 ps = 2;
+}
+
+message GetMissionActivityListResp {
+  int64                          total = 1 [(gogoproto.jsontag) = "total", json_name = "total"];
+  repeated MissionActivityDetail list = 2 [(gogoproto.jsontag) = "list", json_name = "list"];
+}
+
+message MissionActivityDetail {
+  int64  id = 1 [(gogoproto.jsontag) = "id", json_name = "id"];
+  string actName = 2 [(gogoproto.jsontag) = "act_name", json_name = "act_name"];
+  int64  beginTime = 3 [(gogoproto.jsontag) = "begin_time", json_name = "begin_time", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64  endTime = 4 [(gogoproto.jsontag) = "end_time", json_name = "end_time", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64  uidCount = 5 [(gogoproto.jsontag) = "uid_count", json_name = "uid_count"];
+  int64  groupsActId = 6 [(gogoproto.jsontag) = "groups_act_id", json_name = "groups_act_id"];
+  int64  bindPhoneCheck = 7 [(gogoproto.jsontag) = "bind_phone_check", json_name = "bind_phone_check"];
+  int64  status = 8 [(gogoproto.jsontag) = "status", json_name = "status"];
+  int64  mappingType = 9 [(gogoproto.jsontag) = "mapping_type", json_name = "mapping_type"];
+}
+
+message BatchCacheBindRecordsReq {
+  int64  StartIndex = 1 [json_name = "start_index", (gogoproto.jsontag) = "start_index", (gogoproto.moretags) = 'validate:"min=1"'];
+  int32  Limit = 2 [json_name = "limit", (gogoproto.jsontag) = "limit", (gogoproto.moretags) = 'validate:"min=1,max=50"'];
+}
+
+message BatchCacheBindRecordsResp {
+  repeated int64 RecordIds = 1 [json_name = "record_ids", (gogoproto.jsontag) = "record_ids"];
+}
+
+message CheckBindBWParkTicketReq {
+  int64 Mid = 1 [json_name = "mid", (gogoproto.jsontag) = "mid", (gogoproto.moretags) = 'validate:"min=1"'];
+  int32 year = 2 [json_name = "year", (gogoproto.jsontag) = "year", (gogoproto.moretags) = 'default:"2021"'];
+}
+
+message CheckBindBWParkTicketResp {
+  bool Hasbind = 1 [json_name = "has_bind", (gogoproto.jsontag) = "has_bind"];
+}
+
+message RankResultReq {
+  int64 RankID = 1 [(gogoproto.moretags) = 'validate:"required"', json_name = "rank_id"];
+  int64 Pn = 2 [(gogoproto.moretags) = 'default:"1"  validate:"min=1"', json_name = "pn"];
+  int64 Ps = 3 [(gogoproto.moretags) = 'default:"30"  validate:"min=1"', json_name = "ps"];
+}
+
+message RankResultResp {
+  int64 StatisticsType = 1 [json_name = "statistics_type"];
+  int64 BatchTime = 2 [json_name = "batch_time"];
+  repeated RankResult List = 3 [(gogoproto.jsontag) = "list", json_name = "list"];
+  PageInfo Page = 4 [(gogoproto.jsontag) = "page", json_name = "page"];
+}
+
+message RankResult {
+  // ObjectType 榜单类型 1=up榜 2=稿件榜 3=tag榜单
+  int64 ObjectType = 1 [json_name = "object_type"];
+  int64 Score = 2 [json_name = "score"];
+  string ShowScore = 3 [json_name = "show_score"];
+  // Account up榜才会返回账号数据
+  Account Account = 4 [json_name = "account"];
+  repeated ArchiveInfo Archive = 5 [json_name = "archive"];
+  // Account tag榜才会返回tag数据
+  Tag Tag = 6 [json_name = "tag"];
+}
+
+message Account {
+  int64 MID = 1 [json_name = "mid"];
+  string Name = 2 [json_name = "name"];
+  string Face = 3 [json_name = "face"];
+  VipInfo vip = 4 [(gogoproto.jsontag) = "vip", json_name = "vip", (gogoproto.nullable) = false];
+  OfficialInfo official = 5
+  [(gogoproto.jsontag) = "official", json_name = "official", (gogoproto.nullable) = false];
+}
+
+message OfficialInfo {
+  int32 role = 1 [(gogoproto.jsontag) = "role", json_name = "role"];
+  string title = 2 [(gogoproto.jsontag) = "title", json_name = "title"];
+  string desc = 3 [(gogoproto.jsontag) = "desc", json_name = "desc"];
+  int32 type = 4 [(gogoproto.jsontag) = "type", json_name = "type"];
+}
+
+message VipInfo {
+  int32 type = 1 [(gogoproto.jsontag) = "type", json_name = "type"];
+  int32 status = 2 [(gogoproto.jsontag) = "status", json_name = "status"];
+  int64 due_date = 3 [(gogoproto.jsontag) = "due_date", json_name = "due_date"];
+  int32 vip_pay_type = 4 [(gogoproto.jsontag) = "vip_pay_type", json_name = "vip_pay_type"];
+  int32 theme_type = 5 [(gogoproto.jsontag) = "theme_type", json_name = "theme_type"];
+  VipLabel label = 6
+  [(gogoproto.jsontag) = "label", json_name = "label", (gogoproto.nullable) = false];
+  // 大会员角标，0：无角标，1：粉色大会员角标，2：绿色小会员角标
+  int32 avatar_subscript = 7 [(gogoproto.jsontag) = "avatar_subscript", json_name = "avatar_subscript"];
+  // 昵称色值，可能为空，色值示例：#FFFB9E60
+  string nickname_color = 8 [(gogoproto.jsontag) = "nickname_color", json_name = "nickname_color"];
+  int64 role = 9 [(gogoproto.jsontag) = "role", json_name = "role"];
+  // 大会员角标链接 仅pc、h5使用
+  string avatar_subscript_url = 10 [(gogoproto.jsontag) = "avatar_subscript_url", json_name = "avatar_subscript_url"];
+}
+
+message VipLabel {
+  string path = 1 [(gogoproto.jsontag) = "path", json_name = "path"];
+  // 文本值
+  string text = 3 [(gogoproto.jsontag) = "text", json_name = "text"];
+  // 对应颜色类型，在mod资源中通过：$app_theme_type.$label_theme获取对应标签的颜色配置信息
+  string label_theme = 4 [(gogoproto.jsontag) = "label_theme", json_name = "label_theme"];
+  // 文本颜色, 仅pc、h5使用
+  string text_color = 5 [(gogoproto.jsontag) = "text_color", json_name = "text_color"];
+  // 背景样式：1:填充 2:描边 3:填充 + 描边 4:背景不填充 + 背景不描边 仅pc、h5使用
+  int32 bg_style = 6 [(gogoproto.jsontag) = "bg_style", json_name = "bg_style"];
+  // 背景色：#FFFB9E60 仅pc、h5使用
+  string bg_color = 7 [(gogoproto.jsontag) = "bg_color", json_name = "bg_color"];
+  // 边框：#FFFB9E60 仅pc、h5使用
+  string border_color = 8 [(gogoproto.jsontag) = "border_color", json_name = "border_color"];
+}
+
+message ArchiveInfo {
+  string BvID = 1  [json_name = "bvid"];
+  int64 Score = 2  [json_name = "score"];
+  string Tname = 3  [json_name = "tname"];
+  string Title = 4  [json_name = "title"];
+  string Desc = 5 [json_name = "desc"];
+  int64 Duration = 6 [json_name = "duration"];
+  string Pic = 7 [json_name = "pic"];
+  int64 View = 8 [json_name = "view"];
+  int64 Like = 9 [json_name = "like"];
+  int64 Danmaku = 10 [json_name = "danmaku"];
+  int64 Reply = 11 [json_name = "reply"];
+  int64 Fav = 12 [json_name = "fav"];
+  int64 Coin = 13 [json_name = "coin"];
+  int64 Share = 14 [json_name = "share"];
+  int64 Ctime = 15 [json_name = "ctime"];
+  string ShowScore = 16 [json_name = "show_score"];
+  Account Account = 17 [json_name = "account"];
+  // ShowLink 跳转地址
+  string ShowLink = 18 [json_name = "show_link"];
+}
+
+message Tag {
+  int64 TagID = 1 [json_name = "tag_id"];
+  string Name = 2 [json_name = "name"];
+}
+
+
+message CommonActivityUserCommitReq {
+  int64 MID = 1 [json_name = "mid"];
+  int64 ActivityID = 2 [json_name = "activity_id"];
+  string UniqID = 3 [json_name = "uniq_id"];
+  string Content = 4 [json_name = "content"];
+  string BvID = 5 [json_name = "bvid"];
+  int64 SceneID = 6 [json_name = "scene_id"];
+}
+
+message CommonActivityUserCommitReply {
+  int64 Status = 1 [json_name = "status"];
+}
+
+message CommonActivityAuditPubReq {
+  string ActionType = 1 [json_name = "action_type"];
+  string TableName = 2 [json_name = "table_name"];
+  bytes RawMessage = 3 [json_name = 'raw_message'];
+}
+
+
+message SendCardTokenReq {
+  int64 CardID = 1 [(gogoproto.moretags) = 'validate:"min=1"', json_name = "card_id"];
+  int64 Mid = 2 [(gogoproto.moretags) = 'validate:"min=1"', json_name = "mid"];
+  string Activity = 3 [(gogoproto.moretags) = 'validate:"required"', json_name = "activity"];
+}
+
+message SendCardTokenReply {
+  string Token = 1 [json_name = "token"];
+}
+
+message InviteTokenReq {
+  int64 Mid = 1 [(gogoproto.moretags) = 'validate:"min=1"', json_name = "mid"];
+  string Activity = 2 [(gogoproto.moretags) = 'validate:"required"', json_name = "activity"];
+
+}
+
+message InviteTokenReply {
+  string Token = 1 [json_name = "token"];
+}
+
+message SpringFestival2021MidCardReq {
+  int64 Mid = 1 [(gogoproto.moretags) = 'validate:"min=1"', json_name = "mid"];
+
+}
+
+message SpringFestival2021MidCardReply {
+  int64 CardID1 = 1 [json_name = "card_1"];
+  int64 CardID2 = 2 [json_name = "card_2"];
+  int64 CardID3 = 3 [json_name = "card_3"];
+  int64 CardID4 = 4 [json_name = "card_4"];
+  int64 CardID5 = 5 [json_name = "card_5"];
+  int64 Compose = 6 [json_name = "compose"];
+}
+
+message CardsMidCardReq {
+  int64 Mid = 1 [(gogoproto.moretags) = 'validate:"min=1"', json_name = "mid"];
+  string Activity = 2 [(gogoproto.moretags) = 'validate:"required"', json_name = "activity"];
+
+}
+
+message CardsMidCardReply {
+  int64 CardID1 = 1 [json_name = "card_1"];
+  int64 CardID2 = 2 [json_name = "card_2"];
+  int64 CardID3 = 3 [json_name = "card_3"];
+  int64 CardID4 = 4 [json_name = "card_4"];
+  int64 CardID5 = 5 [json_name = "card_5"];
+  int64 CardID6 = 6 [json_name = "card_6"];
+  int64 CardID7 = 7 [json_name = "card_7"];
+  int64 CardID8 = 8 [json_name = "card_8"];
+  int64 CardID9 = 9 [json_name = "card_9"];
+  int64 Compose = 10 [json_name = "compose"];
+}
+
+message SpringFestival2021SendCardTokenReq {
+  int64 CardID = 1 [(gogoproto.moretags) = 'validate:"min=1"', json_name = "card_id"];
+  int64 Mid = 2 [(gogoproto.moretags) = 'validate:"min=1"', json_name = "mid"];
+}
+
+message SpringFestival2021SendCardTokenReply {
+  string Token = 1 [json_name = "token"];
+}
+
+
+message SpringFestival2021InviteTokenReq {
+  int64 Mid = 1 [(gogoproto.moretags) = 'validate:"min=1"', json_name = "mid"];
+}
+
+message SpringFestival2021InviteTokenReply {
+  string Token = 1 [json_name = "token"];
+}
+
+
+message UpListReq {
+  int64 Sid = 1 [(gogoproto.moretags) = 'validate:"required"', json_name = "sid"];
+  // type=rankdom 随机
+  string Type = 2 [(gogoproto.moretags) = 'validate:"required"', json_name = "type"];
+  int64 Pn = 3 [(gogoproto.moretags) = 'default:"1"  validate:"min=1"', json_name = "pn"];
+  int64 Ps = 4 [(gogoproto.moretags) = 'default:"30"  validate:"min=1"', json_name = "ps"];
+  int64 Mid = 5 [json_name = "mid"];
+}
+
+message UpListPage {
+  int64 Num = 1 [json_name = "num"];
+  int64 Ps = 2 [json_name = "ps"];
+  int64 Total = 3 [json_name = "total"];
+}
+
+message UpListReply{
+  UpListPage Page = 1 [json_name = "page"];
+  repeated UpListItem List = 2 [(gogoproto.jsontag) = "list", json_name = "list"];
+
+}
+
+message AccountInfo {
+  int64 mid = 1 [(gogoproto.jsontag) = "mid"];
+  string name = 2 [(gogoproto.jsontag) = "name"];
+  string sex = 3 [(gogoproto.jsontag) = "sex"];
+  string face = 4 [(gogoproto.jsontag) = "face"];
+  string sign = 5 [(gogoproto.jsontag) = "sign"];
+  int32 rank = 6 [(gogoproto.jsontag) = "rank"];
+  int64 birthday = 7 [
+    (gogoproto.jsontag) = "birthday",
+    (gogoproto.casttype) = "go-common/library/time.Time"
+  ];
+  int32 is_fake_account = 8 [(gogoproto.jsontag) = "is_fake_account"];
+  int32 is_deleted = 9 [(gogoproto.jsontag) = "is_deleted"];
+  bool Following = 10 [(gogoproto.jsontag) = "following"];
+}
+
+message LikeContent {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  string Message = 2 [(gogoproto.jsontag) = "message"];
+  int64 IP = 3 [(gogoproto.jsontag) = "ip"];
+  int64 Plat = 4 [(gogoproto.jsontag) = "plat"];
+  int64 Device = 5 [(gogoproto.jsontag) = "device"];
+  int64 Ctime = 6 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Mtime = 7 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  string Image = 8 [(gogoproto.jsontag) = "image"];
+  string Reply = 9 [(gogoproto.jsontag) = "reply"];
+  string Link = 10 [(gogoproto.jsontag) = "link"];
+  string ExName = 11 [(gogoproto.jsontag) = "ex_name"];
+  bytes IPv6 = 12 [(gogoproto.jsontag) = "ipv6"];
+}
+
+message UpListItem {
+  Item Item = 1 [(gogoproto.jsontag) = "item"];
+  AccountInfo Account = 2 [(gogoproto.jsontag) = "account"];
+  LikeContent Content = 3 [(gogoproto.jsontag) = "content"];
+}
+
+message LotteryAddTimesReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  string sid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 action_type = 3 [(gogoproto.moretags) = 'validate:"gt=0"'];
+  string order_no = 4 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 cid = 5 [(gogoproto.moretags) = 'validate:"gt=0"'];
+}
+
+message LotteryAddTimesReply {
+}
+
+message BwsGamePlayableReq{
+  int64 Bid = 1 [(gogoproto.moretags) = 'validate:"required"', json_name = "bid"];
+  int64 GameId = 2 [(gogoproto.moretags) = 'validate:"required"', json_name = "game_id"];
+  int64 Mid = 3 [(gogoproto.moretags) = 'validate:"required"', json_name = "mid"];
+}
+
+message BwsGamePlayReq{
+  int64 Bid = 1 [(gogoproto.moretags) = 'validate:"required"', json_name = "bid"];
+  int64 GameId = 2 [(gogoproto.moretags) = 'validate:"required"', json_name = "game_id"];
+  int64 Mid = 3 [(gogoproto.moretags) = 'validate:"required"', json_name = "mid"];
+  int64 Star = 4 [json_name = "star"];
+  bool pass = 5 [json_name = "pass"];
+}
+
+message Bws2020MemberReq{
+  int64 Mid = 1 [(gogoproto.jsontag) = "mid", json_name = "mid"];
+  int64 Bid = 2 [(gogoproto.jsontag) = "bid", json_name = "bid"];
+  // 不传则默认返回当天情况
+  string BwsDate = 4 [json_name = "bws_date"];
+}
+
+message Bws2020MemberReply{
+  int64 Mid = 1 [(gogoproto.jsontag) = "mid", json_name = "mid"];
+  int64 Bid = 2 [(gogoproto.jsontag) = "bid", json_name = "bid"];
+  int64 Heart = 3 [(gogoproto.jsontag) = "heart", json_name = "heart"];
+  int64 Star = 4 [(gogoproto.jsontag) = "star", json_name = "star"];
+  string BwsDate = 5 [(gogoproto.jsontag) = "bws_date", json_name = "bws_date"];
+  int64 StarLastTime = 6 [(gogoproto.jsontag) = "star_last_time", json_name = "star_last_time"];
+  map<int64, int64> StarGame = 7 [(gogoproto.jsontag) = "star_game", json_name = "star_game"];
+  int64 Rank = 8 [(gogoproto.jsontag) = "rank", json_name = "rank"];
+  int64 LotteryRemain = 9 [(gogoproto.jsontag) = "lottery_remain", json_name = "lottery_remain"];
+}
+
+message LotteryWinListReq {
+  string Sid = 1 [(gogoproto.moretags) = 'validate:"required"', json_name = "sid"];
+  int64 Num = 2 [(gogoproto.moretags) = 'validate:"required"', json_name = "num"];
+  bool NeedCache = 3 [json_name = "need_cache"];
+}
+
+message LotteryWinListReply {
+  repeated LotteryWinList List = 1 [(gogoproto.jsontag) = "list", json_name = "list"];
+}
+
+message LotteryWinList {
+  string Name = 1 [(gogoproto.jsontag) = "name", json_name = "name"];
+  int64 GiftID = 2 [(gogoproto.jsontag) = "gift_id", json_name = "gift_id"];
+  string GiftName = 3 [(gogoproto.jsontag) = "gift_name", json_name = "gift_name"];
+  int64 Mid = 4 [(gogoproto.jsontag) = "mid", json_name = "mid"];
+  int64 Ctime = 5 [(gogoproto.jsontag) = "ctime", json_name = "ctime"];
+}
+
+message TaskPubReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 timestamp = 2 [(gogoproto.moretags) = 'validate:"gt=0"'];
+  string act = 3 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message HasUserPredictReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  repeated int64 contest_ids = 2 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message HasUserPredictReply {
+  map<int64, bool> records = 1;
+}
+
+message TotalPointsdReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message BNJ2021LastLotteryReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message BNJ2021LastLotteryReply {
+  string name = 1 [(gogoproto.jsontag) = "name", json_name = "name"];
+}
+
+message BNJ2021ARCouponReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=1"', json_name = "mid"];
+  int64 coupon = 2 [(gogoproto.jsontag) = "coupon", json_name = "coupon"];
+}
+
+message BNJ2021ARCouponReply {
+  int64 coupon = 1 [(gogoproto.jsontag) = "coupon"];
+}
+
+message BNJ2021ARExchangeReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=1"', json_name = "mid"];
+  int64 score = 2 [(gogoproto.jsontag) = "score", json_name = "score"];
+  int64 coupon = 3 [(gogoproto.jsontag) = "coupon", json_name = "coupon"];
+  string date_str = 4 [(gogoproto.jsontag) = "date_str", json_name = "date_str"];
+}
+
+message BNJ2021ARExchangeReply {
+  int64 coupon = 1 [(gogoproto.jsontag) = "coupon"];
+  int64 score = 2 [(gogoproto.jsontag) = "score"];
+}
+
+message BNJ2021ShareReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message BNJ2021ShareReply {
+  int64 coupon = 1 [(gogoproto.jsontag) = "coupon", json_name = "coupon"];
+  int64 score = 2 [(gogoproto.jsontag) = "score", json_name = "score"];
+}
+
+enum AppJumpBizType {
+  Type4Bnj2021AR = 0;
+  Type4Bnj2021TaskGame = 1;
+}
+
+message AppJumpReq {
+  AppJumpBizType BizType = 1 [(gogoproto.jsontag) = "biz_type", json_name = "biz_type"];
+  int64 Memory = 2 [(gogoproto.jsontag) = "memory", json_name = "memory"];
+  string UserAgent = 3 [(gogoproto.jsontag) = "user_agent", json_name = "user_agent"];
+}
+
+message AppJumpReply {
+  string jumpUrl = 1 [(gogoproto.jsontag) = "jump_url", json_name = "jump_url"];
+}
+
+message ExamStatsReq {
+  repeated OneExamStats stats = 1 [(gogoproto.jsontag) = "stats", json_name = "stats"];
+}
+
+message OneExamStats {
+  int64 id = 1 [(gogoproto.jsontag) = "id", json_name = "id"];
+  int64 optID = 2 [(gogoproto.jsontag) = "opt_id", json_name = "opt_id"];
+  int64 total = 3 [(gogoproto.jsontag) = "total", json_name = "total"];
+}
+
+message ExamStatsReply {
+  string message = 1 [(gogoproto.jsontag) = "msg", json_name = "msg"];
+}
+
+message TasksProgressReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=0"'];
+}
+
+message TotalPointsReply {
+  int32 total = 1 [(gogoproto.jsontag) = "total"];
+}
+
+message TasksProgressReply {
+  repeated TaskProgress tasks = 1 [(gogoproto.jsontag) = "tasks"];
+}
+
+message TaskProgress {
+  string uniqID = 1 [(gogoproto.jsontag) = "uniq_id"];
+  bool status = 2 [(gogoproto.jsontag) = "status"];
+  TaskDetail progress = 3 [(gogoproto.jsontag) = "progress"];
+}
+
+message TaskDetail {
+  int32 completed = 1 [(gogoproto.jsontag) = "completed"];
+  int32 maxTimes = 2 [(gogoproto.jsontag) = "max_times"];
+}
+
+message LotteryUnusedTimesdReq {
+  string sid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message LotteryUnusedTimesReply {
+  int64 times = 1 [(gogoproto.jsontag) = "times"];
+}
+
+message DoLotteryReq {
+  string sid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+  Risk risk = 3  [(gogoproto.jsontag) = "risk"];
+  string order_no = 4  [(gogoproto.jsontag) = "order_no"];
+  // 连抽次数，不传则默认为1
+  int64 nums = 5  [(gogoproto.moretags) = 'default:"1"', json_name = "nums"];
+}
+
+message DoLotteryReply {
+  repeated LotteryRecordDetail data = 1 [(gogoproto.jsontag) = "data"];
+}
+
+message LotteryGiftReq {
+  string Sid = 1 [(gogoproto.moretags) = 'validate:"required"', json_name = "sid"];
+}
+
+message LotteryGiftReply {
+  repeated LotteryGift Gift = 1 [(gogoproto.jsontag) = "gift", json_name = "gift"];
+}
+
+message LotteryGift {
+  int64 ID = 1 [(gogoproto.jsontag) = "times", json_name = "times"];
+  string Name = 2 [(gogoproto.jsontag) = "name", json_name = "name"];
+  int64 Type = 3 [(gogoproto.jsontag) = "type", json_name = "type"];
+  string ImgUrl = 4 [(gogoproto.jsontag) = "img_url", json_name = "img_url"];
+  int64 SendNum = 5 [(gogoproto.jsontag) = "send_num", json_name = "send_num"];
+  int64 Num = 6 [(gogoproto.jsontag) = "num", json_name = "num"];
+  int64 Efficient = 7 [(gogoproto.jsontag) = "efficient", json_name = "efficient"];
+}
+
+
+message SendBwsOnlinePieceReq {
+  // 用户mid
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+  // 碎片id
+  int64 id = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+  // 碎片token
+  string token = 3 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message WxLotteryAwardReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message WxLotteryAwardReply {
+  bool show = 1 [(gogoproto.jsontag) = "show"];
+  string URL = 2 [(gogoproto.jsontag) = "url"];
+}
+
+message IsUpActUidReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message IsUpActUidReply {
+  //是否匹配
+  bool Match = 1;
+}
+
+message UpActNativePagesReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 offset = 2 [(gogoproto.moretags) = 'validate:"min=0"'];
+  int64 ps = 3 [(gogoproto.moretags) = 'validate:"min=0,max=50"'];
+}
+
+message UpActNativePagesReply {
+  int64 offset = 1;
+  int32 hasMore = 2;
+  repeated UpActNativePages list = 3;
+}
+
+message UpActNativePages {
+  NativePage base = 1;
+}
+
+message UpActNativePageBindReq {
+  // 发起人id
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+  //page id
+  int64 pageID = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+  // 跳转url
+  string url = 3;
+}
+
+message UpActNativePageBindReply {
+  // noreply
+}
+
+message LotteryUserRecordReq {
+  string sid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 pn = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 ps = 3 [(gogoproto.moretags) = 'validate:"min=1,max=50"'];
+  int64 mid = 4 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message LotteryUserRecordReply {
+  repeated LotteryRecord list = 1;
+  int64 total = 2;
+}
+
+message LotteryRecord {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  int64 mid = 2 [(gogoproto.jsontag) = "mid"];
+  int64 num = 3 [(gogoproto.jsontag) = "num"];
+  int64 gift_id = 4 [(gogoproto.jsontag) = "gift_id"];
+  string gift_name = 5 [(gogoproto.jsontag) = "gift_name"];
+  int64 gift_type = 6 [(gogoproto.jsontag) = "gift_type"];
+  string img_url = 7 [(gogoproto.jsontag) = "img_url"];
+  int64 type = 8 [(gogoproto.jsontag) = "type"];
+  int64 ctime = 9 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 cid = 10 [(gogoproto.jsontag) = "cid"];
+}
+
+
+message Risk {
+  string buvid = 1 [(gogoproto.jsontag) = "buvid"];
+  string origin = 2 [(gogoproto.jsontag) = "origin"];
+  string user_agent = 3 [(gogoproto.jsontag) = "user_agent"];
+  string referer = 4 [(gogoproto.jsontag) = "referer"];
+  string ip = 5 [(gogoproto.jsontag) = "ip"];
+  string build = 6 [(gogoproto.jsontag) = "build"];
+  string platform = 7 [(gogoproto.jsontag) = "platform"];
+  string api = 8 [(gogoproto.jsontag) = "api"];
+}
+
+message FissionLotteryUpNumReq {
+  string sid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 num = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message FissionLotteryUpNumReply {
+  int64 affected = 1 [(gogoproto.jsontag) = 'affected'];
+}
+
+message FissionLotteryDoReq {
+  string sid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message FissionLotteryDoReply {
+  LotteryRecordDetail record = 1 [(gogoproto.jsontag) = 'record'];
+}
+
+message LotteryRecordDetail {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  int64 mid = 2 [(gogoproto.jsontag) = "mid"];
+  int64 num = 3 [(gogoproto.jsontag) = "num"];
+  int64 gift_id = 4 [(gogoproto.jsontag) = "gift_id"];
+  string gift_name = 5 [(gogoproto.jsontag) = "gift_name"];
+  int64 gift_type = 6 [(gogoproto.jsontag) = "gift_type"];
+  string img_url = 7 [(gogoproto.jsontag) = "img_url"];
+  int64 type = 8 [(gogoproto.jsontag) = "type"];
+  int64 ctime = 9 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 cid = 10 [(gogoproto.jsontag) = "cid"];
+  // 自定义参数
+  map<string, string> extra = 11 [(gogoproto.jsontag) = "extra"];
+}
+
+message ArcSubTypeCountReq {
+  int64 sid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message ActSubTypeCountReply {
+  map<int64, int64> counts = 1 [(gogoproto.jsontag) = 'counts'];
+}
+
+message ActLikeCountReq {
+  // 活动id
+  int64 sid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message ActLikeCountReply {
+  // 总投稿数
+  int64 total = 1 [(gogoproto.jsontag) = 'total'];
+}
+
+message NativePagesReq {
+  repeated int64 pids = 1 [(gogoproto.moretags) = 'validate:"min=1,max=100,dive,min=1"'];
+}
+
+message NativePagesReply {
+  map<int64, NativePage> list = 1 [(gogoproto.jsontag) = 'list'];
+}
+
+message NativePagesExtReq {
+  repeated int64 pids = 1 [(gogoproto.moretags) = 'validate:"min=1,max=100,dive,min=1"'];
+}
+
+message NativePagesExtReply {
+  map<int64, NativePageExt> list = 1 [(gogoproto.jsontag) = 'list'];
+}
+
+message NativePageExt {
+  NativePage item = 1 [(gogoproto.jsontag) = 'item'];
+  NativePageDyn dynExt = 2 [(gogoproto.jsontag) = 'dyn_ext'];
+}
+
+message NativeValidPagesExtReq {
+  int64 actType = 1 [(gogoproto.moretags) = 'validate:"required,min=0"'];
+}
+
+message NativeValidPagesExtReply {
+  map<int64, NativePageExt> list = 1 [(gogoproto.jsontag) = 'list'];
+}
+
+message NativePageReq {
+  int64 pid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message NativePageReply {
+  NativePage item = 1;
+}
+
+message NativePagesTabReq {
+  repeated int64 pids = 1 [(gogoproto.moretags) = 'validate:"min=1,max=50,dive,min=1"'];
+  int32 category = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message NativePagesTabReply {
+  map<int64, PagesTab> list = 1 [(gogoproto.jsontag) = 'list'];
+}
+
+message PagesTab {
+  int64 tabID = 1 [(gogoproto.jsontag) = "tab_id"];
+  int64 tabModuleID = 2 [(gogoproto.jsontag) = "tab_module_id"];
+  int64 pageID = 3 [(gogoproto.jsontag) = "page_id"];
+}
+
+message NatTabModulesReq {
+  int64 tabID = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message NatTabModulesReply {
+  NativeActTab tab = 1 [(gogoproto.jsontag) = "tab"];
+  repeated NativeTabModule list = 2 [(gogoproto.jsontag) = "list"];
+}
+
+enum GuessBusiness {
+  businessZeroType = 0;
+  esportsType = 1;
+}
+
+enum StakeType {
+  stakeZeroType = 0;
+  coinType = 1;
+  silverType = 2;
+  pointType = 3;
+  goldType = 4;
+}
+
+message ClockInTagReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message ClockInTagReply {
+  repeated ClockInTag tags = 1 [(gogoproto.jsontag) = "tags"];
+}
+
+message ClockInTag {
+  // 指定视频分区 空为全选，多个半角逗号分隔
+  string TypeIDs = 1 [(gogoproto.jsontag) = "type_ids"];
+  // 指定tag 空为不限制，多个半角逗号分隔
+  string Tags = 2 [(gogoproto.jsontag) = "tags"];
+}
+
+message UpActInfoReq {
+  int64 aid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message UpActInfoReply {
+  UpActInfo upActInfo = 1;
+}
+
+message UpActInfo {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  int64 Mid = 2 [(gogoproto.jsontag) = "mid"];
+  string Title = 3 [(gogoproto.jsontag) = "title"];
+  string Statement = 4 [(gogoproto.jsontag) = "statement"];
+  int64 Stime = 5 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Etime = 6 [(gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Ctime = 7 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Mtime = 8 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int32 State = 9 [(gogoproto.jsontag) = "state"];
+  int32 Offline = 10 [(gogoproto.jsontag) = "offline"];
+  int64 Aid = 11 [(gogoproto.jsontag) = "aid"];
+  string Image = 12 [(gogoproto.jsontag) = "image"];
+  string Name = 13 [(gogoproto.jsontag) = "name"];
+}
+
+message UpActDoTaskReq {
+  int64 sid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 totaltime = 3 [(gogoproto.jsontag) = "total_time"];
+  float matchedpercent = 4 [(gogoproto.jsontag) = "matched_percent"];
+}
+
+message UpActDoTaskReply {
+  int64 days = 1;
+}
+
+message ReserveFollowingReq {
+  int64 sid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message ReserveFollowingsReq {
+  repeated int64 sids = 1 [(gogoproto.moretags) = 'validate:"min=1,max=10,dive,min=1"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message ReserveFollowingsReply {
+  map<int64, ReserveFollowingReply> list = 1 [(gogoproto.jsontag) = 'List'];
+}
+
+message ReserveFollowingReply {
+  bool isFollow = 1 [(gogoproto.jsontag) = 'isFollow'];
+  int64 total = 2 [(gogoproto.jsontag) = 'total'];
+  int64 mtime = 3 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 order = 4 [(gogoproto.jsontag) = 'order'];
+}
+
+message AddReserveReq {
+  int64 sid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+  string from = 3 [(gogoproto.jsontag) = "from", json_name = "from"];
+  string typ = 4 [(gogoproto.jsontag) = "typ", json_name = "typ"];
+  string oid = 5 [(gogoproto.jsontag) = "oid", json_name = "oid"];
+  string ip = 6 [(gogoproto.jsontag) = "ip", json_name = "ip"];
+  string platform = 7 [(gogoproto.jsontag) = "platform", json_name = "platform"];
+  string mobiapp = 8 [(gogoproto.jsontag) = "mobiapp", json_name = "mobiapp"];
+  string buvid = 9 [(gogoproto.jsontag) = "buvid", json_name = "buvid"];
+  string spmid = 10 [(gogoproto.jsontag) = "spmid", json_name = "spmid"];
+}
+
+message DelReserveReq {
+  int64 sid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message PageInfo {
+  int64 pn = 1;
+  int64 ps = 2;
+  int64 total = 3;
+}
+
+message NoReply {}
+
+message ActSubProtocolReq {
+  int64 sid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message ActSubsProtocolReq {
+  repeated int64 sids = 1 [(gogoproto.moretags) = 'validate:"min=1,max=50,dive,min=1"'];
+}
+
+message ActSubsProtocolReply {
+  map<int64, ActSubProtocolReply> list = 1 [(gogoproto.jsontag) = 'List'];
+}
+
+message ActSubProtocolReply {
+  Subject subject = 1;
+  ActSubjectProtocol protocol = 2;
+  repeated ReserveRule rules = 3;
+}
+
+message ModuleConfigReq {
+  int64 moduleID = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message ModuleConfigReply {
+  NativePage nativePage = 1;
+  Module module = 2;
+}
+
+message NatInfoFromForeignReq {
+  repeated int64 fids = 1 [(gogoproto.moretags) = 'validate:"min=1,max=50,dive,min=1"'];
+  int64 pageType = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+  map<string, string> content = 3;
+}
+
+message NatInfoFromForeignReply {
+  map<int64, NativePage> list = 1 [(gogoproto.jsontag) = 'List'];
+}
+
+message ActSubjectReq {
+  int64 sid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message ActSubjectReply {
+  Subject subject = 1;
+}
+
+message ActSubjectsReq {
+  repeated int64 sids = 1 [(gogoproto.moretags) = 'validate:"min=1,max=50,dive,min=1"'];
+}
+
+message ActSubjectsReply {
+  map<int64, Subject> list = 1 [(gogoproto.jsontag) = 'List'];
+}
+
+message NatConfigReq {
+  int64 pid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 offset = 2 [(gogoproto.moretags) = 'validate:"min=0"'];
+  int64 ps = 3 [(gogoproto.moretags) = 'validate:"min=0,max=50"'];
+  int32 pType = 4 [(gogoproto.moretags) = 'validate:"min=0"'];
+}
+
+message NatConfigReply {
+  NativePage nativePage = 1;
+  repeated Module modules = 2;
+  Page page = 3;
+  repeated Module bases = 4;
+}
+
+message BaseConfigReq {
+  int64 pid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int32 pType = 2 [(gogoproto.moretags) = 'validate:"min=0"'];
+  // ps为负数表示获取全部，为正数表示需要获取的页面大小
+  int64 ps = 3 [(gogoproto.moretags) = 'default:"-1" validate:"max=100"'];
+  int64 offset = 4 [(gogoproto.moretags) = 'default:"0" validate:"min=0"'];
+}
+
+message BaseConfigReply {
+  NativePage nativePage = 1;
+  repeated Module bases = 2;
+  int64 offset = 3 [(gogoproto.jsontag) = "offset"];
+  int32 hasMore = 4 [(gogoproto.jsontag) = "has_more"];
+}
+
+message Page {
+  int64 offset = 1 [(gogoproto.jsontag) = "offset"];
+  int32 hasMore = 2 [(gogoproto.jsontag) = "has_more"];
+}
+
+message Module {
+  NativeModule nativeModule = 1;
+  Click click = 2;
+  Act act = 3;
+  VideoAct videoAct = 4;
+  Dynamic dynamic = 5;
+  Participation participation = 6;
+  Recommend recommend = 7;
+  InlineTab inlineTab = 8;
+  Select select = 9;
+  Progress progress = 10;
+  Carousel carousel = 11;
+  Icon icon = 12;
+}
+
+message Click {
+  repeated NativeClick areas = 1;
+}
+
+message VideoAct {
+  repeated NativeVideoExt sortList = 1;
+}
+
+message Act {
+  repeated NativePage list = 1;
+}
+
+message Dynamic {
+  repeated NativeDynamicExt selectList = 1;
+}
+
+message Participation {
+  repeated NativeParticipationExt list = 1;
+}
+
+message Recommend {
+  repeated NativeMixtureExt list = 1;
+}
+
+message InlineTab {
+  repeated NativeMixtureExt list = 1;
+}
+
+message Select {
+  repeated NativeMixtureExt list = 1;
+}
+
+message Carousel {
+  repeated NativeMixtureExt list = 1;
+}
+
+message Icon {
+  repeated NativeMixtureExt list = 1;
+}
+
+message Progress {
+  repeated NativeMixtureExt list = 1;
+}
+
+message ModuleMixExtReq {
+  int64 moduleID = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 ps = 2 [(gogoproto.moretags) = 'validate:"min=1,max=100"'];
+  int64 offset = 3 [(gogoproto.moretags) = 'validate:"min=0"'];
+  int32 mType = 4 [(gogoproto.moretags) = 'validate:"min=0"'];
+}
+
+message ModuleMixExtReply {
+  int64 total = 1;
+  repeated NativeMixtureExt list = 2 [(gogoproto.jsontag) = "list"];
+  int32 hasMore = 3 [(gogoproto.jsontag) = "has_more"];
+  int64 offset = 4 [(gogoproto.jsontag) = "offset"];
+}
+
+message ModuleMixExtsReq {
+  int64 moduleID = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 ps = 2 [(gogoproto.moretags) = 'validate:"min=1,max=100"'];
+  int64 offset = 3 [(gogoproto.moretags) = 'validate:"min=0"'];
+}
+
+message ModuleMixExtsReply {
+  int64 total = 1;
+  repeated NativeMixtureExt list = 2 [(gogoproto.jsontag) = "list"];
+  int32 hasMore = 3 [(gogoproto.jsontag) = "has_more"];
+  int64 offset = 4 [(gogoproto.jsontag) = "offset"];
+}
+
+message ActLikedReq {
+  int64 sid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 lid = 3 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 score = 4 [(gogoproto.moretags) = 'default:"1" validate:"min=1"'];
+}
+
+message ActLikedReply {
+  int64 lid = 1;
+  int64 score = 2;
+}
+
+message ActLikesReq {
+  int64 sid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 mid = 2;
+  int32 sort_type = 3 [(gogoproto.moretags) = 'default:"1" validate:"min=1"'];
+  int32 ps = 4 [(gogoproto.moretags) = 'validate:"min=1,max=100"'];
+  int32 pn = 5 [(gogoproto.moretags) = 'validate:"min=0"'];
+  int64 offset = 6 [(gogoproto.moretags) = 'validate:"min=0"'];
+}
+
+message LikesReply {
+  int64 total = 1;
+  Subject subject = 2;
+  repeated ItemObj list = 3 [(gogoproto.jsontag) = "list"];
+  int32 hasMore = 4 [(gogoproto.jsontag) = "has_more"];
+  int64 offset = 5 [(gogoproto.jsontag) = "offset"];
+}
+
+message NativePage {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  string Title = 2 [(gogoproto.jsontag) = "title"];
+  int64 Type = 3 [(gogoproto.jsontag) = "type"];
+  int64 ForeignID = 4 [(gogoproto.jsontag) = "foreign_id"];
+  int64 Stime = 5 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  string Creator = 6 [(gogoproto.jsontag) = "creator"];
+  string Operator = 7 [(gogoproto.jsontag) = "operator"];
+  string ShareTitle = 8 [(gogoproto.jsontag) = "share_title"];
+  string ShareImage = 9 [(gogoproto.jsontag) = "share_image"];
+  string ShareURL = 10 [(gogoproto.jsontag) = "share_url"];
+  int64 Ctime = 11 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Mtime = 12 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 State = 13 [(gogoproto.jsontag) = "state"];
+  string SkipURL = 14 [(gogoproto.jsontag) = "skip_url"];
+  string Spmid = 15 [(gogoproto.jsontag) = "spmid"];
+  int64 RelatedUid = 16 [(gogoproto.jsontag) = "related_uid"];
+  int64 Etime = 17 [(gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int32 ActType = 18 [(gogoproto.jsontag) = "act_type"];
+  int64 Hot = 19 [(gogoproto.jsontag) = "hot"];
+  int64 DynamicID = 20 [(gogoproto.jsontag) = "dynamic_id"];
+  int64 Attribute = 21 [(gogoproto.jsontag) = "attribute"];
+  string PcURL = 22 [(gogoproto.jsontag) = "pc_url"];
+  string AnotherTitle = 23 [(gogoproto.jsontag) = "another_title"];
+  string ShareCaption = 24 [(gogoproto.jsontag) = "share_caption"];
+  string BgColor = 25 [(gogoproto.jsontag) = "bg_color"];
+  int32 FromType = 26 [(gogoproto.jsontag) = "from_type"];
+  string Ver = 27 [(gogoproto.jsontag) = "ver"];
+}
+
+message NativeModule {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  int64 Category = 2 [(gogoproto.jsontag) = "category"];
+  int64 Fid = 3 [(gogoproto.jsontag) = "fid"];
+  int64 NativeID = 4 [(gogoproto.jsontag) = "native_id"];
+  int64 State = 5 [(gogoproto.jsontag) = "state"];
+  int64 Rank = 6 [(gogoproto.jsontag) = "rank"];
+  string Meta = 7 [(gogoproto.jsontag) = "meta"];
+  int64 Width = 8 [(gogoproto.jsontag) = "width"];
+  int64 Length = 9 [(gogoproto.jsontag) = "length"];
+  int64 Num = 10 [(gogoproto.jsontag) = "num"];
+  string Title = 11 [(gogoproto.jsontag) = "title"];
+  int64 Ctime = 12 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Mtime = 13 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int32 DySort = 14 [(gogoproto.jsontag) = "dy_sort"];
+  string Ukey = 15 [(gogoproto.jsontag) = "ukey"];
+  int64 Attribute = 16 [(gogoproto.jsontag) = "attribute"];
+  string BgColor = 17 [(gogoproto.jsontag) = "bg_color"];
+  string TitleColor = 18 [(gogoproto.jsontag) = "title_color"];
+  string MoreColor = 19 [(gogoproto.jsontag) = "more_color"];
+  string TName = 20 [(gogoproto.jsontag) = "t_name"];
+  int32 CardStyle = 21 [(gogoproto.jsontag) = "card_style"];
+  int64 AvSort = 22 [(gogoproto.jsontag) = "av_sort"];
+  string FontColor = 23 [(gogoproto.jsontag) = "font_color"];
+  int32 PType = 24 [(gogoproto.jsontag) = "p_type"];
+  string Caption = 25 [(gogoproto.jsontag) = "caption"];
+  string Remark = 26 [(gogoproto.jsontag) = "remark"];
+  string Bar = 27 [(gogoproto.jsontag) = "bar"];
+  int64 Stime = 28 [(gogoproto.jsontag) = "stime"];
+  int64 Etime = 29 [(gogoproto.jsontag) = "etime"];
+  // 直播卡类型 0:隐藏卡片 1:直播间
+  int32 LiveType = 30 [(gogoproto.jsontag) = "live_type"];
+  string Colors = 31 [(gogoproto.jsontag) = "Colors"];
+  //组件特定分类json
+  string ConfSort = 32 [(gogoproto.jsontag) = "conf_sort"];
+}
+
+message ConfSort {
+  //查看更多方式 0:跳转二级页面 1:浮层 2:下拉展示
+  int64 moreSort = 1 [(gogoproto.jsontag) = "more_sort"];
+  //精确到 0:年 1:月 2: 日 3:时 4:分 5:秒
+  int64 timeSort = 2 [(gogoproto.jsontag) = "time_sort"];
+  //时间轴节点类型 0:文本 1:时间节点
+  int64 axis = 3 [(gogoproto.jsontag) = "axis"];
+}
+
+message Colors {
+  //文字标题字体色
+  string displayColor = 1 [(gogoproto.jsontag) = "display_color"];
+  //标题背景色
+  string titleBgColor = 2 [(gogoproto.jsontag) = "title_bg_color"];
+  //选中色
+  string SelectColor = 3 [(gogoproto.jsontag) = "select_color"];
+  //未选中色
+  string NotSelectColor = 4 [(gogoproto.jsontag) = "not_select_color"];
+  //展开面板背景色
+  string PanelBgColor = 5 [(gogoproto.jsontag) = "panel_bg_color"];
+  //展开面板选中色
+  string PanelSelectColor = 6 [(gogoproto.jsontag) = "panel_select_color"];
+  //展开面板未选中色
+  string PanelNotSelectColor = 7 [(gogoproto.jsontag) = "panel_not_select_color"];
+  //时间轴色
+  string timelineColor = 8 [(gogoproto.jsontag) = "timeline_color"];
+  //浮层标题文字色
+  string supernatantColor = 9 [(gogoproto.jsontag) = "supernatant_color"];
+  //副标题文字色-三列   推荐语文字色-单列
+  string subtitleColor = 10 [(gogoproto.jsontag) = "subtitle_color"];
+}
+
+message MixReason {
+  int64 stime = 1 [(gogoproto.jsontag) = "stime"];          //时间轴组件-时间控件
+  string title = 2 [(gogoproto.jsontag) = "title"];          //时间轴组件-主标题
+  string subTitle = 3 [(gogoproto.jsontag) = "sub_title"];      //时间轴组件-副标题
+  string desc = 4 [(gogoproto.jsontag) = "desc"];           //时间轴组件-描述
+  string image = 5 [(gogoproto.jsontag) = "image"];          //时间轴组件-图片
+  string url = 6 [(gogoproto.jsontag) = "url"];            //时间轴组件-跳转连接
+  string name = 7 [(gogoproto.jsontag) = "name"];           //时间轴组件-阶段名
+  int32 width = 8 [(gogoproto.jsontag) = "width"];          //时间轴组件-图片宽
+  int32 length = 9 [(gogoproto.jsontag) = "length"];         //时间轴组件-图片长
+  string type = 10 [(gogoproto.jsontag) = "type"];          //inline-tab&筛选组件-定位类型 week:每周必卡
+  string locationKey = 11 [(gogoproto.jsontag) = "location_key"];  //inline-tab&筛选组件-定位类型 type=week：每周必看期数id
+}
+
+message NativeAct {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  int64 ModuleID = 2 [(gogoproto.jsontag) = "module_id"];
+  int64 State = 3 [(gogoproto.jsontag) = "state"];
+  int64 PageID = 4 [(gogoproto.jsontag) = "page_id"];
+  int64 Rank = 5 [(gogoproto.jsontag) = "rank"];
+  int64 Ctime = 8 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Mtime = 9 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message NativeClick {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  int64 ModuleID = 2 [(gogoproto.jsontag) = "module_id"];
+  int64 State = 3 [(gogoproto.jsontag) = "state"];
+  int64 Leftx = 4 [(gogoproto.jsontag) = "left_x"];
+  int64 Lefty = 5 [(gogoproto.jsontag) = "left_y"];
+  int64 Width = 6 [(gogoproto.jsontag) = "width"];
+  int64 Length = 7 [(gogoproto.jsontag) = "length"];
+  string Link = 8 [(gogoproto.jsontag) = "link"];
+  int64 Ctime = 9 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Mtime = 10 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Type = 11 [(gogoproto.jsontag) = "type"];
+  int64 ForeignID = 12 [(gogoproto.jsontag) = "foreign_id"];
+  string UnfinishedImage = 13 [(gogoproto.jsontag) = "unfinished_image"];
+  string FinishedImage = 14 [(gogoproto.jsontag) = "finished_image"];
+  string Tip = 15 [(gogoproto.jsontag) = "tip"];
+  string OptionalImage = 16 [(gogoproto.jsontag) = "optional_image"];
+}
+
+message NativeDynamicExt {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  int64 ModuleID = 2 [(gogoproto.jsontag) = "module_id"];
+  int64 State = 3 [(gogoproto.jsontag) = "state"];
+  int64 SelectType = 4 [(gogoproto.jsontag) = "select_type"];
+  int64 Ctime = 5 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Mtime = 6 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 ClassType = 7 [(gogoproto.jsontag) = "class_type"];
+  int64 ClassID = 8 [(gogoproto.jsontag) = "class_id"];
+}
+
+message NativeVideoExt {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  int64 ModuleID = 2 [(gogoproto.jsontag) = "module_id"];
+  int64 State = 3 [(gogoproto.jsontag) = "state"];
+  int64 SortType = 4 [(gogoproto.jsontag) = "sort_type"];
+  int64 Rank = 5 [(gogoproto.jsontag) = "rank"];
+  int64 Ctime = 6 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Mtime = 7 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message NativeMixtureExt {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  int64 ModuleID = 2 [(gogoproto.jsontag) = "module_id"];
+  int64 State = 3 [(gogoproto.jsontag) = "state"];
+  int64 ForeignID = 4 [(gogoproto.jsontag) = "foreign_id"];
+  int64 Rank = 5 [(gogoproto.jsontag) = "rank"];
+  int64 Ctime = 6 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Mtime = 7 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int32 MType = 8 [(gogoproto.jsontag) = "m_type"];
+  string Reason = 9 [(gogoproto.jsontag) = "reason"];
+}
+
+message NativeParticipationExt {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  int64 ModuleID = 2 [(gogoproto.jsontag) = "module_id"];
+  int64 State = 3 [(gogoproto.jsontag) = "state"];
+  int32 MType = 4 [(gogoproto.jsontag) = "m_type"];
+  string Image = 5 [(gogoproto.jsontag) = "image"];
+  string Title = 6 [(gogoproto.jsontag) = "title"];
+  int64 Rank = 7 [(gogoproto.jsontag) = "rank"];
+  int64 ForeignID = 8 [(gogoproto.jsontag) = "foreign_id"];
+  int64 Ctime = 9 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Mtime = 10 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int32 UpType = 11 [(gogoproto.jsontag) = "up_type"];
+}
+
+message ReserveRule {
+  // 主键id
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  // 指定行为类型 1 投稿
+  int64 Type = 2 [(gogoproto.jsontag) = "type"];
+  // 指定视频分区 空为全选，多个半角逗号分隔
+  string TypeIDs = 3 [(gogoproto.jsontag) = "type_ids"];
+  // 指定tag 空为不限制，多个半角逗号分隔
+  string Tags = 4 [(gogoproto.jsontag) = "tags"];
+  // 规则的属性，按位存 0位:0 打卡次数 1打卡天数，1位 统计开始:0 统计周期 1 报名之后
+  int64 Attribute = 5 [(gogoproto.jsontag) = "attribute"];
+  // 状态 1:在线 2:锁定
+  int64 State = 6 [(gogoproto.jsontag) = "state"];
+  // 规则生效时间
+  int64 Stime = 7 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  // 规则失效时间
+  int64 Etime = 8 [(gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+
+}
+
+// +bili:deepcopy-gen=true
+// +bili:deepcopy-gen:structs=go-gateway/app/web-svr/activity/interface/model/like.SubjectItem
+message Subject {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  int64 Oid = 2 [(gogoproto.jsontag) = "oid"];
+  int64 Type = 3 [(gogoproto.jsontag) = "type"];
+  int64 State = 4 [(gogoproto.jsontag) = "state"];
+  int64 Stime = 5 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Etime = 6 [(gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Ctime = 7 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Mtime = 8 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  string Name = 9 [(gogoproto.jsontag) = "name"];
+  string Author = 10 [(gogoproto.jsontag) = "author"];
+  string ActURL = 11 [(gogoproto.jsontag) = "act_url"];
+  int64 Lstime = 12 [(gogoproto.jsontag) = "lstime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Letime = 13 [(gogoproto.jsontag) = "letime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  string Cover = 14 [(gogoproto.jsontag) = "cover"];
+  string Dic = 15 [(gogoproto.jsontag) = "dic"];
+  int64 Flag = 16 [(gogoproto.jsontag) = "flag"];
+  int64 Uetime = 17 [(gogoproto.jsontag) = "uetime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Ustime = 18 [(gogoproto.jsontag) = "ustime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Level = 19 [(gogoproto.jsontag) = "level"];
+  string H5_cover = 20 [(gogoproto.jsontag) = "h5_cover"];
+  int64 Rank = 21 [(gogoproto.jsontag) = "rank"];
+  int64 LikeLimit = 22 [(gogoproto.jsontag) = "like_limit"];
+  string AndroidURL = 23 [(gogoproto.jsontag) = "android_url"];
+  string IosURL = 24 [(gogoproto.jsontag) = "ios_url"];
+  int64 DailyLikeLimit = 25 [(gogoproto.jsontag) = "daily_like_limit"];
+  int64 DailySingleLikeLimit = 26 [(gogoproto.jsontag) = "daily_single_like_limit"];
+  int64 UpLevel = 27 [(gogoproto.jsontag) = "up_level"];
+  int64 UpScore = 28 [(gogoproto.jsontag) = "up_score"];
+  int64 UpUetime = 29 [(gogoproto.jsontag) = "up_uetime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 UpUstime = 30 [(gogoproto.jsontag) = "up_ustime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 FanLimitMax = 31 [(gogoproto.jsontag) = "fan_limit_max"];
+  int64 FanLimitMin = 32 [(gogoproto.jsontag) = "fan_limit_min"];
+  int64 MonthScore = 33 [(gogoproto.jsontag) = "month_score"];
+  int64 YearScore = 34 [(gogoproto.jsontag) = "year_score"];
+  string ChildSids = 35 [(gogoproto.jsontag) = "child_sids"];
+  string AuditPlatform = 36 [(gogoproto.jsontag) = "audit_platform"];
+}
+
+// +bili:deepcopy-gen=true
+// +bili:deepcopy-gen:structs=go-gateway/app/web-svr/activity/interface/model/like.ActSubjectProtocol
+message ActSubjectProtocol {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  int64 Sid = 2 [(gogoproto.jsontag) = "sid"];
+  string Protocol = 3 [(gogoproto.jsontag) = "protocol"];
+  int64 Mtime = 4 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Ctime = 5 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  string Types = 6 [(gogoproto.jsontag) = "types"];
+  string Tags = 7 [(gogoproto.jsontag) = "tags"];
+  int64 Pubtime = 8 [(gogoproto.jsontag) = "pubtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Deltime = 9 [(gogoproto.jsontag) = "deltime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Editime = 10 [(gogoproto.jsontag) = "editime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Hot = 11 [(gogoproto.jsontag) = "hot"];
+  int64 BgmID = 12 [(gogoproto.jsontag) = "bgm_id"];
+  int64 PasterID = 13 [(gogoproto.jsontag) = "paster_id"];
+  string Oids = 14 [(gogoproto.jsontag) = "oids"];
+  int64 ScreenSet = 15 [(gogoproto.jsontag) = "screen_set"];
+}
+
+// +bili:deepcopy-gen=true
+// +bili:deepcopy-gen:structs=go-gateway/app/web-svr/activity/interface/model/like.Item
+message Item {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  int64 Sid = 2 [(gogoproto.jsontag) = "sid"];
+  int64 Type = 3 [(gogoproto.jsontag) = "type"];
+  int64 Mid = 4 [(gogoproto.jsontag) = "mid"];
+  int64 Wid = 5 [(gogoproto.jsontag) = "wid"];
+  int64 State = 6 [(gogoproto.jsontag) = "state"];
+  int64 StickTop = 7 [(gogoproto.jsontag) = "stick_top"];
+  int64 Ctime = 8 [(gogoproto.jsontag) = "act_ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Mtime = 9 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message ItemObj {
+  Item Item = 1;
+  int64 Score = 2 [(gogoproto.jsontag) = "score"];
+  int64 HasLiked = 3 [(gogoproto.jsontag) = "has_liked"];
+}
+
+message GuessAddReq {
+  int64 business = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 oid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 maxStake = 3 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 stakeType = 4 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 stime = 5 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 etime = 6 [(gogoproto.moretags) = 'validate:"min=1"'];
+  repeated GuessGroup groups = 7 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message GuessEditReq {
+  int64 business = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 oid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 stime = 3 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 etime = 4 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message GuessGroup {
+  int64 id = 1;
+  string title = 2;
+  repeated GuessDetailAdd detailAdd = 3;
+  int64 templateType = 4;
+}
+
+message GuessDetailAdd {
+  string option = 1 [(gogoproto.jsontag) = "option"];
+  int64 totalStake = 2 [(gogoproto.jsontag) = "total_stake"];
+}
+
+message GuessGroupDelReq {
+  int64 mainID = 1 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message GuessGroupReply {
+  int64 haveGuess = 1;
+}
+
+message GuessUpResultReq {
+  int64 mainID = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 detailID = 2 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message GuessListReq {
+  int64 business = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 oid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 mid = 3 [(gogoproto.moretags) = 'validate:"min=0"'];
+}
+
+message GuessListsReq {
+  int64 business = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  repeated int64 oids = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 mid = 3 [(gogoproto.moretags) = 'validate:"min=0"'];
+}
+
+message GuessListReply {
+  repeated GuessList matchGuess = 1;
+}
+
+message GuessListAllReply {
+  repeated GuessAllList matchGuess = 1;
+}
+
+message GuessList {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  string title = 2 [(gogoproto.jsontag) = "title"];
+  int64 stakeType = 3 [(gogoproto.jsontag) = "stake_type"];
+  int64 isGuess = 4 [(gogoproto.jsontag) = "is_guess"];
+  repeated GuessDetail details = 5;
+  int64 templateType = 6 [(gogoproto.jsontag) = "template_type"];
+  string rightOption = 7 [(gogoproto.jsontag) = "right_option"];
+}
+
+message GuessAllList {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  string title = 2 [(gogoproto.jsontag) = "title"];
+  int64 guessCount = 3 [(gogoproto.jsontag) = "guess_count"];
+  int64 stakeType = 4 [(gogoproto.jsontag) = "stake_type"];
+  int64 resultId = 5 [(gogoproto.jsontag) = "result_id"];
+  repeated GuessDetail details = 6;
+  int64 templateType = 7 [(gogoproto.jsontag) = "template_type"];
+}
+
+message GuessDetail {
+  int64 id = 1 [(gogoproto.jsontag) = "detail_id"];
+  float odds = 2 [(gogoproto.jsontag) = "odds"];
+  string option = 3 [(gogoproto.jsontag) = "option"];
+  int64 stake = 4 [(gogoproto.jsontag) = "stake"];
+  float income = 5 [(gogoproto.jsontag) = "income"];
+  int64 correct = 6 [(gogoproto.jsontag) = "correct"];
+}
+
+message GuessListsReply {
+  map<int64, GuessListReply> matchGuesses = 1 [(gogoproto.jsontag) = 'match_guesses'];
+}
+
+message GuessUserAddReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 mainID = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 detailID = 3 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 stakeType = 4 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 stake = 5 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message UserGuessListReq {
+  int64 business = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 status = 3 [(gogoproto.moretags) = 'validate:"min=0"'];
+  int64 ps = 4 [(gogoproto.moretags) = 'default:"10" validate:"min=1,max=100"'];
+  int64 pn = 5 [(gogoproto.moretags) = 'default:"1" validate:"min=1"'];
+}
+
+message UserGuessGroupReq {
+  int64 business = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 main_id = 3 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message UserGuessListReply {
+  PageInfo page = 1;
+  repeated GuessUserGroup userGroup = 2;
+}
+
+message GuessUserGroup {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  int64 stake = 2 [(gogoproto.jsontag) = "stake"];
+  float income = 3 [(gogoproto.jsontag) = "income"];
+  int64 status = 4 [(gogoproto.jsontag) = "status"];
+  int64 ctime = 5 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 mainID = 6 [(gogoproto.jsontag) = "main_id"];
+  int64 oid = 7 [(gogoproto.jsontag) = "oid"];
+  string title = 8 [(gogoproto.jsontag) = "title"];
+  int64 stakeType = 9 [(gogoproto.jsontag) = "stake_type"];
+  int64 resultId = 10 [(gogoproto.jsontag) = "result_id"];
+  int64 detailID = 11 [(gogoproto.jsontag) = "detail_id"];
+  float odds = 12 [(gogoproto.jsontag) = "odds"];
+  string option = 13 [(gogoproto.jsontag) = "option"];
+  int64 stime = 14 [(gogoproto.jsontag) = "stime"];
+  int64 etime = 15 [(gogoproto.jsontag) = "etime"];
+  int64 correct = 16 [(gogoproto.jsontag) = "correct"];
+  int64 isDeleted = 17 [(gogoproto.jsontag) = "is_deleted"];
+  int64 templateType = 18 [(gogoproto.jsontag) = "template_type"];
+  string rightOption = 19 [(gogoproto.jsontag) = "right_option"];
+}
+
+message UserGuessDataReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 stakeType = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 business = 3 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message UserGuessResultReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 sid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  repeated int64 oids = 3 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 stakeType = 4 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 business = 5 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message UserGuessDataReply {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  int64 business = 2 [(gogoproto.jsontag) = "business"];
+  int64 mid = 3 [(gogoproto.jsontag) = "mid"];
+  int64 totalGuess = 4 [(gogoproto.jsontag) = "total_guess"];
+  int64 totalSuccess = 5 [(gogoproto.jsontag) = "total_success"];
+  float successRate = 6 [(gogoproto.jsontag) = "success_rate"];
+  int64 stakeType = 7 [(gogoproto.jsontag) = "stake_type"];
+  int64 totalStake = 8 [(gogoproto.jsontag) = "total_stake"];
+  float totalIncome = 9 [(gogoproto.jsontag) = "total_income"];
+  int64 ranking = 10 [(gogoproto.jsontag) = "ranking"];
+  int64 ctime = 11 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 mtime = 12 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message UserGuessResultReply {
+  int64 business = 1 [(gogoproto.jsontag) = "business"];
+  int64 mid = 2 [(gogoproto.jsontag) = "mid"];
+  int64 totalGuess = 3 [(gogoproto.jsontag) = "total_guess"];
+  int64 totalSuccess = 4 [(gogoproto.jsontag) = "total_success"];
+  int64 haveSuit = 5 [(gogoproto.jsontag) = "have_suit"];
+}
+
+message UserGuessMatchReq {
+  int64 business = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 oid = 3 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message UserGuessMatchsReq {
+  int64 business = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  repeated int64 oids = 3 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 ps = 4 [(gogoproto.moretags) = 'validate:"min=1,max=100"'];
+  int64 pn = 5 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message UserGuessMatchReply {
+  repeated GuessUserGroup userGroup = 1;
+}
+
+message UserGuessMatchsReply {
+  PageInfo page = 1;
+  repeated GuessUserGroup userGroup = 2;
+}
+
+message PollMetaReq {
+  int64 poll_id = 1 [
+    (gogoproto.jsontag) = "poll_id",
+    (gogoproto.moretags) = 'form:"poll_id" validate:"required"'
+  ];
+}
+
+message PollOptionsReq {
+  int64 poll_id = 1 [
+    (gogoproto.jsontag) = "poll_id",
+    (gogoproto.moretags) = 'form:"poll_id" validate:"required"'
+  ];
+}
+
+message PollVoteChoice {
+  int64 poll_option_id = 1 [(gogoproto.jsontag) = "poll_option_id"];
+  int64 count = 2 [(gogoproto.jsontag) = "count"];
+}
+
+message PollVoteReq {
+  int64 poll_id = 1 [
+    (gogoproto.jsontag) = "poll_id",
+    (gogoproto.moretags) = 'form:"poll_id" validate:"required"'
+  ];
+  int64 mid = 2
+  [(gogoproto.jsontag) = "mid", (gogoproto.moretags) = 'form:"-"'];
+  repeated PollVoteChoice vote = 3
+  [(gogoproto.jsontag) = "vote", (gogoproto.moretags) = 'form:"-"'];
+}
+
+message PollMetaReply {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  string title = 2 [(gogoproto.jsontag) = "title"];
+  bool unique_table = 3 [(gogoproto.jsontag) = "unique_table"];
+  bool repeatable = 4 [(gogoproto.jsontag) = "repeatable"];
+  int64 daily_chance = 5 [(gogoproto.jsontag) = "daily_chance"];
+  int64 vote_maximum = 6 [(gogoproto.jsontag) = "vote_maximum"];
+  int64 end_at = 7 [(gogoproto.jsontag) = "end_at"];
+}
+
+message PollOption {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  int64 poll_id = 2 [(gogoproto.jsontag) = "poll_id"];
+  string title = 3 [(gogoproto.jsontag) = "title"];
+  string image = 4 [(gogoproto.jsontag) = "image"];
+  string group = 5 [(gogoproto.jsontag) = "group"];
+}
+
+message PollOptionStatReply {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  int64 poll_id = 2 [(gogoproto.jsontag) = "poll_id"];
+  int64 poll_option_id = 3 [(gogoproto.jsontag) = "poll_option_id"];
+  int64 ticket_sum = 4 [(gogoproto.jsontag) = "ticket_sum"];
+  int64 vote_sum = 5 [(gogoproto.jsontag) = "vote_sum"];
+  PollOption poll_option = 6 [(gogoproto.jsontag) = "poll_option"];
+}
+
+message PollOptionsReply {
+  repeated PollOption options = 1 [(gogoproto.jsontag) = "options"];
+}
+
+message PollOptionStatTopReq {
+  int64 poll_id = 1 [
+    (gogoproto.jsontag) = "poll_id",
+    (gogoproto.moretags) = 'form:"poll_id" validate:"required"'
+  ];
+}
+
+message PollOptionStatTopReply {
+  repeated PollOptionStatReply option_stats = 1
+  [(gogoproto.jsontag) = "option_stats"];
+}
+
+message PollVotedReq {
+  int64 mid = 1 [(gogoproto.jsontag) = "mid"];
+  int64 poll_id = 2 [
+    (gogoproto.jsontag) = "poll_id",
+    (gogoproto.moretags) = 'form:"poll_id" validate:"required"'
+  ];
+}
+
+message PollVotedReply {
+  int64 mid = 1 [(gogoproto.jsontag) = "mid"];
+  int64 poll_id = 2 [(gogoproto.jsontag) = "poll_id"];
+  bool voted = 3 [(gogoproto.jsontag) = "voted"];
+  int64 daily_vote_count = 4 [(gogoproto.jsontag) = "daily_vote_count"];
+}
+
+message AwardSubjectStateReq {
+  int64 mid = 1;
+  int64 id = 2;
+}
+
+message AwardSubjectStateReply {
+  int32 state = 1;
+}
+
+message RewardSubjectReq {
+  int64 mid = 1;
+  int64 id = 2;
+}
+
+message NativeActTab {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  string Title = 2 [(gogoproto.jsontag) = "title"];
+  int64 Stime = 3 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Etime = 4 [(gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int32 State = 5 [(gogoproto.jsontag) = "state"];
+  int64 Ctime = 6 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Mtime = 7 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int32 BgType = 8 [(gogoproto.jsontag) = "bg_type"];
+  string BgImg = 9 [(gogoproto.jsontag) = "bg_img"];
+  string BgColor = 10 [(gogoproto.jsontag) = "bg_color"];
+  int32 IconType = 11 [(gogoproto.jsontag) = "icon_type"];
+  string ActiveColor = 12 [(gogoproto.jsontag) = "active_color"];
+  string InactiveColor = 13 [(gogoproto.jsontag) = "inactive_color"];
+}
+
+message NativeTabModule {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  string Title = 2 [(gogoproto.jsontag) = "title"];
+  int64 TabID = 3 [(gogoproto.jsontag) = "tab_id"];
+  int32 State = 4 [(gogoproto.jsontag) = "state"];
+  int32 Category = 5 [(gogoproto.jsontag) = "category"];
+  int64 Pid = 6 [(gogoproto.jsontag) = "pid"];
+  int64 Ctime = 7 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Mtime = 8 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  string URL = 9 [(gogoproto.jsontag) = "url"];
+  string ActiveImg = 10 [(gogoproto.jsontag) = "active_img"];
+  string InactiveImg = 11 [(gogoproto.jsontag) = "inactive_img"];
+  int32 Rank = 12 [(gogoproto.jsontag) = "rank"];
+}
+
+message NativeTsPage {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  int64 ctime = 4 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 mtime = 5 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 state = 6 [(gogoproto.jsontag) = "state"];
+  int64 pid = 8 [(gogoproto.jsontag) = "pid"];
+  string title = 9 [(gogoproto.jsontag) = "title"];
+  int64 foreignID = 10 [(gogoproto.jsontag) = "foreign_id"];
+  string videoDisplay = 11 [(gogoproto.jsontag) = "video_display"];
+  string auditType = 12 [(gogoproto.jsontag) = "audit_type"];
+}
+
+message NativeTsModule {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  int64 category = 2 [(gogoproto.jsontag) = "category"];
+  int64 tsID = 3 [(gogoproto.jsontag) = "ts_id"];
+  int64 state = 4 [(gogoproto.jsontag) = "state"];
+  int64 rank = 5 [(gogoproto.jsontag) = "rank"];
+  string meta = 6 [(gogoproto.jsontag) = "meta"];
+  int64 width = 7 [(gogoproto.jsontag) = "width"];
+  int64 length = 8 [(gogoproto.jsontag) = "length"];
+  int64 ctime = 9 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 mtime = 10 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  string remark = 11 [(gogoproto.jsontag) = "remark"];
+  int32 pType = 12 [(gogoproto.jsontag) = "p_type"];
+  string ukey = 13 [(gogoproto.jsontag) = "ukey"];
+  int64 num = 14 [(gogoproto.jsontag) = "num"];
+  int64 attribute = 15 [(gogoproto.jsontag) = "attribute"];
+}
+
+message NativeTsModuleResource {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  int64 moduleID = 2 [(gogoproto.jsontag) = "module_id"];
+  int64 resourceID = 3 [(gogoproto.jsontag) = "resource_id"];
+  int64 resourceType = 4 [(gogoproto.jsontag) = "resource_type"];
+  int64 rank = 5 [(gogoproto.jsontag) = "rank"];
+  string resourceFrom = 6 [(gogoproto.jsontag) = "resource_from"];
+  int64 state = 7 [(gogoproto.jsontag) = "state"];
+  int64 ctime = 8 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 mtime = 9 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message SubjectRuleCounter {
+  string Name = 1 [(gogoproto.jsontag) = "name", json_name = "name"];
+  int64 Category = 2 [(gogoproto.jsontag) = "category", json_name = "category"];
+  string TypeIDs = 3 [(gogoproto.jsontag) = "type_ids", json_name = "type_ids"];
+  string Tags = 4 [(gogoproto.jsontag) = "tags", json_name = "tags"];
+  string Sids = 5 [(gogoproto.jsontag) = "sids", json_name = "sids"];
+  string Coefficient = 6 [(gogoproto.jsontag) = "coefficient", json_name = "coefficient"];
+  int64 State = 7 [(gogoproto.jsontag) = "state", json_name = "state"];
+  int64 Attribute = 8 [(gogoproto.jsontag) = "attribute", json_name = "attribute"];
+  repeated SubjectRuleFav Fav = 9 [(gogoproto.jsontag) = "fav", json_name = "fav"];
+
+}
+
+message SubjectRuleFav {
+  int64 Fid = 1 [(gogoproto.jsontag) = "fid", json_name = "fid"];
+  int64 Mid = 2 [(gogoproto.jsontag) = "mid", json_name = "mid"];
+}
+
+message SyncSubjectRulesReq {
+  int64 SID = 1 [(gogoproto.jsontag) = "sid", json_name = "sid"];
+  repeated SubjectRuleCounter counter = 2 [(gogoproto.jsontag) = "counter", json_name = "counter"];
+}
+
+message SyncUserStateReq {
+  int64 TaskID = 1 [(gogoproto.jsontag) = "task_id"];
+  int64 MID = 2 [(gogoproto.jsontag) = "mid"];
+  int64 Count = 3 [(gogoproto.jsontag) = "count"];
+  int64 SID = 4 [(gogoproto.jsontag) = "sid"];
+}
+
+message SyncUserScoreReq {
+  int64 SID = 1 [(gogoproto.jsontag) = "sid"];
+  int64 MID = 2 [(gogoproto.jsontag) = "mid"];
+  int64 Score = 3 [(gogoproto.jsontag) = "score"];
+}
+
+message ListActivityArcsReq {
+  int64 sid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message ListActivityArcsReply {
+  repeated int64 aid = 1 [(gogoproto.jsontag) = "aid"];
+}
+
+// dimension 查询维度
+enum GetReserveProgressDimension {
+  // 用户维度
+  User = 0;
+  // 规则维度
+  Rule = 1;
+}
+
+message ReserveProgressRule {
+  GetReserveProgressDimension dimension = 1 [(gogoproto.moretags) = 'dimension', (gogoproto.jsontag) = "dimension"];
+  int64 rule_id = 2 [(gogoproto.moretags) = 'rule_id', (gogoproto.jsontag) = "rule_id"];
+  int64 type = 3 [(gogoproto.moretags) = 'type', (gogoproto.jsontag) = "type"];
+  int64 data_type = 4 [(gogoproto.moretags) = 'data_type', (gogoproto.jsontag) = "data_type"];
+}
+
+message GetReserveProgressReq {
+  int64 sid = 1 [(gogoproto.moretags) = 'sid', json_name = "sid"];
+  int64 mid = 2 [(gogoproto.moretags) = 'mid', json_name = "mid"];
+  repeated ReserveProgressRule rules = 3 [(gogoproto.moretags) = 'rules', json_name = "rules"];
+}
+
+message OneReserveProgressRes {
+  int64 progress = 1 [(gogoproto.moretags) = 'progress', (gogoproto.jsontag) = "progress"];
+  ReserveProgressRule rule = 2 [(gogoproto.moretags) = 'rule', json_name = "rule"];
+}
+
+message GetReserveProgressRes {
+  repeated OneReserveProgressRes data = 1 [(gogoproto.moretags) = 'data', json_name = "data"];
+}
+
+message NativePageDyn {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  int64 pid = 2 [(gogoproto.jsontag) = "pid"];
+  int64 ctime = 3 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 mtime = 4 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 stime = 5 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 validity = 6 [(gogoproto.jsontag) = "validity"];
+  string squareTitle = 7 [(gogoproto.jsontag) = "square_title"];
+  string smallCard = 8 [(gogoproto.jsontag) = "small_card"];
+  string bigCard = 9 [(gogoproto.jsontag) = "big_card"];
+  string tids = 10 [(gogoproto.jsontag) = "tids"];
+}
+
+message CollegeAidIsActivityReq {
+  int64 aid = 1 [(gogoproto.moretags) = 'aid', json_name = "aid"];
+  int64 mid = 2 [(gogoproto.moretags) = 'mid', json_name = "mid"];
+}
+
+message CollegeAidIsActivityRes {
+  bool isActivity = 1 [(gogoproto.moretags) = 'is_activity', json_name = "is_activity"];
+}
+
+message SponsorNativePagesReq {
+  repeated int64 uids = 1 [(gogoproto.moretags) = 'validate:"min=1,max=500,dive,min=1"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message SponsorNativePagesReply {
+  repeated SponsorNativePage list = 1 [(gogoproto.jsontag) = "list", json_name = "list"];
+}
+message GetNatProgressParamsReq {
+  int64 pageID = 1 [(gogoproto.moretags) = 'validate:"required,min=1"'];
+}
+
+message GetNatProgressParamsReply {
+  repeated ProgressParam list = 1 [(gogoproto.jsontag) = "list"];
+}
+
+message ProgressParam {
+  int64 id = 1 [(gogoproto.jsontag) = "id"];
+  int64 pageID = 2 [(gogoproto.jsontag) = "page_id"];
+  int64 sid = 3 [(gogoproto.jsontag) = "sid"];
+  int64 dimension = 4 [(gogoproto.jsontag) = "dimension"];
+  string ruleIDName = 5 [(gogoproto.jsontag) = "rule_id_name"];
+  int64 ruleID = 6 [(gogoproto.jsontag) = "rule_id"];
+  string ruleName = 7 [(gogoproto.jsontag) = "rule_name"];
+  string webKey = 8 [(gogoproto.jsontag) = "web_key"];
+  string type = 9 [(gogoproto.jsontag) = "type"];
+}
+
+message SponsorNativePage {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  int64 ForeignID = 2 [(gogoproto.jsontag) = "foreign_id"];
+  int64 RelatedUid = 3 [(gogoproto.jsontag) = "related_uid"];
+  int64 Stime = 4 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message ActRelationInfoReq {
+  int64 id = 1 [(gogoproto.moretags) = 'validate:"min=1"', json_name = "id"];
+  int64 mid = 2 [(gogoproto.jsontag) = "mid", json_name = "mid"];
+  string specific = 3 [(gogoproto.jsontag) = "specific", json_name = "specific"];
+}
+
+message ActRelationInfoReply {
+  string name = 1 [(gogoproto.jsontag) = "name", json_name = "name"];
+  repeated int64 nativeIDs = 2 [(gogoproto.jsontag) = "native_ids", json_name = "native_ids"];
+  repeated int64 h5IDs = 3 [(gogoproto.jsontag) = "h5_ids", json_name = "h5_ids"];
+  repeated int64 webIDs = 4 [(gogoproto.jsontag) = "web_ids", json_name = "web_ids"];
+  repeated string lotteryIDs = 5 [(gogoproto.jsontag) = "lottery_ids", json_name = "lottery_ids"];
+  repeated int64 reserveIDs = 6 [(gogoproto.jsontag) = "reserve_ids", json_name = "reserve_ids"];
+  repeated int64 videoSourceIDs = 7 [(gogoproto.jsontag) = "video_source_ids", json_name = "video_source_ids"];
+  int64 nativeID = 8 [(gogoproto.jsontag) = "native_id", json_name = "native_id"];
+  int64 reserveID = 9 [(gogoproto.jsontag) = "reserve_id", json_name = "reserve_id"];
+  ActRelationInfoReserveItem reserveItem = 10 [(gogoproto.jsontag) = "reserve_item", json_name = "reserve_item"];
+  ActRelationInfoReserveItems reserveItems = 11 [(gogoproto.jsontag) = "reserve_items", json_name = "reserve_items"];
+}
+
+message ActRelationInfoReserveItem {
+  int64 sid = 1 [(gogoproto.jsontag) = 'sid', json_name = "sid"];     // 活动id
+  int64 total = 2 [(gogoproto.jsontag) = 'total', json_name = "total"]; // 此活动id预约总人数
+  int64 state = 3 [(gogoproto.jsontag) = 'state', json_name = "state"]; // 此活动id该用户预约状态  [0 => 未预约 1 => 已预约]
+  int64 start_time = 4 [(gogoproto.jsontag) = 'start_time', json_name = "start_time"]; // 活动开始时间
+  int64 end_time = 5 [(gogoproto.jsontag) = 'end_time', json_name = "end_time"]; // 活动结束时间
+  int64 act_status = 6 [(gogoproto.jsontag) = 'act_status', json_name = "act_status"]; // 活动状态
+  string name = 7 [(gogoproto.jsontag) = 'name', json_name = "name"]; // 预约标题
+}
+
+message ActRelationInfoReserveItems {
+  int64 state = 1 [(gogoproto.jsontag) = 'state', json_name = "state"];  // 聚合活动用户预约状态 [0 => 未预约 1 => 已预约] 未登录用户展现为状态0
+  int64 total = 2 [(gogoproto.jsontag) = 'total', json_name = "total"]; // 活动预约总人数
+  repeated ActRelationInfoReserveItem reserveList = 3 [(gogoproto.jsontag) = "reserve_list", json_name = "reserve_list"];
+}
+
+message ActRelationReserveReq {
+  int64 id = 1 [(gogoproto.moretags) = 'validate:"required,min=1"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  string from = 3 [(gogoproto.jsontag) = "from", json_name = "from"];
+  string typ = 4 [(gogoproto.jsontag) = "typ", json_name = "typ"];
+  string oid = 5 [(gogoproto.jsontag) = "oid", json_name = "oid"];
+  string ip = 6 [(gogoproto.jsontag) = "ip", json_name = "ip"];
+  string platform = 7 [(gogoproto.jsontag) = "platform", json_name = "platform"];
+  string mobiapp = 8 [(gogoproto.jsontag) = "mobiapp", json_name = "mobiapp"];
+  string buvid = 9 [(gogoproto.jsontag) = "buvid", json_name = "buvid"];
+  string spmid = 10 [(gogoproto.jsontag) = "spmid", json_name = "spmid"];
+}
+
+message ActRelationReserveReply {
+  int64 state = 1 [(gogoproto.jsontag) = "state", json_name = "state"]; // 1 => 预约成功 其他预约失败
+  string message = 2 [(gogoproto.jsontag) = "message", json_name = "message"]; // 如果存在预约失败，此处为错误信息
+}
+
+message ActRelationReserveInfoReq {
+  int64 id = 1 [(gogoproto.moretags) = 'validate:"required,min=1"'];
+  int64 mid = 2 [(gogoproto.jsontag) = "mid", json_name = "mid"];  // 拿不到可以不传
+}
+
+message ActRelationReserveInfoReply {
+  int64 state = 1 [(gogoproto.jsontag) = 'state', json_name = "state"];  // 聚合活动用户预约状态 [0 => 未预约 1 => 已预约] 未登录用户展现为状态0
+  repeated ActRelationReserveItem list = 2 [(gogoproto.jsontag) = "list", json_name = "list"];
+  int64 total = 3 [(gogoproto.jsontag) = 'total', json_name = "total"]; // 活动预约总人数
+  int64 start_time = 4 [(gogoproto.jsontag) = 'start_time', json_name = "start_time"]; // 活动开始时间
+  int64 end_time = 5 [(gogoproto.jsontag) = 'end_time', json_name = "end_time"]; // 活动结束时间
+  int64 act_status = 6 [(gogoproto.jsontag) = 'act_status', json_name = "act_status"]; // 活动状态
+  int64 sid = 7 [(gogoproto.jsontag) = 'sid', json_name = "sid"]; // 预约活动id
+}
+
+message ActRelationReserveItem {
+  int64 sid = 1 [(gogoproto.jsontag) = 'sid', json_name = "sid"];     // 活动id
+  int64 total = 2 [(gogoproto.jsontag) = 'total', json_name = "total"]; // 此活动id预约总人数
+  int64 state = 3 [(gogoproto.jsontag) = 'state', json_name = "state"]; // 此活动id该用户预约状态  [0 => 未预约 1 => 已预约]
+  int64 start_time = 4 [(gogoproto.jsontag) = 'start_time', json_name = "start_time"]; // 活动开始时间
+  int64 end_time = 5 [(gogoproto.jsontag) = 'end_time', json_name = "end_time"]; // 活动结束时间
+  int64 act_status = 6 [(gogoproto.jsontag) = 'act_status', json_name = "act_status"]; // 活动状态
+}
+
+message GRPCDoRelationReq {
+  int64 id = 1 [(gogoproto.moretags) = 'validate:"required,min=1"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  string from = 3 [(gogoproto.jsontag) = "from", json_name = "from"];
+  string typ = 4 [(gogoproto.jsontag) = "typ", json_name = "typ"];
+  string oid = 5 [(gogoproto.jsontag) = "oid", json_name = "oid"];
+  string ip = 6 [(gogoproto.jsontag) = "ip", json_name = "ip"];
+  string platform = 7 [(gogoproto.jsontag) = "platform", json_name = "platform"];
+  string mobiapp = 8 [(gogoproto.jsontag) = "mobiapp", json_name = "mobiapp"];
+  string buvid = 9 [(gogoproto.jsontag) = "buvid", json_name = "buvid"];
+  string spmid = 10 [(gogoproto.jsontag) = "spmid", json_name = "spmid"];
+}
+
+message RelationReserveCancelReq {
+  int64 id = 1 [(gogoproto.moretags) = 'validate:"required,min=1"'];
+  int64 mid = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+  string from = 3 [(gogoproto.jsontag) = "from", json_name = "from"];
+  string typ = 4 [(gogoproto.jsontag) = "typ", json_name = "typ"];
+  string oid = 5 [(gogoproto.jsontag) = "oid", json_name = "oid"];
+  string ip = 6 [(gogoproto.jsontag) = "ip", json_name = "ip"];
+  string platform = 7 [(gogoproto.jsontag) = "platform", json_name = "platform"];
+  string mobiapp = 8 [(gogoproto.jsontag) = "mobiapp", json_name = "mobiapp"];
+  string buvid = 9 [(gogoproto.jsontag) = "buvid", json_name = "buvid"];
+  string spmid = 10 [(gogoproto.jsontag) = "spmid", json_name = "spmid"];
+}
+
+message InternalSyncActRelationInfoDB2CacheReq {
+  string from = 1 [(gogoproto.jsontag) = "from"];
+}
+
+message InternalSyncActRelationInfoDB2CacheReply {}
+
+message InternalUpdateItemDataWithCacheReq {
+  int64 typ = 1 [(gogoproto.jsontag) = "typ"]; // 每个动作业务方自己的标识
+  int64 action_type = 2 [(gogoproto.jsontag) = "action_type"];   // 1 => 更新 2 => 删除
+  int64 oid = 3 [(gogoproto.jsontag) = "oid"]; // 资源id
+}
+
+message InternalUpdateItemDataWithCacheReply {}
+
+message InternalSyncActSubjectInfoDB2CacheReq {
+  string from = 1 [(gogoproto.jsontag) = "from"];
+}
+
+message InternalSyncActSubjectInfoDB2CacheReply {}
+
+message InternalSyncActSubjectReserveIDsInfoDB2CacheReq {
+  string from = 1 [(gogoproto.jsontag) = "from"];
+}
+
+message InternalSyncActSubjectReserveIDsInfoDB2CacheReply {}
+
+message RewardsSendAwardReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  string unique_id = 2 [(gogoproto.jsontag) = "unique_id", json_name = "unique_id"];
+  string business = 3 [(gogoproto.jsontag) = "business", json_name = "business"];
+  int64 award_id = 4 [(gogoproto.moretags) = 'validate:"required"'];
+  //控制同步/异步发放
+  bool sync = 5 [json_name = "sync"];
+  //updateDB: 是否更新DB, 可避免消息队列丢失导致丢数据. 只在sync=true时有效
+  //updateDB=true: 一致性高,容忍消息丢失
+  //updateDB=false: 性能高,需要调用方自身提供额外的对账机制
+  bool update_db = 6 [json_name = "update_db"];
+  //updateCache: 是否将此条记录更新到缓存,拜年纪会主动添加缓存所以无需再次更新
+  //只在need_send=true时有效
+  bool update_cache = 7 [json_name = "update_cache"];
+}
+
+message RewardsSendAwardV2Req {
+    //发放的Mid
+    int64 mid            = 1 [(gogoproto.moretags) = 'validate:"required"'];
+    //幂等id, 使用相同的幂等id发放奖励会返回code=0, 但不会再次发放
+    string unique_id     = 2 [(gogoproto.moretags) = 'validate:"required"'];
+    //业务标识
+    string business      = 3 [(gogoproto.moretags) = 'validate:"required"'];
+    //奖励id
+    int64 award_id       = 4 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message RewardsSendAwardReply {
+  int64 activity_id = 1 [(gogoproto.jsontag) = "activity_id", json_name = "activity_id"];
+  string activity_name = 2 [(gogoproto.jsontag) = "activity_name", json_name = "activity_name"];
+  int64 receive_time = 3 [(gogoproto.jsontag) = "receive_time", json_name = "receive_time"];
+  string type = 4 [(gogoproto.jsontag) = "type", json_name = "type"];
+  string name = 5 [(gogoproto.jsontag) = "name", json_name = "name"];
+  string icon = 6 [(gogoproto.jsontag) = "icon", json_name = "icon"];
+  map<string, string> ExtraInfo = 7 [(gogoproto.jsontag) = "extra", json_name = "extra"];
+  int64 award_id = 8 [(gogoproto.jsontag) = "award_id", json_name = "award_id"];
+  int64 mid = 9 [(gogoproto.jsontag) = "mid", json_name = "mid"];
+}
+
+message RetryRewardsSendAwardReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  string unique_id = 2 [(gogoproto.jsontag) = "unique_id", json_name = "unique_id"];
+  string business = 3 [(gogoproto.jsontag) = "business", json_name = "business"];
+  int64 award_id = 4 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message Bnj2021LotteryReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 count = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  //type:
+  //1--扭蛋
+  //2--直播间
+  //3--观看时长
+  int64 type = 3 [(gogoproto.moretags) = 'validate:"required"'];
+  //是否进行发放动作
+  bool need_send = 4 [json_name = "need_send"];
+  //!仅测试使用: 是否进行次数扣除动作
+  bool debug = 5 [json_name = "debug"];
+  //风控活动ID
+  int64 activity_id = 6 [(gogoproto.moretags) = 'validate:"required"'];
+  //updateDB: 是否更新DB, 可避免消息队列丢失导致丢数据. 只在need_send=true时有效
+  //updateDB=true: 一致性高,容忍消息丢失
+  //updateDB=false: 性能高,需要调用方自身提供额外的对账机制
+  bool update_db = 7 [json_name = "update_db"];
+  //updateCache: 是否将此条记录更新到缓存,拜年纪会主动添加缓存所以无需再次更新
+  //只在need_send=true时有效
+  bool update_cache = 8 [json_name = "update_cache"];
+}
+
+message Bnj2021LotteryReply {
+  repeated RewardsSendAwardReply list = 1 [(gogoproto.jsontag) = "list", json_name = "list"];
+}
+
+message ActReserveTagReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message ActReserveTagReply {
+  repeated ActReserveTagItem List = 1;
+}
+
+message ActReserveTagItem {
+  int64 sid = 1 [(gogoproto.jsontag) = 'sid', json_name = "sid"];     // 视频数据源id
+  string tag = 2 [(gogoproto.jsontag) = 'tag', json_name = "tag"];     // 标签
+  string types = 3 [(gogoproto.jsontag) = 'types', json_name = "types"]; // 分区 逗号拼接
+}
+
+message UpActReserveRelationInfoReq {
+  int64 mid = 1 [(gogoproto.jsontag) = "mid", json_name = "mid"];// 用户mid
+  repeated int64 sids = 2 [(gogoproto.moretags) = 'validate:"min=1,required"'];
+}
+
+message UpActReserveRelationInfoReply {
+  map<int64, UpActReserveRelationInfo> list = 1 [(gogoproto.jsontag) = 'list'];
+}
+
+message UpActReserveRelationInfo {
+    int64 sid   = 1 [(gogoproto.jsontag)  = "sid", json_name = "sid"];// 预约id
+    string title = 2 [(gogoproto.jsontag)  = "name", json_name = "name"];// 预约活动名称
+    int64 total = 3 [(gogoproto.jsontag)  = "total", json_name = "total"];// 预约总人数
+    int64 stime = 4 [(gogoproto.jsontag)  = "stime", (gogoproto.casttype) = "go-common/library/time.Time", json_name = "stime"];// 活动开始时间
+    int64 etime = 5 [(gogoproto.jsontag)  = "etime", (gogoproto.casttype) = "go-common/library/time.Time", json_name = "etime"]; // 活动结束时间
+    int64 isFollow = 6 [(gogoproto.jsontag)  = "isFollow", json_name = "isFollow"]; // 是否预约 0 => 未预约 1 => 已预约
+    UpActReserveRelationState state = 7 [(gogoproto.jsontag)  = "state", json_name = "state"];
+    string oid   = 8  [(gogoproto.jsontag)  = "oid", json_name = "oid"]; // 资源id
+    UpActReserveRelationType type  = 9  [(gogoproto.jsontag)  = "type", json_name = "type"];
+    int64 upmid = 10  [(gogoproto.jsontag)  = "upmid", json_name = "upmid"]; // up主or播主 mid 区分主态or客态
+    int64 reserveRecordCtime = 11 [(gogoproto.jsontag)  = "reserveRecordCtime", (gogoproto.casttype) = "go-common/library/time.Time", json_name = "reserveRecordCtime"]; // 用户预约记录的创建时间
+    int64 livePlanStartTime = 12 [(gogoproto.jsontag)  = "livePlanStartTime", (gogoproto.casttype) = "go-common/library/time.Time", json_name = "livePlanStartTime"]; // 主播预计开播时间
+    UpActVisible UpActVisible  = 13  [(gogoproto.jsontag)  = "upActVisible", json_name = "upActVisible"];
+    UpActReserveRelationLotteryType lotteryType  = 14  [(gogoproto.jsontag)  = "lotteryType", json_name = "lotteryType"]; // 抽奖类型
+    UpActReserveRelationPrizeInfo prizeInfo = 15 [(gogoproto.jsontag)  = "prizeInfo", json_name = "prizeInfo"]; // 奖品信息
+    string dynamicId = 16 [(gogoproto.jsontag)  = "dynamicId", json_name = "dynamicId"]; // 动态id
+    int64 reserveTotalShowLimit = 17 [(gogoproto.jsontag)  = "reserveTotalShowLimit", json_name = "reserveTotalShowLimit"]; // 隐藏预约人数阈值
+}
+
+message UpActReserveRelationPrizeInfo {
+  string text = 1 [(gogoproto.jsontag) = "text", json_name = "text"]; // 奖品文案
+  string jumpUrl = 2 [(gogoproto.jsontag) = "jumpUrl", json_name = "jumpUrl"]; // 跳转链接
+}
+
+enum UpActReserveRelationState {
+  // 业务迭代废弃，数据中不再存在以下两个状态
+  UpReserveAudit = 0;
+  UpReserveRelatedAudit = 110;
+
+  // 业务状态说明
+
+  // 预约标题审核不通过驳回 不可被预约
+  UpReserveReject = -300;
+  // 动态业务独享草稿态数据 不可被预约
+  UpReserveEdit = -200;
+  // 直播未在计划开播时间内开播过期 不可被预约
+  UpReserveCancelExpired = -110;
+  // 预约发起之后被UP主撤销掉 不可被预约
+  UpReserveCancel = -100;
+  // 预约发起成功 可被预约
+  UpReserveRelated = 100;
+  // 预约已经绑定稿件 可被预约
+  UpReserveRelatedOnline = 120;
+  // 预约开始核销 不可被预约
+  UpReserveRelatedWaitCallBack = 130;
+  // 预约核销异常 不可被预约
+  UpReserveRelatedCallBackCancel = 140;
+  // 预约核销完毕 不可被预约
+  UpReserveRelatedCallBackDone = 150;
+}
+
+enum UpActReserveRelationType {
+  Default = 0;
+  // 稿件
+  Archive = 1;
+  // 直播
+  Live = 2;
+}
+
+message CreateUpActReserveRelationReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 sid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  UpCreateActReserveFrom from = 3 [(gogoproto.moretags) = 'validate:"required"'];
+  string dynamicID = 4 [(gogoproto.jsontag) = 'dynamic_id', json_name = "dynamic_id"];
+}
+
+message CreateUpActReserveRelationReply {
+
+}
+
+message CancelUpActReserveReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 sid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  UpCreateActReserveFrom from = 3 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message CancelUpActReserveReply {
+
+}
+
+message UpActReserveInfoReq {
+  int64 mid = 1 [(gogoproto.jsontag) = "mid", json_name = "mid"];
+  repeated int64 sids = 2 [(gogoproto.moretags) = 'validate:"min=1,required"'];
+}
+
+message UpActReserveInfoReply {
+  map<int64, UpActReserveInfo> list = 1 [(gogoproto.jsontag) = 'list', json_name = "list"];
+}
+
+message UpActReserveInfo {
+  int64 sid = 1 [(gogoproto.jsontag) = "sid", json_name = "sid"];// 预约id
+  string title = 2 [(gogoproto.jsontag) = "name", json_name = "name"];// 预约活动名称
+  int64 total = 3 [(gogoproto.jsontag) = "total", json_name = "total"];// 预约总人数
+  int64 stime = 4 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time", json_name = "stime"];// 活动开始时间
+  int64 etime = 5 [(gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time", json_name = "etime"]; // 活动结束时间
+  int64 isFollow = 6 [(gogoproto.jsontag) = "isFollow", json_name = "isFollow"]; // 是否预约 0 => 未预约 1 => 已预约
+  UpActReserveRelationType type = 7  [(gogoproto.jsontag) = "type", json_name = "type"];
+  int64 livePlanStartTime = 8 [(gogoproto.jsontag) = "livePlanStartTime", (gogoproto.casttype) = "go-common/library/time.Time", json_name = "livePlanStartTime"]; // 直播预计开始时间
+  UpActReserveRelationLotteryType lotteryType = 9  [(gogoproto.jsontag) = "lotteryType", json_name = "lotteryType"]; // 抽奖类型
+  UpActReserveRelationPrizeInfo prizeInfo = 10 [(gogoproto.jsontag) = "prizeInfo", json_name = "prizeInfo"]; // 奖品信息
+  int64 upmid = 11  [(gogoproto.jsontag) = "-", json_name = "-"]; // up主or播主 mid 区分主态or客态
+}
+
+message CanUpCreateActReserveReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  UpCreateActReserveFrom from = 2 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message CanUpCreateActReserveReply {
+  map<int64, UpCreateActReserveQualification> list = 1 [(gogoproto.jsontag) = 'list', json_name = "list"];
+}
+
+message RewardsAddAwardReq {
+  int64 ActivityId = 2 [(gogoproto.jsontag) = "activity_id", json_name = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+  string ActivityName = 3 [(gogoproto.jsontag) = "activity_name", json_name = "activity_name", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+  string Type = 4 [(gogoproto.jsontag) = "type", json_name = "type", (gogoproto.moretags) = 'form:"type" validate:"required"'];
+  string Name = 5 [(gogoproto.jsontag) = "name", json_name = "name", (gogoproto.moretags) = 'form:"name" validate:"required"'];
+  bool ShouldSendNotify = 6 [(gogoproto.jsontag) = "should_send_notify", json_name = "should_send_notify", (gogoproto.moretags) = 'form:"should_send_notify"'];
+  int64 NotifySenderId = 7 [(gogoproto.jsontag) = "notify_sender_id", json_name = "notify_sender_id", (gogoproto.moretags) = 'form:"notify_sender_id"'];
+  string NotifyCode = 8 [(gogoproto.jsontag) = "notify_code", json_name = "notify_code", (gogoproto.moretags) = 'form:"notify_code"'];
+  string NotifyMessage = 9 [(gogoproto.jsontag) = "notify_message", json_name = "notify_message", (gogoproto.moretags) = 'form:"notify_message"'];
+  string NotifyJumpUri1 = 10 [(gogoproto.jsontag) = "notify_jump_uri1", json_name = "notify_jump_uri1", (gogoproto.moretags) = 'form:"notify_jump_uri1"'];
+  string NotifyJumpUri2 = 11 [(gogoproto.jsontag) = "notify_jump_uri2", json_name = "notify_jump_uri2", (gogoproto.moretags) = 'form:"notify_jump_uri2"'];
+  string JsonStr = 12 [(gogoproto.jsontag) = "json_str", json_name = "json_str", (gogoproto.moretags) = 'form:"json_str" validate:"required"'];
+  map<string, string> ExtraInfo = 13 [(gogoproto.jsontag) = "extra_info", json_name = "extra_info"];
+  string IconUrl = 14 [(gogoproto.jsontag) = "icon_url", json_name = "icon_url", (gogoproto.moretags) = 'form:"icon_url" validate:"required"'];
+}
+
+message RewardsDelAwardReq {
+  int64 Id = 1 [(gogoproto.moretags) = 'form:"id" validate:"required"'];
+}
+
+message RewardsAwardInfo {
+  int64 Id = 1 [(gogoproto.jsontag) = "id", json_name = "id", (gogoproto.moretags) = 'form:"id" validate:"required"'];
+  int64 ActivityId = 2 [(gogoproto.jsontag) = "activity_id", json_name = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+  string ActivityName = 3 [(gogoproto.jsontag) = "activity_name", json_name = "activity_name", (gogoproto.moretags) = 'form:"activity_name" validate:"required"'];
+  string Type = 4 [(gogoproto.jsontag) = "type", json_name = "type", (gogoproto.moretags) = 'form:"type" validate:"required"'];
+  string Name = 5 [(gogoproto.jsontag) = "name", json_name = "name", (gogoproto.moretags) = 'form:"name" validate:"required"'];
+  bool ShouldSendNotify = 6 [(gogoproto.jsontag) = "should_send_notify", json_name = "should_send_notify", (gogoproto.moretags) = 'form:"should_send_notify"'];
+  int64 NotifySenderId = 7 [(gogoproto.jsontag) = "notify_sender_id", json_name = "notify_sender_id", (gogoproto.moretags) = 'form:"notify_sender_id"'];
+  string NotifyCode = 8 [(gogoproto.jsontag) = "notify_code", json_name = "notify_code", (gogoproto.moretags) = 'form:"notify_code"'];
+  string NotifyMessage = 9 [(gogoproto.jsontag) = "notify_message", json_name = "notify_message", (gogoproto.moretags) = 'form:"notify_message"'];
+  string NotifyJumpUri1 = 10 [(gogoproto.jsontag) = "notify_jump_uri1", json_name = "notify_jump_uri1", (gogoproto.moretags) = 'form:"notify_jump_uri1"'];
+  string NotifyJumpUri2 = 11 [(gogoproto.jsontag) = "notify_jump_uri2", json_name = "notify_jump_uri2", (gogoproto.moretags) = 'form:"notify_jump_uri2"'];
+  string JsonStr = 12 [(gogoproto.jsontag) = "json_str", json_name = "json_str", (gogoproto.moretags) = 'form:"json_str" validate:"required"'];
+  map<string, string> ExtraInfo = 13 [(gogoproto.jsontag) = "extra_info", json_name = "extra_info"];
+  string IconUrl = 14 [(gogoproto.jsontag) = "icon_url", json_name = "icon_url", (gogoproto.moretags) = 'form:"icon_url" validate:"required"'];
+}
+
+message RewardsListAwardReq {
+    int64 ActivityId    = 1 [(gogoproto.moretags) = 'form:"activity_id"'];
+    string Keyword = 2 [(gogoproto.moretags) = 'form:"keyword"'];
+}
+
+
+message RewardsListAwardReply {
+  repeated RewardsAwardInfo List = 1 [(gogoproto.jsontag) = "list", json_name = "list"];
+}
+
+message RewardsAddActivityReq {
+  string Name = 1 [(gogoproto.moretags) = 'form:"name" validate:"required"'];
+  int64 NotifySenderId = 2 [(gogoproto.moretags) = 'form:"notify_sender_id"'];
+  string NotifyCode = 3 [(gogoproto.moretags) = 'form:"notify_code"'];
+  string NotifyMessage = 4 [(gogoproto.moretags) = 'form:"notify_message"'];
+  string NotifyJumpUri1 = 5 [(gogoproto.moretags) = 'form:"notify_jump_uri1"'];
+  string NotifyJumpUri2 = 6 [(gogoproto.moretags) = 'form:"notify_jump_uri2"'];
+}
+
+message RewardsDelActivityReq {
+  int64 ActivityId = 1 [(gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+}
+
+message RewardsUpdateActivityReq {
+  int64 Id = 1 [(gogoproto.moretags) = 'form:"id" validate:"required"'];
+  string Name = 2 [(gogoproto.moretags) = 'form:"name" validate:"required"'];
+  int64 NotifySenderId = 3 [(gogoproto.moretags) = 'form:"notify_sender_id"'];
+  string NotifyCode = 4 [(gogoproto.moretags) = 'form:"notify_code"'];
+  string NotifyMessage = 5 [(gogoproto.moretags) = 'form:"notify_message"'];
+  string NotifyJumpUri1 = 6 [(gogoproto.moretags) = 'form:"notify_jump_uri1"'];
+  string NotifyJumpUri2 = 7 [(gogoproto.moretags) = 'form:"notify_jump_uri2"'];
+}
+
+message RewardsActivityListInfo {
+  int64 Id = 1 [(gogoproto.jsontag) = "id", json_name = "id", (gogoproto.moretags) = 'validate:"required"'];
+  string Name = 2 [(gogoproto.jsontag) = "name", json_name = "name", (gogoproto.moretags) = 'validate:"required"'];
+  int64 NotifySenderId = 3 [(gogoproto.jsontag) = "notify_sender_id", json_name = "notify_sender_id"];
+  string NotifyCode = 4 [(gogoproto.jsontag) = "notify_code", json_name = "notify_code"];
+  string NotifyMessage = 5 [(gogoproto.jsontag) = "notify_message", json_name = "notify_message"];
+  string NotifyJumpUri1 = 6 [(gogoproto.jsontag) = "notify_jump_uri1", json_name = "notify_jump_uri1"];
+  string NotifyJumpUri2 = 7 [(gogoproto.jsontag) = "notify_jump_uri2", json_name = "notify_jump_uri2"];
+  int64 AwardsCount = 8 [(gogoproto.jsontag) = "awards_count", json_name = "awards_count"];
+}
+
+message RewardsListActivityPage {
+  int64 Num = 1 [(gogoproto.jsontag) = "num", json_name = "num"];
+  int64 Ps = 2 [(gogoproto.jsontag) = "size", json_name = "size"];
+  int64 Total = 3 [(gogoproto.jsontag) = "total", json_name = "total"];
+}
+
+message RewardsListActivityReq {
+    int64 ActivityId    = 1 [(gogoproto.moretags) = 'form:"activity_id"'];
+    int64 PageNumber    = 2 [(gogoproto.moretags) = 'form:"pn" default:"1"  validate:"min=1"'];
+    int64 PageSize    = 3 [(gogoproto.moretags) = 'form:"ps" default:"1"  validate:"min=0,max=50"'];
+    string Keyword = 4 [(gogoproto.moretags) = 'form:"keyword"'];
+}
+
+message RewardsListActivityReply {
+  repeated RewardsActivityListInfo List = 1 [(gogoproto.jsontag) = "list", json_name = "list"];
+  RewardsListActivityPage Page = 2 [(gogoproto.jsontag) = "page", json_name = "page"];
+}
+
+message RewardsGetActivityDetailReq {
+  int64 ActivityId = 1 [(gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+}
+
+message RewardsGetActivityDetailReply {
+  int64 Id = 1 [(gogoproto.jsontag) = "id", json_name = "id", (gogoproto.moretags) = 'validate:"required"'];
+  string Name = 2 [(gogoproto.jsontag) = "name", json_name = "name", (gogoproto.moretags) = 'validate:"required"'];
+  int64 NotifySenderId = 3 [(gogoproto.jsontag) = "notify_sender_id", json_name = "notify_sender_id"];
+  string NotifyCode = 4 [(gogoproto.jsontag) = "notify_code", json_name = "notify_code"];
+  string NotifyMessage = 5 [(gogoproto.jsontag) = "notify_message", json_name = "notify_message"];
+  string NotifyJumpUri1 = 6 [(gogoproto.jsontag) = "notify_jump_uri1", json_name = "notify_jump_uri1"];
+  string NotifyJumpUri2 = 7 [(gogoproto.jsontag) = "notify_jump_uri2", json_name = "notify_jump_uri2"];
+  int64 AwardsCount = 8 [(gogoproto.jsontag) = "awards_count", json_name = "awards_count"];
+  repeated RewardsAwardInfo List = 9 [(gogoproto.jsontag) = "award_list", json_name = "award_list"];
+}
+
+message RewardsListAwardTypeReq {
+}
+
+message RewardsListAwardTypeReply {
+  repeated string Types = 1 [(gogoproto.jsontag) = "types"];
+}
+
+enum UpActVisible {
+  DefaultVisible = 0;
+  OnlyUpVisible = 1;
+}
+
+enum CanUpCreateActReservePermissionType {
+  Deny = 0;
+  Allow = 1;
+}
+
+enum CanUpCreateActReserveDenyType {
+  NotInWhiteList = 0;
+  Strategy = 1;
+}
+
+enum UpCreateActReserveFrom {
+  FromDefault = 0;
+  FromDynamic = 1; // 动态
+  FromDanmaku = 2; // 弹幕
+  FromSpace = 3; // 空间
+  FromArchive = 4; // 投稿
+  FromUGC = 5; // UGC
+  FromStory = 6; // Story
+  FromArchiveCron = 7; // 稿件定时发布
+  FromBiliApp = 10; // 粉版
+  FromBiliLive = 11; // 直播姬
+  FROMPCBILILIVE = 12; // pc端直播姬
+  FROMBILIWEB = 13; // web页面
+}
+
+enum UpActReserveRelationLotteryType {
+  UpActReserveRelationLotteryTypeDefault = 0;
+  UpActReserveRelationLotteryTypeCron = 1; // 定时抽奖
+}
+
+enum UpVerifyReserveFrom {
+  FromVerifyDefault = 0;
+  FromLiveVerify = 1; // 直播多预约核销
+}
+
+enum UpCreateActReserveQualification {
+  QualificationAllow = 0;
+  QualificationStrategy = -1;
+}
+
+message UpActReserveCanBindListReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  UpActReserveRelationType type = 2  [(gogoproto.moretags) = 'validate:"required"'];
+  UpCreateActReserveFrom from = 3 [(gogoproto.jsontag) = "from", json_name = "from"];
+}
+
+message UpActReserveCanBindListReply {
+  repeated UpActReserveCanBindInfo list = 1 [(gogoproto.jsontag) = 'list', json_name = "list"];
+}
+
+message UpActReserveCanBindInfo {
+  int64 sid = 1 [(gogoproto.jsontag) = "sid", json_name = "sid"];// 预约id
+  string title = 2 [(gogoproto.jsontag) = "title", json_name = "title"];// 预约活动名称
+  int64 total = 3 [(gogoproto.jsontag) = "total", json_name = "total"]; // 当前活动预约总人数
+  int64 livePlanStartTime = 4 [(gogoproto.jsontag) = "livePlanStartTime", (gogoproto.casttype) = "go-common/library/time.Time", json_name = "livePlanStartTime"]; // 直播预计开始时间
+}
+
+message UpActReserveBindListReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  string oid = 2 [(gogoproto.moretags) = 'validate:"required"']; // 资源id
+  UpActReserveRelationType type = 3 [(gogoproto.moretags) = 'validate:"required"'];
+  UpCreateActReserveFrom from = 4 [(gogoproto.jsontag) = "from", json_name = "from"]; // 来源
+}
+
+message UpActReserveBindListReply {
+  int64 sid = 1 [(gogoproto.jsontag) = "sid", json_name = "sid"];// 预约id
+  string title = 2 [(gogoproto.jsontag) = "title", json_name = "title"];// 预约活动名称
+  int64 state = 3 [(gogoproto.jsontag) = "state", json_name = "state"];
+}
+
+message BindActReserveReq {
+  int64 sid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  string oid = 2 [(gogoproto.moretags) = 'validate:"required"']; // 资源id
+  int64 mid = 3 [(gogoproto.moretags) = 'validate:"required"'];
+  UpActReserveRelationType type = 4 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message BindActReserveReply {}
+
+message ActivityProgressReq {
+  int64 sid = 1 [(gogoproto.jsontag) = "sid", json_name = "sid", (gogoproto.moretags) = 'validate:"required" form:"sid"']; // 活动id
+  repeated int64 gids = 2 [(gogoproto.jsontag) = 'gids', json_name = "gids", (gogoproto.moretags) = 'form:"gids,split"']; // 节点组id
+  int64 type = 3 [(gogoproto.jsontag) = "type", json_name = "type", (gogoproto.moretags) = 'validate:"required" form:"type"']; // 1 => sid 2 => gids
+  int64 mid = 4 [(gogoproto.jsontag) = "mid", json_name = "mid"];
+  int64 time = 5 [(gogoproto.jsontag) = "time", json_name = "time", (gogoproto.moretags) = 'form:"is_period"'];
+}
+
+message ActivityProgressReply {
+  int64 sid = 1 [(gogoproto.jsontag) = "sid", json_name = "sid"]; // 活动id
+  map<int64, ActivityProgressGroup> groups = 2 [(gogoproto.jsontag) = 'groups', json_name = "groups"];
+}
+
+message ActivityProgressGroupInfo {
+  int64 gid = 1 [(gogoproto.jsontag) = "gid", json_name = "gid"];
+  string groupName = 2 [(gogoproto.jsontag) = "group_name", json_name = "group_name"];
+  int64 dim1 = 3 [(gogoproto.jsontag) = "dim1", json_name = "dim1"];
+  int64 dim2 = 4 [(gogoproto.jsontag) = "dim2", json_name = "dim2"];
+  int64 threshold = 5 [(gogoproto.jsontag) = "threshold", json_name = "threshold"];
+  string countInfo = 6 [(gogoproto.jsontag) = "count_info", json_name = "count_info"];
+}
+
+message ActivityProgressGroup {
+  int64 total = 1 [(gogoproto.jsontag) = "total", json_name = "total"]; // 结果值
+  repeated ActivityProgressNodeInfo nodes = 2 [(gogoproto.jsontag) = "nodes", json_name = "nodes"];
+  ActivityProgressGroupInfo info = 3 [(gogoproto.jsontag) = "info", json_name = "info"];
+}
+
+message ActivityProgressNodeInfo {
+  int64 val = 1 [(gogoproto.jsontag) = "val", json_name = "val"]; // 节点值
+  string desc = 2 [(gogoproto.jsontag) = "desc", json_name = "desc"]; // 描述
+  int64 nid = 3 [(gogoproto.jsontag) = "nid", json_name = "nid"]; // 节点id
+}
+message CreateUpActReserveReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  string title = 2 [(gogoproto.moretags) = 'validate:"required"']; // 预约id
+  UpActReserveRelationType type = 3 [(gogoproto.moretags) = 'validate:"required"'];
+  UpCreateActReserveFrom from = 4 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 livePlanStartTime = 5 [(gogoproto.jsontag) = "livePlanStartTime", (gogoproto.casttype) = "go-common/library/time.Time", json_name = "livePlanStartTime"]; // 直播预计开始时间
+  string oid = 6 [(gogoproto.jsontag) = "oid", json_name = "oid"]; // 资源id
+  int64 createDynamic = 7 [(gogoproto.jsontag) = "createDynamic", json_name = "createDynamic"]; // 发动态 0 => 不创建 1 => 创建
+  string lotteryID = 8 [(gogoproto.jsontag) = "lotteryID", json_name = "lotteryID"]; // 抽奖ID
+  UpActReserveRelationLotteryType lotteryType = 9 [(gogoproto.jsontag) = "lotteryType", json_name = "lotteryType"]; // 抽奖类型
+}
+
+message CreateUpActReserveReply {
+  int64 sid = 1 [(gogoproto.jsontag) = "sid", json_name = "sid"]; // 预约id
+}
+
+message GetActReserveTotalReq {
+  int64 sid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message GetActReserveTotalReply {
+  int64 total = 1 [(gogoproto.jsontag) = "total", json_name = "total"];// 预约总数
+}
+
+message CheckReserveDoveActReq {
+  int64 mid = 1 [(gogoproto.jsontag) = "mid", json_name = "mid"];
+  int64 source = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  UpActReserveRelationInfoReply relations = 3 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message CheckReserveDoveActReply {
+  map<int64, ReserveDoveActRelationInfo> list = 1 [(gogoproto.jsontag) = 'list', json_name = "list"];
+}
+
+message ReserveDoveActRelationInfo {
+  bool  isValid = 1 [(gogoproto.jsontag) = 'isValid', json_name = "isValid"];
+  ReserveDoveActSkin skin = 2 [(gogoproto.jsontag) = 'skin', json_name = "skin"];
+  string actUrl = 3 [(gogoproto.jsontag) = 'actUrl', json_name = "actUrl"];
+}
+
+message ReserveDoveActSkin {
+  string  svga = 1 [(gogoproto.jsontag) = 'svga', json_name = "svga"];
+  string  lastImg = 2 [(gogoproto.jsontag) = 'lastImg', json_name = "lastImg"];
+  int64   playTimes = 3 [(gogoproto.jsontag) = 'playTimes', json_name = "playTimes"];
+}
+message UpActUserSpaceCardReq {
+  int64 upmid = 1 [(gogoproto.moretags) = 'validate:"required"']; // up主mid
+  int64 mid = 2 [(gogoproto.jsontag) = "mid", json_name = "mid"]; // 用户mid
+  UpCreateActReserveFrom from = 3 [(gogoproto.jsontag) = "from", json_name = "from"];
+}
+
+message UpActUserSpaceCardReply {
+  repeated UpActReserveRelationInfo list = 1 [(gogoproto.jsontag) = 'list', json_name = "list"];
+}
+
+message UpActReserveVerification4CancelReq {
+  int64 sid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  UpActReserveRelationState state = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  UpActReserveRelationType type = 3 [(gogoproto.moretags) = 'validate:"required"'];
+  string oid = 4 [(gogoproto.jsontag) = "oid", json_name = "oid"]; // 资源id
+  int64 mid = 5 [(gogoproto.jsontag) = "mid", json_name = "mid"];
+}
+
+message UpActReserveVerification4CancelReply {}
+
+message UpActReserveRelationInfoByTimeReq {
+  int64 time = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  UpActReserveRelationType type = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 mid = 3 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message UpActReserveRelationInfoByTimeReply {
+  map<int64, UpActReserveRelationInfo> list = 1 [(gogoproto.jsontag) = 'list', json_name = "list"];
+}
+
+message UpActReserveRelationDBInfoByConditionReq {
+  UpVerifyReserveFrom from = 1 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message UpActReserveRelationDBInfoByConditionReply {
+  map<int64, UpActReserveRelationInfo> list = 1 [(gogoproto.jsontag) = 'list', json_name = "list"];
+}
+
+message UpActReserveLiveStateExpireReq {}
+
+message UpActReserveLiveStateExpireReply {}
+
+message UpActReserveRelationInfo4LiveReq {
+  int64 upmid = 1 [(gogoproto.moretags) = 'validate:"required"']; // up主mid
+  int64 mid = 2 [(gogoproto.jsontag) = "mid", json_name = "mid"]; // 用户mid
+  UpCreateActReserveFrom from = 3 [(gogoproto.jsontag) = "from", json_name = "from"];
+}
+
+message UpActReserveRelationInfo4LiveReply {
+  repeated UpActReserveRelationInfo list = 1 [(gogoproto.jsontag) = 'list', json_name = "list"];
+}
+
+message GetSidAndDynamicIDByOidReq {
+  string oid = 1 [(gogoproto.moretags) = 'validate:"required"']; // 资源id
+  UpActReserveRelationType type = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  UpCreateActReserveFrom from = 3 [(gogoproto.jsontag) = "from", json_name = "from"]; // 数据筛选类型
+}
+
+message GetSidAndDynamicIDByOidReply {
+  int64 sid = 1 [(gogoproto.jsontag) = "sid", json_name = "sid"];// 预约id
+  string oid = 2 [(gogoproto.jsontag) = "oid", json_name = "oid"];// oid
+  string rid = 3 [(gogoproto.jsontag) = "rid", json_name = "rid"];// 资源id
+}
+
+message AddVoteActivityReq {
+  string Name = 1 [(gogoproto.jsontag) = "name", (gogoproto.moretags) = 'form:"name" validate:"required"'];
+  int64 StartTime = 2 [(gogoproto.jsontag) = "start_time", (gogoproto.moretags) = 'form:"start_time" validate:"required"'];
+  int64 EndTime = 3 [(gogoproto.jsontag) = "end_time", (gogoproto.moretags) = 'form:"end_time" validate:"required"'];
+  string Creator = 4 [(gogoproto.jsontag) = "creator", (gogoproto.moretags) = 'form:"creator" validate:"required"'];
+}
+
+message DelVoteActivityReq {
+  int64 Id = 1 [(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id" validate:"required"'];
+}
+
+message UpdateVoteActivityReq {
+  int64 Id = 1 [(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id" validate:"required"'];
+  string Name = 2 [(gogoproto.jsontag) = "name", (gogoproto.moretags) = 'form:"name" validate:"required"'];
+  int64 StartTime = 3 [(gogoproto.jsontag) = "start_time", (gogoproto.moretags) = 'form:"start_time" validate:"required"'];
+  int64 EndTime = 4 [(gogoproto.jsontag) = "end_time", (gogoproto.moretags) = 'form:"end_time" validate:"required"'];
+  string Editor = 5 [(gogoproto.jsontag) = "editor", (gogoproto.moretags) = 'form:"editor" validate:"required"'];
+}
+
+message ListVoteActivityReq {
+  int64 Pn = 1 [(gogoproto.jsontag) = "pn", (gogoproto.moretags) = 'form:"pn" default:"1"  validate:"min=1"'];
+  int64 Ps = 2 [(gogoproto.jsontag) = "ps", (gogoproto.moretags) = 'form:"ps" default:"30"  validate:"min=1"'];
+  //Ongoing: 正在进行中过滤
+  //0: 不使用进行中过滤
+  //1: 只查看进行中的活动
+  //2: 只查看已结束的活动
+  int64 Ongoing = 3 [(gogoproto.jsontag) = "ongoing", (gogoproto.moretags) = 'form:"ongoing" default:"0"  validate:"min=0,max=3"'];
+  string Keyword = 4 [(gogoproto.jsontag) = "keyword", (gogoproto.moretags) = 'form:"keyword"'];
+}
+
+message ListVoteActivityResp {
+  VotePage Page = 1 [(gogoproto.jsontag) = "page"];
+  repeated VoteActivity Activitys = 2 [(gogoproto.jsontag) = "list"];
+}
+
+enum ListVoteActivityForRefreshReqType {
+  ListVoteActivityForRefreshReqTypeNotEnded = 0;
+  ListVoteActivityForRefreshReqTypeEndWithin90 = 1;
+}
+
+message ListVoteActivityForRefreshReq {
+  ListVoteActivityForRefreshReqType Type = 1 [(gogoproto.jsontag) = "type"];
+}
+
+message ListVoteActivityForRefreshResp {
+  repeated VoteActivity Activitys = 2 [(gogoproto.jsontag) = "list"];
+}
+
+message VoteActivity {
+  int64 Id = 1 [(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id" validate:"required"'];
+  string Name = 2 [(gogoproto.jsontag) = "name", (gogoproto.moretags) = 'form:"name" validate:"required"'];
+  int64 StartTime = 3 [(gogoproto.jsontag) = "start_time", (gogoproto.moretags) = 'form:"start_time" validate:"required"'];
+  int64 EndTime = 4 [(gogoproto.jsontag) = "end_time", (gogoproto.moretags) = 'form:"end_time" validate:"required"'];
+  int64 LastRankRefreshTime = 5 [(gogoproto.jsontag) = "last_rank_refresh_time", (gogoproto.moretags) = 'form:"last_rank_refresh_time" validate:"required"'];
+  string Creator = 6 [(gogoproto.jsontag) = "creator", (gogoproto.moretags) = 'form:"creator" validate:"required"'];
+  string Editor = 7 [(gogoproto.jsontag) = "editor", (gogoproto.moretags) = 'form:"editor" validate:"required"'];
+  int64 Ctime = 8 [(gogoproto.jsontag) = "ctime", (gogoproto.moretags) = 'form:"ctime" validate:"required"', (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 Mtime = 9 [(gogoproto.jsontag) = "mtime", (gogoproto.moretags) = 'form:"mtime" validate:"required"', (gogoproto.casttype) = "go-common/library/time.Time"];
+  VoteActivityRule Rule = 10 [(gogoproto.jsontag) = "rule", (gogoproto.moretags) = 'form:"rule" validate:"required"'];
+}
+
+//单选项是否允许用户重复投票
+enum VoteSingleOptionBehavior {
+  //不限制
+  VoteSingleOptionBehaviorUnlimited = 0;
+  //每日一票
+  VoteSingleOptionBehaviorDayOnce = 1;
+  //活动期间一票
+  VoteSingleOptionBehaviorTotalOnce = 2;
+}
+
+//票数刷新规则
+enum VoteCountUpdateRule {
+  //手动
+  VoteCountUpdateRuleManual = 0;
+  //定时
+  VoteCountUpdateRuleOnTime = 1;
+  //实时
+  VoteCountUpdateRuleRealTime = 2;
+}
+
+message VoteActivityRule {
+    //SingleDayLimit: 单日投票上限
+    int64 SingleDayLimit = 1 [(gogoproto.jsontag) = "single_day_limit", (gogoproto.moretags) = 'form:"single_day_limit"'];
+	//TotalLimit: 活动期间投票上限
+	int64 TotalLimit = 2 [(gogoproto.jsontag) = "total_limit", (gogoproto.moretags) = 'form:"total_limit"'];
+	//SingleOptionBehavior: 单选项是否允许用户重复投票
+	//0 -> 不限制
+	//1 -> 每日每人一票
+	//2 -> 活动期间每人一票
+	int64 SingleOptionBehavior = 3 [(gogoproto.jsontag) = "single_option_behavior", (gogoproto.moretags) = 'form:"single_option_behavior"'];
+	//RiskControlRule: 风控规则
+	//GENERIC -> 通用黑产过滤规则
+	string RiskControlRule = 4 [(gogoproto.jsontag) = "risk_control_rule", (gogoproto.moretags) = 'form:"risk_control_rule" validate:"required"'];
+	//DisplayRiskVote: 是否展示风控票数
+	bool DisplayRiskVote = 5 [(gogoproto.jsontag) = "display_risk_vote", (gogoproto.moretags) = 'form:"display_risk_vote"'];
+	//DisplayVoteCount: 票数是否外显
+	bool DisplayVoteCount = 6 [(gogoproto.jsontag) = "display_vote", (gogoproto.moretags) = 'form:"display_vote"'];
+	//VoteUpdateRule: 票数刷新规则
+	//0 -> 手动
+	//1 -> 定时
+	//2 -> 实时
+	int64 VoteUpdateRule = 7 [(gogoproto.jsontag) = "vote_update_rule", (gogoproto.moretags) = 'form:"vote_update_rule"'];
+	//VoteCountUpdateCron: 票数定时刷新时间,只在VoteUpdateRule=1时有效
+	int64 VoteUpdateCron = 8 [(gogoproto.jsontag) = "vote_update_cron", (gogoproto.moretags) = 'form:"vote_update_cron", validate:"min=0,max=23"'];
+	//BaseTimes: 基础投票次数
+	int64 BaseTimes = 9 [(gogoproto.jsontag) = "single_day_base_times", (gogoproto.moretags) = 'form:"single_day_base_times"'];
+}
+
+
+message UpdateVoteActivityRuleReq {
+  //关联活动ID
+  int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+  //SingleDayLimit: 单日投票上限
+  int64 SingleDayLimit = 2 [(gogoproto.jsontag) = "single_day_limit", (gogoproto.moretags) = 'form:"single_day_limit"'];
+  //TotalLimit: 活动期间投票上限
+  int64 TotalLimit = 3 [(gogoproto.jsontag) = "total_limit", (gogoproto.moretags) = 'form:"total_limit"'];
+  //SingleOptionBehavior: 单选项是否允许用户重复投票
+  //0 -> 不限制
+  //1 -> 每日每人一票
+  //2 -> 活动期间每人一票
+  int64 SingleOptionBehavior = 4 [(gogoproto.jsontag) = "single_option_behavior", (gogoproto.moretags) = 'form:"single_option_behavior"'];
+  //RiskControlRule: 风控规则
+  //GENERIC -> 通用黑产过滤规则
+  string RiskControlRule = 5 [(gogoproto.jsontag) = "risk_control_rule", (gogoproto.moretags) = 'form:"risk_control_rule" validate:"required"'];
+  //DisplayRiskVote: 是否展示风控票数
+  bool DisplayRiskVote = 6 [(gogoproto.jsontag) = "display_risk_vote", (gogoproto.moretags) = 'form:"display_risk_vote"'];
+  //DisplayVoteCount: 票数是否外显
+  bool DisplayVoteCount = 7 [(gogoproto.jsontag) = "display_vote", (gogoproto.moretags) = 'form:"display_vote"'];
+  //VoteUpdateRule: 票数刷新规则
+  //0 -> 手动
+  //1 -> 定时
+  //2 -> 实时
+  int64 VoteUpdateRule = 8 [(gogoproto.jsontag) = "vote_update_rule", (gogoproto.moretags) = 'form:"vote_update_rule"'];
+  //VoteCountUpdateCron: 票数定时刷新时间,只在VoteUpdateRule=1时有效
+  int64 VoteUpdateCron = 9 [(gogoproto.jsontag) = "vote_update_cron", (gogoproto.moretags) = 'form:"vote_update_cron", validate:"min=0,max=23"'];
+  //BaseTimes: 基础投票次数
+  int64 SingleDayBaseTimes = 10 [(gogoproto.jsontag) = "single_day_base_times", (gogoproto.moretags) = 'form:"single_day_base_times"'];
+}
+
+message VoteDataSourceGroupItem {
+  //关联活动ID
+  int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+  //数据源ID
+  int64 GroupId = 2 [(gogoproto.jsontag) = "group_id", (gogoproto.moretags) = 'form:"group_id" validate:"required"'];
+  //数据源类型
+  string SourceType = 3 [(gogoproto.jsontag) = "source_type", (gogoproto.moretags) = 'form:"source_type" validate:"required"'];
+  //数据源ID
+  int64 SourceId = 4 [(gogoproto.jsontag) = "source_id", (gogoproto.moretags) = 'form:"source_id" validate:"required"'];
+}
+
+message AddVoteActivityDataSourceGroupReq {
+  //关联活动ID
+  int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+  //数据源类型
+  string SourceType = 2 [(gogoproto.jsontag) = "source_type", (gogoproto.moretags) = 'form:"source_type" validate:"required"'];
+  //数据源ID
+  int64 SourceId = 3 [(gogoproto.jsontag) = "source_id", (gogoproto.moretags) = 'form:"source_id" validate:"required"'];
+}
+
+message UpdateVoteActivityDataSourceGroupReq {
+  //数据组ID
+  int64 GroupId = 1 [(gogoproto.jsontag) = "group_id", (gogoproto.moretags) = 'form:"group_id" validate:"required"'];
+  //关联活动ID
+  int64 ActivityId = 2 [(gogoproto.jsontag) = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+  //数据源类型
+  string SourceType = 3 [(gogoproto.jsontag) = "source_type", (gogoproto.moretags) = 'form:"source_type" validate:"required"'];
+  //数据源ID
+  int64 SourceId = 4 [(gogoproto.jsontag) = "source_id", (gogoproto.moretags) = 'form:"source_id" validate:"required"'];
+}
+
+message DelVoteActivityDataSourceGroupReq {
+  //关联活动ID
+  int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+  //数据组ID
+  int64 GroupId = 2 [(gogoproto.jsontag) = "group_id", (gogoproto.moretags) = 'form:"group_id" validate:"required"'];
+}
+
+message ListVoteActivityDataSourceGroupsReq {
+  //关联活动ID
+  int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+}
+
+message ListVoteActivityDataSourceGroupsResp {
+  //关联活动ID
+  repeated VoteDataSourceGroupItem Groups = 1 [(gogoproto.jsontag) = "groups"];
+}
+
+message AddVoteActivityBlackListReq {
+  //关联活动ID
+  int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+  //数据源ID
+  int64 SourceGroupId = 2 [(gogoproto.jsontag) = "group_id", (gogoproto.moretags) = 'form:"group_id" validate:"required"'];
+  //数据源稿件ID
+  int64 SourceItemId = 3 [(gogoproto.jsontag) = "item_id", (gogoproto.moretags) = 'form:"item_id" validate:"required"'];
+}
+
+message DelVoteActivityBlackListReq {
+  //关联活动ID
+  int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+  //数据源ID
+  int64 SourceGroupId = 2 [(gogoproto.jsontag) = "group_id", (gogoproto.moretags) = 'form:"group_id" validate:"required"'];
+  //数据源稿件ID
+  int64 SourceItemId = 3 [(gogoproto.jsontag) = "item_id", (gogoproto.moretags) = 'form:"item_id" validate:"required"'];
+}
+
+message UpdateVoteActivityInterveneVoteCountReq  {
+  //关联活动ID
+  int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+  //数据源ID
+  int64 SourceGroupId = 2 [(gogoproto.jsontag) = "group_id", (gogoproto.moretags) = 'form:"group_id" validate:"required"'];
+  //数据源稿件ID
+  int64 SourceItemId = 3 [(gogoproto.jsontag) = "item_id", (gogoproto.moretags) = 'form:"item_id" validate:"required"'];
+  //数据源稿件ID
+  int64 InterveneVoteCount = 4 [(gogoproto.jsontag) = "intervene_vote_count", (gogoproto.moretags) = 'form:"intervene_vote_count"'];
+}
+
+message InternalRankInfo {
+  //关联活动ID
+  int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id"];
+  //自增ID
+  int64 Id = 2 [(gogoproto.jsontag) = "id"];
+  //数据组ID
+  int64 SourceGroupId = 4 [(gogoproto.jsontag) = "group_id", (gogoproto.moretags) = 'form:"group_id" validate:"required"'];
+  //数据源稿件ID
+  int64 SourceItemId = 5 [(gogoproto.jsontag) = "item_id", (gogoproto.moretags) = 'form:"item_id" validate:"required"'];
+  //用户真实投票数
+  int64 UserVoteCount = 6 [(gogoproto.jsontag) = "user_vote_count"];
+  //干预票数
+  int64 InterveneVoteCount = 7 [(gogoproto.jsontag) = "intervene_vote_count"];
+  //风控票数
+  int64 RiskVoteCount = 8 [(gogoproto.jsontag) = "risk_vote_count"];
+  //最终得票数
+  int64 TotalVoteCount = 9 [(gogoproto.jsontag) = "total_vote_count"];
+  //最终得票数更新时间
+  int64 TotalVoteMtime = 10 [(gogoproto.jsontag) = "total_vote_mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  //是否被拉黑
+  int64 InBlackList = 11 [(gogoproto.jsontag) = "in_blacklist"];
+  //创建时间
+  int64 Ctime = 12 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  //修改时间
+  int64 Mtime = 13 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+  //稿件名
+  string SourceItemName = 14 [(gogoproto.jsontag) = "source_item_name"];
+}
+
+message GetVoteActivityRankInternalReq {
+  //数据源ID
+  int64 SourceGroupId = 1 [(gogoproto.jsontag) = "group_id", (gogoproto.moretags) = 'form:"group_id"'];
+  //数据源ID
+  int64 SourceItemId = 2 [(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id"'];
+  int64 Pn = 3 [(gogoproto.jsontag) = "pn", (gogoproto.moretags) = 'default:"1" validate:"min=1" form:"pn"'];
+  int64 Ps = 4 [(gogoproto.jsontag) = "ps", (gogoproto.moretags) = 'default:"30" validate:"min=1" form:"ps"'];
+  //OnlyBlackList: 只查看黑名单
+  bool OnlyBlackList = 5 [(gogoproto.jsontag) = "only_blacklist", (gogoproto.moretags) = 'form:"only_blacklist"'];
+  //Sort: 排序规则
+  //0 -> 票数排序
+  //1 -> 时间排序
+  int64 Sort = 6 [(gogoproto.jsontag) = "sort", (gogoproto.moretags) = 'form:"sort" default:"0"  validate:"min=0,max=3"'];
+}
+
+message GetVoteActivityRankInternalResp {
+  repeated InternalRankInfo Rank = 1 [(gogoproto.jsontag) = "list"];
+  VotePage Page = 2 [(gogoproto.jsontag) = "page"];
+}
+
+message RefreshVoteActivityDSItemsReq {
+  //关联活动ID
+  int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+}
+
+message RefreshVoteActivityRankExternalReq {
+  //关联活动ID
+  int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+}
+
+message RefreshVoteActivityRankInternalReq {
+  //关联活动ID
+  int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+}
+
+message RefreshVoteActivityRankZsetReq {
+  //关联活动ID
+  int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+}
+
+message VotePage {
+  int64 Num = 1 [(gogoproto.jsontag) = "num", json_name = "num"];
+  int64 Ps = 2 [(gogoproto.jsontag) = "size", json_name = "size"];
+  int64 Total = 3 [(gogoproto.jsontag) = "total", json_name = "total"];
+}
+
+
+message VoteUserDoReq {
+  //关联活动ID
+  int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id", json_name = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+  //数据源ID
+  int64 SourceGroupId = 2 [(gogoproto.jsontag) = "datasource_group_id", json_name = "datasource_group_id", (gogoproto.moretags) = 'form:"datasource_group_id" validate:"required"'];
+  //数据源稿件ID
+  int64 SourceItemId = 3 [(gogoproto.jsontag) = "datasource_item_id", json_name = "datasource_item_id", (gogoproto.moretags) = 'form:"datasource_item_id" validate:"required"'];
+  //本次投票数
+  int64 VoteCount = 4 [(gogoproto.jsontag) = "vote", json_name = "vote", (gogoproto.moretags) = 'form:"vote"  default:"1"  validate:"min=1"'];
+  //风控参数
+  Risk risk = 5  [(gogoproto.jsontag) = "risk", json_name = "risk"];
+  //Mid
+  int64 Mid = 6 [(gogoproto.jsontag) = "mid", json_name = "mid", (gogoproto.moretags) = 'form:"mid" validate:"required"'];
+}
+
+
+message RewardsCheckSentStatusReq {
+  int64 Mid = 1 [(gogoproto.jsontag) = "mid", json_name = "mid", (gogoproto.moretags) = 'form:"mid" validate:"required"'];
+  string UniqueId = 2 [(gogoproto.jsontag) = "unique_id", json_name = "unique_id", (gogoproto.moretags) = 'form:"unique_id" validate:"required"'];
+  int64  AwardId = 3 [(gogoproto.jsontag) = "award_id", json_name = "award_id"];
+}
+
+message RewardsCheckSentStatusResp{
+  bool Result = 1 [(gogoproto.jsontag) = "result", json_name = "result"];
+}
+
+message CanUpActReserve4DynamicReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  UpCreateActReserveFrom from = 2 [(gogoproto.moretags) = 'validate:"required"'];
+}
+message CanUpActReserve4DynamicReply {
+  map<int64, PrivilegeMap> list = 1 [(gogoproto.jsontag) = 'list', json_name = "list"];
+}
+
+message PrivilegeMap {
+  map<int64, UpCreateActReserveQualification> list = 1 [(gogoproto.jsontag) = 'list', json_name = "list"];
+}
+
+enum PrivilegeType {
+  DefaultPrivilegeType = 0;
+  CreateReserve = 1;
+  RelateReserve = 2;
+}
+
+message UpActReserveRecordReq {
+  int64 mid = 1 [(gogoproto.jsontag) = "mid", json_name = "mid"];
+  UpActReserveRelationType type = 2 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message UpActReserveRecordReply {
+  bool  res = 1 [(gogoproto.jsontag) = 'res', json_name = "res"];
+}
+message VoteUserDoResp {
+  //用户当前剩余总投票数
+  int64 UserAvailVoteCount = 1 [(gogoproto.jsontag) = "user_avail_vote_count", json_name = "user_avail_vote_count"];
+  //本用户当前对此稿件可投的票数, 为0时此稿件显示已投票
+  int64 UserCanVoteCountForItem = 2 [(gogoproto.jsontag) = "user_can_vote_count_for_item", json_name = "user_can_vote_count_for_item"];
+  //本用户当前剩余的可用临时票数
+  int64 UserAvailTmpVoteCount = 3 [(gogoproto.jsontag) = "user_avail_tmp_vote_count", json_name = "user_avail_tmp_vote_count"];
+  //本次投票是否被风控
+  bool HadRisk = 4 [(gogoproto.jsontag) = '-', json_name = "-"];
+}
+
+message VoteUserUndoReq {
+  //关联活动ID
+  int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id", json_name = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+  //数据源ID
+  int64 SourceGroupId = 2 [(gogoproto.jsontag) = "datasource_group_id", json_name = "datasource_group_id", (gogoproto.moretags) = 'form:"datasource_group_id" validate:"required"'];
+  //数据源稿件ID
+  int64 SourceItemId = 3 [(gogoproto.jsontag) = "datasource_item_id", json_name = "datasource_item_id", (gogoproto.moretags) = 'form:"datasource_item_id" validate:"required"'];
+  //Mid
+  int64 Mid = 4 [(gogoproto.jsontag) = "mid", json_name = "mid", (gogoproto.moretags) = 'form:"mid" validate:"required"'];
+}
+
+message VoteUserUndoResp {
+  //用户当前剩余总投票数
+  int64 UserAvailVoteCount = 1 [(gogoproto.jsontag) = "user_avail_vote_count", json_name = "user_avail_vote_count"];
+  //本用户当前对此稿件可投的票数, 为0时此稿件显示已投票
+  int64 UserCanVoteCountForItem = 2 [(gogoproto.jsontag) = "user_can_vote_count_for_item", json_name = "user_can_vote_count_for_item"];
+  //本用户当前剩余的可用临时票数
+  int64 UserAvailTmpVoteCount = 3 [(gogoproto.jsontag) = "user_avail_tmp_vote_count", json_name = "user_avail_tmp_vote_count"];
+}
+
+message GetVoteActivityRankReq {
+  //关联活动ID
+  int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id", json_name = "activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+  //数据源ID
+  int64 SourceGroupId = 2 [(gogoproto.jsontag) = "datasource_group_id", json_name = "datasource_group_id", (gogoproto.moretags) = 'form:"datasource_group_id" validate:"required"'];
+  int64 Pn = 3 [(gogoproto.jsontag) = "pn", json_name = "pn", (gogoproto.moretags) = 'form:"pn" default:"1" validate:"min=1" form:"pn"'];
+  int64 Ps = 4 [(gogoproto.jsontag) = "ps", json_name = "ps", (gogoproto.moretags) = 'form:"ps" default:"30" validate:"min=1" form:"ps"'];
+  //Sort: 排序规则
+  //1 -> 票数排序
+  //2 -> 随机排序
+  //3 -> 时间排序
+  int64 Sort = 5 [(gogoproto.jsontag) = "sort", json_name = "sort", (gogoproto.moretags) = 'form:"sort" default:"0"  validate:"min=0,max=3"'];
+  //Mid
+  int64 Mid = 6 [(gogoproto.jsontag) = "mid", json_name = "mid", (gogoproto.moretags) = 'form:"mid"'];
+}
+
+message GetVoteActivityRankResp {
+  //排名版本号
+  int64 VoteRankVersion = 1 [(gogoproto.jsontag) = "vote_rank_version", json_name = "vote_rank_version"];
+  //活动排名类型
+  int64 VoteRankType = 2 [(gogoproto.jsontag) = "vote_rank_type", json_name = "vote_rank_type"];
+  //用户剩余投票次数
+  int64 UserAvailVoteCount = 3 [(gogoproto.jsontag) = "user_avail_vote_count", json_name = "user_avail_vote_count"];
+  //数据源类型
+  string DataSourceType = 4 [(gogoproto.jsontag) = "datasource_type", json_name = "datasource_type"];
+  //数据组ID
+  int64 SourceGroupId = 5 [(gogoproto.jsontag) = "datasource_group_id", json_name = "datasource_group_id"];
+  //稿件排名列表
+  repeated ExternalRankInfo Rank = 6 [(gogoproto.jsontag) = "list", json_name = "list"];
+  //分页信息
+  VotePage Page = 7 [(gogoproto.jsontag) = "page", json_name = "page"];
+  //本用户当前剩余的可用临时票数
+  int64 UserAvailTmpVoteCount = 8 [(gogoproto.jsontag) = "user_avail_tmp_vote_count", json_name = "user_avail_tmp_vote_count"];
+}
+
+
+message ExternalRankInfo {
+  //数据组ID
+  int64 SourceGroupId = 1 [(gogoproto.jsontag) = "datasource_group_id", json_name = "datasource_group_id"];
+  //数据源稿件ID
+  int64 SourceItemId = 2 [(gogoproto.jsontag) = "datasource_item_id", json_name = "datasource_item_id"];
+  //稿件名
+  string SourceItemName = 3 [(gogoproto.jsontag) = "source_item_name", json_name = "source_item_name"];
+  //最终得票数
+  int64 Vote = 4 [(gogoproto.jsontag) = "vote", json_name = "vote"];
+  //本用户活动周期内对该稿件的投票数
+  int64 UserVoteCount = 5 [(gogoproto.jsontag) = "user_vote_count", json_name = "user_vote_count"];
+  //本用户今天内对该稿件的投票数
+  int64 UserVoteCountToday = 6 [(gogoproto.jsontag) = "user_vote_count_today", json_name = "user_vote_count_today"];
+  //本用户当前对此稿件可投的票数, 为0时此稿件显示已投票
+  int64 UserCanVoteCount = 7 [(gogoproto.jsontag) = "user_can_vote_count", json_name = "user_can_vote_count"];
+}
+
+enum ActInterReserveTicketType {
+  InVailTicketType = 0;
+  VipTicket2021 = 1;
+  StandardTicket2021 = 2;
+}
+
+message ActInterReserve {
+  int64 ID = 1 [(gogoproto.jsontag) = "id"];
+  string ActType = 2 [(gogoproto.jsontag) = "act_type"];
+  string ActTitle = 3 [(gogoproto.jsontag) = "act_title"];
+  string ActImg = 4 [(gogoproto.jsontag) = "act_img"];
+  int64 ActBeginTime = 5 [(gogoproto.jsontag) = "act_begin_time"];
+  int64 ActEndTime = 6 [(gogoproto.jsontag) = "act_end_time"];
+  int64 VipReserveBeginTime = 7 [(gogoproto.jsontag) = "vip_reserve_begin_time"];
+  int64 VipReserveEndTime = 8 [(gogoproto.jsontag) = "vip_reserve_end_time"];
+  int64 ReserveBeginTime = 9 [(gogoproto.jsontag) = "reserve_begin_time"];
+  int64 ReserveEndTime = 10 [(gogoproto.jsontag) = "reserve_end_time"];
+  string DescribeInfo = 11 [(gogoproto.jsontag) = "describe_info"];
+  int32 VipTicketNum = 12 [(gogoproto.jsontag) = "vip_ticket_num"];
+  int32 StandardTicketNum = 13 [(gogoproto.jsontag) = "standard_ticket_num"];
+  int64 ScreenDate = 14 [(gogoproto.jsontag) = "screen_date"];
+  int32 DisplayIndex = 15 [(gogoproto.jsontag) = "display_index"];
+  int32 IsDel = 16 [(gogoproto.jsontag) = "is_del"];
+  int64 ctime = 17 [(gogoproto.jsontag) = "c_time", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64 mtime = 18 [(gogoproto.jsontag) = "m_time", (gogoproto.casttype) = "go-common/library/time.Time"];
+  string ctimeStr = 19 [(gogoproto.jsontag) = "ctime"];
+  string mtimeStr = 20 [(gogoproto.jsontag) = "mtime"];
+}
+
+
+message GiftStockReq {
+  string SID = 1 [json_name = "sid", (gogoproto.moretags) = 'validate:"required"'];
+  int64 GiftID = 2 [(gogoproto.jsontag) = "gift_id", json_name = "gift_id", (gogoproto.moretags) = 'validate:"min=1"'];
+  int64 GiftVer = 3 [(gogoproto.jsontag) = "gift_ver", json_name = "gift_ver", (gogoproto.moretags) = 'validate:"min=1"'];
+  int32 GiftNum = 4 [(gogoproto.jsontag) = "gift_num", json_name = "gift_num", (gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message SyncGiftStockResp {
+  int32 FixNum = 1 [(gogoproto.jsontag) = "fix_num", json_name = "fix_num"];
+  int32 AckNum = 2 [(gogoproto.jsontag) = "ack_num", json_name = "ack_num"];
+}
+
+message BwParkBeginReserveReq {
+  int64 beginTime = 1 [(gogoproto.jsontag) = "begin_time", json_name = "begin_time", (gogoproto.moretags) = 'validate:"min=1"'];
+  int64 endTime = 2 [(gogoproto.jsontag) = "end_time", json_name = "end_time", (gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message BwParkBeginReserveResp {
+  repeated ActInterReserve ReserveList = 1 [(gogoproto.jsontag) = "reserve_list", json_name = "reserve_list"];
+}
+message QuestionAnswerAllReq {
+  int64 sid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 pool_id = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  int64 mid = 3 [(gogoproto.moretags) = 'validate:"required"'];
+  map<int64, string> answer = 4 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message QuestionAnswerAllReply {
+  int64 answer_count = 1 [(gogoproto.jsontag) = 'answer_count', json_name = "answer_count"];
+  int64 right_count = 2 [(gogoproto.jsontag) = 'right_count', json_name = "right_count"];
+  map<int64, string> answer = 3 [(gogoproto.jsontag) = 'answer', json_name = "answer"];
+}
+
+enum UpActReserveRelationDependAuditResult {
+  UpActReserveRelationDependAuditResultAudit = 0; // 审核中
+  UpActReserveRelationDependAuditResultReject = -1; // 审核拒绝
+  UpActReserveRelationDependAuditResultPass = 1; // 审核通过
+}
+
+enum UpActReserveRelationDependAuditChannel {
+  DependAuditChannelDefault = 0;
+  DependAuditChannelDynamic = 1;
+  DependAuditChannelLottery = 2;
+}
+
+message UpActReserveRelationDependAuditReq {
+  int64 sid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  UpActReserveRelationDependAuditResult audit = 2 [(gogoproto.moretags) = 'validate:"required"']; // 审核枚举
+  UpActReserveRelationDependAuditChannel channel = 3 [(gogoproto.moretags) = 'validate:"required"']; // 依赖方
+}
+
+message UpActReserveRelationDependAuditReply {
+}
+
+message GetBindConfigReq {
+  // 配置序号id
+  int64 ID = 1 [(gogoproto.jsontag) = "id", json_name = "id"];
+  bool skipCache = 2 [(gogoproto.jsontag) = "skip_cache", json_name = "skip_cache"];
+}
+
+message GetBindConfigResp {
+  BindConfigInfo configInfo = 1 [(gogoproto.jsontag) = "config_info", json_name = "config_info"];
+}
+
+message BindConfigInfo {
+  // 配置序号id
+  int64 ID = 1 [(gogoproto.jsontag) = "id", json_name = "id"];
+  // 配置序号id
+  int64 bindPhone = 2 [(gogoproto.jsontag) = "bind_phone", json_name = "bind_phone"];
+  // 配置序号id
+  int64 bindAccount = 3 [(gogoproto.jsontag) = "bind_account", json_name = "bind_account"];
+  // 配置序号id
+  int64 bindType = 4 [(gogoproto.jsontag) = "bind_type", json_name = "bind_type"];
+  // 配置序号id
+  int64 gameType = 5 [(gogoproto.jsontag) = "game_type", json_name = "game_type"];
+  // 配置序号id
+  string actId = 6 [(gogoproto.jsontag) = "act_id", json_name = "act_id"];
+  // 配置序号id
+  int64 bindExternal = 7 [(gogoproto.jsontag) = "bind_external", json_name = "bind_external"];
+  // 配置使用状态
+  int64 status = 8 [(gogoproto.jsontag) = "status", json_name = "status"];
+}
+
+message GetBindConfigListReq {
+  int64 ID = 1 [(gogoproto.jsontag) = "id", json_name = "id"];
+  int64 Pn = 2 [(gogoproto.moretags) = 'default:"1"  validate:"min=1"', json_name = "pn"];
+  int64 Ps = 3 [(gogoproto.moretags) = 'default:"30"  validate:"min=1"', json_name = "ps"];
+}
+
+message GetBindConfigListResp {
+  repeated BindConfigInfo List = 1 [(gogoproto.jsontag) = "list", json_name = "list"];
+  int64 total = 2 [(gogoproto.jsontag) = "total", json_name = "total"];
+}
+
+message GetBindGamesResp {
+  repeated BindGameInfo games = 1 [(gogoproto.jsontag) = "games", json_name = "games"];
+}
+
+message BindGameInfo {
+  // 游戏id
+  int64 gameId = 1 [(gogoproto.jsontag) = "game_id", json_name = "game_id"];
+  // 游戏名称，唯一且可枚举
+  string gameName = 2 [(gogoproto.jsontag) = "game_name", json_name = "game_name"];
+  // 游戏显示名称
+  string gameTitle = 3 [(gogoproto.jsontag) = "game_title", json_name = "game_title"];
+  // 游戏对应第三方名称
+  string externalName = 4 [(gogoproto.jsontag) = "external_name", json_name = "external_name"];
+  // 游戏对应三方id
+  int64 externalId = 5 [(gogoproto.jsontag) = "external_id", json_name = "external_id"];
+}
+
+message GetBindExternalsResp {
+  repeated BindExternal externals = 1 [(gogoproto.jsontag) = "externals", json_name = "externals"];
+}
+
+message BindExternal {
+  // 三方id
+  int64  bindExternal = 1 [(gogoproto.jsontag) = "bind_external", json_name = "bind_external"];
+  // 三方名称
+  string externalName = 2 [(gogoproto.jsontag) = "external_name", json_name = "external_name"];
+}
+
+message CanUpActReserveByTypeReq {
+  int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  UpCreateActReserveFrom from = 2 [(gogoproto.moretags) = 'validate:"required"'];
+  UpActReserveRelationType type = 3 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message CanUpActReserveByTypeReply {
+  bool  exist = 1 [(gogoproto.jsontag) = 'exist', json_name = "exist"];
+  UpActReserveCreateInfo  upActReserveCreateInfo = 2 [(gogoproto.jsontag) = 'upActReserveCreateInfo', json_name = "upActReserveCreateInfo"];
+  UpActReserveContinuingInfo  upActReserveContinuingInfo = 3 [(gogoproto.jsontag) = 'upActReserveContinuingInfo', json_name = "upActReserveContinuingInfo"];
+}
+
+message UpActReserveCreateInfo {
+  bool exist = 1 [(gogoproto.jsontag) = 'exist', json_name = "exist"];
+  int64 limit = 2 [(gogoproto.jsontag) = 'limit', json_name = "limit"];
+}
+
+message UpActReserveContinuingInfo {
+  bool exist = 1 [(gogoproto.jsontag) = 'exist', json_name = "exist"];
+  repeated UpActReserveRelationInfo continuingList = 2 [(gogoproto.jsontag) = 'continuingList', json_name = "continuingList"];
+}
+
+message DelKnowledgeCacheReq {
+  string tableName = 1 [(gogoproto.moretags) = 'validate:"required"'];
+  repeated int64 update_mids = 2 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message RewardsGetAwardConfigByIdReq {
+  int64 Id = 1 [(gogoproto.jsontag) = "id", json_name = "id", (gogoproto.moretags) = 'form:"id" validate:"required"'];
+}
+
+message CanUpRelateOthersActReserveReq {
+    int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+    int64 sid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message CanUpRelateOthersActReserveReply {
+    bool auth = 1 [(gogoproto.jsontag) = 'auth', json_name = "auth"];
+}
+
+message CanUpActReserveFullReq {
+    int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message CanUpActReserveFullReply {
+    map<int64, CanUpActReserveFullInfo> res = 1 [(gogoproto.jsontag) = 'res', json_name = "res"];
+}
+
+message CanUpActReserveFullInfo {
+    bool  exist = 1 [(gogoproto.jsontag) = 'exist', json_name = "exist"];
+    UpActReserveCreateInfo  upActReserveCreateInfo = 2 [(gogoproto.jsontag) = 'upActReserveCreateInfo', json_name = "upActReserveCreateInfo"];
+    UpActReserveContinuingInfo  upActReserveContinuingInfo = 3 [(gogoproto.jsontag) = 'upActReserveContinuingInfo', json_name = "upActReserveContinuingInfo"];
+    UpActReserveRelateOthersInfo upActReserveRelateOthersInfo = 4 [(gogoproto.jsontag) = 'upActReserveRelateOthersInfo', json_name="upActReserveRelateOthersInfo"];
+}
+
+message UpActReserveRelateOthersInfo {
+    bool exist = 1 [(gogoproto.jsontag) = 'exist', json_name = "exist"];
+    repeated UpActReserveRelationInfo othersReserveList = 2 [(gogoproto.jsontag) = 'othersReserveList', json_name = "othersReserveList"];
+}
+
+message CanUpRelateReserveAuthReq {
+    int64 mid = 1 [(gogoproto.moretags) = 'validate:"required"'];
+    int64 sid = 2 [(gogoproto.moretags) = 'validate:"required"'];
+}
+
+message CanUpRelateReserveAuthReply {
+    ReserveRelationRole role = 1 [(gogoproto.jsontag) = 'role', json_name = "role"];
+    bool auth = 2 [(gogoproto.jsontag) = 'auth', json_name = "auth"];
+}
+
+enum ReserveRelationRole {
+    DefaultRole = 0;
+    OwnReserve = 1;
+    OthersReserve = 2;
+}
+
+message CreateStockRecordReq {
+  int64                     StockId = 1 [json_name = "stock_id", (gogoproto.jsontag) = "stock_id"];
+  string                    ResourceId = 2 [json_name = "resource_id", (gogoproto.jsontag) = "resource_id", (gogoproto.moretags) = 'validate:"required"'];
+  int64                     ResourceVer = 3 [json_name = "resource_ver", (gogoproto.jsontag) = "resource_ver", (gogoproto.moretags) = 'validate:"min=1"'];
+  string                    ForeignActId = 4 [json_name = "foreign_act_id", (gogoproto.jsontag) = "foreign_act_id", (gogoproto.moretags) = 'validate:"required"'];
+  string                    CycleLimit = 5 [json_name = "cycle_limit", (gogoproto.jsontag) = "cycle_limit"];
+  string                    DescInfo = 6 [json_name = "desc_info", (gogoproto.jsontag) = "desc_info"];
+  int64                     StockStartTime = 7 [json_name = "stock_start_time", (gogoproto.jsontag) = "stock_start_time", (gogoproto.casttype) = "go-common/library/time.Time"];
+  int64                     StockEndTime = 8 [json_name = "stock_end_time", (gogoproto.jsontag) = "stock_end_time", (gogoproto.casttype) = "go-common/library/time.Time"];
+  repeated CycleLimitStruct CycleLimitObj = 9 [json_name = "cycle_limit_obj", (gogoproto.jsontag) = "cycle_limit_obj"];
+}
+
+enum StockServerCycleType {
+  CycleTypeInvailed = 0;
+  ActCycle = 1;
+  DayCycle = 2;
+}
+
+enum StockServerLimitType  {
+  LimitTypeInvailed = 0;
+  StoreUpperLimit = 1;
+  StoreNoLimit = 2;
+}
+
+message CycleLimitStruct {
+  int32 CycleType = 1 [json_name = "cycle_type", (gogoproto.jsontag) = "cycle_type"];
+  int32 LimitType = 2 [json_name = "limit_type", (gogoproto.jsontag) = "limit_type"];
+  int32 Store = 3 [json_name = "store", (gogoproto.jsontag) = "store"];
+  int32 UserNum = 4 [json_name = "user_num", (gogoproto.jsontag) = "user_num"];
+  string CycleStartTime = 5 [json_name = "cycle_start_time", (gogoproto.jsontag) = "cycle_start_time"];
+  string CycleEndTime = 6 [json_name = "cycle_end_time", (gogoproto.jsontag) = "cycle_end_time"];
+}
+
+message CreateStockRecordResp {
+  int64 StockId = 1 [json_name = "stock_id", (gogoproto.jsontag) = "stock_id"];
+}
+
+
+message ConsumerSingleStockReq {
+  int64  StockId = 1 [json_name = "stock_id", (gogoproto.jsontag) = "stock_id", (gogoproto.moretags) = 'validate:"required"'];
+  string RetryId = 2 [json_name = "retry_id", (gogoproto.jsontag) = "retry_id", (gogoproto.moretags) = 'validate:"required"'];
+  int64  Ts = 3 [json_name = "ts", (gogoproto.jsontag) = "ts"];
+  int64  Mid = 4 [json_name = "mid", (gogoproto.jsontag) = "mid"];
+}
+
+message ConsumerStockReq {
+  int64  StockId = 1 [json_name = "stock_id", (gogoproto.jsontag) = "stock_id", (gogoproto.moretags) = 'validate:"required"'];
+  string RetryId = 2 [json_name = "retry_id", (gogoproto.jsontag) = "retry_id", (gogoproto.moretags) = 'validate:"required"'];
+  int32  Num = 3 [json_name = "num", (gogoproto.jsontag) = "num", (gogoproto.moretags) = 'validate:"min=1"'];
+  int64  Ts = 4 [json_name = "ts", (gogoproto.jsontag) = "ts"];
+  int64  Mid = 5 [json_name = "mid", (gogoproto.jsontag) = "mid"];
+}
+
+message ConsumerStockResp {
+  repeated string StockNo = 1 [json_name = "stock_no", (gogoproto.jsontag) = "stock_no"];
+}
+
+message GetStocksReq {
+  repeated int64 StockIds = 1 [json_name = "stock_ids", (gogoproto.jsontag) = "stock_ids", (gogoproto.moretags) = 'validate:"required"'];
+  bool           SkipCache = 2 [json_name = "skip_cache", (gogoproto.jsontag) = "skip_cache"];
+  int64          Mid = 3 [json_name = "mid", (gogoproto.jsontag) = "mid"];
+}
+
+message GetStocksResp {
+  map< int64, StocksItemList> StockMap = 1 [(gogoproto.jsontag) = 'stock_map'];
+}
+
+message StocksItemList {
+  repeated StocksItem List = 1 [json_name = "stock_type", (gogoproto.jsontag) = 'list'];
+}
+
+message StocksItem {
+  int32 StockType = 1 [json_name = "stock_type", (gogoproto.jsontag) = "stock_type"];
+  int32 LimitNum = 2 [json_name = "limit_num", (gogoproto.jsontag) = "limit_num"];
+  int32 StockNum = 3 [json_name = "stock_num", (gogoproto.jsontag) = "stock_num"];
+  int32 UserLimitNum = 4 [json_name = "user_limit_num", (gogoproto.jsontag) = "user_limit_num"];
+  int32 UserStockNum = 5 [json_name = "user_stock_num", (gogoproto.jsontag) = "user_stock_num"];
+  CycleLimitStruct CycleLimitObj = 6 [json_name = "cycle_limit_obj", (gogoproto.jsontag) = "cycle_limit_obj"];
+}
+
+message BatchStockRecord {
+  repeated CreateStockRecordReq List = 1 [json_name = "list", (gogoproto.jsontag) = "list"];
+}
+
+message FeedBackStocksReq {
+  int64           StockId = 1 [json_name = "stock_id", (gogoproto.jsontag) = "stock_id", (gogoproto.moretags) = 'validate:"required"'];
+  repeated string StockNos = 2 [json_name = "stock_nos", (gogoproto.jsontag) = "stock_nos", (gogoproto.moretags) = 'validate:"required"'];
+  int64               Ts = 3 [json_name = "ts", (gogoproto.jsontag) = "ts"];
+}
+
+
+message FeedBackStocksResp {
+  int32 EffectRows = 1 [json_name = "effect_rows", (gogoproto.jsontag) = "effect_rows"];
+}
+
+message StockServerSyncStruct {
+  int64               StockId = 1 [json_name = "stock_id", (gogoproto.jsontag) = "stock_id", (gogoproto.moretags) = 'validate:"required"'];
+  int64               Ts = 2 [json_name = "ts", (gogoproto.jsontag) = "ts"];
+  repeated string StockOrders = 3 [json_name = "stock_orders", (gogoproto.jsontag) = "stock_orders"];
+}
+
+message UpdateStockRecordResp {
+  int64 EffectRows = 1 [json_name = "effect_rows", (gogoproto.jsontag) = "effect_rows"];
+}
+
+message EffectiveStockListReq {
+  int64 beginTime = 1 [(gogoproto.jsontag) = "begin_time", json_name = "begin_time", (gogoproto.moretags) = 'validate:"min=1"'];
+  int64 endTime = 2 [(gogoproto.jsontag) = "end_time", json_name = "end_time", (gogoproto.moretags) = 'validate:"min=1"'];
+  int32 PageNumber = 3 [(gogoproto.jsontag) = "page_number", json_name = "page_number", (gogoproto.moretags) = 'validate:"min=1"'];
+  int32 PageSize = 4 [(gogoproto.jsontag) = "page_size", json_name = "page_size", (gogoproto.moretags) = 'validate:"min=0,max=50"'];
+}
+
+message GetStockOrderByIdReq {
+  int64     StockId = 1 [(gogoproto.jsontag) = "stock_id", json_name = "stock_id", (gogoproto.moretags) = 'validate:"required"'];
+  int32     SyncNum = 2 [(gogoproto.jsontag) = "sync_num", json_name = "sync_num", (gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message GetStockOrderByIdItem {
+  string UniqueId = 1 [(gogoproto.jsontag) = "unique_id", json_name = "unique_id"];
+  string StockNo = 2 [(gogoproto.jsontag) = "stock_no", json_name = "stock_no"];
+  int64 CreateTime = 3 [(gogoproto.jsontag) = "create_time", json_name = "create_time"];
+}
+
+message GetStockOrderByIdResp {
+  repeated  GetStockOrderByIdItem List = 1 [(gogoproto.jsontag) = "list", json_name = "list"];
+}
+
+message EffectiveStockListResp {
+  repeated CreateStockRecordReq List = 1 [json_name = "list", (gogoproto.jsontag) = "list"];
+}
+
+message VoteUserAddTmpTimesReq {
+    //所需增加次数的Mid
+    int64 Mid = 1 [(gogoproto.jsontag) = "mid", json_name="mid", (gogoproto.moretags) = 'form:"mid"'];
+    //本次操作所需增加的次数
+    int64 times = 2 [(gogoproto.jsontag) = "times", json_name="times", (gogoproto.moretags) = 'form:"times"'];
+    //活动ID
+    int64 ActivityId = 3 [(gogoproto.jsontag) = "activity_id", json_name="activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+}
+
+message VoteGetItemContributionRankReq {
+    //活动ID
+    int64 ActivityId = 1 [(gogoproto.jsontag) = "activity_id", json_name="activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+    //数据组ID
+    int64 SourceGroupId = 2 [(gogoproto.jsontag) = "datasource_group_id", json_name="datasource_group_id", (gogoproto.moretags) = 'form:"datasource_group_id" validate:"required"'];
+    //投票项ID
+    int64 SourceItemId = 3 [(gogoproto.jsontag) = "datasource_item_id", json_name="datasource_item_id", (gogoproto.moretags) = 'form:"datasource_item_id" validate:"required"'];
+    //返回前N
+    int64 Limit = 4 [(gogoproto.jsontag) = "limit", json_name="limit", (gogoproto.moretags) = 'form:"limit" default:"10" validate:"min=1" form:"pn"'];
+    //用户mid, 如果不为0时会返回此用户的剩余票数信息
+    int64 Mid = 5 [(gogoproto.jsontag) = "mid", json_name="mid", (gogoproto.moretags) = 'form:"mid"'];
+}
+
+message VoteGetItemContributionRankResp {
+    //用户剩余投票次数
+    int64 UserAvailVoteCount = 1 [(gogoproto.jsontag) = "user_avail_vote_count", json_name="user_avail_vote_count"];
+    //本用户当前剩余的可用临时票数
+    int64 UserAvailTmpVoteCount = 2 [(gogoproto.jsontag) = "user_avail_tmp_vote_count", json_name = "user_avail_tmp_vote_count"];
+    //数据源类型
+    string DataSourceType = 3 [(gogoproto.jsontag) = "datasource_type", json_name="datasource_type"];
+    //数据组ID
+    int64 SourceGroupId = 4 [(gogoproto.jsontag) = "datasource_group_id", json_name="datasource_group_id"];
+    //贡献排名列表
+    repeated VoteItemContributionRankItem Rank = 5 [(gogoproto.jsontag) = "list", json_name="list"];
+}
+
+
+message VoteItemContributionRankItem {
+    //Mid
+    int64 UserMid = 1 [(gogoproto.jsontag) = "user_mid", json_name="user_mid"];
+    //用户头像
+    string UserFace = 2 [(gogoproto.jsontag) = "user_face", json_name="user_face"];
+    //用户名
+    string UserName = 3 [(gogoproto.jsontag) = "user_name", json_name="user_name"];
+    //累计投票数
+    int64 times = 4 [(gogoproto.jsontag) = "times", json_name="times", (gogoproto.moretags) = 'form:"times"'];
+    //最后一次的投票时间
+    int64 LastVoteAt = 5 [(gogoproto.jsontag) = "last_vote_at", json_name="last_vote_at", (gogoproto.moretags) = 'form:"last_vote_at"'];
+}
+
+message VoteUserGetTimesReq {
+    //查询的Mid
+    int64 Mid = 1 [(gogoproto.jsontag) = "mid", json_name="mid", (gogoproto.moretags) = 'form:"mid" validate:"required"'];
+    //活动ID
+    int64 ActivityId = 2 [(gogoproto.jsontag) = "activity_id", json_name="activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+}
+
+message VoteUserGetTimesResp {
+    //用户剩余投票次数
+    int64 UserAvailVoteCount = 1 [(gogoproto.jsontag) = "user_avail_vote_count", json_name="user_avail_vote_count"];
+    //本用户当前剩余的可用临时票数
+    int64 UserAvailTmpVoteCount = 2 [(gogoproto.jsontag) = "user_avail_tmp_vote_count", json_name = "user_avail_tmp_vote_count"];
+}
+
+enum VoteTimesExpireType {
+    NotExpire = 0; // 不过期
+    Daily = 1; // 当日有效
+}
+
+
+message VoteUserAddTimesReq {
+    //所需增加次数的Mid
+    int64 Mid = 1 [(gogoproto.jsontag) = "mid", json_name="mid", (gogoproto.moretags) = 'form:"mid"'];
+    //本次操作所需增加的次数
+    int64 Times = 2 [(gogoproto.jsontag) = "times", json_name="times", (gogoproto.moretags) = 'form:"times"'];
+    //活动ID
+    int64 ActivityId = 3 [(gogoproto.jsontag) = "activity_id", json_name="activity_id", (gogoproto.moretags) = 'form:"activity_id" validate:"required"'];
+    //票数是否过期
+    VoteTimesExpireType VoteTimesExpireType = 4 [(gogoproto.jsontag) = "expire", json_name="expire"];
+}
+

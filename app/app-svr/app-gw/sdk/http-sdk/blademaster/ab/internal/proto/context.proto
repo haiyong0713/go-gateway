@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package appgwsdk.blademaster.abtest;
+
+option go_package = "v1";
+
+enum StateType {
+    STATE_UNKNOWN = 0;
+    EXP_HIT = 1;
+    EXP_HITTABLE = 2;
+    LAYER_NO_HIT = 3;
+    LAYER_CONFLICT = 4;
+}
+
+enum VarType {
+    TYPE_UNKNOWN = 0;
+    TYPE_STRING = 1;
+    TYPE_INT64 = 2;
+    TYPE_FLOAT64 = 3;
+    TYPE_BOOL = 4;
+    TYPE_VERSION = 5;
+}
+
+message State {
+    StateType type = 1;
+    int64 value = 2;
+}
+
+message Val {
+    VarType type = 1;
+    string sVal = 2;
+    int64 iVal = 3;
+    double fVal = 4;
+    bool bVal = 5;
+}
+
+message Context {
+    repeated State states = 1;
+    map<string, Val> env = 2;
+}

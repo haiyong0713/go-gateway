@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package resource.service.v1;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "v1";
+
+message GetPlayerCustomizedPanelReq {
+    // 视频tagid
+    repeated int64 tids = 1 [(gogoproto.moretags) = 'validate:"required"', (gogoproto.jsontag) = "tids", json_name = "tids"];
+}
+
+message GetPlayerCustomizedPanelV2Rep {
+    // 不存在时返回nil
+    GetPlayerCustomizedPanelRep item = 1;
+}
+
+message GetPlayerCustomizedPanelRep {
+    // panel配置id
+    int32 id = 1 [(gogoproto.jsontag) = "id", json_name = "id"];
+    // 按钮素材
+    string btnImg = 2 [(gogoproto.jsontag) = "btn_img", json_name = "btn_img"];
+    // 按钮文案
+    string btnText = 3 [(gogoproto.jsontag) = "btn_text", json_name = "btn_text"];
+    // 字体颜色
+    string textColor = 4 [(gogoproto.jsontag) = "text_color", json_name = "text_color"];
+    // 跳转链接
+    string link = 5 [(gogoproto.jsontag) = "link", json_name = "link"];
+    // 新增需求，免流试看面板，1-5为兼容方案
+    repeated PlayerPanel panels = 6 [(gogoproto.jsontag) = "panels", json_name = "panels"];
+}
+
+message PlayerPanel {
+    // panel配置id
+    int32 id = 1 [(gogoproto.jsontag) = "id", json_name = "id"];
+    // 按钮素材
+    string btnImg = 2 [(gogoproto.jsontag) = "btn_img", json_name = "btn_img"];
+    // 按钮文案
+    string btnText = 3 [(gogoproto.jsontag) = "btn_text", json_name = "btn_text"];
+    // 字体颜色
+    string textColor = 4 [(gogoproto.jsontag) = "text_color", json_name = "text_color"];
+    // 跳转链接
+    string link = 5 [(gogoproto.jsontag) = "link", json_name = "link"];
+    // 面板文案
+    string label = 6 [(gogoproto.jsontag) = "label", json_name = "label"];
+    // 展现阶段, 播放前:before_play,试看后：after_free_play
+    string displayStage = 7 [(gogoproto.jsontag) = "display_stage", json_name = "display_stage"];
+    // 运营商
+    string operator = 8 [(gogoproto.jsontag) = "operator", json_name = "operator"];
+}

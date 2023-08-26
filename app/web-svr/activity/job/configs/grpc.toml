@@ -1,0 +1,5 @@
+[ActClient]
+    timeout = "1s"
+
+[TunnelClient]
+    timeout = "1s"

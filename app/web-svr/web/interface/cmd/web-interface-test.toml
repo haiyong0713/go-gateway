@@ -1,0 +1,584 @@
+[custom]
+    RecommendTimeout = "200ms"
+
+[ActivitySeason]
+    RightRelatedTitle = "相关推荐"
+    BreakCycle = 50
+
+[rule]
+    minRankCount = 5
+    minRankIndexCount = 7
+    minRankRegionCount = 9
+    minRankRecCount = 7
+    minRankTagCount = 1
+    minDyCount = 3
+    minNewListCnt = 10
+    authorRecCnt = 16
+    relatedArcCnt = 10
+    maxHelpPageSize = 15
+    maxArcsPageSize = 20
+    maxSecondCacheSize = 200
+    maxFirstCacheSize = 20
+    dynamicNumArcs = 5
+    regionsCount = 10
+    bangumiCount = 50
+    maxArtPageSize = 50
+    artUpListGetCnt = 50
+    artUpListCnt = 5
+    elecShowTypeIDs = [20, 154, 156, 31, 30, 59, 29, 28, 26, 22, 126, 127, 24, 25, 47, 27, 17, 18, 16, 65, 136, 19, 121, 171, 172, 173, 37, 124, 122, 39, 96, 95, 98, 71, 137, 131, 157, 158, 159, 164, 82, 128, 138, 21, 75, 76, 161, 162, 163, 174, 153, 168]
+    rids = [1, 3, 4, 5, 11, 13, 23, 36, 119, 129, 155, 160, 165, 167, 177, 181, 188]
+    WxRids = [0,4,5,160]
+    grayscale =[24,25,27,47,28,29,30]
+    grayscaleAll = 0 # 0:代表灰度，1:代表全量
+    bvShow = 1
+    bvJsName = "biliconfig.js"
+    HotShare = 100
+	HotShareOut = 40
+    OnlineToken = "veo8WQGka5aD40z8"
+	HotShareOpen = true
+    RecommendRids = [1, 3, 4, 5, 36, 119, 129, 155, 160, 181, 188, 202, 211,217,223]
+    RankFirstRegion = [1, 3, 4, 5, 11, 13, 23, 36, 119, 129, 155, 160, 167, 168, 177, 181, 188, 211,217,223]
+	RankOfflineRegion = [165,166,186,196,197,23,54,175,131,98,39,96,202,203,204,205,206]
+	RankNoOriginalRegion = [145,83,146,147,179,195,187]
+    DayAllRegion = [17,65,121,136,19,28,31,30,194,59,193,29,130]
+    RankV2Rids = [1, 3, 4, 5, 36, 119, 129, 155, 160, 168, 181, 188, 11, 23, 177, 211,217,223]
+    [rule.recommend]
+        aidCount = 100
+        itemCount = 40
+
+
+#[log]
+#dir = "/data/log/web-interface/"
+
+[cron]
+    Type = "0 */5 * * * *"
+	NewCount = "0 */5 * * * *"
+	OnlineTotal = "*/30 * * * * *"
+	OnlineList = "0 */3 * * * *"
+	IndexIcon = "0 */5 * * * *"
+	IndexIconRand = "*/1 * * * * *"
+	SearchEgg = "0 */10 * * * *"
+	Manager = "0 */1 * * * *"
+	SpecialRcmd = "*/30 * * * * *"
+	WxHot = "*/30 * * * * *"
+	SteinsGuide = "0 */1 * * * *"
+	BvIDJs = "*/30 * * * * *"
+	Bnj2019 = "*/1 * * * * *"
+	Bnj2020 = "*/1 * * * * *"
+	WebTop = "1 */5 * * * *"
+	RankIndex = "2 */7 * * * *"
+	RankRecommend = "3 */8 * * * *"
+	RankRegion = "10 */8 * * * *"
+	RankV2 = "10 */8 * * * *"
+	ParamConfig = "*/5 * * * * *"
+	InformationRegionCard = "*/10 * * * * *"
+    Popular = "0 */5 * * * *"
+    ActivitySeason = "*/1 * * * * *"
+    RegionList = "@every 10s"
+    SearchTipDetail = "@every 10s"
+
+[informationRegion]
+    rids = [202,203,204,205,206]
+
+[arcClient]
+    timeout = "350ms"
+
+[web]
+    pullRegionInterval = "10m"
+    pullOnlineInterval = "15m"
+    searchEggInterval = "10m"
+    onlineCount = 9
+    specailInterval = "1m"
+    specRecmInterval = "1m"
+    wxHotInterval = "10m"
+    bvIDJsInterval = "30s"
+#[infoc2]
+#    taskID = "000078"
+#   proto = "tcp"
+#    addr = "172.19.100.20:5401"
+#    chanSize = 1024 
+
+[bnj2020]
+    tick = "2s"
+    mainAid = 10113243
+    listAids = [10113212,10113208,10113210,10113211,10113209,10113213,10113233,10113237,10113214,10113223,10113217,10113231,10113302,10113218,10113225,10113235]
+    spAid= 840006984
+[bnj2020.RelateAidToRid]
+    "10113212"=3457
+    "10113208"=3555
+[[bnj2020.timeline]]
+        name = "1111"
+        start = "2019-12-09T00:00:00+08:00"
+        end = "2019-12-09T05:00:00+08:00"
+        cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        h5cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        type = 1
+        tag = ["吸血鬼","悬疑"]
+[[bnj2020.timeline]]
+        name = "2222"
+        start = "2019-12-09T05:00:00+08:00"
+        end = "2019-12-09T06:00:00+08:00"
+        cover = "//i0.hdslb.com/bfs/activity-plat/cover/20180209/m6pvmmnpxx.jpg"
+        h5cover = "//i0.hdslb.com/bfs/activity-plat/cover/20180209/m6pvmmnpxx.jpg"
+        type = 2
+        subtitle = "swithc * 10"
+[[bnj2020.timeline]]
+        name = "3333"
+        start = "2019-12-09T06:00:00+08:00"
+        end = "2019-12-09T08:00:00+08:00"
+        cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        h5cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        type = 1
+        tag = ["吸血鬼","悬疑"]
+[[bnj2020.timeline]]
+        name = "4444"
+        start = "2019-12-09T08:00:00+08:00"
+        end = "2019-12-09T10:00:00+08:00"
+        cover = "//i0.hdslb.com/bfs/activity-plat/cover/20180209/m6pvmmnpxx.jpg"
+        h5cover = "//i0.hdslb.com/bfs/activity-plat/cover/20180209/m6pvmmnpxx.jpg"
+        type = 2
+[[bnj2020.timeline]]
+        name = "5555"
+        start = "2019-12-09T10:00:00+08:00"
+        end = "2019-12-09T12:00:00+08:00"
+        cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        h5cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        type = 1
+        tag = ["吸血鬼!!!!!!!!","悬疑"]
+[[bnj2020.timeline]]
+        name = "6666"
+        start = "2019-12-09T13:00:00+08:00"
+        end = "2019-12-09T14:00:00+08:00"
+        cover = "//i0.hdslb.com/bfs/activity-plat/cover/20180209/m6pvmmnpxx.jpg"
+        h5cover = "//i0.hdslb.com/bfs/activity-plat/cover/20180209/m6pvmmnpxx.jpg"
+        type = 2
+[[bnj2020.timeline]]
+        name = "7777s十个字"
+        start = "2019-12-09T12:00:00+08:00"
+        end = "2019-12-09T16:00:00+08:00"
+        cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        h5cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        type = 1
+        tag = ["吸血鬼","悬疑","最多几","十二个"]
+[[bnj2020.timeline]]
+        name = "8888"
+        start = "2019-12-09T16:00:00+08:00"
+        end = "2019-12-09T17:00:00+08:00"
+        cover = "//i0.hdslb.com/bfs/activity-plat/cover/20180209/m6pvmmnpxx.jpg"
+        h5cover = "//i0.hdslb.com/bfs/activity-plat/cover/20180209/m6pvmmnpxx.jpg"
+        type = 2
+[[bnj2020.timeline]]
+        name = "999999"
+        start = "2019-12-09T16:00:00+08:00"
+        end = "2019-12-09T17:00:00+08:00"
+        cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        h5cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        type = 1
+        tag = ["吸血鬼","悬疑","最多几","十二个"]
+[[bnj2020.timeline]]
+        name = "aaaaaa"
+        start = "2019-12-09T16:00:00+08:00"
+        end = "2019-12-09T17:00:00+08:00"
+        cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        h5cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        type = 1
+        tag = ["吸血鬼","悬疑"]
+[[bnj2020.timeline]]
+        name = "bbbb"
+        start = "2019-12-09T16:00:00+08:00"
+        end = "2019-12-09T17:00:00+08:00"
+        cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        h5cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        type = 1
+        tag = ["吸血鬼","悬疑"]
+[[bnj2020.timeline]]
+        name = "ccccc"
+        start = "2019-12-09T16:00:00+08:00"
+        end = "2019-12-09T17:00:00+08:00"
+        cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        h5cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        type = 1
+        tag = ["吸血鬼","悬疑"]
+[[bnj2020.timeline]]
+        name = "dddddd"
+        start = "2019-12-09T16:00:00+08:00"
+        end = "2019-12-09T17:00:00+08:00"
+        cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        h5cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        type = 1
+        tag = ["吸血鬼","悬疑"]
+[[bnj2020.timeline]]
+        name = "eeeeee"
+        start = "2019-12-09T16:00:00+08:00"
+        end = "2019-12-09T17:00:00+08:00"
+        cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        h5cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        type = 1
+        tag = ["吸血鬼","悬疑"]
+[[bnj2020.timeline]]
+        name = "ffffff"
+        start = "2019-12-09T16:00:00+08:00"
+        end = "2019-12-09T17:00:00+08:00"
+        cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        h5cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        type = 1
+        tag = ["吸血鬼","悬疑"]
+[[bnj2020.timeline]]
+        name = "ggggggg"
+        start = "2019-12-09T19:00:00+08:00"
+        end = "2019-12-09T23:30:00+08:00"
+        cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        h5cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+        type = 1
+        tag = ["吸血鬼","悬疑"]
+
+[httpClient]
+    [httpClient.read]
+    key = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial = "80ms"
+    timeout = "500ms"
+    keepAlive = "60s"
+    timer = 1000
+    [httpClient.write]
+    key = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial = "80ms"
+    timeout = "500ms"
+    keepAlive = "60s"
+    timer = 1000
+    [httpClient.bigData]
+    key = "7c7ac0db1aa05587"
+       secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial = "80ms"
+    timeout = "100ms"
+    keepAlive = "60s"
+    timer = 1000
+    [httpClient.help]
+    key = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial = "1s"
+    timeout = "1s"
+    keepAlive = "60s"
+    timer = 1000
+    [httpClient.search]
+    key = "6aa4286456d16b97"
+    secret = "351cf022e1ae8296109c3c524faafcc8"
+    dial = "80ms"
+    timeout = "600ms"
+    keepAlive = "60s"
+    timer = 1000
+    [httpClient.pay]
+    key = "e7482d29be4a95b8"
+    secret = "9e803791cdef756e75faee68e12b7442"
+    dial = "80ms"
+    timeout = "500ms"
+    keepAlive = "60s"
+    timer = 1000
+    [httpClient.game]
+    key = "JSwWDlOTnYFfpH7"
+    secret = "8BEdXjY7Y4S39DGpfScr4wkUS"
+    dial = "80ms"
+    timeout = "500ms"
+    keepAlive = "60s"
+    timer = 1000
+    [httpClient.rcmd]
+    key = "6aa4286456d16b97"
+    secret = "351cf022e1ae8296109c3c524faafcc8"
+    dial = "300ms"
+    timeout = "500ms"
+    keepAlive = "60s"
+
+[redis]
+    [redis.bakRedis]
+    name = "web-interface/rank-bak"
+    proto = "tcp"
+    addr = "127.0.0.1:20108"
+    idle = 1
+    active = 10
+    dialTimeout = "30ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80ms"
+    rankingExpire = "24h"
+    newlistExpire = "24h"
+    regionExpire = "24h"
+    tagExpire = "24h"
+    archiveExpire = "24h"
+    helpExpire = "1s"
+    appealLimitExpire = "1h"
+    olListExpire = "24h"
+    [redis.localRedis]
+    name = "web-interface/rank"
+    proto = "tcp"
+    addr = "127.0.0.1:20108"
+    idle = 1
+    active = 10
+    dialTimeout = "30ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80ms"
+    rankingExpire = "10m"
+    newlistExpire = "20s"
+    [redis.popular]
+    name = "web-interface/popular"
+    proto = "tcp"
+    addr = "127.0.0.1:20108"
+    idle = 1
+    active = 10
+    dialTimeout = "30ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80ms"
+    rankingExpire = "10m"
+    newlistExpire = "20s"
+    [redis.IndexRedis]
+    name = "web-interface/index"
+    proto = "tcp"
+    addr = "127.0.0.1:20108"
+    idle = 10
+    active = 10
+    dialTimeout = "1s"
+    readTimeout = "1s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+
+
+[host]
+rank = "http://uat-data.bilibili.co"
+api  = "http://uat-api.bilibili.co"
+data = "http://data.bilibili.co"
+space = "http://uat-space.bilibili.co"
+helpAPI = "http://service-pre.bilibili.com"
+show = "http://uat-show.bilibili.co"
+search = "http://uat-s.search.bilibili.co"
+pay = "http://pay.bilibili.co"
+abServer = "http://172.18.33.162:6193"
+manager = "http://manager.bilibili.co"
+arcApi = "http://archive.api.bilibili.co"
+elec  = "http://elec.bilibili.com"
+liveAPI = "http://api.live.bilibili.co"
+mall = "http://fat1-mall.bilibili.co"
+game = "http://uat-line1-game-open-api.biligame.net"
+vcAPI = "http://api.vc.bilibili.co"
+rcmd = "http://data.bilibili.co"
+rcmdDiscovery = "http://data.bilibili.co"
+replyDiscovery = "http://uat-api.bilibili.co"
+searchDiscovery = "http://uat-s.search.bilibili.co"
+mallDiscovery = "http://fat1-mall.bilibili.co"
+payDiscovery = "http://pay.bilibili.co"
+# rcmdDiscovery = "discovery://ai.pegasus.ai-router"
+# replyDiscovery = "discovery://main.community.reply"
+# searchDiscovery = "discovery://search.search.router"
+# mallDiscovery = "discovery://open.mall.mall-shop"
+# payDiscovery = "discovery://main.npay.payplatform-accesslayer"
+
+
+[mysql]
+    addr = "172.22.34.101:3307"
+    dsn = "bilibili:8bmwBDtgBLB5Cqg31h2FxiRJK3OK6VXq@tcp(127.0.0.1:3306)/bilibili?timeout=1s&readTimeout=1s&writeTimeout=1s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+    idle = 1
+    idleTimeout = "4h"
+   queryTimeout = "200ms"
+    execTimeout = "200ms"
+    tranTimeout = "200ms"
+    [mysql.breaker]
+    window = "3s"
+    sleep = "100ms"
+    bucket = 10
+    ratio = 0.5
+    request = 100
+
+
+[tag]
+pageSize = 200
+maxSize = 100
+
+[defaultTop]
+sImg = "http://i0.hdslb.com/bfs/space/768cc4fd97618cf589d23c2711a1d1a729f42235.png"
+lImg = "http://i0.hdslb.com/bfs/space/cb1c3ef50e22b6096fde67febe863494caefebad.png"
+
+[bfs]
+addr = "http://uat-bfs.bilibili.co"
+bucket = "feedback"
+key = "2bf38b8ab5c559e1"
+secret = "dcda48cc55728867d0a1e267a16585"
+maxFileSize = 5242880
+
+[DegradeConfig]
+    expire = 3600
+   [DegradeConfig.memcache]
+    name = "web-interface"
+    proto = "tcp"
+    addr = "127.0.0.1:20125"
+    idle = 10
+    active = 10
+    dialTimeout = "200ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "7h"
+
+[HelpListRouterConfig]
+  [HelpListRouterConfig.Degrade]
+      on=false
+      args =  ["parentTypeId"]
+
+[HelpDetailRouterConfig]
+  [HelpDetailRouterConfig.Degrade]
+      on=false
+      args =  ["pn", "ps", "fId", "questionTypeId"]
+[bnj2019]
+    bnjMainAid = 10111165
+    fakeElec = 0
+    bnjListAids = [10111164,10111163,10111162,10111161,10111160,10111159,10111158,10111157,10111156,10111155,10111154,10111153,10111152,10111151,10111150,10111149,10111148,10111147,10111146,10111145,10111144,10111143,10111142,10111141]
+    bnjTick = "1s"
+    [[bnj2019.timeline]]
+        name = "1111"
+        start = "2018-06-04T00:00:00+08:00"
+        end = "2018-06-05T10:00:00+08:00"
+        cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+    [[bnj2019.timeline]]
+        name = "2222"
+        start = "2018-06-04T00:00:00+08:00"
+        end = "2018-06-05T10:00:00+08:00"
+        cover = "//i0.hdslb.com/bfs/activity-plat/cover/20180209/m6pvmmnpxx.jpg"
+    [[bnj2019.timeline]]
+        name = "1111"
+        start = "2018-06-04T00:00:00+08:00"
+        end = "2018-06-05T10:00:00+08:00"
+        cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+    [[bnj2019.timeline]]
+        name = "2222"
+        start = "2018-06-04T00:00:00+08:00"
+        end = "2018-06-05T10:00:00+08:00"
+        cover = "//i0.hdslb.com/bfs/activity-plat/cover/20180209/m6pvmmnpxx.jpg"
+    [[bnj2019.timeline]]
+        name = "1111"
+        start = "2018-06-04T00:00:00+08:00"
+        end = "2018-06-05T10:00:00+08:00"
+        cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+    [[bnj2019.timeline]]
+        name = "2222"
+        start = "2018-06-04T00:00:00+08:00"
+        end = "2018-06-05T10:00:00+08:00"
+        cover = "//i0.hdslb.com/bfs/activity-plat/cover/20180209/m6pvmmnpxx.jpg"
+    [[bnj2019.timeline]]
+        name = "1111"
+        start = "2018-06-04T00:00:00+08:00"
+        end = "2018-06-05T10:00:00+08:00"
+        cover = "//activity.hdslb.com/blackboard/static/20180122/3f23658826b7a0a46f812d368533dc9f/images/j60y4n9j83.png"
+    [[bnj2019.timeline]]
+        name = "2222"
+        start = "2018-06-04T00:00:00+08:00"
+        end = "2018-06-05T10:00:00+08:00"
+        cover = "//i0.hdslb.com/bfs/activity-plat/cover/20180209/m6pvmmnpxx.jpg"
+
+[switch]
+    detailVerify = true
+    listOGVMore  = true
+    listOGVFold  = true
+    DynamicEntranceClose = false
+
+[guide]
+   title = ""
+   url = "https://www.bilibili.com/blackboard/activity-RdWlxTTo.html"
+   maxDuration  = 119
+   OpenTime = 158320440
+
+[DegradeArgsConf]
+    LogID = "006060"
+    [DegradeArgsConf.Infoc]
+    name = "degrade_args.log"
+
+[InfocV2LogID]
+    UserActLogID = "000078"
+    PopularLogID = "001205"
+    rcmdLogID = "003597"
+
+[PopularSeries]
+    reminder = "每周五晚18:00 更新"
+    MediaMid = 14135892
+
+[PopularPrecious]
+    Title = "入站必刷"
+    Fid = 351
+    PlaylistMid = 412466388
+    ExplainFmt = "我不允许还有人没看过这%d个宝藏视频！"
+
+[rcmd]
+    timeout = "200ms"
+    whitelist = [111008012, 111008014]
+    bucket = 50
+    HotCardCount = 30
+    RcmdCardCount = 10
+
+[GRPCCfg]
+    [GRPCCfg.QuotaCfg]
+    [[GRPCCfg.QuotaCfg.Methods]]
+        path = "/bilibili.web.interface.v1.WebInterface/ActivitySeason"
+        rule = "total"
+    [[GRPCCfg.QuotaCfg.Methods]]
+        path = "/bilibili.web.interface.v1.WebInterface/ActivityArchive"
+        rule = "total"
+    [[GRPCCfg.QuotaCfg.Methods]]
+        path = "/bilibili.web.interface.v1.WebInterface/ActivityLiveTimeInfo"
+        rule = "total"
+
+[arcNoSearch]
+    referers = ["bilibili.co","biligame.co","biliapi.net","bilivideo.co","bilibiligame.net"]
+
+[anticrawler]
+    logID  = ""
+    worker = 10
+    buffer = 10240
+
+[ShowDB]
+    addr   = "172.22.34.101:3306"
+	dsn    = "bilibili_show:8bmwBDtgBLB5Cqg31h2FxiRJK3OK6VXq@tcp(127.0.0.1:3306)/bilibili_show?timeout=10s&readTimeout=10s&writeTimeout=10s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+	idle   = 1
+    idleTimeout ="4h"
+    queryTimeout = "10s"
+    execTimeout = "10s"
+    tranTimeout = "10s"
+
+[PopularActivity]
+    Sid = 14979
+    Gid = 410
+    GrantId = 33804
+    GrantAddSecond = 286400
+    CoinCounter = "coin_adder_1f32i2qhf"
+    LikeCounter = "like_counter_1f32i2eks"
+    ArchiveCounter = "view_unique_counter_1f32i21ch"
+    MessageIDsGroup1 = [544637571, 626357031, 60731116, 715024588, 19390801, 540692691, 585787515, 497567737, 1250357, 80582841, 841786906, 3327562, 540082845, 48220814, 21061574, 968686837, 45629276, 6482189, 2271112, 626524324]
+    MessageIDsGroup2 = [4033926, 54737593, 497841327, 97809031, 73267982, 69241910, 106, 34107674, 6117110, 4606803, 77224508, 797663148, 902007, 499511206, 43426592, 58972836, 24972274, 1328701, 32504233, 90362224, 2098846]
+    MessageIDsGroup3 = [810872, 285143463, 371067145, 113221, 96244032, 14909587, 2023391, 1561567, 3037947, 27315158, 796036736, 2129461, 706, 23836532, 20944110, 3905462, 5263217, 18920822, 345660, 43526, 3905480]
+    MessageIDsGroup4 = [49842011, 39237975, 3771373, 8506694, 19370230, 1002217, 628659, 33246, 37743569, 352137, 1638627, 2786567, 40063426, 1766730, 1252354, 2288962, 2498218, 5512579, 26725241, 107084, 209711, 8656914]
+    MemeAwardId = 174
+    ShortTermSkinAwardId = 176
+    LongTermSkinAwardId = 177
+    BadgeAwardId = 178
+    HasBadgeStock = true
+
+[landingPage]
+    vup = {newlist = {"4" = 802,"3" = 802,"1" = 802,"0" = 802}}
+
+
+[PwdAppeal]
+    EncryptKey = "z6yq4TZ3b9UjsIBrVSuLaHFk"
+    [PwdAppeal.Boss]
+        Bucket = "pwd-appeal"
+        EndPoint = "http://uat-boss.bilibili.co"
+        Region = "shylf"
+        AccessKeyID = "2d0bf6d91d8d31d8"
+        SecretAccessKey = "077f16e22749410cc64c0d3803ddd17b"
+    [PwdAppeal.Captcha]
+        Biz = "pwd_appeal"
+        IpDailyLimit = 20
+        ValidTime = 300
+        IntervalTime = 60
+        VerifyLimit = 10
+        Digit = 6
+        Tcode = "ehr_notify_014"
+        TField = "captcha"

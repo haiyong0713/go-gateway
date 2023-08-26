@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package bilibili.app.interface.v1;
+option go_package = "api";
+option java_multiple_files = true;
+option java_package = "com.bilibili.grpc.app.interfaces.v1";
+option objc_class_prefix = "BAPIInterfaceV1Search";
+
+import "go-gateway/app/app-svr/archive/middleware/v1/preload.proto";
+import "go-gateway/app/app-svr/archive/service/api/api.proto";
+import "go-gateway/app/app-svr/app-dynamic/interface/api/v2/api.proto";
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+service Space {
+    // 空间搜索标签列表
+    rpc SearchTab (SearchTabReq) returns (SearchTabReply);
+    // 空间搜索稿件列表
+    rpc SearchArchive (SearchArchiveReq) returns (SearchArchiveReply);
+    // 空间搜索动态列表
+    rpc SearchDynamic (SearchDynamicReq) returns (SearchDynamicReply);
+}
+
+enum From {
+    // 稿件
+    ArchiveTab = 0;
+    // 动态
+    DynamicTab = 1;
+}
+
+message SearchTabReq {
+    // 关键词
+    string keyword = 1 [(gogoproto.moretags) = 'validate:"required"'];
+    // up主mid
+    int64 mid = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+    // 来源
+    From from = 3;
+}
+
+message SearchTabReply {
+    // 展示哪个标签页
+    int64 focus = 1;
+    // 标签页列表
+    repeated Tab tabs = 2;
+}
+
+message Tab {
+    string title = 1;
+    string uri = 2;
+}
+
+message SearchArchiveReq {
+    // 关键词
+    string keyword = 1 [(gogoproto.moretags) = 'validate:"required"'];
+    // up主mid
+    int64 mid = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+    int64 pn = 3 [(gogoproto.moretags) = 'validate:"min=1"'];
+    int64 ps = 4 [(gogoproto.moretags) = 'validate:"min=1,max=50"'];
+    // 秒开用参数
+    .bilibili.app.archive.middleware.v1.PlayerArgs player_args = 5;
+}
+
+message SearchArchiveReply {
+    repeated Arc archives = 1;
+    // total 总数
+    int64 total = 2;
+}
+
+message Arc {
+    // 稿件信息
+    .archive.service.v1.Arc archive = 1;
+    // 跳转地址含秒开地址
+    string uri = 2;
+}
+
+message SearchDynamicReq {
+    // 关键词
+    string keyword = 1 [(gogoproto.moretags) = 'validate:"required"'];
+    // up主mid
+    int64 mid = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+    int64 pn = 3 [(gogoproto.moretags) = 'validate:"min=1"'];
+    int64 ps = 4 [(gogoproto.moretags) = 'validate:"min=1,max=50"'];
+    // 秒开用参数
+    .bilibili.app.archive.middleware.v1.PlayerArgs player_args = 5;
+}
+
+message SearchDynamicReply {
+    repeated Dynamic dynamics = 1;
+    // total 总数
+    int64 total = 2;
+}
+
+message Dynamic {
+    // 动态信息
+    .bilibili.app.dynamic.v2.DynamicItem dynamic = 1;
+}

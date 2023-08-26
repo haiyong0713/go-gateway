@@ -1,0 +1,21 @@
+[player]
+    key = "170e302355453683"
+    secret= "3d0e8db7bed0503949e545a469789279"
+    group= "KvoConfig-MainCommunity-S"
+    topic= "KvoConfig-T"
+    action="sub"
+    name = "KvoConfig-MainCommunity-S"
+    proto = "tcp"
+    addr = "172.22.33.174:6205"
+    idle = 1
+    active = 10
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+
+[playerutil]
+    size = 10
+    chan = 10240
+    num = 10
+    ticker = "1.5s"

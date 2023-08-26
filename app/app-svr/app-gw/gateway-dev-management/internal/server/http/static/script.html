@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <meta charset="UTF-8" name="referrer" content="no-referrer">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>网关业务机器人-脚本配置</title>
+</head>
+<body>
+<div class="container theme-showcase">
+    <div class="row">
+        <div class="col-md-1 col-xs-0"></div>
+        <div class="col-md-10 col-xs-12" id="body">
+            <div class="page-header">
+                <h1>脚本配置</h1>
+                <small id="info"></small>
+            </div>
+            <form class="form-inline" id="form1" name="form1">
+                <div class="form-group">
+                    <label>类型</label>
+                    <select class="form-control" id="type" name="type">
+                        <option value="restart">重启应用</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>应用名</label>
+                    <input list="browsers" class="form-control" id="app" name="app" size="50">
+                    <datalist id="browsers">
+                    </datalist>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="hidden" id="user_name" name="user_name"  value="111" />
+                </div>
+                <div id ="param" class="form-group"></div>
+                <button onclick="newScript()" class="btn btn-warning" type="button">新建</button>
+            </form>
+            <table class="table" id="dataTable">
+                <caption></caption>
+                <tr>
+                    <th id="th">null</th>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-1 col-xs-0"></div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        getScript()
+        select()
+        getTree()
+    });
+    $("#myselect").change(function(){
+        select()
+    });
+
+    function select(){
+        const opt = $("#type").val();
+        $('#param').html("");
+        if (opt === "restart") {
+            $("#param").append(`
+                <div class="form-group">
+                    <label>集群</label>
+                    <input class="form-control" placeholder="e.g.sh001" size="10" id="zone" name="zone">
+                </div>`)
+        }
+    }
+
+    function newScript() {
+        for(let i=0; i<document.form1.elements.length-1; i++)
+        {
+            if(document.form1.elements[i].value==="")
+            {
+                alert("当前表单不能有空项");
+                document.form1.elements[i].focus();
+                return
+            }
+        }
+        $.ajax({
+            type: "POST",
+            url: "./newScript" ,
+            data: $('#form1').serialize(),
+            success: function (result) {
+                getScript()
+                alert("创建成功！")
+                for(let i=1; i<document.form1.elements.length-1; i++)
+                {
+                    document.form1.elements[i].value=""
+                }
+            },
+        });
+    }
+
+    function getTree() {
+        $('#browsers').empty();
+        var ciValue = $('#browsers');
+        $.ajax({
+            type: "Get",
+            url: "../monitor/tree" ,
+            data: {
+            },
+            success: function (result) {
+                opts = result.data.options
+                var html = [];
+                for (var i = 0; i < opts.length; i++) {
+                    html.push('<option value="'+opts[i].value+'">');
+                }
+                ciValue.append(html.join(''));
+            },
+        });
+    }
+
+    function DoScript(a) {
+        $.ajax({
+            type: "Get",
+            url: "./doScript" ,
+            data: {
+                id:a
+            },
+            success: function (result) {
+                if(result.data==="restart"){
+                    alert("执行成功，请查看企业微信消息继续完成发布操作")
+                }
+            },
+            error:function (){
+                alert("执行失败，请检查参数是否有误")
+            }
+        });
+    }
+
+    function getScript() {
+        $.ajax({
+            type: "GET",
+            url: "./getScript" ,
+            success: function (result) {
+                document.getElementById("user_name").value=result.data.id
+                let info = document.getElementById('info');
+                info.innerText="当前用户："+result.data.id
+                const scripts = result.data.scripts;
+                $("#dataTable").html('<thead><tr><th>归属应用</th><th>类型</th><th>参数</th><th>操作</th></tr>\n</thead>');
+                for(const i in scripts){
+                    $("#dataTable").append('<tr><td>'
+                        +scripts[i].app+'</td><td>'
+                        +scripts[i].type+'</td><td>'
+                        +scripts[i].parameter+'</td><td>' +
+                        '<button class="btn btn-primary" value=id onclick="DoScript(\''+scripts[i].id+'\')">执行</button></td></tr>');
+                }
+            },
+            error: function (result) {
+                $('#body').html( `<div class="page-header">
+                    <h1>访问失败</h1>
+                </div>`);
+            }
+        });
+    }
+
+    function getUrlParam(name){
+        //构造一个含有目标参数的正则表达式对象
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        //匹配目标参数
+        var r = window.location.search.substr(1).match(reg);
+        //返回参数值
+        if (r!=null) return unescape(r[2]);
+        return null;
+    }
+</script>
+
+</body>
+</html>

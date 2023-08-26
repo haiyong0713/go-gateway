@@ -1,0 +1,1049 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+// use {app_id}.{version} as package name
+package archive.service.v1;
+
+option go_package = "api";
+
+// Archive grpc
+service Archive {
+    // Types 获取所有分区列表
+    rpc Types(NoArgRequest) returns (TypesReply);
+    // 获取单个稿件信息
+    rpc Arc(ArcRequest) returns (ArcReply);
+    // 批量获取稿件信息
+    rpc Arcs(ArcsRequest) returns (ArcsReply);
+    // Deprecated: 请使用新接口ArcsPlayer，批量获取稿件信息+第一P的播放地址（仅限天马、动态等有秒开需求的地方使用）
+    rpc ArcsWithPlayurl(ArcsWithPlayurlRequest) returns (ArcsWithPlayurlReply);
+    // 获取单个稿件计数信息
+    rpc Stat(StatRequest) returns (StatReply);
+    // 批量获取稿件计数信息
+    rpc Stats(StatsRequest) returns (StatsReply);
+    // 获取单个稿件+分P信息
+    rpc View(ViewRequest) returns (ViewReply);
+    // 内部方法：获取互动视频的稿件+分P信息
+    rpc SteinsGateView(SteinsGateViewRequest) returns (SteinsGateViewReply);
+    // 批量获取稿件+分P信息
+    rpc Views(ViewsRequest) returns (ViewsReply);
+    // 内部方法：获取互动视频的稿件+分P信息
+    rpc SteinsGateViews(SteinsGateViewsRequest) returns (SteinsGateViewsReply);
+    // 获取稿件的所有分P信息
+    rpc Page(PageRequest) returns (PageReply);
+    // 获取aid&cid对应的视频信息
+    rpc Video(VideoRequest) returns (VideoReply);
+    // 获取稿件的长简介信息
+    rpc Description(DescriptionRequest) returns (DescriptionReply);
+    // 批量获取稿件的长简介+特殊简介信息
+    rpc Descriptions(DescriptionsRequest) returns (DescriptionsReply);
+    // 获取稿件缩略图信息
+    rpc VideoShot(VideoShotRequest) returns (VideoShotReply);
+    // 获取up下的稿件数量
+    rpc UpCount(UpCountRequest) returns (UpCountReply);
+    // 获取up下通过的稿件aid和发布时间
+    rpc UpsPassed(UpsPassedRequest) returns (UpsPassedReply);
+    // 获取up下通过的稿件
+    rpc UpArcs(UpArcsRequest) returns (UpArcsReply);
+    // 获取稿件创作人信息
+    rpc Creators(CreatorsRequest) returns (CreatorsReply);
+    // 简化版稿件信息
+    rpc SimpleArc(SimpleArcRequest) returns (SimpleArcReply);
+    // 简化版稿件信息批量
+    rpc SimpleArcs(SimpleArcsRequest) returns (SimpleArcsReply);
+    // 批量获取稿件信息+指定分P的播放地址（不传cids默认首p，仅限天马、动态等有秒开需求的地方使用）
+    rpc ArcsPlayer(ArcsPlayerRequest) returns (ArcsPlayerReply);
+    // 批量获取稿件跳转策略
+    rpc ArcsRedirectPolicy(ArcsRedirectPolicyRequest) returns (ArcsRedirectPolicyReply);
+    // 添加稿件跳转策略
+    rpc ArcRedirectPolicyAdd(ArcRedirectPolicyAddRequest) returns (NoReply);
+    // 批量获取稿件inner limit:仅限内部使用
+    rpc ArcsInner(ArcsInnerRequest) returns (ArcsInnerReply);
+    // 获取多个up主的首映稿件
+    rpc UpPremiereArcs(UpPremiereArcsRequest) returns(UpPremiereArcsReply);
+}
+
+message ArcsInnerRequest {
+    repeated int64 aids = 1 [(gogoproto.moretags) = 'validate:"max=100,min=1,dive,gt=0,required"'];
+}
+
+message ArcsInnerReply {
+    map<int64, ArcInner> items = 1;
+}
+
+message ArcInner {
+    //不存在限制时为nil
+    ArcInnerLimit limit = 1;
+}
+
+message ArcInnerLimit {
+    //海外禁止
+    bool OverseaBlock = 1;
+}
+// NoArgReq
+message NoArgRequest {}
+// NoReply
+message NoReply {}
+
+message UpPremiereArcsRequest {
+    repeated int64 mids = 1 [(gogoproto.moretags)='validate:"max=50,min=1,dive,gt=0,required"'];
+}
+
+message UpPremiereArcsReply {
+    // mid -> 最近的一个首映稿件
+    map<int64, UpArcs> up_arcs = 1 [(gogoproto.jsontag) = "up_arcs"];;
+}
+
+message UpArcs {
+    repeated UpArc up_arc = 1 [(gogoproto.jsontag) = "up_arc"];
+}
+
+message UpArc {
+    int64 aid = 1 [(gogoproto.jsontag) = "aid"];
+}
+
+message DescriptionRequest {
+    int64 aid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+}
+
+message DescriptionReply {
+    string desc = 1;
+    // 特殊简介（有@格式）
+    repeated DescV2 desc_v2_parse = 3;
+}
+
+message ArcRequest {
+    int64 aid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    // 登录用户mid，未登录为0
+    int64 mid = 2;
+    // 客户端设备公共参数mobi_app
+    string mobi_app = 3;
+    // 客户端设备公共参数device
+    string device = 4;
+    // 平台,用于标识web/h5
+    string platform = 5;
+}
+
+message ArcReply {
+    Arc arc = 1;
+}
+
+message ArcsRequest {
+    repeated int64 aids = 1 [(gogoproto.moretags) = 'validate:"max=100,min=1,dive,gt=0,required"'];
+    // 登录用户mid，未登录为0
+    int64 mid = 2;
+    // 客户端设备公共参数mobi_app
+    string mobi_app = 3;
+    // 客户端设备公共参数device
+    string device = 4;
+    // 平台,用于标识web/h5
+    string platform = 5;
+}
+
+message ArcsReply {
+    map<int64, Arc> arcs = 1;
+}
+
+enum NetworkType {
+    NT_UNKNOWN = 0;  // 未知
+    WIFI       = 1;  // WIFI
+    CELLULAR   = 2;  // 移动网络
+    OFFLINE    = 3;  // 未连接
+    OTHERNET   = 4;  // 其他网络
+    ETHERNET   = 5;  // 以太网
+}
+
+enum TFType {
+    TF_UNKNOWN = 0;  // 正常计费
+    U_CARD     = 1;  // 联通卡
+    U_PKG      = 2;  // 联通包
+    C_CARD     = 3;  // 移动卡
+    C_PKG      = 4;  // 移动包
+    T_CARD     = 5;  // 电信卡
+    T_PKG      = 6;  // 电信包
+}
+
+message ArcsWithPlayurlRequest {
+    repeated int64 aids = 1 [(gogoproto.moretags) = 'validate:"max=50,dive,gt=0,required"'];
+    int64 qn            = 2;
+    // APP端传递mobi_app的值
+    string platform                     = 3;
+    string ip                           = 4;
+    int64 fnval                         = 5;
+    int64 fnver                         = 6;
+    string session                      = 7;
+    int64 forceHost                     = 8;
+    int64 build                         = 9;
+    int64 mid                           = 10;
+    int64 fourk                         = 11;
+    repeated int64 aids_without_playurl = 12 [(gogoproto.moretags) = 'validate:"max=50,dive,gt=0"'];
+    // vip管控信息校验
+    string buvid = 13;
+    // 网络类型
+    NetworkType net_type = 14;
+    // 免流类型
+    TFType tf_type = 15;
+    // 业务来源（story）
+    string from = 16;
+    // 是否需要pgc秒开地址（主要提供给动态兼容）
+    bool show_pgc_playurl       = 17;
+    string device               = 18;
+    BatchPlayArg batch_play_arg = 19;
+}
+
+message ArcsWithPlayurlReply {
+    map<int64, ArcWithPlayurl> arcWithPlayurl = 1;
+}
+
+message ArcWithPlayurl {
+    Arc arc              = 1 [(gogoproto.embed) = true, (gogoproto.jsontag) = ""];
+    BvcVideoItem playurl = 2 [(gogoproto.jsontag) = "player_info,omitempty"];
+    int32 is_preview     = 3;
+    int64 episode_id     = 4;
+    int32 sub_type       = 5;
+    int64 pgc_season_id  = 6;
+    // 历史进度
+    History history = 7;
+}
+
+message History {
+    // cid
+    int64 cid = 1;
+    // 观看进度 时间戳（秒）
+    int64 progress = 2;
+}
+
+message StatRequest {
+    int64 aid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+}
+
+message StatReply {
+    Stat Stat = 1;
+}
+
+message StatsRequest {
+    repeated int64 aids = 1 [(gogoproto.moretags) = 'validate:"max=100,min=1,dive,gt=0,required"'];
+}
+
+message StatsReply {
+    map<int64, Stat> Stats = 1;
+}
+
+message ViewRequest {
+    int64 aid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    // 登录用户mid，未登录为0
+    int64 mid = 2;
+    // 客户端设备公共参数mobi_app
+    string mobi_app = 3;
+    // 客户端设备公共参数device
+    string device = 4;
+    // 平台,用于标识web/h5
+    string platform = 5;
+}
+
+message ViewReply {
+    Arc arc             = 1 [(gogoproto.embed) = true, (gogoproto.jsontag) = ""];
+    repeated Page pages = 2;
+}
+
+message SteinsGateViewRequest {
+    int64 aid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    // 登录用户mid，未登录为0
+    int64 mid = 2;
+    // 客户端设备公共参数mobi_app
+    string mobi_app = 3;
+    // 客户端设备公共参数device
+    string device = 4;
+    // 平台,用于标识web/h5
+    string platform = 5;
+}
+
+message SteinsGateViewReply {
+    Arc arc             = 1 [(gogoproto.embed) = true, (gogoproto.jsontag) = ""];
+    repeated Page pages = 2;
+}
+
+message ViewsRequest {
+    repeated int64 aids = 1 [(gogoproto.moretags) = 'validate:"max=50,min=1,dive,gt=0,required"'];
+    // 登录用户mid，未登录为0（用于获取活动合集颜色配置）
+    int64 mid = 2;
+    // 客户端设备公共参数mobi_app（用于获取活动合集颜色配置）
+    string mobi_app = 3;
+    // 客户端设备公共参数device（用于获取活动合集颜色配置）
+    string device = 4;
+    // 平台,用于标识web/h5
+    string platform = 5;
+}
+
+message ViewsReply {
+    map<int64, ViewReply> views = 1;
+}
+
+message SteinsGateViewsRequest {
+    repeated int64 aids = 1 [(gogoproto.moretags) = 'validate:"max=50,min=1,dive,gt=0,required"'];
+    // 登录用户mid，未登录为0
+    int64 mid = 2;
+    // 客户端设备公共参数mobi_app
+    string mobi_app = 3;
+    // 客户端设备公共参数device
+    string device = 4;
+    // 平台,用于标识web/h5
+    string platform = 5;
+}
+
+message SteinsGateViewsReply {
+    map<int64, SteinsGateViewReply> views = 1;
+}
+
+message TypesReply {
+    map<int32, Tp> types = 1;
+}
+
+message PageRequest {
+    int64 aid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+}
+
+message PageReply {
+    repeated Page pages = 1;
+}
+
+message VideoRequest {
+    int64 aid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    int64 cid = 2 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+}
+
+message VideoReply {
+    Page page = 1;
+}
+
+message Tp {
+    // 分区id
+    int32 ID = 1 [(gogoproto.jsontag) = "id"];
+    // 该分区的父级id
+    int32 pid = 2 [(gogoproto.jsontag) = "pid"];
+    // 该分区对应的名称
+    string name = 3 [(gogoproto.jsontag) = "name"];
+}
+
+message AidVideos {
+    int64 Aid = 1 [(gogoproto.jsontag) = "aid"];
+    // 分P信息
+    repeated Page Pages = 2 [(gogoproto.jsontag) = "pages"];
+}
+
+message Arc {
+    int64 Aid = 1 [(gogoproto.jsontag) = "aid"];
+    // 稿件一共有多少分P
+    int64 Videos = 2 [(gogoproto.jsontag) = "videos"];
+    // 分区ID
+    int32 TypeID = 3 [(gogoproto.jsontag) = "tid"];
+    // 分区名
+    string TypeName = 4 [(gogoproto.jsontag) = "tname"];
+    // 是否转载  1=原创  2=转载 0=历史上可能遗留的脏数据
+    int32 Copyright = 5 [(gogoproto.jsontag) = "copyright"];
+    // 稿件封面图地址，绝对地址 如 http://i0.hdslb.com/bfs/xxx.jpg
+    string Pic = 6 [(gogoproto.jsontag) = "pic"];
+    // 稿件标题
+    string Title = 7 [(gogoproto.jsontag) = "title"];
+    // 稿件发布时间 对外展示的标准时间  时间戳格式
+    int64 PubDate = 8 [(gogoproto.jsontag) = "pubdate", (gogoproto.casttype) = "go-common/library/time.Time"];
+    // 用户提交稿件的时间 一般不对外展示 时间戳格式
+    int64 Ctime = 9 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    // 稿件简介
+    string Desc = 10 [(gogoproto.jsontag) = "desc"];
+    // 稿件状态，>=0为前台用户可见状态，其他值详见 http://info.bilibili.co/pages/viewpage.action?pageId=3686597#id-%E7%A8%BF%E4%BB%B6%E5%AD%97%E6%AE%B5%E6%9E%9A%E4%B8%BE%E5%80%BC%E5%B1%9E%E6%80%A7%E8%AF%B4%E6%98%8E-%E7%A8%BF%E4%BB%B6%E7%8A%B6%E6%80%81state&access
+    int32 State = 11 [(gogoproto.jsontag) = "state"];
+    // 稿件访问属性 0=全员可见 10000=登录用户可见（极少)（注意：该字段内部使用，请勿在对外接口中漏出！！）
+    int32 Access = 12 [(gogoproto.jsontag) = "access,omitempty"];
+    // 稿件属性 详见State字段的文档（注意：该字段内部使用，请勿在对外接口中漏出！！）
+    int32 Attribute = 13 [(gogoproto.jsontag) = "attribute,omitempty"];
+    // 废弃字段
+    string Tag = 14 [(gogoproto.jsontag) = "-"];
+    // 废弃字段
+    repeated string Tags = 15 [(gogoproto.jsontag) = "tags,omitempty"];
+    // 稿件总时长（所有分P加起来的） 单位=秒
+    int64 Duration = 16 [(gogoproto.jsontag) = "duration"];
+    // 稿件绑定的活动id
+    int64 MissionID = 17 [(gogoproto.jsontag) = "mission_id,omitempty"];
+    // 稿件绑定的商单id
+    int64 OrderID = 18 [(gogoproto.jsontag) = "order_id,omitempty"];
+    // 稿件后台设置的强制跳转地址，如果该值不为空，则必须调转到它对应的页面上
+    string RedirectURL = 19 [(gogoproto.jsontag) = "redirect_url,omitempty"];
+    int64 Forward      = 20 [(gogoproto.jsontag) = "forward,omitempty"];
+    // 见Rights字段说明
+    Rights Rights = 21 [(gogoproto.jsontag) = "rights", (gogoproto.nullable) = false];
+    // 稿件作者信息，详见Author字段说明
+    Author Author = 22 [(gogoproto.jsontag) = "owner", (gogoproto.nullable) = false];
+    // 稿件计数信息，详见Stat字段说明
+    Stat Stat           = 23 [(gogoproto.jsontag) = "stat", (gogoproto.nullable) = false];
+    string ReportResult = 24 [(gogoproto.jsontag) = "report_result,omitempty"];
+    // 发布稿件时Up主设置的动态描述（仅在动态展示）
+    string Dynamic = 25 [(gogoproto.jsontag) = "dynamic"];
+    // 稿件第一P的cid，供秒开使用
+    int64 FirstCid = 26 [(gogoproto.jsontag) = "cid,omitempty"];
+    // 稿件第一P的分辨率，详见Dimession字段说明
+    Dimension Dimension = 27 [(gogoproto.jsontag) = "dimension,omitempty", (gogoproto.nullable) = false];
+    // 联合投稿信息，内部使用，详见StaffInfo说明
+    repeated StaffInfo StaffInfo = 28 [(gogoproto.jsontag) = "-"];
+    // 剧集ID
+    int64 SeasonID = 29 [(gogoproto.jsontag) = "season_id,omitempty"];
+    // 新版attibute属性，老业务的int32已经用完
+    int64 AttributeV2 = 30 [(gogoproto.jsontag) = "attribute_v2,omitempty"];
+    // 活动合集主题色
+    SeasonTheme season_theme = 31;
+    // Deprecated: 该字段有误已废弃，请使用short_link_v2
+    string short_link = 32;
+    // 短链
+    string short_link_v2 = 40;
+    // 投稿来源 (仅22直播回放有效）
+    int32 up_from_v2 = 41;
+    // 稿件首p首帧
+    string first_frame = 42;
+    // 首映稿件特有信息，包括首映状态、首映开始时间、首映聊天室room_id
+    Premiere premiere = 43;
+    // attribute_v2 13位为付费时特有, 绑定的商品信息
+    PayInfo pay = 44;
+    // 稿件的投稿属地
+    string pub_location = 45;
+}
+
+// 多种付费类型以及对应的商品信息、支付情况
+message PayInfo{
+    // 付费类型属性位, 1位合集付费
+    int64 pay_attr = 1;
+    // 商品信息
+    repeated GoodsInfo goods_info = 2;
+}
+
+message GoodsInfo{
+    // 商品id
+    string goods_id = 1;
+    // 商品付费类型
+    Category category = 2;
+    // 商品价格(分)
+    int64 goods_price = 3;
+    // 用户是否已付费(实时, 需要接口传入登录用户mid才能获取, 目前支持Arcs/ArcsPlayer, 其他接口如需请联系我)
+    PayState pay_state = 4;
+    // 是否免费试看
+    bool free_watch = 5;
+    // 商品名称
+    string goods_name = 6;
+    // 商品价格(元)
+    string goods_price_fmt = 7;
+}
+
+// 首映稿件特有信息
+message Premiere{
+    // 首映状态
+    PremiereState state = 1;
+    // 首映开始时间
+    int64 start_time = 2;
+    // 首映专属聊天室id
+    int64 room_id = 3;
+}
+
+enum PremiereState {
+    premiere_none = 0; // 未知
+    premiere_before = 1; // 首映前(系统时间<首映开始时间)
+    premiere_in = 2; // 首映中
+    premiere_after = 3; // 首映已结束(系统时间>首映开始时间+视频时长)
+}
+
+// 活动合集主题色
+message SeasonTheme {
+    // 背景色
+    string bg_color = 1;
+    // 选中背景色
+    string selected_bg_color = 2;
+    // 字色
+    string text_color = 3;
+}
+
+message StaffInfo {
+    // 联合投稿的成员Up主id
+    int64 Mid = 1 [(gogoproto.jsontag) = "mid"];
+    // 联合投稿的成员角色（如 声优、字幕）
+    string Title = 2 [(gogoproto.jsontag) = "title"];
+    // 属性位（文档见https://info.bilibili.co/pages/viewpage.action?pageId=83773767）
+    int64 Attribute = 3;
+}
+
+// Dimension 视频分辨率
+message Dimension {
+    // 宽 如 1920
+    int64 Width = 1 [(gogoproto.jsontag) = "width"];
+    // 高 如 1080
+    int64 Height = 2 [(gogoproto.jsontag) = "height"];
+    // 是否翻转 0=否 1=是
+    int64 Rotate = 3 [(gogoproto.jsontag) = "rotate"];
+}
+
+// Rights 稿件各常用属性 0=否 1=是
+message Rights {
+    // 老版是否付费
+    int32 Bp = 1 [(gogoproto.jsontag) = "bp"];
+    // 是否支持充电 （不可直接使用，网关层请求业务方后才有值）
+    int32 Elec = 2 [(gogoproto.jsontag) = "elec"];
+    // 是否下载（不可直接使用，网关层请求业务方后才有值）
+    int32 Download = 3 [(gogoproto.jsontag) = "download"];
+    // 是否电影
+    int32 Movie = 4 [(gogoproto.jsontag) = "movie"];
+    // 是否PGC付费
+    int32 Pay = 5 [(gogoproto.jsontag) = "pay"];
+    // 无用
+    int32 HD5 = 6 [(gogoproto.jsontag) = "hd5"];
+    // 是否允许转发
+    int32 NoReprint = 7 [(gogoproto.jsontag) = "no_reprint"];
+    // 是否可以自动播放
+    int32 Autoplay = 8 [(gogoproto.jsontag) = "autoplay"];
+    // 是否UGC付费
+    int32 UGCPay = 9 [(gogoproto.jsontag) = "ugc_pay"];
+    // 是否联合投稿
+    int32 IsCooperation = 10 [(gogoproto.jsontag) = "is_cooperation"];
+    // 是否有UGC付费预览
+    int32 UGCPayPreview = 11 [(gogoproto.jsontag) = "ugc_pay_preview"];
+    // 是否禁止后台播放
+    int32 NoBackground = 12 [(gogoproto.jsontag) = "no_background"];
+    // 是否付费稿件(attribute_v2 右移13位为付费时)
+    int32 ArcPay = 13 [(gogoproto.jsontag) = "arc_pay"];
+    // 是否付费稿件可免费观看, 0无法观看, 1合集内免费观看
+    int32 ArcPayFreeWatch = 14 [(gogoproto.jsontag) = "pay_free_watch"];
+}
+
+// Author 稿件作者信息
+message Author {
+    // Up主mid
+    int64 Mid = 1 [(gogoproto.jsontag) = "mid"];
+    // Up主名称
+    string Name = 2 [(gogoproto.jsontag) = "name"];
+    // Up主头像地址 绝对地址
+    string Face = 3 [(gogoproto.jsontag) = "face"];
+}
+
+// Stat 稿件的所有计数信息
+message Stat {
+    int64 Aid = 1 [(gogoproto.jsontag) = "aid"];
+    // 播放数
+    int32 View = 2 [(gogoproto.jsontag) = "view"];
+    // 弹幕数
+    int32 Danmaku = 3 [(gogoproto.jsontag) = "danmaku"];
+    // 评论数
+    int32 Reply = 4 [(gogoproto.jsontag) = "reply"];
+    // 收藏数
+    int32 Fav = 5 [(gogoproto.jsontag) = "favorite"];
+    // 投币数
+    int32 Coin = 6 [(gogoproto.jsontag) = "coin"];
+    // 分享数
+    int32 Share = 7 [(gogoproto.jsontag) = "share"];
+    // 当前排名
+    int32 NowRank = 8 [(gogoproto.jsontag) = "now_rank"];
+    // 历史最高排名
+    int32 HisRank = 9 [(gogoproto.jsontag) = "his_rank"];
+    // 点赞数
+    int32 Like = 10 [(gogoproto.jsontag) = "like"];
+    // 点踩数 已取消前台展示，现在均返回0
+    int32 DisLike = 11 [(gogoproto.jsontag) = "dislike"];
+    // 追番数 内部冗余数据，请勿使用
+    int32 Follow = 12 [(gogoproto.jsontag) = "-"];
+}
+
+// Page 分P信息
+message Page {
+    // 视频的cid
+    int64 Cid = 1 [(gogoproto.jsontag) = "cid"];
+    // 视频的序号顺序，从小到大
+    int32 Page = 2 [(gogoproto.jsontag) = "page"];
+    // 视频的来源，99%为vupload=B站自己的，少部分为腾讯（qq）、湖南tv(hunan)
+    string From = 3 [(gogoproto.jsontag) = "from"];
+    // 视频的标题
+    string Part = 4 [(gogoproto.jsontag) = "part"];
+    // 视频的时长 单位=秒
+    int64 Duration = 5 [(gogoproto.jsontag) = "duration"];
+    // 站外视频才有vid属性
+    string Vid = 6 [(gogoproto.jsontag) = "vid"];
+    // 视频的简介，多P视频才可填写简介
+    string Desc = 7 [(gogoproto.jsontag) = "description,omitempty"];
+    // 站外视频跳转地址
+    string WebLink = 8 [(gogoproto.jsontag) = "weblink"];
+    // 视频分辨率信息
+    Dimension Dimension = 9 [(gogoproto.jsontag) = "dimension", (gogoproto.nullable) = false];
+    // 首帧
+    string first_frame = 10;
+}
+
+// 秒开相关结构体-视频云提供-------------------------------------------------------------------------------------
+message BvcResponseMsg {
+    uint32 code                    = 1 [(gogoproto.jsontag) = "code"];
+    map<uint32, BvcVideoItem> data = 2 [(gogoproto.jsontag) = "data"];
+}
+
+message BvcVideoItem {
+    uint64 expire_time                  = 1 [(gogoproto.jsontag) = "expire_time"];
+    uint32 cid                          = 2 [(gogoproto.jsontag) = "cid"];
+    repeated uint32 support_quality     = 3;
+    repeated string support_formats     = 4;
+    repeated string support_description = 5;
+    uint32 quality                      = 6 [(gogoproto.jsontag) = "quality"];
+    // url和dash不同时返回
+    string url                                 = 7 [(gogoproto.jsontag) = "url,omitempty"];
+    map<uint32, VideoFormatFileInfo> file_info = 8 [(gogoproto.jsontag) = "file_info"];
+    uint32 video_codecid                       = 9 [(gogoproto.jsontag) = "video_codecid"];
+    bool video_project                         = 10 [(gogoproto.jsontag) = "video_project"];
+    uint32 fnver                               = 11 [(gogoproto.jsontag) = "fnver"];
+    uint32 fnval                               = 12 [(gogoproto.jsontag) = "fnval"];
+    ResponseDash dash                          = 13 [(gogoproto.jsontag) = "dash,omitempty"];
+    int32 no_rexcode                           = 14 [(gogoproto.jsontag) = "no_rexcode,omitempty"];
+    // backup_url和dash不同时返回
+    repeated string backup_url = 15;
+    //返回视频拥有的格式列表
+    repeated FormatDescription accept_formats = 16;
+    //音量均衡信息
+    VolumeInfo volume = 17;
+}
+
+// 视频格式信息.
+message FormatDescription {
+    //清晰度
+    uint32 quality = 1;
+    //格式
+    string format = 2;
+    //描述
+    string description = 3;
+    //属性位 具体见文档https://info.bilibili.co/pages/viewpage.action?pageId=10655144#appplayer%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3-%E6%B8%85%E6%99%B0%E5%BA%A6%E5%88%97%E8%A1%A8attribute%E5%B1%9E%E6%80%A7%E4%BD%8D%E6%8F%8F%E8%BF%B0
+    int64 attribute = 4;
+    //6.9版本开始新描述
+    string new_description = 5;
+    //选中态的清晰度描述
+    string display_desc = 6;
+    //选中态的清晰度描述的角标
+    string superscript = 7;
+    //是否大会员清晰度
+    bool need_vip = 8;
+    //是否登录清晰度
+    bool need_login = 9;
+}
+
+message VideoFormatFileInfo {
+    repeated VideoFileInfo infos = 1 [(gogoproto.jsontag) = "infos"];
+}
+
+message VideoFileInfo {
+    uint64 filesize   = 1 [(gogoproto.jsontag) = "filesize"];
+    uint64 timelength = 2 [(gogoproto.jsontag) = "timelength"];
+    string ahead      = 3 [(gogoproto.jsontag) = "ahead,omitempty"];
+    string vhead      = 4 [(gogoproto.jsontag) = "vhead,omitempty"];
+}
+
+message DashItem {
+    uint32 id        = 1 [(gogoproto.jsontag) = "id"];
+    string baseUrl   = 2 [(gogoproto.jsontag) = "base_url"];
+    uint32 bandwidth = 3 [(gogoproto.jsontag) = "bandwidth"];
+    uint32 codecid   = 4 [(gogoproto.jsontag) = "codecid"];
+    //视频分片大小 单位Byte
+    uint64 size                = 5;
+    repeated string backup_url = 6;
+    //1-非二压 0-二压
+    int32 no_rexcode = 7;
+    //dash的信息
+    string frame_rate = 8;
+}
+
+message ResponseDash {
+    repeated DashItem video = 1 [(gogoproto.jsontag) = "video"];
+    repeated DashItem audio = 2 [(gogoproto.jsontag) = "audio"];
+}
+// 秒开相关结构体-视频云提供-------------------------------------------------------------------------------------
+
+message VideoShotRequest {
+    int64 aid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    int64 cid = 2 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    CommonParam common = 3;
+}
+
+message CommonParam {
+    string platform = 1; //设备类型
+    int32  build = 2;    //构建号
+    string buvid = 3;    //buvid
+    string mobi_app = 4; //包类型
+    string device  = 5;  //运行设备
+    string channel = 6;  //市场渠道
+    string model = 7;    //手机型号
+    string brand = 8;    //手机品牌
+}
+
+message VideoShotReply {
+    // 普通缩略图160p
+    VideoShot vs = 1;
+    // 高清缩略图480p（高清图可能没有，按需取用）
+    VideoShot hd_vs = 2;
+}
+
+message VideoShot {
+    // 定位文件
+    string PvData = 1 [(gogoproto.jsontag) = "pvdata"];
+    // 一行多少小图
+    int32 XLen = 2 [(gogoproto.jsontag) = "img_x_len"];
+    // 一列多少小图
+    int32 YLen = 3 [(gogoproto.jsontag) = "img_y_len"];
+    // 小图宽 普通160，高清480
+    int32 XSize = 4 [(gogoproto.jsontag) = "img_x_size"];
+    // 小图高 普通90，高清270
+    int32 YSize = 5 [(gogoproto.jsontag) = "img_y_size"];
+    // 缩略图
+    repeated string Image = 6 [(gogoproto.jsontag) = "image"];
+    // 稿件attribute位（注意：该字段内部使用，请勿在对外接口中漏出！！）
+    int32 Attr = 7 [(gogoproto.jsontag) = "-"];
+}
+
+message UpCountRequest {
+    int64 mid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+}
+
+message UpCountReply {
+    int64 Count = 1 [(gogoproto.jsontag) = "count"];
+}
+
+message UpsPassedRequest {
+    repeated int64 mids = 1 [(gogoproto.moretags) = 'validate:"dive,gt=0,required"'];
+    int32 pn            = 2;
+    int32 ps            = 3;
+}
+
+message UpsPassedReply {
+    map<int64, UpPassedInfo> UpsPassed = 1;
+}
+
+message UpPassedInfo {
+    repeated UpPassed UpPassedInfo = 1;
+}
+
+message UpPassed {
+    int64 Aid       = 1 [(gogoproto.jsontag) = "aid"];
+    int64 PubDate   = 2 [(gogoproto.jsontag) = "pubdate", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int32 Copyright = 3 [(gogoproto.jsontag) = "copyright"];
+}
+
+message UpArcsRequest {
+    int64 mid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    int32 pn  = 2;
+    int32 ps  = 3;
+}
+
+message UpArcsReply {
+    repeated Arc arcs = 1;
+}
+
+message CreatorsRequest {
+    repeated int64 aids = 1 [(gogoproto.moretags) = 'validate:"max=50,min=1,dive,gt=0,required"'];
+}
+
+message CreatorsReply {
+    map<int64, Creators> info = 1;
+}
+
+message Creators {
+    // up主信息
+    Owner owner = 1;
+    // 如果是联合投稿 仅返回联合投稿人信息
+    repeated StaffInfo staff = 2;
+}
+
+message Owner {
+    int64 mid = 1;
+}
+
+message SimpleArcRequest {
+    int64 aid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    // 登录用户mid，未登录为0
+    int64 mid = 2;
+    // 客户端设备公共参数mobi_app
+    string mobi_app = 3;
+    // 客户端设备公共参数device
+    string device = 4;
+    // 平台,用于标识web/h5
+    string platform = 5;
+}
+
+message SimpleArcReply {
+    SimpleArc arc = 1;
+}
+
+message SimpleArcsRequest {
+    repeated int64 aids = 1 [(gogoproto.moretags) = 'validate:"max=50,min=1,dive,gt=0,required"'];
+    // 登录用户mid，未登录为0
+    int64 mid = 2;
+    // 客户端设备公共参数mobi_app
+    string mobi_app = 3;
+    // 客户端设备公共参数device
+    string device = 4;
+    // 平台,用于标识web/h5
+    string platform = 5;
+}
+
+message SimpleArcsReply {
+    map<int64, SimpleArc> arcs = 1;
+}
+
+message SimpleArc {
+    int64 aid = 1;
+    // 稿件所有分p cid
+    repeated int64 cids = 2;
+    // 分区ID
+    int32 type_id = 3;
+    // 是否转载  1=原创  2=转载 0=历史上可能遗留的脏数据
+    int32 copyright = 4;
+    // 稿件状态，>=0为前台用户可见状态，其他值详见 http://info.bilibili.co/pages/viewpage.action?pageId=3686597#id-%E7%A8%BF%E4%BB%B6%E5%AD%97%E6%AE%B5%E6%9E%9A%E4%B8%BE%E5%80%BC%E5%B1%9E%E6%80%A7%E8%AF%B4%E6%98%8E-%E7%A8%BF%E4%BB%B6%E7%8A%B6%E6%80%81state&access
+    int32 state = 5;
+    // 稿件访问属性 0=全员可见 10000=登录用户可见（极少)（注意：该字段内部使用，请勿在对外接口中漏出！！）
+    int32 access = 6;
+    // 稿件属性 详见State字段的文档（注意：该字段内部使用，请勿在对外接口中漏出！！）
+    int32 attribute = 7;
+    // 稿件总时长（所有分P加起来的） 单位=秒
+    int64 duration = 8;
+    // 稿件后台设置的强制跳转地址，如果该值不为空，则必须调转到它对应的页面上
+    string redirect_url = 9;
+    // 稿件作者mid
+    int64 mid = 10;
+    // ugc剧集ID
+    int64 season_id = 11;
+    // 新版attibute属性，老业务的int32已经用完
+    int64 attribute_v2 = 12;
+    // 稿件发布时间 时间戳格式
+    int64 pubdate = 13;
+    // 首映稿件特有信息，包括首映状态、首映开始时间、首映聊天室room_id
+    Premiere premiere = 14;
+    // attribute_v2 13位为付费时特有, 绑定的商品信息
+    PayInfo pay = 15;
+    // 稿件属性设置
+    SimpleRights rights = 16;
+}
+
+message SimpleRights {
+    // 是否付费稿件(attribute_v2 右移13位为付费时)
+    int32 ArcPay = 1 [(gogoproto.jsontag) = "arc_pay", json_name = "arc_pay"];
+    // 是否付费稿件可免费观看, 0无法观看, 1合集内免费观看
+    int32 ArcPayFreeWatch = 2 [(gogoproto.jsontag) = "pay_free_watch", json_name = "pay_free_watch"];
+}
+
+message BatchPlayArg {
+    // 版本号
+    int64 build = 1 [(gogoproto.moretags) = 'form:"build"'];
+    // 设备标识
+    string device = 2 [(gogoproto.moretags) = 'form:"device"'];
+    // 网络参数
+    NetworkType net_type = 3 [(gogoproto.moretags) = 'form:"net_type"'];
+    // 用户清晰度
+    int64 qn = 4 [(gogoproto.moretags) = 'form:"qn" default:"0"'];
+    // 设备标识
+    string mobi_app = 5 [(gogoproto.moretags) = 'form:"mobi_app"'];
+    // fnver和fnval标识视频格式
+    int64 fnver = 6 [(gogoproto.moretags) = 'form:"fnver" default:"0"'];
+    // fnver和fnval标识视频格式
+    int64 fnval = 7 [(gogoproto.moretags) = 'form:"fnval" default:"0"'];
+    // 用户ip
+    string ip      = 8;
+    string session = 9 [(gogoproto.moretags) = 'form:"session"'];
+    // 返回url是否强制使用域名(非ip地址), 1-http域名 2-https域名
+    int64 force_host = 10 [(gogoproto.moretags) = 'form:"force_host"'];
+    // 设备buvid
+    string buvid = 11;
+    // 登录用户mid
+    int64 mid = 12;
+    // 是否需要4k清晰度（6.8版本开始已集成到fnval表示，该字段可不传）
+    int64 fourk = 13 [(gogoproto.moretags) = 'form:"fourk"'];
+    // 免流类型
+    TFType tf_type = 14 [(gogoproto.moretags) = 'form:"tf_type"'];
+    // 业务来源参数（仅story需要，其余传空即可）
+    string from = 15 [(gogoproto.moretags) = 'form:"from"'];
+    // 是否需要pgc秒开地址（主要提供给动态兼容）
+    bool show_pgc_playurl = 16 [(gogoproto.moretags) = 'form:"show_pgc_playurl"'];
+    // 是否进行autoplay地区校验(false-不校验 true-校验，由业务方主动传进来)
+    bool autoplay_area_validate = 17;
+    //是否开启音量均衡，1开启
+    int64 voice_balance = 18 [(gogoproto.moretags) = 'form:"voice_balance"'];
+}
+
+// ArcsPlayerRequest
+message ArcsPlayerRequest {
+    // 请求的稿件aid+cid信息（必传，最多50个cid信息）
+    repeated PlayAv play_avs = 1;
+    // 秒开需要参数
+    BatchPlayArg batch_play_arg = 2;
+}
+
+message ArcsRedirectPolicyRequest {
+    // 多个稿件aid
+    repeated int64 aids = 1;
+}
+
+message ArcsRedirectPolicyReply {
+    // aid为key的跳转策略信息
+    map<int64, RedirectPolicy> redirect_policy = 1;
+}
+
+message RedirectPolicy {
+    //aid
+    int64 aid = 1;
+    //跳转类型：1-配置url,2-兼容archive_result.redirect_url
+    RedirectType redirect_type = 2;
+    //跳转目标
+    string redirect_target = 3;
+    //策略类型：1-"location"
+    RedirectPolicyType policy_type = 4;
+    //策略id
+    int64 policy_id = 5;
+}
+
+message ArcRedirectPolicyAddRequest {
+    //aid
+    int64 aid = 1;
+    //跳转类型：1-配置url,2-兼容archive_result.redirect_url
+    RedirectType redirect_type = 2;
+    //跳转目标
+    string redirect_target = 3;
+    //策略类型：1-"location"
+    RedirectPolicyType policy_type = 4;
+    //策略id
+    int64 policy_id = 5;
+}
+
+// PlayAv
+message PlayAv {
+    // 稿件aid
+    int64 aid = 1 [(gogoproto.moretags) = 'validate:"gt=0"'];
+    // 视频信息（不传默认返回首P秒开信息）
+    repeated PlayVideo play_videos = 2;
+    // 不要秒开
+    bool no_player = 3;
+    // 是否需要额外清晰度:1080p+
+    bool highQnExtra = 4;
+}
+
+// PlayVideo
+message PlayVideo {
+    // 视频cid
+    int64 cid = 1 [(gogoproto.moretags) = 'validate:"gt=0"'];
+}
+
+// ArcsPlayerReply
+message ArcsPlayerReply {
+    // aid为key的且含秒开的稿件信息
+    map<int64, ArcPlayer> arcs_player = 1;
+}
+
+// ArcPlayer
+message ArcPlayer {
+    // 稿件信息
+    Arc arc = 1;
+    // cid为key的秒开信息
+    map<int64, PlayerInfo> player_info = 2;
+    // 默认秒开的cid（优先返回有历史进度的分p，没有则返回首p，取值均在player_info的map里）
+    int64 default_player_cid = 3;
+}
+
+message PlayerInfo {
+    // 视频云返回的播放地址信息
+    BvcVideoItem playurl = 1;
+    // 秒开相关的必要信息
+    PlayerExtra player_extra = 2;
+}
+
+message PlayerExtra {
+    // 秒开使用分p的分辨率
+    Dimension dimension = 1;
+    // 秒开分p的历史进度 时间戳（秒）
+    int64 progress = 2;
+    // pgc
+    PGCPlayerExtra pgc_player_extra = 3;
+    // 秒开分p的cid
+    int64 cid = 4;
+}
+
+// 音量均衡信息
+message VolumeInfo {
+    double measured_i         = 1;
+    double measured_lra       = 2;
+    double measured_tp        = 3;
+    double measured_threshold = 4;
+    double target_offset      = 5;
+    double target_i           = 6;
+    double target_tp          = 7;
+}
+
+message PGCPlayerExtra {
+    // pgc 是否预览
+    int32 is_preview = 1;
+    // pgc ep_id
+    int64 episode_id = 2;
+    // pgc 子类型
+    int32 sub_type = 3;
+    // pgc season_id
+    int64 pgc_season_id = 4;
+}
+
+// DescriptionsRequest
+message DescriptionsRequest {
+    // 批量aid
+    repeated int64 aids = 1 [(gogoproto.moretags) = 'validate:"max=100,min=1,dive,gt=0,required"'];
+}
+
+// DescriptionsReply
+message DescriptionsReply {
+    // aid为key的简介信息
+    map<int64, DescriptionReply> description = 1;
+}
+
+// DescV2 特殊形式稿件简介
+message DescV2 {
+    // 文本内容
+    // type=1时raw_text为"简介"内容 type=2时raw_text为"用户昵称"
+    string raw_text = 1;
+    // 文本类型
+    //说明：type=2时，raw_text为"昵称"，biz_id为mid，需要最新的"昵称"请根据mid去account服务中获取
+    DescType type = 2;
+    // 资源ID
+    //type=2时 biz_id为用户mid，type=1时可忽略
+    int64 biz_id = 3;
+}
+
+enum DescType {
+    // 占位
+    DescTypeUnknown = 0;
+    // 文本
+    DescTypeText = 1;
+    // @
+    DescTypeAt = 2;
+}
+
+enum RedirectType {
+    //占位值
+    RedirectTypeUnknown = 0;
+    //跳转地址类型
+    RedirectTypeUrl = 1;
+    //兼容archive_result.redirect_url类型
+    RedirectTypeLegacyUrl = 2;
+}
+
+enum RedirectPolicyType {
+    //占位值
+    PolicyTypeUnknown = 0;
+    //location
+    PolicyTypeLocation = 1;
+}
+
+message ArcInternal {
+    int64 Aid = 1;
+    // 稿件属性 详见State字段的文档（注意：该字段内部使用，请勿在对外接口中漏出！！）
+    int64 Attribute = 2;
+    int64 ID        = 3;
+}
+
+enum Category {
+    CategoryUnknown = 0; // unknown
+    CategorySeason = 1; // 付费合集
+}
+
+enum PayState {
+    PayStateUnknown = 0; // unknown
+    PayStateActive = 1; // 已支付，生效中
+}

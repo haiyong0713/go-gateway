@@ -1,0 +1,14 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+- liweijia
+- yujia
+- zhoujiahui
+reviewers:
+- zhangxin
+- lizhenbang
+- huyang
+labels:
+- area/app-svr/app-gw/baas
+options:
+  no_parent_owners: false

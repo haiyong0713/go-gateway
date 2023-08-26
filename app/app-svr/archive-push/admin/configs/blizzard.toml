@@ -1,0 +1,5 @@
+[secret]
+    key = "b4416e69973089f154d294f3711f944d"
+
+[host]
+    host = "https://qa-blizzcon-api.blz.netease.com"

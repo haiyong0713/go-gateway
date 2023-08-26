@@ -1,0 +1,30 @@
+[Client]
+    key = "8f62754d8d594e90"
+    secret = "test"
+    dial = "1s"
+    timeout = "5s"
+    keepAlive = "60s"
+    timer = 1000
+    [Client.breaker]
+        window = "3s"
+        sleep = "100ms"
+        bucket = 10
+        ratio = 0.5
+        request = 100
+
+[host]
+    Workflow = "http://172.16.0.26:8281"
+    Boss = "http://uat-boss.bilibili.co"
+
+[boss]
+    Host = "http://uat-boss.bilibili.co"
+    AccessKeyID = "adf76a9667e59a2b"
+    SecretAccessKey = "846560e3821ffea818d9797a3606a07d"
+
+[db]
+    dsn = "root:@tcp(127.0.0.1:13306)/bilibili_lego?timeout=300ms&readTimeout=300ms&writeTimeout=300ms&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+    idle = 5
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "2s"

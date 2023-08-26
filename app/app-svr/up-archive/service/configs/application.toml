@@ -1,0 +1,20 @@
+EmptyExpire = "6h"
+EmptyRand = 7200
+DegradeExpire = "5h"
+DegradeEmptyExpire = "10m"
+DegradeRand = 900
+DegradeDuration = "2m"
+
+[cron]
+    typesSpec = "@every 3m"
+
+[search]
+    notAttrs = [30]
+    # TODO DEL
+    notAttrV2s = [1,11]
+    oneWordLens = [1,2]
+    livePlaybackUpFrom = [22,30]
+    degrade = true
+    [search.noMealIDs]
+        noSpace = 59
+        upNoSpace = 60

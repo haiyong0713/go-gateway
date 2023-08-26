@@ -1,0 +1,13 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+- ouyangkeshou
+reviewers:
+- guanyanliang
+- zhangtinghua
+- zhanghao09
+- wangguannan
+- dujinyang
+labels:
+- area/web-svr/activity/interface
+- area/web-svr

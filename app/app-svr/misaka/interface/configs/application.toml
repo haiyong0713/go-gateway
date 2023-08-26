@@ -1,0 +1,7 @@
+# This is a TOML document. Boom
+addrs = ["172.22.33.174:9092","172.22.33.183:9092","172.22.33.185:9092"]
+appTopic = "app-misaka"
+webTopic = "app-misaka"
+
+ipv4File = ""
+ipv6File = ""

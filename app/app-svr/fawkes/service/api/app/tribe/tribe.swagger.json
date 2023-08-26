@@ -1,0 +1,2036 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "go-gateway/app/app-svr/fawkes/service/api/app/tribe/tribe.proto",
+        "version": "1"
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json",
+        "multipart/form-data"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/x/admin/fawkes/app/tribe/add": {
+            "post": {
+                "summary": "/x/admin/fawkes/app/tribe/add",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.tribe.v1.AddTribeInfoReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/cd/config/pack/upgrade": {
+            "get": {
+                "summary": "/x/admin/fawkes/app/tribe/cd/config/pack/upgrade",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.tribe.v1.GetConfigPackUpgradeFilterResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "tribe_id",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "env",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "tribe_pack_id",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/cd/config/pack/upgrade/set": {
+            "post": {
+                "summary": "/x/admin/fawkes/app/tribe/cd/config/pack/upgrade/set",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.tribe.v1.ConfigPackUpgradeFilterReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/cd/config/version/active": {
+            "post": {
+                "summary": "/x/admin/fawkes/app/tribe/cd/config/version/active",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.tribe.v1.ActiveVersionReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/cd/config/version/flow": {
+            "get": {
+                "summary": "/x/admin/fawkes/app/tribe/cd/config/version/flow",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.tribe.v1.GetVersionFlowResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "app_key",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "tribe_id",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "env",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "version_id",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/cd/config/version/flow/set": {
+            "post": {
+                "summary": "/x/admin/fawkes/app/tribe/cd/config/version/flow/set",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.tribe.v1.ConfigVersionFlowReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/cd/config/version/upgrade": {
+            "get": {
+                "summary": "/x/admin/fawkes/app/tribe/cd/config/version/upgrade",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.tribe.v1.GetConfigVersionUpgradeResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "tribe_id",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "env",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "tribe_pack_id",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/cd/config/version/upgrade/set": {
+            "post": {
+                "summary": "/x/admin/fawkes/app/tribe/cd/config/version/upgrade/set",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.tribe.v1.ConfigVersionUpgradeReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/cd/evolution": {
+            "post": {
+                "summary": "/x/admin/fawkes/app/tribe/cd/evolution",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.tribe.v1.EvolutionTribeReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/cd/list": {
+            "get": {
+                "summary": "/x/admin/fawkes/app/tribe/cd/list",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.tribe.v1.ListTribePackResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "tribe_id",
+                        "in": "query",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "env",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "ps",
+                        "in": "query",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "pn",
+                        "in": "query",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "app_key",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/cd/pack/relations": {
+            "get": {
+                "summary": "拉取关系表",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.tribe.v1.GetPackRelationsResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "app_key",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "feature",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/ci/add": {
+            "post": {
+                "summary": "/x/admin/fawkes/app/tribe/ci/add",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.tribe.v1.AddTribeBuildPackReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/ci/cancel": {
+            "get": {
+                "summary": "/x/admin/fawkes/app/tribe/ci/cancel",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "tribe_build_pack_id",
+                        "in": "query",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/ci/get": {
+            "get": {
+                "summary": "/x/admin/fawkes/app/tribe/ci/get",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.tribe.v1.GetTribeBuildPackInfoResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/ci/list": {
+            "get": {
+                "summary": "/x/admin/fawkes/app/tribe/ci/list",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.tribe.v1.ListTribeBuildPackResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "gl_job_id",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "dep_gl_job_id",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "pkg_type",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "git_type",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "commit",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "git_name",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "operator",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "tribe_id",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "order_by",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "pn",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "ps",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "app_key",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "push_cd",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/ci/push/to/cd": {
+            "post": {
+                "summary": "/x/admin/fawkes/app/tribe/ci/push/to/cd",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.tribe.v1.PushTribeBuildPackToCDReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/delete": {
+            "post": {
+                "summary": "/x/admin/fawkes/app/tribe/delete",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.tribe.v1.DeleteTribeInfoReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/info": {
+            "get": {
+                "summary": "/x/admin/fawkes/app/tribe/info",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.tribe.v1.GetTribeInfoResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/list": {
+            "get": {
+                "summary": "/x/admin/fawkes/app/tribe/list",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.tribe.v1.ListTribeInfoResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "app_key",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "c_name",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "ps",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "pn",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/app/tribe/update": {
+            "post": {
+                "summary": "/x/admin/fawkes/app/tribe/update",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.tribe.v1.UpdateTribeInfoReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/business/tribe/ci/git/update": {
+            "post": {
+                "summary": "/x/admin/fawkes/business/tribe/ci/git/update",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.tribe.v1.UpdateTribeBuildPackGitInfoReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        },
+        "/x/admin/fawkes/business/tribe/ci/pkg/update": {
+            "post": {
+                "summary": "/x/admin/fawkes/business/tribe/ci/pkg/update",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.app.tribe.v1.UpdateTribeBuildPackPkgInfoResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.app.tribe.v1.UpdateTribeBuildPackPkgInfoReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app.tribe.v1.Tribe"
+                ]
+            }
+        }
+    },
+    "definitions": {
+        ".app.tribe.v1.ActiveVersionReq": {
+            "type": "object",
+            "properties": {
+                "app_key": {
+                    "type": "string"
+                },
+                "env": {
+                    "type": "string"
+                },
+                "version_id": {
+                    "type": "integer"
+                },
+                "active": {
+                    "type": "boolean"
+                }
+            }
+        },
+        ".app.tribe.v1.AddTribeBuildPackReq": {
+            "type": "object",
+            "properties": {
+                "tribe_id": {
+                    "type": "integer"
+                },
+                "pkg_type": {
+                    "type": "integer"
+                },
+                "git_type": {
+                    "type": "integer"
+                },
+                "git_name": {
+                    "type": "string"
+                },
+                "ci_env_var": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "should_notify": {
+                    "type": "boolean"
+                },
+                "dep_gl_job_id": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "tribe_id",
+                "git_name"
+            ]
+        },
+        ".app.tribe.v1.AddTribeInfoReq": {
+            "type": "object",
+            "properties": {
+                "app_key": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "c_name": {
+                    "type": "string"
+                },
+                "owners": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "no_host": {
+                    "type": "boolean"
+                },
+                "priority": {
+                    "type": "integer"
+                },
+                "is_build_in": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "app_key",
+                "name"
+            ]
+        },
+        ".app.tribe.v1.CancelTribeBuildPackReq": {
+            "type": "object",
+            "properties": {
+                "tribe_build_pack_id": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "tribe_build_pack_id"
+            ]
+        },
+        ".app.tribe.v1.ConfigPackUpgradeFilterReq": {
+            "type": "object",
+            "properties": {
+                "tribe_id": {
+                    "type": "integer"
+                },
+                "env": {
+                    "type": "string"
+                },
+                "tribe_pack_id": {
+                    "type": "integer"
+                },
+                "network": {
+                    "type": "string"
+                },
+                "isp": {
+                    "type": "string"
+                },
+                "channel": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "app_key": {
+                    "type": "string"
+                },
+                "percent": {
+                    "type": "integer"
+                },
+                "device": {
+                    "type": "string"
+                },
+                "excludes_system": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tribe_id",
+                "env",
+                "tribe_pack_id",
+                "app_key"
+            ]
+        },
+        ".app.tribe.v1.ConfigVersionFlowReq": {
+            "type": "object",
+            "properties": {
+                "tribe_id": {
+                    "type": "integer"
+                },
+                "env": {
+                    "type": "string"
+                },
+                "version_id": {
+                    "type": "integer"
+                },
+                "app_key": {
+                    "type": "string"
+                },
+                "flow": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.tribe.v1.Flow"
+                    }
+                }
+            }
+        },
+        ".app.tribe.v1.ConfigVersionUpgradeReq": {
+            "type": "object",
+            "properties": {
+                "app_key": {
+                    "type": "string"
+                },
+                "tribe_id": {
+                    "type": "integer"
+                },
+                "env": {
+                    "type": "string"
+                },
+                "tribe_pack_id": {
+                    "type": "integer"
+                },
+                "chosen_version_code": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "starting_version_code": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "tribe_id",
+                "env",
+                "tribe_pack_id"
+            ]
+        },
+        ".app.tribe.v1.DeleteTribeInfoReq": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "id"
+            ]
+        },
+        ".app.tribe.v1.EvolutionTribeReq": {
+            "type": "object",
+            "properties": {
+                "tribe_pack_id": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tribe_pack_id"
+            ]
+        },
+        ".app.tribe.v1.Flow": {
+            "type": "object",
+            "properties": {
+                "from": {
+                    "type": "integer"
+                },
+                "to": {
+                    "type": "integer"
+                },
+                "gl_job_id": {
+                    "type": "integer"
+                },
+                "ctime": {
+                    "type": "integer"
+                },
+                "mtime": {
+                    "type": "integer"
+                },
+                "operator": {
+                    "type": "string"
+                }
+            }
+        },
+        ".app.tribe.v1.GetConfigPackUpgradeFilterReq": {
+            "type": "object",
+            "properties": {
+                "tribe_id": {
+                    "type": "integer"
+                },
+                "env": {
+                    "type": "string"
+                },
+                "tribe_pack_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".app.tribe.v1.GetConfigPackUpgradeFilterResp": {
+            "type": "object",
+            "properties": {
+                "tribe_id": {
+                    "type": "integer"
+                },
+                "env": {
+                    "type": "string"
+                },
+                "build_id": {
+                    "type": "integer"
+                },
+                "network": {
+                    "type": "string"
+                },
+                "isp": {
+                    "type": "string"
+                },
+                "channel": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "percent": {
+                    "type": "integer"
+                },
+                "device": {
+                    "type": "string"
+                },
+                "salt": {
+                    "type": "string"
+                },
+                "excludes_system": {
+                    "type": "string"
+                },
+                "operator": {
+                    "type": "string"
+                },
+                "ctime": {
+                    "type": "integer"
+                },
+                "mtime": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "tribe_id",
+                "env",
+                "build_id"
+            ]
+        },
+        ".app.tribe.v1.GetConfigVersionUpgradeReq": {
+            "type": "object",
+            "properties": {
+                "tribe_id": {
+                    "type": "integer"
+                },
+                "env": {
+                    "type": "string"
+                },
+                "tribe_pack_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".app.tribe.v1.GetConfigVersionUpgradeResp": {
+            "type": "object",
+            "properties": {
+                "chosen_version_code": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "starting_version_code": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        ".app.tribe.v1.GetPackRelationsReq": {
+            "type": "object",
+            "properties": {
+                "app_key": {
+                    "type": "string"
+                },
+                "feature": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "app_key"
+            ]
+        },
+        ".app.tribe.v1.GetPackRelationsResp": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.tribe.v1.Relation"
+                    }
+                }
+            }
+        },
+        ".app.tribe.v1.GetTribeBuildPackInfoReq": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "id"
+            ]
+        },
+        ".app.tribe.v1.GetTribeBuildPackInfoResp": {
+            "type": "object",
+            "properties": {
+                "tribe_build_pack_info": {
+                    "$ref": "#/definitions/.app.tribe.v1.TribeBuildPackInfo"
+                }
+            }
+        },
+        ".app.tribe.v1.GetTribeInfoReq": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "id"
+            ]
+        },
+        ".app.tribe.v1.GetTribeInfoResp": {
+            "type": "object",
+            "properties": {
+                "tribe_info": {
+                    "$ref": "#/definitions/.app.tribe.v1.TribeInfo"
+                }
+            }
+        },
+        ".app.tribe.v1.GetVersionFlowReq": {
+            "type": "object",
+            "properties": {
+                "app_key": {
+                    "type": "string"
+                },
+                "tribe_id": {
+                    "type": "integer"
+                },
+                "env": {
+                    "type": "string"
+                },
+                "version_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".app.tribe.v1.GetVersionFlowResp": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.tribe.v1.Flow"
+                    }
+                }
+            }
+        },
+        ".app.tribe.v1.ListTribeBuildPackReq": {
+            "type": "object",
+            "properties": {
+                "gl_job_id": {
+                    "type": "integer"
+                },
+                "dep_gl_job_id": {
+                    "type": "integer"
+                },
+                "pkg_type": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "state": {
+                    "type": "integer"
+                },
+                "git_type": {
+                    "type": "integer"
+                },
+                "commit": {
+                    "type": "string"
+                },
+                "git_name": {
+                    "type": "string"
+                },
+                "operator": {
+                    "type": "string"
+                },
+                "tribe_id": {
+                    "type": "integer"
+                },
+                "order_by": {
+                    "type": "integer"
+                },
+                "sort": {
+                    "type": "integer"
+                },
+                "pn": {
+                    "type": "integer"
+                },
+                "ps": {
+                    "type": "integer"
+                },
+                "app_key": {
+                    "type": "string"
+                },
+                "push_cd": {
+                    "type": "string"
+                }
+            }
+        },
+        ".app.tribe.v1.ListTribeBuildPackResp": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.tribe.v1.TribeBuildPackInfo"
+                    }
+                },
+                "page": {
+                    "$ref": "#/definitions/.app.tribe.v1.PageInfo"
+                }
+            }
+        },
+        ".app.tribe.v1.ListTribeInfoReq": {
+            "type": "object",
+            "properties": {
+                "app_key": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "c_name": {
+                    "type": "string"
+                },
+                "ps": {
+                    "type": "integer"
+                },
+                "pn": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".app.tribe.v1.ListTribeInfoResp": {
+            "type": "object",
+            "properties": {
+                "page": {
+                    "$ref": "#/definitions/.app.tribe.v1.PageInfo"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.tribe.v1.TribeInfo"
+                    }
+                }
+            }
+        },
+        ".app.tribe.v1.ListTribePackReq": {
+            "type": "object",
+            "properties": {
+                "tribe_id": {
+                    "type": "integer"
+                },
+                "env": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "integer"
+                },
+                "ps": {
+                    "type": "integer"
+                },
+                "pn": {
+                    "type": "integer"
+                },
+                "app_key": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tribe_id",
+                "env",
+                "ps",
+                "pn",
+                "app_key"
+            ]
+        },
+        ".app.tribe.v1.ListTribePackResp": {
+            "type": "object",
+            "properties": {
+                "page": {
+                    "$ref": "#/definitions/.app.tribe.v1.PageInfo"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.tribe.v1.VersionPack"
+                    }
+                }
+            }
+        },
+        ".app.tribe.v1.PackInfo": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "app_id": {
+                    "type": "string"
+                },
+                "app_key": {
+                    "type": "string"
+                },
+                "env": {
+                    "type": "string"
+                },
+                "tribe_id": {
+                    "type": "integer"
+                },
+                "gl_job_id": {
+                    "type": "integer"
+                },
+                "dep_gl_job_id": {
+                    "type": "integer"
+                },
+                "version_id": {
+                    "type": "integer"
+                },
+                "git_type": {
+                    "type": "integer"
+                },
+                "git_name": {
+                    "type": "string"
+                },
+                "commit": {
+                    "type": "string"
+                },
+                "pack_type": {
+                    "type": "integer"
+                },
+                "change_log": {
+                    "type": "string"
+                },
+                "operator": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "integer"
+                },
+                "md5": {
+                    "type": "string"
+                },
+                "pack_path": {
+                    "type": "string"
+                },
+                "pack_url": {
+                    "type": "string"
+                },
+                "mapping_url": {
+                    "type": "string"
+                },
+                "bbr_url": {
+                    "type": "string"
+                },
+                "cdn_url": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "mtime": {
+                    "type": "integer"
+                },
+                "ctime": {
+                    "type": "integer"
+                },
+                "flow": {
+                    "$ref": "#/definitions/.app.tribe.v1.Flow"
+                },
+                "pack_upgrade": {
+                    "$ref": "#/definitions/.app.tribe.v1.GetConfigPackUpgradeFilterResp"
+                },
+                "job_url": {
+                    "type": "string"
+                },
+                "version": {
+                    "$ref": "#/definitions/.app.tribe.v1.VersionInfo"
+                },
+                "last_operator": {
+                    "type": "string"
+                },
+                "last_mtime": {
+                    "type": "integer"
+                },
+                "dep_feature": {
+                    "type": "string"
+                }
+            }
+        },
+        ".app.tribe.v1.PageInfo": {
+            "type": "object",
+            "properties": {
+                "total": {
+                    "type": "integer"
+                },
+                "pn": {
+                    "type": "integer"
+                },
+                "ps": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".app.tribe.v1.PushTribeBuildPackToCDReq": {
+            "type": "object",
+            "properties": {
+                "tribe_build_pack_id": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tribe_build_pack_id"
+            ]
+        },
+        ".app.tribe.v1.Relation": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "current_build_id": {
+                    "type": "integer"
+                },
+                "parent_build_id": {
+                    "type": "integer"
+                },
+                "feature": {
+                    "type": "string"
+                }
+            }
+        },
+        ".app.tribe.v1.TribeBuildPackInfo": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "tribe_id": {
+                    "type": "integer"
+                },
+                "gl_job_id": {
+                    "type": "integer"
+                },
+                "dep_gl_job_id": {
+                    "type": "integer"
+                },
+                "app_id": {
+                    "type": "string"
+                },
+                "app_key": {
+                    "type": "string"
+                },
+                "git_path": {
+                    "type": "string"
+                },
+                "git_type": {
+                    "type": "integer"
+                },
+                "git_name": {
+                    "type": "string"
+                },
+                "commit": {
+                    "type": "string"
+                },
+                "pkg_type": {
+                    "type": "integer"
+                },
+                "operator": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "integer"
+                },
+                "md5": {
+                    "type": "string"
+                },
+                "pkg_path": {
+                    "type": "string"
+                },
+                "pkg_url": {
+                    "type": "string"
+                },
+                "mapping_url": {
+                    "type": "string"
+                },
+                "bbr_url": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "did_push": {
+                    "type": "integer"
+                },
+                "change_log": {
+                    "type": "string"
+                },
+                "notify_group": {
+                    "type": "boolean"
+                },
+                "ci_env_vars": {
+                    "type": "string"
+                },
+                "build_start_time": {
+                    "type": "integer"
+                },
+                "build_end_time": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "ctime": {
+                    "type": "integer"
+                },
+                "mtime": {
+                    "type": "integer"
+                },
+                "err_msg": {
+                    "type": "string"
+                },
+                "job_url": {
+                    "type": "string"
+                },
+                "version_code": {
+                    "type": "integer"
+                },
+                "version_name": {
+                    "type": "string"
+                },
+                "dep_feature": {
+                    "type": "string"
+                }
+            }
+        },
+        ".app.tribe.v1.TribeInfo": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "app_key": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "c_name": {
+                    "type": "string"
+                },
+                "owners": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "no_host": {
+                    "type": "boolean"
+                },
+                "priority": {
+                    "type": "integer"
+                },
+                "is_build_in": {
+                    "type": "boolean"
+                }
+            }
+        },
+        ".app.tribe.v1.UpdateTribeBuildPackGitInfoReq": {
+            "type": "object",
+            "properties": {
+                "tribe_build_pack_id": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "gitlab_job_id": {
+                    "type": "integer"
+                },
+                "git_path": {
+                    "type": "string"
+                },
+                "commit": {
+                    "type": "string"
+                },
+                "build_start_time": {
+                    "type": "integer"
+                },
+                "dep_gitlab_job_id": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "tribe_build_pack_id"
+            ]
+        },
+        ".app.tribe.v1.UpdateTribeBuildPackPkgInfoReq": {
+            "type": "object",
+            "properties": {
+                "tribe_build_pack_id": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "file": {
+                    "type": "string"
+                },
+                "change_log": {
+                    "type": "string"
+                },
+                "apk_path": {
+                    "type": "string"
+                },
+                "mapping_path": {
+                    "type": "string"
+                },
+                "bbr_path": {
+                    "type": "string"
+                },
+                "build_end_time": {
+                    "type": "integer"
+                },
+                "version_code": {
+                    "type": "integer"
+                },
+                "version_name": {
+                    "type": "string"
+                },
+                "unzip": {
+                    "type": "boolean"
+                },
+                "md5": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tribe_build_pack_id"
+            ]
+        },
+        ".app.tribe.v1.UpdateTribeBuildPackPkgInfoResp": {
+            "type": "object",
+            "properties": {
+                "main_apk_url": {
+                    "type": "string"
+                },
+                "main_bbr_url": {
+                    "type": "string"
+                },
+                "mapping_url": {
+                    "type": "string"
+                }
+            }
+        },
+        ".app.tribe.v1.UpdateTribeInfoReq": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "app_key": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "c_name": {
+                    "type": "string"
+                },
+                "owners": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "no_host": {
+                    "type": "boolean"
+                },
+                "priority": {
+                    "type": "integer"
+                },
+                "is_build_in": {
+                    "type": "boolean"
+                }
+            }
+        },
+        ".app.tribe.v1.VersionInfo": {
+            "type": "object",
+            "properties": {
+                "env": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "version_code": {
+                    "type": "string"
+                },
+                "version_id": {
+                    "type": "integer"
+                },
+                "ctime": {
+                    "type": "integer"
+                },
+                "mtime": {
+                    "type": "integer"
+                },
+                "operator": {
+                    "type": "string"
+                }
+            }
+        },
+        ".app.tribe.v1.VersionPack": {
+            "type": "object",
+            "properties": {
+                "version_name": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.app.tribe.v1.PackInfo"
+                    }
+                }
+            }
+        },
+        ".google.protobuf.Empty": {
+            "type": "object",
+            "properties": {},
+            "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }\n\n The JSON representation for `Empty` is empty JSON object `{}`."
+        }
+    }
+}

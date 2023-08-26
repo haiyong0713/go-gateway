@@ -1,0 +1,29 @@
+# curl 'http://uat-fawkes.bilibili.co/x/admin/fawkes/app/mod/patch/list?version_id=127305'
+#  -H 'Proxy-Connection: keep-alive'
+#  -H 'x1-bilispy-user: fawkes_luweidan'
+#  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.83 Safari/537.36'
+#  -H 'Accept: */*'
+#  -H 'Referer: http://uat-fawkes.bilibili.co/'
+#  -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7'
+#  -H 'Cookie: buvid_fp=c66dc8764c73b0f8b5a5d268495d2221; buvid4=138AE0E1-59BD-AF7E-DB62-E5C82E28291D02274-022012414-YwaIv4Va3kg02LA+6esLcA%3D%3D; buvid3=12D42E29-2A6C-E3B3-942B-1876F289936958012infoc; b_nut=1648193657; _AJSESSIONID=76fe8ffa815f3ce0a6f092b2f0b533f7; username=luweidan; mng-go=598edd4e4993e3e9f7649f6156a1f775e623d861982e7c677a0747bdb601a141; _dd_s=logs=1&id=f2d8287d-ade4-43ec-8a19-269e832fcad0&created=1648708223082&expire=1648712324844'
+#  --compressed \
+GET {{baseUrl}}/app/mod/patch/list?version_id=127305&env=prod
+x1-bilispy-user: fawkes_luweidan
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.83 Safari/537.36
+Accept: */*
+Referer: http://uat-fawkes.bilibili.co/
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7
+Cookie: {{Cookie}}
+
+###
+
+# curl --location --request GET 'localhost:7981/x/admin/fawkes//app/mod/version/list?env=prod&mod_pool_key=9h6b73Kd4wP9&module_id=75939&pn=1&ps=10'
+#--header 'Cookie: b_nut=1637226994; buvid_fp=c66dc8764c73b0f8b5a5d268495d2221; buvid4=138AE0E1-59BD-AF7E-DB62-E5C82E28291D02274-022012414-YwaIv4Va3kg02LA+6esLcA%3D%3D; buvid3=12D42E29-2A6C-E3B3-942B-1876F289936958012infoc; b_nut=1648193657; _AJSESSIONID=76fe8ffa815f3ce0a6f092b2f0b533f7; username=luweidan; mng-go=f34b16a152b523c961ab7cab66c419b9ee25914f5202b4b25f9dd5c31d176eaa; _dd_s=logs=1&id=b5a5fcd6-e2eb-4c85-a82b-db4bf4ce937d&created=1648708072218&expire=1648709008750'
+GET {{baseUrl}}/app/mod/version/list?env=prod&module_id=75939&pn=1&ps=10
+Cookie: {{Cookie}}
+
+###
+
+
+
+

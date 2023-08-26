@@ -1,0 +1,17 @@
+package task
+
+import (
+    "context"
+    "encoding/json"
+    "fmt"
+    servicePb "git.bilibili.co/platform/api-gateway/app/demo/service/api"
+)
+
+func (p *TaskFlow) SayWorld2(ctx context.Context, req *HttpResult) (reply *servicePb.HelloResp, err error) {
+    var byteData []byte
+    byteData, err = json.Marshal(req.Data)
+    reply = &servicePb.HelloResp{
+        Content: fmt.Sprintf("hello SayWorld2 %s", string(byteData)),
+    }
+    return
+}

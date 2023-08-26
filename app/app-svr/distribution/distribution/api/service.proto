@@ -1,0 +1,36 @@
+syntax = "proto3";
+package bilibili.app.distribution.v1;
+import "google/protobuf/any.proto";
+//import "bilibili/extension/crane/crane.proto";
+
+option go_package = "api";
+option java_package = "com.bapis.bilibili.app.distribution";
+option java_multiple_files = true;
+option objc_class_prefix = "BAPIAppDistribution";
+//option (bilibili.extension.crane.bili_grpc_host) = "main.grpc.bilibili.com";
+
+message UserPreferenceReq {}
+message UserPreferenceReply {
+    repeated google.protobuf.Any preference = 1;
+}
+
+message SetUserPreferenceReq {
+    repeated google.protobuf.Any preference = 1;
+    map<string, string> extra_context = 2;
+}
+message SetUserPreferenceReply {}
+
+message GetUserPreferenceReq {
+    repeated string type_url = 1;
+    map<string, string> extra_context = 2;
+}
+
+message GetUserPreferenceReply {
+    repeated google.protobuf.Any value = 1;
+}
+
+service Distribution {
+    rpc UserPreference(UserPreferenceReq) returns (UserPreferenceReply);
+    rpc SetUserPreference(SetUserPreferenceReq) returns (SetUserPreferenceReply);
+    rpc GetUserPreference(GetUserPreferenceReq) returns (GetUserPreferenceReply);
+}

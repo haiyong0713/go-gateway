@@ -1,0 +1,7 @@
+[Client]
+    dsn = "root:@tcp(127.0.0.1:13306)/bilibili_lego?timeout=300ms&readTimeout=300ms&writeTimeout=300ms&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+    idle = 5
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "2s"

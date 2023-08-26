@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+// use {app_id}.{version} as package name
+package app.wall.v1;
+
+// specify golang package name
+option go_package = "v1";
+
+service AppWall {
+    // 获取联通福利社用户信息
+    rpc UnicomBindInfo(UsersRequest) returns(UsersReply);
+}
+
+// UsersRequest
+message UsersRequest{
+    repeated int64 mids = 1;
+}
+// UsersReply
+message UsersReply{
+    map<int64, UserInfo> UsersInfo = 1;
+}
+
+// UserInfo
+message UserInfo{
+    string Phone = 1;
+}

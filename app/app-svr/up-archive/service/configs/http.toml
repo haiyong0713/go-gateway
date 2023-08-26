@@ -1,0 +1,11 @@
+[Server]
+    addr = "0.0.0.0:8000"
+    timeout = "1s"
+
+[quota]
+    [[quota.Methods]]
+    path = "/x/internal/up/archive/arc/passed"
+    rule = "total"
+    [[quota.Methods]]
+    path = "/x/internal/up/archive/arc/passed/total"
+    rule = "tatal"

@@ -1,0 +1,938 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+package natpage.interface.service.v1;
+
+option go_package = "api";
+// do not generate getXXX() method
+option (gogoproto.goproto_getters_all) = false;
+
+service NaPage {
+    // native 活动页面配置信息
+    rpc NatConfig(NatConfigReq) returns (NatConfigReply);
+    // native 活动基础页面配置信息
+    rpc BaseConfig(BaseConfigReq) returns (BaseConfigReply);
+    // 根据fid和type查询话题信息
+    rpc NatInfoFromForeign(NatInfoFromForeignReq) returns (NatInfoFromForeignReply);
+    // 根据module_id查询配置信息
+    rpc ModuleConfig(ModuleConfigReq) returns (ModuleConfigReply);
+    // 根据module_id获取配置的id信息
+    rpc ModuleMixExt(ModuleMixExtReq) returns (ModuleMixExtReply);
+    // 根据module_id获取所有配置的id信息
+    rpc ModuleMixExts(ModuleMixExtsReq) returns (ModuleMixExtsReply);
+    // 批量获取话题活动信息接口-仅仅返回有效状态
+    rpc NativePages(NativePagesReq) returns (NativePagesReply);
+    // 批量获取话题活动信息接口-返回所有状态
+    rpc NativeAllPages(NativeAllPagesReq) returns (NativeAllPagesReply);
+    // 批量获取话题活动卡-处理跳转地址
+    rpc NativePageCards(NativePageCardsReq) returns (NativePageCardsReply);
+    // 批量获取话题活动信息接口&动态广场页配置信息-仅仅返回有效状态
+    rpc NativePagesExt(NativePagesExtReq) returns (NativePagesExtReply);
+    // 获取榜单有效期内的话题列表&动态广场页配置信息
+    rpc NativeValidPagesExt(NativeValidPagesExtReq) returns (NativeValidPagesExtReply);
+    // 获取单个活动信息-所有状态都返回
+    rpc NativePage(NativePageReq) returns (NativePageReply);
+    // 话题活动聚合tab
+    rpc NatTabModules(NatTabModulesReq) returns (NatTabModulesReply);
+    // 根据话题id获取话题跳转地址--供动态测使用
+    rpc NativePagesTab(NativePagesTabReq) returns (NativePagesTabReply);
+    // up主发起活动白名单接口
+    rpc IsUpActUid(IsUpActUidReq) returns (IsUpActUidReply);
+    // up主发起活动列表接口
+    rpc UpActNativePages(UpActNativePagesReq) returns (UpActNativePagesReply);
+    // up主发起活动-进审核态
+    rpc UpActNativePageBind(UpActNativePageBindReq) returns (UpActNativePageBindReply);
+    // 获取发起人的有效活动列表
+    rpc SponsorNativePages(SponsorNativePagesReq) returns (SponsorNativePagesReply);
+    // 获取page下所有的进度组件
+    rpc GetNatProgressParams(GetNatProgressParamsReq) returns (GetNatProgressParamsReply);
+    // 话题活动上榜&下榜-编辑接口
+    rpc NativeForbidList(NativeForbidListReq) returns (NoReply);
+    // 同步至up主空间的设置
+    rpc SpaceSyncSetting(SpaceSyncSettingReq) returns (SpaceSyncSettingReply);
+    // 批量获取所有状态的话题活动卡-处理跳转地址
+    rpc NativeAllPageCards(NativeAllPageCardsReq) returns (NativeAllPageCardsReply);
+}
+
+message NativeForbidListReq {
+    int64 pid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+    // 1:开启禁止上榜 2:关闭禁止上榜 其余参数:不处理
+    int32 attrForbid = 2 [(gogoproto.moretags) = 'validate:"min=1,max=2"'];
+}
+
+message IsUpActUidReq {
+    int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message IsUpActUidReply {
+    //是否匹配
+    bool Match = 1;
+}
+
+message UpActNativePagesReq {
+    int64 mid    = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+    int64 offset = 2 [(gogoproto.moretags) = 'validate:"min=0"'];
+    int64 ps     = 3 [(gogoproto.moretags) = 'validate:"min=0,max=50"'];
+}
+
+message UpActNativePagesReply {
+    int64 offset                   = 1;
+    int32 hasMore                  = 2;
+    repeated UpActNativePages list = 3;
+}
+
+message UpActNativePages {
+    NativePage base = 1;
+}
+
+message UpActNativePageBindReq {
+    // 发起人id
+    int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+    //page id
+    int64 pageID = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+    // 跳转url
+    string url = 3;
+}
+
+message UpActNativePageBindReply {
+    // noreply
+}
+
+message NativePagesReq {
+    repeated int64 pids = 1 [(gogoproto.moretags) = 'validate:"min=1,max=150,dive,min=1"'];
+}
+
+message NativePageCardsReq {
+    repeated int64 pids = 1 [(gogoproto.moretags) = 'validate:"min=1,max=100,dive,min=1"'];
+    //设备：phone、ipad
+    string device = 2;
+    //平台：iphone、white、ipad、android、android_i、android_G、iphone_i、ipad_i、android_tv（后面带 I 是表示海外版、android_G 安卓谷歌版）
+    string mobi_app = 3;
+    //build版本号
+    int32 build = 4;
+    //客户端设备唯一标识
+    string buvid = 5;
+    //平台
+    string platform = 6;
+}
+
+message NativePageCardsReply {
+    map<int64, NativePageCard> list = 1 [(gogoproto.jsontag) = 'list'];
+}
+
+message NativePageCard {
+    //pageid
+    int64 id = 1 [(gogoproto.jsontag) = "id"];
+    //话题名
+    string title = 2 [(gogoproto.jsontag) = "title"];
+    //类型 1:话题活动
+    int64 type = 3 [(gogoproto.jsontag) = "type"];
+    // 话题id
+    int64 foreignID = 4 [(gogoproto.jsontag) = "foreign_id"];
+    //分享内容
+    string shareTitle = 5 [(gogoproto.jsontag) = "share_title"];
+    //分享图片
+    string shareImage = 6 [(gogoproto.jsontag) = "share_image"];
+    //分享url
+    string shareURL = 7 [(gogoproto.jsontag) = "share_url"];
+    // h5,app跳转地址
+    string skipURL = 8 [(gogoproto.jsontag) = "skip_url"];
+    //发起人mid
+    int64 relatedUid = 9 [(gogoproto.jsontag) = "related_uid"];
+    //web跳转地址
+    string pcURL = 10 [(gogoproto.jsontag) = "pc_url"];
+    //分享标题
+    string shareCaption = 11 [(gogoproto.jsontag) = "share_caption"];
+    //状态
+    int64 state = 12 [(gogoproto.jsontag) = "state"];
+}
+
+message NativePagesReply {
+    map<int64, NativePage> list = 1 [(gogoproto.jsontag) = 'list'];
+}
+
+message NativePagesExtReq {
+    repeated int64 pids = 1 [(gogoproto.moretags) = 'validate:"min=1,max=100,dive,min=1"'];
+}
+
+message NativePagesExtReply {
+    map<int64, NativePageExt> list = 1 [(gogoproto.jsontag) = 'list'];
+}
+
+message NativePageExt {
+    NativePage item      = 1 [(gogoproto.jsontag) = 'item'];
+    NativePageDyn dynExt = 2 [(gogoproto.jsontag) = 'dyn_ext'];
+}
+
+message NativeValidPagesExtReq {
+    int64 actType = 1 [(gogoproto.moretags) = 'validate:"required,min=0"'];
+}
+
+message NativeValidPagesExtReply {
+    map<int64, NativePageExt> list = 1 [(gogoproto.jsontag) = 'list'];
+}
+
+message NativePageReq {
+    int64 pid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message NativePageReply {
+    NativePage item = 1;
+}
+
+message NativePagesTabReq {
+    repeated int64 pids = 1 [(gogoproto.moretags) = 'validate:"min=1,max=50,dive,min=1"'];
+    int32 category      = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message NativePagesTabReply {
+    map<int64, PagesTab> list = 1 [(gogoproto.jsontag) = 'list'];
+}
+
+message PagesTab {
+    int64 tabID       = 1 [(gogoproto.jsontag) = "tab_id"];
+    int64 tabModuleID = 2 [(gogoproto.jsontag) = "tab_module_id"];
+    int64 pageID      = 3 [(gogoproto.jsontag) = "page_id"];
+    string url        = 4 [(gogoproto.jsontag) = "url"];
+}
+
+message NatTabModulesReq {
+    int64 tabID = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message NatTabModulesReply {
+    NativeActTab tab              = 1 [(gogoproto.jsontag) = "tab"];
+    repeated NativeTabModule list = 2 [(gogoproto.jsontag) = "list"];
+}
+
+message PageInfo {
+    int64 pn    = 1;
+    int64 ps    = 2;
+    int64 total = 3;
+}
+
+message NoReply {}
+
+message ModuleConfigReq {
+    int64 moduleID      = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+    int64 primaryPageID = 2;
+}
+
+message ModuleConfigReply {
+    NativePage nativePage  = 1;
+    Module module          = 2;
+    NativePage primaryPage = 3;
+}
+
+message NatInfoFromForeignReq {
+    repeated int64 fids         = 1 [(gogoproto.moretags) = 'validate:"min=1,max=50,dive,min=1"'];
+    int64 pageType              = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+    map<string, string> content = 3;
+}
+
+message NatInfoFromForeignReply {
+    map<int64, NativePage> list = 1 [(gogoproto.jsontag) = 'List'];
+}
+
+message NatConfigReq {
+    int64 pid    = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+    int64 offset = 2 [(gogoproto.moretags) = 'validate:"min=0"'];
+    int64 ps     = 3 [(gogoproto.moretags) = 'validate:"min=0,max=50"'];
+    int32 pType  = 4 [(gogoproto.moretags) = 'validate:"min=0"'];
+}
+
+message NatConfigReply {
+    NativePage nativePage   = 1;
+    repeated Module modules = 2;
+    Page page               = 3;
+    repeated Module bases   = 4;
+    // 父页面配置信息
+    FirstPage firstPage = 5;
+}
+
+message FirstPage {
+    NativePage item = 1;
+    //扩展信息可以为nil
+    NativePageExtend ext = 2;
+}
+
+message BaseConfigReq {
+    int64 pid   = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+    int32 pType = 2 [(gogoproto.moretags) = 'validate:"min=0"'];
+    // ps为负数表示获取全部，为正数表示需要获取的页面大小
+    int64 ps     = 3 [(gogoproto.moretags) = 'default:"-1" validate:"max=100"'];
+    int64 offset = 4 [(gogoproto.moretags) = 'default:"0" validate:"min=0"'];
+}
+
+message BaseConfigReply {
+    NativePage nativePage        = 1;
+    repeated Module bases        = 2;
+    int64 offset                 = 3 [(gogoproto.jsontag) = "offset"];
+    int32 hasMore                = 4 [(gogoproto.jsontag) = "has_more"];
+    repeated Module base_modules = 5;
+    // 父页面配置信息
+    FirstPage firstPage = 6;
+}
+
+message Page {
+    int64 offset  = 1 [(gogoproto.jsontag) = "offset"];
+    int32 hasMore = 2 [(gogoproto.jsontag) = "has_more"];
+}
+
+message Module {
+    NativeModule nativeModule   = 1;
+    Click click                 = 2;
+    Act act                     = 3;
+    VideoAct videoAct           = 4;
+    Dynamic dynamic             = 5;
+    Participation participation = 6;
+    Recommend recommend         = 7;
+    InlineTab inlineTab         = 8;
+    Select select               = 9;
+    Progress progress           = 10;
+    Carousel carousel           = 11;
+    Icon icon                   = 12;
+    ActPage actPage             = 13;
+    Game game                   = 14;
+    Reserve reserve             = 15;
+    MatchEvent matchEvent       = 16;
+}
+
+message Reserve {
+    repeated NativeMixtureExt list = 1;
+}
+
+message MatchEvent {
+    repeated NativeMixtureExt list = 1;
+}
+
+message Game {
+    repeated NativeMixtureExt list = 1;
+}
+
+message Click {
+    repeated NativeClick areas = 1;
+}
+
+message VideoAct {
+    repeated NativeVideoExt sortList = 1;
+}
+
+message Act {
+    repeated NativePage list = 1;
+}
+
+message Dynamic {
+    repeated NativeDynamicExt selectList = 1;
+}
+
+message Participation {
+    repeated NativeParticipationExt list = 1;
+}
+
+message Recommend {
+    repeated NativeMixtureExt list = 1;
+}
+
+message InlineTab {
+    repeated NativeMixtureExt list = 1;
+}
+
+message Select {
+    repeated NativeMixtureExt list = 1;
+}
+
+message Carousel {
+    repeated NativeMixtureExt list = 1;
+}
+
+message Icon {
+    repeated NativeMixtureExt list = 1;
+}
+
+message Progress {
+    repeated NativeMixtureExt list = 1;
+}
+
+message ModuleMixExtReq {
+    int64 moduleID = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+    int64 ps       = 2 [(gogoproto.moretags) = 'validate:"min=1,max=100"'];
+    int64 offset   = 3 [(gogoproto.moretags) = 'validate:"min=0"'];
+    int32 mType    = 4 [(gogoproto.moretags) = 'validate:"min=0"'];
+}
+
+message ModuleMixExtReply {
+    int64 total                    = 1;
+    repeated NativeMixtureExt list = 2 [(gogoproto.jsontag) = "list"];
+    int32 hasMore                  = 3 [(gogoproto.jsontag) = "has_more"];
+    int64 offset                   = 4 [(gogoproto.jsontag) = "offset"];
+}
+
+message ModuleMixExtsReq {
+    int64 moduleID = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+    int64 ps       = 2 [(gogoproto.moretags) = 'validate:"min=1,max=150"'];
+    int64 offset   = 3 [(gogoproto.moretags) = 'validate:"min=0"'];
+}
+
+message ModuleMixExtsReply {
+    int64 total                    = 1;
+    repeated NativeMixtureExt list = 2 [(gogoproto.jsontag) = "list"];
+    int32 hasMore                  = 3 [(gogoproto.jsontag) = "has_more"];
+    int64 offset                   = 4 [(gogoproto.jsontag) = "offset"];
+}
+
+message NativePage {
+    int64 ID            = 1 [(gogoproto.jsontag) = "id"];
+    string Title        = 2 [(gogoproto.jsontag) = "title"];
+    int64 Type          = 3 [(gogoproto.jsontag) = "type"];
+    int64 ForeignID     = 4 [(gogoproto.jsontag) = "foreign_id"];
+    int64 Stime         = 5 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    string Creator      = 6 [(gogoproto.jsontag) = "creator"];
+    string Operator     = 7 [(gogoproto.jsontag) = "operator"];
+    string ShareTitle   = 8 [(gogoproto.jsontag) = "share_title"];
+    string ShareImage   = 9 [(gogoproto.jsontag) = "share_image"];
+    string ShareURL     = 10 [(gogoproto.jsontag) = "share_url"];
+    int64 Ctime         = 11 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Mtime         = 12 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 State         = 13 [(gogoproto.jsontag) = "state"];
+    string SkipURL      = 14 [(gogoproto.jsontag) = "skip_url"];
+    string Spmid        = 15 [(gogoproto.jsontag) = "spmid"];
+    int64 RelatedUid    = 16 [(gogoproto.jsontag) = "related_uid"];
+    int64 Etime         = 17 [(gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int32 ActType       = 18 [(gogoproto.jsontag) = "act_type"];
+    int64 Hot           = 19 [(gogoproto.jsontag) = "hot"];
+    int64 DynamicID     = 20 [(gogoproto.jsontag) = "dynamic_id"];
+    int64 Attribute     = 21 [(gogoproto.jsontag) = "attribute"];
+    string PcURL        = 22 [(gogoproto.jsontag) = "pc_url"];
+    string AnotherTitle = 23 [(gogoproto.jsontag) = "another_title"];
+    string ShareCaption = 24 [(gogoproto.jsontag) = "share_caption"];
+    string BgColor      = 25 [(gogoproto.jsontag) = "bg_color"];
+    int32 FromType      = 26 [(gogoproto.jsontag) = "from_type"];
+    string Ver          = 27 [(gogoproto.jsontag) = "ver"];
+    string ConfSet      = 28 [(gogoproto.jsontag) = "conf_set"];
+    string ActOrigin    = 29 [(gogoproto.jsontag) = "act_origin"];
+    string OffReason    = 30 [(gogoproto.jsontag) = "off_reason"];
+    int64 FirstPid      = 31 [(gogoproto.jsontag) = "first_pid"];
+}
+
+//首页tab相关配置
+message ConfSet {
+    int32 BgType          = 1 [(gogoproto.jsontag) = "bg_type", json_name = "bg_type"];                    //背景配置模式 2:颜色 1:图片
+    string TabTopColor    = 2 [(gogoproto.jsontag) = "tab_top_color", json_name = "tab_top_color"];        //顶栏头部色值
+    string TabMiddleColor = 3 [(gogoproto.jsontag) = "tab_middle_color", json_name = "tab_middle_color"];  //中间色值
+    string TabBottomColor = 4 [(gogoproto.jsontag) = "tab_bottom_color", json_name = "tab_bottom_color"];  //tab栏底部色值
+    string FontColor      = 5 [(gogoproto.jsontag) = "font_color", json_name = "font_color"];              //tab文本高亮色值
+    int32 BarType         = 6 [(gogoproto.jsontag) = "bar_type", json_name = "bar_type"];                  //系统状态栏色值 1:白色 0:默认黑色
+    string BgImage1       = 7 [(gogoproto.jsontag) = "bg_image_1", json_name = "bg_image_1"];              //背景图1
+    string BgImage2       = 8 [(gogoproto.jsontag) = "bg_image_2", json_name = "bg_image_2"];              //背景图2                                                                                                          //0:无要求 1.解锁后展示
+    int32 DT              = 9 [(gogoproto.jsontag) = "dt", json_name = "dt"];                              //inline-tab组件 0:无要求 1.解锁后展示
+    int32 DC              = 10 [(gogoproto.jsontag) = "dc", json_name = "dc"];                             //inline-tab组件 0:无要求 1:时间 2.预约数据源
+    int32 UnLock          = 11 [(gogoproto.jsontag) = "un_lock", json_name = "un_lock"];                   //inline-tab组件 未解锁时 1:不展示 2:不可点
+    string Tip            = 12 [(gogoproto.jsontag) = "tip", json_name = "tip"];                           //inline-tab组件 提示文案
+    int64 Stime           = 13 [(gogoproto.jsontag) = "stime", json_name = "stime"];                       //inline-tab组件 开始时间
+}
+
+message NativeModule {
+    int64 ID          = 1 [(gogoproto.jsontag) = "id"];
+    int64 Category    = 2 [(gogoproto.jsontag) = "category"];
+    int64 Fid         = 3 [(gogoproto.jsontag) = "fid"];
+    int64 NativeID    = 4 [(gogoproto.jsontag) = "native_id"];
+    int64 State       = 5 [(gogoproto.jsontag) = "state"];
+    int64 Rank        = 6 [(gogoproto.jsontag) = "rank"];
+    string Meta       = 7 [(gogoproto.jsontag) = "meta"];
+    int64 Width       = 8 [(gogoproto.jsontag) = "width"];
+    int64 Length      = 9 [(gogoproto.jsontag) = "length"];
+    int64 Num         = 10 [(gogoproto.jsontag) = "num"];
+    string Title      = 11 [(gogoproto.jsontag) = "title"];
+    int64 Ctime       = 12 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Mtime       = 13 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int32 DySort      = 14 [(gogoproto.jsontag) = "dy_sort"];
+    string Ukey       = 15 [(gogoproto.jsontag) = "ukey"];
+    int64 Attribute   = 16 [(gogoproto.jsontag) = "attribute"];
+    string BgColor    = 17 [(gogoproto.jsontag) = "bg_color"];
+    string TitleColor = 18 [(gogoproto.jsontag) = "title_color"];
+    string MoreColor  = 19 [(gogoproto.jsontag) = "more_color"];
+    string TName      = 20 [(gogoproto.jsontag) = "t_name"];
+    int32 CardStyle   = 21 [(gogoproto.jsontag) = "card_style"];
+    int64 AvSort      = 22 [(gogoproto.jsontag) = "av_sort"];
+    string FontColor  = 23 [(gogoproto.jsontag) = "font_color"];
+    int32 PType       = 24 [(gogoproto.jsontag) = "p_type"];
+    string Caption    = 25 [(gogoproto.jsontag) = "caption"];
+    string Remark     = 26 [(gogoproto.jsontag) = "remark"];
+    string Bar        = 27 [(gogoproto.jsontag) = "bar"];
+    int64 Stime       = 28 [(gogoproto.jsontag) = "stime"];
+    int64 Etime       = 29 [(gogoproto.jsontag) = "etime"];
+    // 直播卡类型 0:隐藏卡片 1:直播间
+    int32 LiveType = 30 [(gogoproto.jsontag) = "live_type"];
+    string Colors  = 31 [(gogoproto.jsontag) = "Colors"];
+    //组件特定分类json
+    string ConfSort = 32 [(gogoproto.jsontag) = "conf_sort"];
+}
+
+message ConfSort {
+    //查看更多方式 0:跳转二级页面 1:浮层 2:下拉展示
+    int64 moreSort = 1 [(gogoproto.jsontag) = "more_sort"];
+    //精确到 0:年 1:月 2: 日 3:时 4:分 5:秒
+    int64 timeSort = 2 [(gogoproto.jsontag) = "time_sort"];
+    //时间轴节点类型 0:文本 1:时间节点
+    int64 axis = 3 [(gogoproto.jsontag) = "axis"];
+    //资源小卡外接数据源类型
+    int64 rdbType = 4 [(gogoproto.jsontag) = "rdb_type"];
+    //统计类型
+    string statType = 5 [(gogoproto.jsontag) = "stat_type"];
+    //干预数值
+    int64 interveNum = 6 [(gogoproto.jsontag) = "interve_num"];
+    //排序类型
+    string sort_type = 7;
+    //数据源类型
+    string source_type = 8;
+    //数据源id
+    int64 sid = 9;
+    //数据源统计规则counter
+    string counter = 10;
+    //提示
+    string hint = 11;
+    //互斥的组件ukey
+    repeated string m_ukeys = 12;
+    //按钮类型
+    string bt_type = 13;
+    //入站必刷类型
+    int32 msee_type = 14;
+    //投票组件-完成态图片
+    string image = 15;
+    //文本类型
+    int64 statement_type = 16;
+}
+
+message Colors {
+    //文字标题字体色
+    string displayColor = 1 [(gogoproto.jsontag) = "display_color"];
+    //标题背景色
+    string titleBgColor = 2 [(gogoproto.jsontag) = "title_bg_color"];
+    //选中色
+    string SelectColor = 3 [(gogoproto.jsontag) = "select_color"];
+    //未选中色
+    string NotSelectColor = 4 [(gogoproto.jsontag) = "not_select_color"];
+    //展开面板背景色
+    string PanelBgColor = 5 [(gogoproto.jsontag) = "panel_bg_color"];
+    //展开面板选中色
+    string PanelSelectColor = 6 [(gogoproto.jsontag) = "panel_select_color"];
+    //展开面板未选中色
+    string PanelNotSelectColor = 7 [(gogoproto.jsontag) = "panel_not_select_color"];
+    //时间轴色
+    string timelineColor = 8 [(gogoproto.jsontag) = "timeline_color"];
+    //浮层标题文字色
+    string supernatantColor = 9 [(gogoproto.jsontag) = "supernatant_color"];
+    //副标题文字色-三列   推荐语文字色-单列
+    string subtitleColor = 10 [(gogoproto.jsontag) = "subtitle_color"];
+}
+
+message MixReason {
+    //时间轴组件-时间控件
+    int64 stime = 1 [(gogoproto.jsontag) = "stime"];
+    //时间轴组件-主标题
+    string title = 2 [(gogoproto.jsontag) = "title"];
+    //时间轴组件-副标题
+    string subTitle = 3 [(gogoproto.jsontag) = "sub_title"];
+    //时间轴组件-描述
+    string desc = 4 [(gogoproto.jsontag) = "desc"];
+    //时间轴组件-图片&&推荐用户排行榜icon
+    string image = 5 [(gogoproto.jsontag) = "image"];
+    //时间轴组件-跳转连接
+    string url = 6 [(gogoproto.jsontag) = "url"];
+    //时间轴组件-阶段名
+    string name = 7 [(gogoproto.jsontag) = "name"];
+    //时间轴组件-图片宽
+    int32 width = 8 [(gogoproto.jsontag) = "width"];
+    //时间轴组件-图片长
+    int32 length = 9 [(gogoproto.jsontag) = "length"];
+    //inline-tab&筛选组件-定位类型 week:每周必卡
+    string type = 10 [(gogoproto.jsontag) = "type"];
+    //inline-tab&筛选组件-定位类型 type=week：每周必看期数id
+    string locationKey = 11 [(gogoproto.jsontag) = "location_key"];
+    //inline-tab组件未解锁态图片
+    ImageComm unI = 12 [(gogoproto.jsontag) = "un_i"];
+    //inline-tab组件选中态图片
+    ImageComm sI = 13 [(gogoproto.jsontag) = "si"];
+    //inline-tab组件未选中态图片
+    ImageComm unSI = 14 [(gogoproto.jsontag) = "un_si"];
+    //inline-tab&筛选组件 默认tab定时生效开始时间
+    int64 DStime = 15 [(gogoproto.jsontag) = "d_stime,omitempty"];
+    //inline-tab&筛选组件  默认tab定时生效结束时间
+    int64 DEtime = 16 [(gogoproto.jsontag) = "d_etime,omitempty"];
+    //inline-tab&筛选组件 默认tab选择模式 0:无需处理 1:默认生效 2:定时生效
+    int32 DefType = 17 [(gogoproto.jsontag) = "def_type,omitempty"];
+}
+
+message ImageComm {
+    string image = 1 [(gogoproto.jsontag) = "image"];
+    int32 width  = 2 [(gogoproto.jsontag) = "width"];
+    int32 height = 3 [(gogoproto.jsontag) = "height"];
+}
+message NativeAct {
+    int64 ID       = 1 [(gogoproto.jsontag) = "id"];
+    int64 ModuleID = 2 [(gogoproto.jsontag) = "module_id"];
+    int64 State    = 3 [(gogoproto.jsontag) = "state"];
+    int64 PageID   = 4 [(gogoproto.jsontag) = "page_id"];
+    int64 Rank     = 5 [(gogoproto.jsontag) = "rank"];
+    int64 Ctime    = 8 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Mtime    = 9 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message NativeClick {
+    int64 ID               = 1 [(gogoproto.jsontag) = "id"];
+    int64 ModuleID         = 2 [(gogoproto.jsontag) = "module_id"];
+    int64 State            = 3 [(gogoproto.jsontag) = "state"];
+    int64 Leftx            = 4 [(gogoproto.jsontag) = "left_x"];
+    int64 Lefty            = 5 [(gogoproto.jsontag) = "left_y"];
+    int64 Width            = 6 [(gogoproto.jsontag) = "width"];
+    int64 Length           = 7 [(gogoproto.jsontag) = "length"];
+    string Link            = 8 [(gogoproto.jsontag) = "link"];
+    int64 Ctime            = 9 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Mtime            = 10 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Type             = 11 [(gogoproto.jsontag) = "type"];
+    int64 ForeignID        = 12 [(gogoproto.jsontag) = "foreign_id"];
+    string UnfinishedImage = 13 [(gogoproto.jsontag) = "unfinished_image"];
+    string FinishedImage   = 14 [(gogoproto.jsontag) = "finished_image"];
+    string Tip             = 15 [(gogoproto.jsontag) = "tip"];
+    string OptionalImage   = 16 [(gogoproto.jsontag) = "optional_image"];
+    string Ext             = 17 [(gogoproto.jsontag) = "ext"];
+}
+
+message Image {
+    string image = 1;
+    int64 width  = 2;
+    int64 height = 3;
+    int64 size   = 4;
+}
+
+message ClickTip {
+    string top_color   = 1;
+    string title       = 2;
+    string title_color = 3;
+    // 字体大小
+    int64 font_size = 4;
+    // 字体颜色
+    string font_color = 5;
+    // 数值
+    int64 num = 6;
+    // 统计类型
+    string stat_type = 7;
+    // 干预数值
+    int64 interve_num = 8;
+    // 字体类型：normal 正常；bold 加粗
+    string font_type = 9;
+    // 展示类型：num 数值；num_and_target 当前数值/目标值
+    string display_type = 10;
+    //进度条-任务统计-活动名
+    string activity = 11;
+    //进度条-任务统计-counter名
+    string counter = 12;
+    //自定义点击组件-静态进度条数据源类型 0:用户积分统计 1:活动报名量 2:任务统计 3:抽奖数量
+    int32 pSort = 13;
+    //进度条-抽奖数据源-抽奖id
+    string lotteryID = 14;
+    //进度条-任务统计：统计周期 单日:daily 累计：total
+    string statPc = 15;
+    //节点id
+    int64 node_id = 16;
+    //节点组id
+    int64 group_id = 17;
+    //展示模式：0 无要求 1 解锁后展示
+    int64 display_mode = 18;
+    //解锁条件：0 无要求；1 时间；2 预约/积分进度
+    int64 unlock_condition = 19;
+    //时间解锁-开始时间
+    int64 stime = 20;
+}
+
+message OptionItem {
+    string bg_color = 1;
+}
+
+message ClickExt {
+    string layer_image    = 1;
+    string button_image   = 2;
+    Image share_image     = 3;
+    string style          = 4;
+    repeated Image images = 5;
+    //是否与悬浮按钮互通
+    bool syn_hover = 6;
+    //点击区域ukey
+    string ukey = 7;
+    //节点id
+    int64 node_id = 8;
+    //节点组id
+    int64 group_id = 9;
+    //展示模式：0 无要求 1 解锁后展示
+    int64 display_mode = 10;
+    //解锁条件：0 无要求；1 时间；2 预约/积分进度
+    int64 unlock_condition = 11;
+    //时间解锁-开始时间
+    int64 stime = 12;
+    //数据源id
+    int64 sid = 13;
+    //选项
+    repeated OptionItem items = 14;
+    //上传类型：0 上传；1 拍摄
+    int64 up_type = 15;
+}
+
+message NativeDynamicExt {
+    int64 ID         = 1 [(gogoproto.jsontag) = "id"];
+    int64 ModuleID   = 2 [(gogoproto.jsontag) = "module_id"];
+    int64 State      = 3 [(gogoproto.jsontag) = "state"];
+    int64 SelectType = 4 [(gogoproto.jsontag) = "select_type"];
+    int64 Ctime      = 5 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Mtime      = 6 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 ClassType  = 7 [(gogoproto.jsontag) = "class_type"];
+    int64 ClassID    = 8 [(gogoproto.jsontag) = "class_id"];
+}
+
+message NativeVideoExt {
+    int64 ID        = 1 [(gogoproto.jsontag) = "id"];
+    int64 ModuleID  = 2 [(gogoproto.jsontag) = "module_id"];
+    int64 State     = 3 [(gogoproto.jsontag) = "state"];
+    int64 SortType  = 4 [(gogoproto.jsontag) = "sort_type"];
+    int64 Rank      = 5 [(gogoproto.jsontag) = "rank"];
+    int64 Ctime     = 6 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Mtime     = 7 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    string SortName = 8 [(gogoproto.jsontag) = "sort_name"];
+    int64 Category  = 9 [(gogoproto.jsontag) = "category"];
+}
+
+message NativeMixtureExt {
+    int64 ID        = 1 [(gogoproto.jsontag) = "id"];
+    int64 ModuleID  = 2 [(gogoproto.jsontag) = "module_id"];
+    int64 State     = 3 [(gogoproto.jsontag) = "state"];
+    int64 ForeignID = 4 [(gogoproto.jsontag) = "foreign_id"];
+    int64 Rank      = 5 [(gogoproto.jsontag) = "rank"];
+    int64 Ctime     = 6 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Mtime     = 7 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int32 MType     = 8 [(gogoproto.jsontag) = "m_type"];
+    string Reason   = 9 [(gogoproto.jsontag) = "reason"];
+}
+
+message NativeParticipationExt {
+    int64 ID        = 1 [(gogoproto.jsontag) = "id"];
+    int64 ModuleID  = 2 [(gogoproto.jsontag) = "module_id"];
+    int64 State     = 3 [(gogoproto.jsontag) = "state"];
+    int32 MType     = 4 [(gogoproto.jsontag) = "m_type"];
+    string Image    = 5 [(gogoproto.jsontag) = "image"];
+    string Title    = 6 [(gogoproto.jsontag) = "title"];
+    int64 Rank      = 7 [(gogoproto.jsontag) = "rank"];
+    int64 ForeignID = 8 [(gogoproto.jsontag) = "foreign_id"];
+    int64 Ctime     = 9 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Mtime     = 10 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int32 UpType    = 11 [(gogoproto.jsontag) = "up_type"];
+    string Ext      = 12 [(gogoproto.jsontag) = "ext"];
+}
+
+message NativeActTab {
+    int64 ID             = 1 [(gogoproto.jsontag) = "id"];
+    string Title         = 2 [(gogoproto.jsontag) = "title"];
+    int64 Stime          = 3 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Etime          = 4 [(gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int32 State          = 5 [(gogoproto.jsontag) = "state"];
+    int64 Ctime          = 6 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Mtime          = 7 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int32 BgType         = 8 [(gogoproto.jsontag) = "bg_type"];
+    string BgImg         = 9 [(gogoproto.jsontag) = "bg_img"];
+    string BgColor       = 10 [(gogoproto.jsontag) = "bg_color"];
+    int32 IconType       = 11 [(gogoproto.jsontag) = "icon_type"];
+    string ActiveColor   = 12 [(gogoproto.jsontag) = "active_color"];
+    string InactiveColor = 13 [(gogoproto.jsontag) = "inactive_color"];
+}
+
+message NativeTabModule {
+    int64 ID           = 1 [(gogoproto.jsontag) = "id"];
+    string Title       = 2 [(gogoproto.jsontag) = "title"];
+    int64 TabID        = 3 [(gogoproto.jsontag) = "tab_id"];
+    int32 State        = 4 [(gogoproto.jsontag) = "state"];
+    int32 Category     = 5 [(gogoproto.jsontag) = "category"];
+    int64 Pid          = 6 [(gogoproto.jsontag) = "pid"];
+    int64 Ctime        = 7 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Mtime        = 8 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    string URL         = 9 [(gogoproto.jsontag) = "url"];
+    string ActiveImg   = 10 [(gogoproto.jsontag) = "active_img"];
+    string InactiveImg = 11 [(gogoproto.jsontag) = "inactive_img"];
+    int32 Rank         = 12 [(gogoproto.jsontag) = "rank"];
+}
+
+message NativeTsPage {
+    int64 id            = 1 [(gogoproto.jsontag) = "id"];
+    int64 ctime         = 4 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime         = 5 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 state         = 6 [(gogoproto.jsontag) = "state"];
+    int64 pid           = 8 [(gogoproto.jsontag) = "pid"];
+    string title        = 9 [(gogoproto.jsontag) = "title"];
+    int64 foreignID     = 10 [(gogoproto.jsontag) = "foreign_id"];
+    string videoDisplay = 11 [(gogoproto.jsontag) = "video_display"];
+    string auditType    = 12 [(gogoproto.jsontag) = "audit_type"];
+    int64 auditTime     = 13 [(gogoproto.jsontag) = "audit_time"];
+    string shareImage   = 14 [(gogoproto.jsontag) = "share_image"];
+    string template     = 15 [(gogoproto.jsontag) = "template"];
+}
+
+message NativePageSource {
+    // 自增id
+    int64 id = 1;
+    // native页id
+    int64 page_id = 2;
+    // 数据源id
+    int64 sid = 3;
+    // 投稿分区，以","相隔
+    string partitions = 4;
+    // 活动类型
+    int64 act_type = 5;
+    // 创建时间
+    int64 ctime = 6 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    // 修改时间
+    int64 mtime = 7 [(gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message NativeTsModule {
+    int64 id        = 1 [(gogoproto.jsontag) = "id"];
+    int64 category  = 2 [(gogoproto.jsontag) = "category"];
+    int64 tsID      = 3 [(gogoproto.jsontag) = "ts_id"];
+    int64 state     = 4 [(gogoproto.jsontag) = "state"];
+    int64 rank      = 5 [(gogoproto.jsontag) = "rank"];
+    string meta     = 6 [(gogoproto.jsontag) = "meta"];
+    int64 width     = 7 [(gogoproto.jsontag) = "width"];
+    int64 length    = 8 [(gogoproto.jsontag) = "length"];
+    int64 ctime     = 9 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime     = 10 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    string remark   = 11 [(gogoproto.jsontag) = "remark"];
+    int32 pType     = 12 [(gogoproto.jsontag) = "p_type"];
+    string ukey     = 13 [(gogoproto.jsontag) = "ukey"];
+    int64 num       = 14 [(gogoproto.jsontag) = "num"];
+    int64 attribute = 15 [(gogoproto.jsontag) = "attribute"];
+}
+
+message NativeTsModuleResource {
+    int64 id            = 1 [(gogoproto.jsontag) = "id"];
+    int64 moduleID      = 2 [(gogoproto.jsontag) = "module_id"];
+    int64 resourceID    = 3 [(gogoproto.jsontag) = "resource_id"];
+    int64 resourceType  = 4 [(gogoproto.jsontag) = "resource_type"];
+    int64 rank          = 5 [(gogoproto.jsontag) = "rank"];
+    string resourceFrom = 6 [(gogoproto.jsontag) = "resource_from"];
+    int64 state         = 7 [(gogoproto.jsontag) = "state"];
+    int64 ctime         = 8 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime         = 9 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    string ext          = 10 [(gogoproto.jsontag) = "ext"];
+}
+
+message NativePageDyn {
+    int64 id           = 1 [(gogoproto.jsontag) = "id"];
+    int64 pid          = 2 [(gogoproto.jsontag) = "pid"];
+    int64 ctime        = 3 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime        = 4 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 stime        = 5 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 validity     = 6 [(gogoproto.jsontag) = "validity"];
+    string squareTitle = 7 [(gogoproto.jsontag) = "square_title"];
+    string smallCard   = 8 [(gogoproto.jsontag) = "small_card"];
+    string bigCard     = 9 [(gogoproto.jsontag) = "big_card"];
+    string tids        = 10 [(gogoproto.jsontag) = "tids"];
+    string dynamic     = 11 [(gogoproto.jsontag) = "dynamic"];
+    int64 dyn_id       = 12 [(gogoproto.jsontag) = "dyn_id"];
+}
+
+message NativePageExtend {
+    int64 id          = 1 [(gogoproto.jsontag) = "id"];
+    int64 pid         = 2 [(gogoproto.jsontag) = "pid"];
+    int64 ctime       = 3 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime       = 4 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    string whiteValue = 5 [(gogoproto.jsontag) = "white_value"];
+}
+
+message SponsorNativePagesReq {
+    repeated int64 uids = 1 [(gogoproto.moretags) = 'validate:"min=1,max=500,dive,min=1"'];
+    int64 mid           = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message SponsorNativePagesReply {
+    repeated SponsorNativePage list = 1 [(gogoproto.jsontag) = "list", json_name = "list"];
+}
+message GetNatProgressParamsReq {
+    int64 pageID = 1 [(gogoproto.moretags) = 'validate:"required,min=1"'];
+}
+
+message GetNatProgressParamsReply {
+    repeated ProgressParam list = 1 [(gogoproto.jsontag) = "list"];
+}
+
+message ProgressParam {
+    int64 id          = 1 [(gogoproto.jsontag) = "id"];
+    int64 pageID      = 2 [(gogoproto.jsontag) = "page_id"];
+    int64 sid         = 3 [(gogoproto.jsontag) = "sid"];
+    int64 dimension   = 4 [(gogoproto.jsontag) = "dimension"];
+    string ruleIDName = 5 [(gogoproto.jsontag) = "rule_id_name"];
+    int64 ruleID      = 6 [(gogoproto.jsontag) = "rule_id"];
+    string ruleName   = 7 [(gogoproto.jsontag) = "rule_name"];
+    string webKey     = 8 [(gogoproto.jsontag) = "web_key"];
+    string type       = 9 [(gogoproto.jsontag) = "type"];
+    string StatType   = 10 [(gogoproto.jsontag) = "stat_type"];
+    int64 InterveNum  = 11 [(gogoproto.jsontag) = "interve_num"];
+    int64 groupID     = 12 [(gogoproto.jsontag) = "group_id"];
+}
+
+message SponsorNativePage {
+    int64 ID         = 1 [(gogoproto.jsontag) = "id"];
+    int64 ForeignID  = 2 [(gogoproto.jsontag) = "foreign_id"];
+    int64 RelatedUid = 3 [(gogoproto.jsontag) = "related_uid"];
+    int64 Stime      = 4 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message ActPage {
+    repeated ActPageItem list = 1;
+}
+
+message ActPageItem {
+    int64 pageID = 1 [(gogoproto.jsontag) = "page_id"];
+}
+
+message NativeAllPagesReq {
+    repeated int64 pids = 1 [(gogoproto.moretags) = 'validate:"min=1,max=100,dive,min=1"'];
+}
+
+message NativeAllPagesReply {
+    map<int64, NativePage> list = 1 [(gogoproto.jsontag) = 'list'];
+}
+
+message SpaceSyncSettingReq {
+    // 用户mid
+    int64 mid = 1 [(gogoproto.moretags) = 'validate:"min=1"'];
+    // 访问的页面id
+    int64 page_id = 2 [(gogoproto.moretags) = 'validate:"min=1"'];
+}
+
+message SpaceSyncSettingReply {
+    // 空间按钮：为空不展示；personal_page 个人空间； exclusive_page 空间专属页；
+    string spaceButton = 1 [(gogoproto.jsontag) = "space_button", json_name = "space_button"];
+}
+
+message NativeUserSpace {
+    int64 id            = 1;
+    int64 mid           = 2;
+    string title        = 3;
+    int64 page_id       = 4;
+    int64 display_space = 5;
+    string state        = 6;
+    int64 ctime         = 7 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 mtime         = 8 [(gogoproto.casttype) = "go-common/library/time.Time"];
+}
+
+message NativeAllPageCardsReq {
+    repeated int64 pids = 1 [(gogoproto.moretags) = 'validate:"min=1,max=50,dive,min=1"'];
+}
+
+message NativeAllPageCardsReply {
+    map<int64, NativePageCard> list = 1 [(gogoproto.jsontag) = "list"];
+}
+
+// NativeParticipationExt.Ext
+message PartiExt {
+    // 新话题id
+    int64 new_tid = 1;
+}

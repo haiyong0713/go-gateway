@@ -1,0 +1,84 @@
+[log]
+    dir = "/tmp/log/esports/"
+[bm]
+    addr = "0.0.0.0:8000"
+    timeout = "10s"
+
+[permit]
+    managerHost = "http://manager.bilibili.co"
+    dashboardHost = "http://dashboard-mng.bilibili.co"
+    dashboardCaller = "manager-go"
+    [permit.DsHTTPClient]
+        key = "manager-go"
+        secret = "949bbb2dd3178252638c2407578bc7ad"
+        dial = "1s"
+        timeout = "1s"
+        keepAlive = "60s"
+    [permit.MaHTTPClient]
+        key = "f6433799dbd88751"
+        secret = "36f8ddb1806207fe07013ab6a77a3935"
+        dial = "1s"
+        timeout = "1s"
+        keepAlive = "60s"
+    [permit.session]
+        sessionIDLength = 32
+        cookieLifeTime = 1800
+        cookieName = "mng-go"
+        domain = ".bilibili.co"
+    [permit.session.Memcache]
+        name = "go-business/auth"
+        proto = "tcp"
+        addr = "127.0.0.1:11211"
+        active = 10
+        idle = 10
+        dialTimeout = "1s"
+        readTimeout = "1s"
+        writeTimeout = "1s"
+        idleTimeout = "80s"
+
+[rule]
+    maxCSVRows = 1000
+    maxAutoRows = 50
+    maxBatchArcLimit = 10
+    maxTreeContests = 32
+    maxGuessStake = 10
+    matchFixLimit = 600
+
+
+[[gameTypes]]
+    id = 1
+    name = "LOL"
+[[gameTypes]]
+    id = 2
+    name = "DOTA2"
+[[gameTypes]]
+    id = 3
+    name = "OWL"
+
+
+[S10CoinCfg]
+    seasonid = 122
+    GameState = 3
+
+[tunnelPush]
+    tunnelBizID = 1006
+    templateID = 31002
+    link = "https://live.bilibili.com/%d?from=29009&extra_jump_from=29009"
+
+[RankingDataWatch]
+    InterventionCacheKey = "esport:score:ranking:data:intervention"
+
+[tunnelBGroup]
+    tunnelBizID = 1006
+    newBusiness = "esports"
+    newTemplateID = 61010
+    newCardText = "去观看"
+    link = "https://live.bilibili.com/%d?from=29009&extra_jump_from=29009"
+    sendNew = 1
+    newCardLiveID = 2
+
+[TunnelV2Client]
+    timeout = "500ms"
+
+[EspClient]
+  timeout = "500ms"

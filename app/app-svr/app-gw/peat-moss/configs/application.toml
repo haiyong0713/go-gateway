@@ -1,0 +1,11 @@
+# This is a TOML document. Boom~
+[MossConfigLoader]
+Enable = true
+Token = "64uFZyx89P2wVeU9"
+Host = "http://uat-bcs.bilibili.co"
+[MossConfigLoader.HTTPClient]
+key = "e7482d29be4a95b8"
+secret = "9e803791cdef756e75faee68e12b7442"
+dial = "200ms"
+timeout = "800ms"
+keepAlive = "60s"

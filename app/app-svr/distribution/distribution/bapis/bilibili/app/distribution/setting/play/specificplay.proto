@@ -1,0 +1,19 @@
+syntax = "proto3";
+package bilibili.app.distribution.play.v1;
+import "bilibili/app/distribution/distribution.proto";
+import "bilibili/app/distribution/options.proto";
+
+// 精确到 aid 和 cid 纬度的播放配置项
+option go_package = "git.bilibili.co/bapis/bapis-go/bilibili/app/distribution/setting/play;play";
+option java_package = "com.bapis.bilibili.app.distribution.setting.play";
+option java_multiple_files = true;
+option objc_class_prefix = "BAPIAppDistributionSettingPlay";
+option (bilibili.app.distribution.v1.preference) = "SpecificPlayConfig";
+option (bilibili.app.distribution.v1.feature) = "mid";
+option (bilibili.app.distribution.v1.feature) = "aid";
+option (bilibili.app.distribution.v1.feature) = "cid";
+
+message SpecificPlayConfig {
+    //对于某个视频用户是否打开了分段章节常驻开关
+    bilibili.app.distribution.v1.BoolValue enableSegmentedSection = 1 [(bilibili.app.distribution.v1.default_value) = { bool_value: true }];
+}

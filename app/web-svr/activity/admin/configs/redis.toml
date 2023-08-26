@@ -1,0 +1,42 @@
+[redis]
+name = "activity-admin"
+proto = "tcp"
+addr = "10.23.4.117:6379"
+idle = 64
+active = 1024
+dialTimeout = "1s"
+readTimeout = "1s"
+writeTimeout = "1s"
+idleTimeout = "80s"
+expire = "10s"
+[redis.cache]
+        name = "activity-service"
+        proto = "tcp"
+        addr = "10.23.4.117:6379"
+        idle = 64
+        active = 1024
+        dialTimeout = "50ms"
+        readTimeout = "200ms"
+        writeTimeout = "200ms"
+        idleTimeout = "80s"
+    [redis.store]
+        name = "activity-service"
+        proto = "tcp"
+        addr = "10.23.4.117:6379"
+        idle = 64
+        active = 1024
+        dialTimeout = "50ms"
+        readTimeout = "200ms"
+        writeTimeout = "200ms"
+        idleTimeout = "80s"
+
+[S10PointShopRedis]
+    name = "activity-service"
+    proto = "tcp"
+    addr = "10.23.4.117:6379"
+    idle = 64
+    active = 1024
+    dialTimeout = "50ms"
+    readTimeout = "250ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"

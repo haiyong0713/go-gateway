@@ -1,0 +1,22 @@
+[Host]
+Dynamic   = "http://uat-api.vc.bilibili.co"
+
+[ExtraDB]
+    name = "172.16.33.205:3310"
+    dsn = "archive_extra:@tcp(172.16.33.205:3310)/archive_extra?timeout=200ms&readTimeout=200ms&writeTimeout=200ms&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+    idle = 1
+    idleTimeout ="4h"
+    queryTimeout = "150ms"
+    execTimeout = "100ms"
+    tranTimeout = "200ms"
+
+[httpClient]
+key = "6a29f8ed87407c11"
+secret = "d3c5a85f5b895a03735b5d20a273bc57"
+dial      = "100ms"
+timeout   = "500ms"
+keepAlive = "60s"
+
+[redis]
+

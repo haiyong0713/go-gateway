@@ -1,0 +1,8 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package app.feed.ng.clarify.job.v1;
+option go_package = "api";
+
+service AppFeedNGClarifyJob {
+  rpc Ping(.google.protobuf.Empty) returns (.google.protobuf.Empty);
+}

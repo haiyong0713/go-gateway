@@ -1,0 +1,44 @@
+syntax = "proto3";
+package bilibili.app.distribution.other.v1;
+import "bilibili/app/distribution/distribution.proto";
+import "bilibili/app/distribution/options.proto";
+import "bilibili/extension/crane/crane.proto";
+
+option go_package = "git.bilibili.co/bapis/bapis-go/bilibili/app/distribution/setting/other;other";
+option java_package = "com.bapis.bilibili.app.distribution.setting.other";
+option java_multiple_files = true;
+option objc_class_prefix = "BAPIAppDistributionSettingOther";
+option (bilibili.extension.crane.bili_grpc_host) = "main.grpc.bilibili.com";
+option (bilibili.app.distribution.v1.preference) = "OtherSettingsConfig";
+
+message OtherSettingsConfig {
+    // 动态图片水印
+    bilibili.app.distribution.v1.Int64Value watermarkType = 1 [(bilibili.app.distribution.v1.refenum) = "WatermarkType", (bilibili.app.distribution.v1.default_value) = { int64_value: 1 }];
+    enum WatermarkType {
+        WT_UNKNOW = 0;
+        None = 1;         // 不启用
+        Center = 2;       // 图片中部
+        BottomRight = 3;  // 图片右下角
+    }
+
+    // 默认图片质量
+    bilibili.app.distribution.v1.Int64Value webImageQualityType = 2 [(bilibili.app.distribution.v1.refenum) = "WebImageQualityType", (bilibili.app.distribution.v1.default_value) = { int64_value: 0 }];
+    enum WebImageQualityType {
+        High = 0;  // 高清，以 0 开始
+        Low = 1;   // 普通
+        Auto = 2;  // 自动
+    }
+
+    // 允许读取剪贴板
+    bilibili.app.distribution.v1.BoolValue enableReadPasteboard = 3 [(bilibili.app.distribution.v1.default_value) = { bool_value: true }];
+    // 剪贴板自动跳转
+    bilibili.app.distribution.v1.BoolValue pasteAutoJump = 4 [(bilibili.app.distribution.v1.default_value) = { bool_value: true }];
+    // 退出详情页以后默认小窗播放
+    bilibili.app.distribution.v1.BoolValue miniScreenPlayWhenBack = 5 [(bilibili.app.distribution.v1.default_value) = { bool_value: true }];
+    // 首页是否显示续播弹框
+    bilibili.app.distribution.v1.BoolValue enableResumePlaying = 6 [(bilibili.app.distribution.v1.default_value) = { bool_value: true }];
+    // WiFi下自动准备安装包
+    bilibili.app.distribution.v1.BoolValue enableWifiAutoUpdate = 7 [(bilibili.app.distribution.v1.default_value) = { bool_value: true }];
+    // 截屏引导分享
+    bilibili.app.distribution.v1.BoolValue enableGuideScreenshotShare = 8 [(bilibili.app.distribution.v1.default_value) = { bool_value: true }];
+}

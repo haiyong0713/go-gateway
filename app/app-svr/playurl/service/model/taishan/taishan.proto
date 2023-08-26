@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "taishan";
+
+message PlayConf {
+    // true:展示(0也是展示) false:隐藏
+    bool show = 1;
+    FieldValue field_value = 2;
+}
+
+message PlayConfs {
+    map<int64,PlayConf>  play_confs = 1;
+}
+
+message FieldValue {
+  oneof value {
+     bool switch= 1; //保存特定字断
+  }
+}

@@ -1,0 +1,27 @@
+package task
+
+import (
+	"context"
+	{{range $pbAlias, $pbPath := .TaskInfo.ImportPb -}}
+	{{$pbAlias}} "{{$pbPath}}"
+	{{end}}
+)
+
+func (p *TaskFlow) {{.TaskInfo.Name}}(ctx context.Context
+         {{- range $listId, $taskInputInfo := .TaskInfo.InputList -}}
+         , {{$taskInputInfo.Name}} *{{$taskInputInfo.ParamType}}
+         {{- end -}}
+         ) ({{.TaskInfo.OutputInfo.Name}} *{{.TaskInfo.OutputInfo.ReturnType}}, err error) {
+	{{.TaskInfo.OutputInfo.Name}} = &{{.TaskInfo.OutputInfo.ReturnType}}{}
+
+    {{range $listId, $rule := .TaskInfo.MappingRule -}}
+    {{ if ne $rule.SrcObject "" -}}
+    if {{$rule.SrcObject}} != nil {
+        {{$.TaskInfo.OutputInfo.Name}}.{{$rule.To}} = {{$rule.From}}
+    }
+    {{ else -}}
+    {{$.TaskInfo.OutputInfo.Name}}.{{$rule.To}} = {{$rule.From}}
+    {{ end -}}
+    {{ end }}
+	return
+}

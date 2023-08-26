@@ -1,0 +1,28 @@
+periodics:
+  - interval: 30m
+    cluster: jsy
+    name: periodics-<<repo>>-label-sync
+    spec:
+      containers:
+        - image: go-label-sync
+          args:
+          - --id=$(BUILD_ID)
+          - --job=$(JOB_NAME)
+          - --root=/root
+          - --repo=git.bilibili.co/<<group>>/<<repo>>
+          - --command
+          - make
+          - label-update
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: oauth
+              mountPath: /etc/gitlab
+              readOnly: true
+      volumes:
+        - name: oauth
+          secret:
+            secretName: gitlab-oauth-token
+
+
+presubmits:
+  <<group>>/<<repo>>:

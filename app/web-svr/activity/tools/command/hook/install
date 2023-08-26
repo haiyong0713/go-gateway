@@ -1,0 +1,149 @@
+#!/bin/sh
+
+pwd=`pwd`
+cd `dirname $0`
+hookRoot=`pwd`
+
+# 检查$GOPATH/BIN
+gobin=`go env GOPATH`
+gobin=$gobin/bin
+array=(${PATH//:/ })
+find=0
+for var in ${array[@]}
+do
+    if [ "$var" = "$gobin" ]; then
+        find=1
+    fi
+done
+if [ "$find" = "0" ]; then
+    echo "请将 $gobin 设置到环境变量 PATH 中，再重新执行 $0"
+    exit 1
+fi
+
+# 检查go代理
+proxy=`go env GOPROXY`
+if [[ "$proxy" =~ "https://goproxy.bilibili.com" ]]; then
+    if [ "$2" != "-y" -a "$proxy" != "https://proxy.golang.org,direct" ]; then
+        echo "GOPROXY已设置为 $proxy ，是否覆盖为http://goproxy.bilibili.co,https://goproxy.cn,direct? y/n(y)"
+        read y
+    else
+        y="y"
+    fi
+    if [ "$y" = "y" -o "$y" = "Y" -o "$y" = "" ]; then
+        go env -w GONOPROXY=\*\*.bilibili.com\*\*
+        if [ $? -ne 0 ]; then
+            exit 1
+        fi
+        go env -w GOPROXY=http://goproxy.bilibili.co,https://goproxy.cn,direct
+        if [ $? -ne 0 ]; then
+            exit 1
+        fi
+        go env -w GONOSUMDB=\*
+        if [ $? -ne 0 ]; then
+            exit 1
+        fi
+    fi
+fi
+
+# 安装依赖
+cd /tmp
+
+p=`which goimports`
+if [ "$p" = "" ]; then
+    echo install goimports
+    go get golang.org/x/tools/cmd/goimports
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+fi
+
+p=`which golint`
+if [ "$p" = "" ]; then
+    echo install golint
+    go get golang.org/x/lint/golint
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+fi
+
+cd $pwd
+if [ "$1" = "-l" ];then
+    # 单项目安装
+    root=`git rev-parse --show-toplevel`
+    if [ "$root" = "" ];then
+        exit 1
+    fi
+
+    echo install hook on $root
+else
+    root=`git rev-parse --show-toplevel 2>/dev/null`
+    # 全局安装
+    tpl=`git config --global init.templatedir`
+    if [ "$tpl" != "$hookRoot/git" -a "$tpl" != "" ];then
+        if [ "$2" != "-y" ];then
+            echo "git init.templatedir 已配置为 $tpl ，是否覆盖? y/n(y)"
+            read y
+            if [ "$y" != "y" -a "$y" != "Y" -a "$y" != "" ]; then
+                exit 1
+            fi
+        fi
+    fi
+    if [ "$tpl" != "$hookRoot/git" ];then
+        git config --global init.templatedir $hookRoot/git
+        if [ $? -ne 0 ]; then
+            exit 1
+        fi
+    fi
+fi
+
+if [ "$root" != "" ];then
+    # 更新hook文件
+    if [ "$2" != "-y" ];then
+        if [ -f "$root/.git/hooks/post-commit" ];then
+            echo "$root/.git/hooks/post-commit已存在，是否覆盖? y/n(y)"
+            read y
+            if [ "$y" != "y" -a "$y" != "Y" -a "$y" != "" ]; then
+                exit 1
+            fi
+        fi
+    fi
+    #cp $hookRoot/git/hooks/post-commit $root/.git/hooks/
+
+    if [ "$2" != "-y" ];then
+        if [ -f "$root/.git/hooks/pre-commit" ];then
+            echo "$root/.git/hooks/pre-commit已存在，是否覆盖? y/n(y)"
+            read y
+            if [ "$y" != "y" -a "$y" != "Y" -a "$y" != "" ]; then
+                exit 1
+            fi
+        fi
+    fi
+    cp $hookRoot/git/hooks/pre-commit $root/.git/hooks/
+else
+    if [ "$1" != "-l" ]; then
+        if [ "$2" != "-y" ];then
+            echo "是否对 $pwd 下所有公司内部go项目升级hook机制y/n(y)"
+            read y
+        else
+            y="y"
+        fi
+        if [ "$y" = "y" -o "$y" = "Y" -o "$y" = "" ]; then
+            # 对子目录git项目升级
+            for dir in $(find $pwd -name .git)
+            do
+                dir=`dirname $dir`
+                cd $dir
+                remote=`git remote get-url origin`
+                if [[ $remote =~ "git.bilibili.co" ]]; then
+                    goFile=`find $dir -name "*.go" | head -n 1`
+                    if [ "$goFile" != "" ]; then
+                        cp $hookRoot/git/hooks/pre-commit $dir/.git/hooks/
+                        echo "$dir 升级成功!"
+                    fi
+                fi
+            done
+        fi
+    fi
+fi
+
+echo git hook initialize finish!

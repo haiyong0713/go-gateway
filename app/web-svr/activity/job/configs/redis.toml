@@ -1,0 +1,93 @@
+[redis]
+name = "activity-job"
+proto = "tcp"
+addr = "10.23.4.117:6379"
+idle = 16
+active = 1024
+dialTimeout = "30ms"
+readTimeout = "200ms"
+writeTimeout = "200ms"
+idleTimeout = "80s"
+expire = "10s"
+ImgUpExpire = "48h"
+StupidExpire = "72h"
+TaskStateExpire = "24h"
+taskDataExpire = "86400m"
+rankDataExpire = "86400m"
+[redis.cache]
+        name = "activity-service"
+        proto = "tcp"
+        addr = "10.23.4.117:6379"
+        idle = 16
+        active = 1024
+        dialTimeout = "50ms"
+        readTimeout = "200ms"
+        writeTimeout = "200ms"
+        idleTimeout = "80s"
+    [redis.store]
+        name = "activity-service"
+        proto = "tcp"
+        addr = "10.23.4.117:6379"
+        idle = 16
+        active = 1024
+        dialTimeout = "50ms"
+        readTimeout = "200ms"
+        writeTimeout = "200ms"
+        idleTimeout = "80s"
+
+[Redis]
+    name = "activity-job"
+    proto = "tcp"
+    addr = "10.23.4.117:6379"
+    idle = 16
+    active = 1024
+    dialTimeout = "30ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+[GuRedis]
+    name = "activity-job"
+    proto = "tcp"
+    addr = "10.23.4.117:6379"
+    idle = 16
+    active = 1024
+    dialTimeout = "30ms"
+    readTimeout = "200ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+    UserExpire = "720h"
+    ListExpire = "720h"
+
+[S10PointShopRedis]
+    name = "activity-service"
+    proto = "tcp"
+    addr = "10.23.4.117:6379"
+    idle = 16
+    active = 1024
+    dialTimeout = "50ms"
+    readTimeout = "250ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+
+[S10Redis]
+    name = "activity-service"
+    proto = "tcp"
+    addr = "10.23.4.117:6379"
+    idle = 16
+    active = 1024
+    dialTimeout = "50ms"
+    readTimeout = "250ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+
+[backup_mq]
+    name = "activity-service"
+    proto = "tcp"
+    addr = "10.23.4.117:6379"
+    idle = 2048
+    active = 4096
+    dialTimeout = "50ms"
+    readTimeout = "250ms"
+    writeTimeout = "200ms"
+    idleTimeout = "80s"
+

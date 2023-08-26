@@ -1,0 +1,4 @@
+{{range $discoveryId, $rpcClientInfo := .RpcClientMap -}}
+[{{$rpcClientInfo.ServiceName}}Service]
+    timeout = "{{$rpcClientInfo.Timeout}}"
+{{end}}

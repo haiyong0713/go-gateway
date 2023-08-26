@@ -1,0 +1,414 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "api.proto",
+        "version": "1"
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json",
+        "multipart/form-data"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/x/dance/game/create": {
+            "post": {
+                "summary": "/x/dance/game/create",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.dance_taiko.service.v1.CreateResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.dance_taiko.service.v1.CreateReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "dance_taiko.service.v1.dance_taiko"
+                ]
+            }
+        },
+        "/x/dance/game/current": {
+            "get": {
+                "summary": "/x/dance/game/current",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.dance_taiko.service.v1.CurrentResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "dance_taiko.service.v1.dance_taiko"
+                ]
+            }
+        },
+        "/x/dance/game/finish": {
+            "post": {
+                "summary": "/x/dance/game/finish",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.dance_taiko.service.v1.FinishReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "dance_taiko.service.v1.dance_taiko"
+                ]
+            }
+        },
+        "/x/dance/game/join": {
+            "post": {
+                "summary": "/x/dance/game/join",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.dance_taiko.service.v1.JoinResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.dance_taiko.service.v1.JoinReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "dance_taiko.service.v1.dance_taiko"
+                ]
+            }
+        },
+        "/x/dance/game/restart": {
+            "post": {
+                "summary": "/x/dance/game/restart",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.dance_taiko.service.v1.ReStartReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "dance_taiko.service.v1.dance_taiko"
+                ]
+            }
+        },
+        "/x/dance/game/start": {
+            "post": {
+                "summary": "/x/dance/game/start",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.google.protobuf.Empty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/.dance_taiko.service.v1.StartReq"
+                        }
+                    }
+                ],
+                "tags": [
+                    "dance_taiko.service.v1.dance_taiko"
+                ]
+            }
+        },
+        "/x/dance/game/status": {
+            "get": {
+                "summary": "/x/dance/game/status",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/.dance_taiko.service.v1.StatusResp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "game_id",
+                        "in": "query",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "dance_taiko.service.v1.dance_taiko"
+                ]
+            }
+        }
+    },
+    "definitions": {
+        ".dance_taiko.service.v1.CreateReq": {
+            "type": "object",
+            "properties": {
+                "aid": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "aid"
+            ]
+        },
+        ".dance_taiko.service.v1.CreateResp": {
+            "type": "object",
+            "properties": {
+                "game_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".dance_taiko.service.v1.CurrentResp": {
+            "type": "object",
+            "properties": {
+                "game_id": {
+                    "type": "integer"
+                },
+                "file_path": {
+                    "type": "string"
+                }
+            }
+        },
+        ".dance_taiko.service.v1.FinishReq": {
+            "type": "object",
+            "properties": {
+                "game_id": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "game_id"
+            ]
+        },
+        ".dance_taiko.service.v1.JoinReq": {
+            "type": "object",
+            "properties": {
+                "game_id": {
+                    "type": "integer"
+                },
+                "mid": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "game_id",
+                "mid"
+            ]
+        },
+        ".dance_taiko.service.v1.JoinResp": {
+            "type": "object",
+            "properties": {
+                "server_time": {
+                    "type": "integer"
+                },
+                "position": {
+                    "type": "integer"
+                }
+            }
+        },
+        ".dance_taiko.service.v1.PlayerStatus": {
+            "type": "object",
+            "properties": {
+                "mid": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "昵称"
+                },
+                "face": {
+                    "type": "string",
+                    "description": "头像"
+                },
+                "last_comment": {
+                    "type": "string",
+                    "description": "两次查询间，最近一次的成绩 perfect / good / ok / miss"
+                },
+                "points": {
+                    "type": "integer",
+                    "description": "当前总分，总分越高排序越高"
+                }
+            },
+            "description": "玩家的状态"
+        },
+        ".dance_taiko.service.v1.ReStartReq": {
+            "type": "object",
+            "properties": {
+                "game_id": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "game_id"
+            ]
+        },
+        ".dance_taiko.service.v1.StartReq": {
+            "type": "object",
+            "properties": {
+                "game_id": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "game_id"
+            ]
+        },
+        ".dance_taiko.service.v1.StatusReq": {
+            "type": "object",
+            "properties": {
+                "game_id": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "game_id"
+            ]
+        },
+        ".dance_taiko.service.v1.StatusResp": {
+            "type": "object",
+            "properties": {
+                "game_status": {
+                    "type": "string",
+                    "description": "status: joining, playing, ended"
+                },
+                "player_status": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/.dance_taiko.service.v1.PlayerStatus"
+                    }
+                }
+            }
+        },
+        ".google.protobuf.Empty": {
+            "type": "object",
+            "properties": {},
+            "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }\n\n The JSON representation for `Empty` is empty JSON object `{}`."
+        }
+    }
+}

@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package resource.service.v2;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "v2";
+
+message GetFrontPageConfigReq {
+  string ip = 1 [(gogoproto.moretags) = 'form:"ip" validate:"required"', (gogoproto.jsontag) = "ip", json_name = "ip"];
+  int64 resourceId = 2 [(gogoproto.moretags) = 'form:"resourceId" validate:"min=0"', (gogoproto.jsontag) = "resourceId", json_name = "resourceId"];
+}
+
+message FrontPageConfig {
+    int64 id = 1;
+    string name = 2;
+    string contractId = 3;
+    int64 resourceId = 4;
+    string pic = 5;
+    string litpic = 6;
+    string url = 7;
+    string rule = 8;
+    int64 weight = 9;
+    string agency = 10;
+    double price = 11;
+    State.Enum state = 12;
+    int32 atype = 13;
+    int64 stime = 14;
+    int64 etime = 15;
+    int32 isSplitLayer = 16;
+    string splitLayer = 17;
+    int64 locPolicyGroupId = 18;
+    int64 position = 19;
+    int32 auto = 20;
+    int64 ctime = 21;
+    string cuser = 22;
+    int64 mtime = 23;
+    string muser = 24;
+}
+
+message State {
+  enum Enum {
+    Normal = 0;
+    Offline = 1;
+    NotAudit = 2;
+    Deleted = -1;
+  }
+}

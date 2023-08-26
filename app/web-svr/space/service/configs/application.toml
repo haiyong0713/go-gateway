@@ -1,0 +1,8 @@
+spaceExpire = "24h"
+cacheRand = 600
+
+[spec]
+    livePlaybackWhitelist = "@every 3s"
+
+[settingNewUser]
+    timePoint = "2021-05-10 16:00:00"

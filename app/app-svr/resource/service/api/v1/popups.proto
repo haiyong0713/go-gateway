@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package resource.service.v1;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "v1";
+
+
+message PopUpsReq{
+    // mid
+    int64 mid = 1 [(gogoproto.jsontag) = "mid", json_name = "mid"];
+    // buvid
+    string buvid = 2 [(gogoproto.jsontag) = "buvid", json_name = "buvid"];
+    // 平台 1-iOS，2-Android
+    int32	plat = 3 [(gogoproto.jsontag) = "plat", json_name = "plat"];
+    // 版本
+    int32	build = 4 [(gogoproto.jsontag) = "build", json_name = "build"];
+}
+
+message PopUpsReply{
+    // 弹窗id
+    int64 id = 1 [(gogoproto.jsontag) = "id", json_name = "id"];
+    // 弹窗图片
+    string pic = 2 [(gogoproto.jsontag) = "pic", json_name = "pic"];
+    // ipad弹窗图片
+    string pic_ipad = 3 [(gogoproto.jsontag) = "pic_ipad", json_name = "pic_ipad"];
+    // 弹窗描述
+    string description = 4 [(gogoproto.jsontag) = "description", json_name = "description"];
+    // 跳转类型,-1为不跳转，1为URL，2为游戏小卡，3为稿件，4为PGC，5为直播，6为专栏，7为每日精选，8为歌单，9为歌曲，10为相簿，11为小视频
+    int32 link_type = 5 [(gogoproto.jsontag) = "link_type", json_name = "link_type"];
+    // 跳转链接,如果为空，则不存在跳转链接
+    string link = 6 [(gogoproto.jsontag) = "link", json_name = "link"];
+    // 自动隐藏类别,1为隐藏，2为不隐藏。暂时都是1
+    int32 auto_hide_status = 7 [(gogoproto.jsontag) = "auto_hide_status", json_name = "auto_hide_status"];
+    // 关闭时间
+    int64 close_time = 8 [(gogoproto.jsontag) = "close_time", json_name = "close_time"];
+    // 是否弹过,true为已弹出过，false为未弹出过，下发一次后置为true
+    bool is_poped = 9 [(gogoproto.jsontag) = "is_pop", json_name = "is_pop"];
+    // 青少年模式是否弹出,预留字段，-1为不弹出，1为弹出
+    int32 teenage_push = 10 [(gogoproto.jsontag) = "teenage_push", json_name = "teenage_push"];
+}

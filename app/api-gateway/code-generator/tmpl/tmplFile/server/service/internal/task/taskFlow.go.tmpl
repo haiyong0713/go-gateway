@@ -1,0 +1,58 @@
+package task
+
+import (
+    "context"
+    pb "git.bilibili.co/platform/{{.ProjectName}}/app/{{.ServicePath}}/service/api"
+    "git.bilibili.co/platform/{{.ProjectName}}/app/{{.ServicePath}}/service/internal/rpcClient"
+    bm "go-common/library/net/http/blademaster"
+    "sync"
+)
+
+
+func NewTaskFlow(ctx context.Context, rpcClient *rpcClient.Rpc, httpClient *bm.Client) (res *TaskFlow, err error) {
+    res = &TaskFlow{
+        TaskResultMap: make(map[string]*TaskResult),
+        Lock:          sync.RWMutex{},
+        WaitGroupMap:  make(map[string]*sync.WaitGroup),
+        RpcClient:     rpcClient,
+        HttpClient:    httpClient,
+    }
+    {{ range $listId, $taskInfo := .TaskFlowInfo.TaskList }}
+    res.WaitGroupMap["{{$taskInfo.Name}}"] = &sync.WaitGroup{}
+    res.WaitGroupMap["{{$taskInfo.Name}}"].Add(1)
+    {{- end }}
+    res.WaitGroupMap[".response"] = &sync.WaitGroup{}
+    res.WaitGroupMap[".response"].Add(1)
+    return
+}
+
+func (p *TaskFlow) Run(ctx context.Context, req *pb.{{.TaskFlowInfo.ServiceInputType}}) (res *pb.{{.TaskFlowInfo.ServiceOutputType}}, err error) {
+    p.__writeResult(ctx, ".request", req, nil)
+
+    {{range $flowId, $flowNode := .FlowNodeList -}}
+    {{ if not $flowNode.IsMainFlow -}}
+    go p.__flowNode{{$flowId}}(ctx)
+    {{ else -}}
+    p.__flowNode{{$flowId}}(ctx)
+    {{ end -}}
+    {{ end -}}
+
+    p.WaitGroupMap[".response"].Wait()
+
+    var result interface{}
+    if result, err = p.__readResult(ctx, ".response"); err != nil {
+        return
+    }
+
+    res = result.(*pb.{{.TaskFlowInfo.ServiceOutputType}})
+    return
+}
+
+{{range $flowId, $flowNode := .FlowNodeList}}
+func (p *TaskFlow) __flowNode{{$flowId}}(ctx context.Context) {
+    {{range $id, $taskName := $flowNode.TaskNodeList -}}
+    p.__taskNode{{$taskName}}(ctx)
+    {{end}}
+}
+{{end}}
+

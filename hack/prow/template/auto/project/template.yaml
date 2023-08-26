@@ -1,0 +1,135 @@
+
+    - name: <<repo>>-<<dir_alias>>-build
+      always_run: true
+      cluster: jsy
+      trusted_labels:
+        - area/<<dir>>
+      untrusted_labels:
+        - new-project/<<department>>
+      spec:
+        containers:
+          - image: go-1.12.4-golint-latest
+            imagePullPolicy: IfNotPresent
+            args:
+              - --id=$(BUILD_ID)
+              - --job=$(JOB_NAME)
+              - --root=/root/go/src
+              - --repo=git.bilibili.co/$(REPO_OWNER)/$(REPO_NAME)=$(PULL_REFS)
+              - --command
+              - ./hack/verify-build.sh
+              - app/<<dir>>
+            volumeMounts:
+              - name: modcache
+                mountPath: /root/go/pkg
+        volumes:
+          - name: modcache
+            hostPath:
+              path: /root/go/pkg
+    - name: <<repo>>-<<dir_alias>>-ecode
+      always_run: true
+      optional: false
+      cluster: jsy
+      trusted_labels:
+        - area/<<dir>>
+      untrusted_labels:
+        - new-project/<<department>>
+      spec:
+        containers:
+          - image: go-1.12.4-golint-latest
+            imagePullPolicy: IfNotPresent
+            args:
+              - --id=$(BUILD_ID)
+              - --job=$(JOB_NAME)
+              - --root=/root/go/src
+              - --repo=git.bilibili.co/$(REPO_OWNER)/$(REPO_NAME)=$(PULL_REFS)
+              - --command
+              - ./hack/verify-ecode.sh
+              - app/<<dir>>
+            volumeMounts:
+              - name: modcache
+                mountPath: /root/go/pkg
+        volumes:
+          - name: modcache
+            hostPath:
+              path: /root/go/pkg
+    - name: <<repo>>-<<dir_alias>>-test
+      always_run: true
+      optional: <<Optional>>
+      cluster: jsy
+      trusted_labels:
+        - area/<<dir>>
+      spec:
+        nodeSelector:
+          POOL: "PROW-TEST"
+        dnsPolicy: "None"
+        dnsConfig:
+          nameservers:
+            - 172.22.22.53
+            - 10.66.22.240
+            - 10.68.69.222
+        containers:
+          - image: dind-overlord
+            securityContext:
+              privileged: true
+            env:
+              - name: UNIT_TEST_ALL
+                value: <<UNIT_TEST_ALL>>
+              - name: DEPLOY_ENV
+                value: "uat"
+              - name: DOCKER_EXTRA_OPTS
+                value: "--config-file=/data/conf/daemon.json"
+              - name: PROW_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: gitlab-oauth-token
+                    key: oauth
+            imagePullPolicy: IfNotPresent
+            args:
+              - --id=$(BUILD_ID)
+              - --job=$(JOB_NAME)
+              - --root=/root/go/src
+              - --repo=git.bilibili.co/$(REPO_OWNER)/$(REPO_NAME)=$(PULL_REFS)
+              - --command
+              - ./hack/verify-test.sh
+              - app/<<dir>>
+            volumeMounts:
+              - name: modcache
+                mountPath: /root/go/pkg
+              - name: utdaemon
+                mountPath: /data/conf/daemon.json
+                subPath: daemon.json
+                readOnly: true
+        volumes:
+          - name: modcache
+            hostPath:
+              path: /root/go/pkg
+          - name: utdaemon
+            configMap:
+              name: ut-daemon
+    - name: <<repo>>-<<dir_alias>>-code-lint
+      always_run: true
+      optional: false
+      cluster: jsy
+      trusted_labels:
+        - area/<<dir>>
+      spec:
+        containers:
+          - image: go-1.12.4-golint-latest
+            imagePullPolicy: IfNotPresent
+            args:
+              - --id=$(BUILD_ID)
+              - --job=$(JOB_NAME)
+              - --root=/root/go/src
+              - --repo=git.bilibili.co/$(REPO_OWNER)/$(REPO_NAME)=$(PULL_REFS)
+              - --command
+              - go
+              - run
+              - ./hack/verify-lint.go
+              - app/<<dir>>
+            volumeMounts:
+              - name: modcache
+                mountPath: /root/go/pkg
+        volumes:
+          - name: modcache
+            hostPath:
+              path: /root/go/pkg

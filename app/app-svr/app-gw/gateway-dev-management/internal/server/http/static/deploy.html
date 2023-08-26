@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <meta charset="UTF-8" name="referrer" content="no-referrer">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>网关业务机器人-应用重启</title>
+</head>
+<body>
+<div class="container theme-showcase">
+    <div class="row">
+        <div class="col-md-1 col-xs-0"></div>
+        <div class="col-md-10 col-xs-12">
+            <div class="page-header">
+                <h1>应用重启</h1>
+                <small id="info"></small>
+                <input type="hidden" id="id" value="" />
+            </div>
+            <h4 id="current">找不到该发布单，请检查</h4>
+            <h5 id="lastRevision"></h5>
+            <h5 id="revision"></h5>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" id="progressbar">
+                </div>
+            </div>
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-danger" id="rollback" disabled="disabled">回滚</button>
+                <button type="button" class="btn btn-primary" id="start" disabled="disabled">开始</button>
+                <button type="button" class="btn btn-primary" id="next" disabled="disabled">下一步</button>
+                <button type="button" class="btn btn-primary" id="done" disabled="disabled">结单</button>
+            </div>
+        </div>
+        <div class="col-md-1 col-xs-0 "></div>
+    </div>
+</div>
+
+<script>
+    let jwt = getUrlParam('jwt');//获取URL中taskId
+
+    $("#start").click(function(event){
+        $.ajax({
+            url: './start',
+            type: 'GET',
+            data:{
+                deployId:document.getElementById("id").value,
+            },
+            success: function(data){
+            }
+        });
+    });
+    $("#next").click(function(event){
+        $.ajax({
+            url: './resume',
+            type: 'GET',
+            data:{
+                deployId:document.getElementById("id").value,
+            },
+            success: function(data){
+            }
+        });
+    });
+    $("#rollback").click(function(event){
+        $.ajax({
+            url: './rollback',
+            type: 'GET',
+            data:{
+                deployId:document.getElementById("id").value,
+            },
+            success: function(data){
+            }
+        });
+    });
+    $("#done").click(function(event){
+        $.ajax({
+            url: './done',
+            type: 'GET',
+            data:{
+                deployId:document.getElementById("id").value,
+            },
+            success: function(data){
+            }
+        });
+    });
+
+    function button(result){
+        let start = document.getElementById("start");
+        if (result.data.start) {
+            start.removeAttribute("disabled");
+        } else{
+            start.setAttribute("disabled","disabled");
+        }
+        let next = document.getElementById("next");
+        if (result.data.next) {
+            next.removeAttribute("disabled");
+        } else{
+            next.setAttribute("disabled","disabled");
+        }
+        let rollback = document.getElementById("rollback");
+        if (result.data.rollback) {
+            rollback.removeAttribute("disabled");
+        } else{
+            rollback.setAttribute("disabled","disabled");
+        }
+        let done = document.getElementById("done");
+        if (result.data.done) {
+            done.removeAttribute("disabled");
+        } else{
+            done.setAttribute("disabled","disabled");
+        }
+    }
+
+    function getUrlParam(name){
+        //构造一个含有目标参数的正则表达式对象
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        //匹配目标参数
+        var r = window.location.search.substr(1).match(reg);
+        //返回参数值
+        if (r!=null) return unescape(r[2]);
+        return null;
+    }
+
+    function refreshOnTime(){
+        $.ajax({
+            url: './getDeploy',
+            type: 'GET',
+            data:{
+                jwt:jwt,
+            },
+            success: function(result){
+                document.getElementById("id").value=result.data.id
+                let info = document.getElementById('info');
+                info.innerText=result.data.service+" "+result.data.zone +" "+result.data.version
+                let status = document.getElementById('current');
+                status.innerText=result.data.current
+                let last = document.getElementById('lastRevision');
+                last.innerText="原版本:"+result.data.last_replica
+                let cur = document.getElementById('revision');
+                cur.innerText="新版本:"+result.data.replica
+                let bar = document.getElementById('progressbar');
+                let style = "width:"+result.data.percent
+                bar.setAttribute('style', style);
+                button(result)
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        refreshOnTime();
+        setInterval("refreshOnTime()",3000);
+    });
+</script>
+
+
+</body>
+</html>

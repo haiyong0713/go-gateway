@@ -1,0 +1,209 @@
+[rule]
+    broadFeed = 5000
+    before = "2h"
+    sleepInterval = "5m"
+    alertTitle = "你订阅的比赛即将开播了 "
+    alertBodyDefault = "%s中,你订阅的赛程【%s %s VS %s】即将开播，快前去观看比赛吧! %s"
+    alertBodySpecial = "%s中,你订阅的赛程【%s %s】即将开播，快前去观看比赛吧! %s"
+    shareTitle = "您的分享奖励已到，请查看"
+    shareBody = '您本月已累计分享视频 %d 天，可获得 大会员满%d减%d元代金券 奖励，快来查看哦~ 传送门：#{www.bilibili.com/h5/shareReward}{"https://www.bilibili.com/h5/shareReward"}'
+    scoreSleep = "1m"
+    coinPercent = 0.4
+    favPercent = 0.3
+    dmPercent = 0.4
+    replyPercent = 0.4
+    viewPercent = 0.25
+    likePercent = 0.4
+    sharePercent = 0.6
+    newDay = 14.0
+    newPercent = 1.5
+    ReadTimeout = "500ms"
+	PushArcBfsURL = "https://i0.hdslb.com/bfs/activity-plat/outarc/sitemap_pusharc.json"
+	DelArcBfsURL = "https://i0.hdslb.com/bfs/activity-plat/outarc/sitemap_delarc.json"
+
+
+[bfs]
+    bucket = "active"
+    dir = "outarc"
+    appkey = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+
+[cron]
+    LoadArcTypes = "0 */5 * * * *"
+    
+[httpClient]
+    key = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial = "1s"
+    timeout = "1s"
+    keepAlive = "60s"
+
+[XiaomiClient]
+    key = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial = "200ms"
+    timeout = "1s"
+    keepAlive = "60s"
+
+[xiaomi]
+    AppID = 2882303761518465344
+    AppKey = "5741846570344"
+
+[messageHTTPClient]
+    key = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial      = "50ms"
+    timeout   = "1s"
+    keepAlive = "60s"
+
+[host]
+    api   = "http://api.bilibili.co"
+    xiaomi = "http://staging.content.pt.xiaomi.com"
+
+[favoriteRPC]
+    timeout = "1s"
+
+[memberRPC]
+    timeout = "1s"
+
+[suitRPC]
+    timeout = "1s"
+
+[couponRPC]
+    timeout = "1s"
+
+
+[mysql]
+    addr = "127.0.0.1:3306"
+    dsn = "bilibili_goblin:8bmwBDtgBLB5Cqg31h2FxiRJK3OK6VXq@tcp(127.0.0.1:3306)/bilibili_goblin?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+    idle = 2
+    idleTimeout = "4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "2s"
+    [mysql.breaker]
+    window = "3s"
+    sleep = "100ms"
+    bucket = 10
+    ratio = 0.5
+    request = 100
+
+[push]
+    businessID = 1
+    businessToken = "fi6xf5xmldudexsh5tgukerohn3mgrl3"
+    retryTimes = 3
+    partSize = 100000
+    title = "你订阅的比赛开播了～"
+    bodyDefault = "%s %s VS %s 已开播，快来观看比赛吧！ %s"
+    bodySpecial = "%s %s 已开播，快来观看比赛吧！%s"
+    onlyMids = ""
+
+
+[message]
+    URL = "http://message.bilibili.co/api/notify/send.user.notify.do"
+    MC = "1_4_2"
+    MS = "1_16_1"
+    
+[redis]
+    name = "web-goblin-job"
+    proto = "tcp"
+    addr = "127.0.0.1:20171"
+    idle = 10
+    active = 10
+    dialTimeout = "1s"
+    readTimeout = "1s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+    statExpire = "24h"
+
+
+  [[rewards]]
+     needDays = 1
+     pid= 207
+     expire = 30
+     vipBatch = "900364604420180912170927"
+     money = 25
+     discount = 5
+  [[rewards]]
+     needDays = 3
+     pid =208
+     expire = 30
+     vipBatch ="563494132120180912170953"
+    money = 68
+     discount = 10
+  [[rewards]]
+     needDays = 7
+     pid =209
+     expire = 30
+     vipBatch ="228988267720180912171013"
+     money = 148
+     discount = 15
+
+[shareViewSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ShareMid-MainWebSvr-S"
+    topic = "ShareMid-T"
+    action = "sub"
+    name = "web-goblin-job/sub"
+    proto = "tcp"
+    addr = "172.18.33.50:6205"
+    idle = 100
+    active = 100
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+
+
+[archiveNotifySub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ArchiveNotify-MainWebSvr-Search-S"
+    topic = "ArchiveNotify-T"
+    action = "sub"
+    name = "web-goblin-job/archiveNotifysub"
+    proto = "tcp"
+    addr = "172.18.33.50:6205"
+    idle = 1
+    active = 1
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+
+[OutArcSub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "ArchiveExternal-MainWebSvr-S"
+    topic = "ArchiveExternal-T"
+    action = "sub"
+    name = "web-goblin-job/ArchiveExternalsub"
+    proto = "tcp"
+    addr = "172.18.33.50:6205"
+    idle = 1
+    active = 1
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+
+[bm]
+   addr = "0.0.0.0:8000"
+   maxListen = 1000
+   timeout = "100ms"
+
+[leidata]
+  timeout = "15s"
+  recentSleep = "5m"
+  connTime = "60s"
+  bindTime = "-5m"
+  groupUrl = "http://egame.leidata.com/nesport/index.php/Api"
+  socket = "ws://47.95.28.113:8080/"
+  key = "bd319a7bffd54458bffd8afbe524cf05"
+  origin = "http://leidata.bilibili.com/"
+
+
+
+

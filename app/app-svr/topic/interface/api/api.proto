@@ -1,0 +1,533 @@
+syntax = "proto3";
+
+package bilibili.app.topic.v1;
+
+import "go-gateway/app/app-svr/archive/middleware/v1/preload.proto";
+import "go-gateway/app/app-svr/app-dynamic/interface/api/v2/api.proto";
+import "go-gateway/app/app-svr/app-card/interface/model/card/proto/common.proto";
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "v1";
+option java_multiple_files = true;
+option java_package = "com.bapis.bilibili.app.topic.v1";
+option objc_class_prefix = "BAPIAppTopicV1";
+
+service Topic {
+  // 话题详情页总数据
+  rpc TopicDetailsAll(TopicDetailsAllReq) returns (TopicDetailsAllReply);
+  // 话题详情页折叠数据
+  rpc TopicDetailsFold(TopicDetailsFoldReq) returns (TopicDetailsFoldReply);
+  // 新话题话题集聚合页
+  rpc TopicSetDetails(TopicSetDetailsReq) returns (TopicSetDetailsReply);
+  // 新话题收拢动态页
+  rpc TopicMergedResource(TopicMergedResourceReq) returns (TopicMergedResourceReply);
+  // 预约按钮点击事件
+  rpc TopicReserveButtonClick(TopicReserveButtonClickReq) returns (TopicReserveButtonClickReply);
+}
+
+message TopicMergedResourceReq {
+  int64 topic_id = 1;                                                    // 话题id
+  int32 type = 2;                                                        // 资源类型 0:动态
+  int64 rid = 3;                                                         // type=0的时候，动态id
+  int32 merge_type = 4;                                                  // 收拢类型：1-联合投稿，2-同源转发，3-超频转发
+  string offset = 5;                                                     // 分页用，页面传值id
+  int32 local_time = 6;                                                  // 客户端时区 兼容UTC-14和Etc/GMT+12,时区区间[-12,14] 东八区为8
+  .bilibili.app.archive.middleware.v1.PlayerArgs player_args = 7;        // 秒开用
+  int64 from_sort_by = 8;                                                // 收拢请求来自哪个序列页面（1.推荐 2.热门 3.最新）
+}
+
+message TopicMergedResourceReply {
+  TopicCardList topic_card_list = 1;                                     // 收拢话题卡
+}
+
+message TopicSetDetailsReq {
+  int64 set_id = 1[(gogoproto.moretags) = 'validate:"gt=0,required"'];   // 话题集ID
+  int64 sort_by = 2;                                                     // 1.话题热度排序 2.话题最新内容排序
+  string offset = 3;                                                     // 分页用，页面传值id
+  int32 page_size = 4;                                                   // 分页用，每页多少个
+}
+
+message TopicSetHeadInfo {
+  TopicSet topic_set = 1;                                                // 话题集信息
+  string topic_cnt_text = 2;                                             // 收录话题数文字
+  string head_img_url = 3;                                               // 头图图片url
+  string mission_url = 4;                                                // 活动链接
+  string mission_text = 5;                                               // 活动文案
+  string icon_url = 6;                                                   // 缩略图url
+  bool is_fav = 7;                                                       // 是否订阅
+  bool is_first_time = 8;                                                // 首次进入是否展开头图
+}
+
+message TopicSetDetailsReply {
+  TopicSetHeadInfo topic_set_head_info = 1;                              // 话题集头部信息
+  repeated TopicInfo topic_info = 2;                                     // 话题集话题列表相关信息
+  bool has_more = 3;                                                     // 是否还能翻页
+  string offset = 4;                                                     // 翻页offset
+  TopicSetSortCfg sort_cfg = 5;                                          // 排序配置
+}
+
+message TopicSetSortCfg {
+  int64 default_sort_by = 1;                                             // 默认的排序方式（1.话题热度排序 2.最新内容排序）
+  repeated SortContent all_sort_by = 2;                                  // 支持的所有排序方式
+}
+
+message TopicDetailsAllReq {
+  int64 topic_id = 1;     // 话题id
+  int64 sort_by = 2;      // 排序方式：1.推荐 2.热门 3.最新 (传0下发默认）
+  string offset = 3;      // 分页用，页面传值id
+  int32 page_size = 4;    // 分页用，每页多少个
+  int32 local_time = 5;   // 客户端时区 兼容UTC-14和Etc/GMT+12,时区区间[-12,14] 东八区为8
+  .bilibili.app.archive.middleware.v1.PlayerArgs player_args = 6;   // 秒开用
+  int32 need_refresh = 7; // 是否刷新头部数据 1.是;0.否
+  string source = 8 [(gogoproto.moretags) = 'default:"APP"'];       // 请求来源: 不填默认为app，填"APP"来自app, 填"H5"来自站外H5, 填"Web"来自pc web, 填"APP_HALF"来自APP半屏详情页
+  TopicDetailsExtMode topic_details_ext_mode = 9;                   // 话题详情页附加模式
+  string from_spmid = 10;                                           // 上级来源页面
+}
+
+// TopicDetailsExtMode 话题详情页附加模式
+enum TopicDetailsExtMode {
+  MODE_ILLEGAL_TYPE = 0;        // 非法值占位
+  STORY = 1;                    // 话题详情页视频模式
+}
+
+message TopicDetailsAllReply {
+  DetailsTopInfo details_top_info = 1;                  // 话题顶部
+  TopicActivities topic_activities = 2;                 // 活动相关
+  TopicCardList topic_card_list = 3;                    // 话题卡部分
+  FunctionalCard functional_card = 4;                   // 功能卡片区
+  PubLayer pub_layer = 5;                               // 参与发布话题浮层
+  TimeLineResource time_line_resource = 6;              // 时间轴组件
+  TopicServerConfig topic_server_config = 7;            // 话题服务端下发配置
+  TopicOnline topic_online = 8;                         // 话题在线人数,仅APP半屏详情页下发
+  repeated TopicTopCard topic_top_cards = 9;            // 话题顶部卡列表,6.90版本后使用
+}
+
+message TopicServerConfig {
+  int64 pub_events_increase_threshold = 1;                         // 新增发布数调接口阈值，下发0则不调用新增发布接口
+  int64 pub_events_hidden_timeout_threshold = 2;                   // 无新增发布超时隐藏阈值，单位秒，下发0则则不调用新增发布接口
+  int64 vert_online_refresh_time = 3;                              // 话题online接口刷新间隔，单位秒，下发0则不调用话题在线人数接口
+}
+
+message TimeLineResource {
+  int64 time_line_id = 1;                              // 时间轴id
+  string time_line_title = 2;                          // 时间轴标题
+  repeated TimeLineEvents time_line_events = 3;        // 时间轴事件
+  bool has_more = 4;                                   // 是否查看更多
+  int64 start_time = 5;
+  int64 end_time = 6;
+}
+
+message TimeLineEvents {
+  int64 event_id = 1;                                  // 时间轴事件id
+  string title = 2;                                    // 事件标题
+  string time_desc = 3;                                // 事件发生时间文案
+  string jump_link = 4;                                // 点击事件跳转
+}
+
+message PubLayer {
+  // 话题发布展示样式 0-默认样式
+  // 20-默认展开+头像 21-默认展开+icon 22-默认收起+头像
+  // story入口展示样式 11-当前样式修改动画生效时间：页面停留2s，参与按钮展开；12-底部常驻悬浮大按钮
+  int32 show_type = 1;                                  // 话题发布展示样式
+  string jump_link = 2;                                 // 跳转链接
+  ButtonMeta button_meta = 3;                           // 参与按钮物料
+  bool close_pub_layer_entry = 4;                       // 关闭发布话题按钮
+  string user_avatar = 5;                               // 用户头像
+}
+
+message ButtonMeta {
+  string text = 1;                                      // 参与按钮文案
+  string icon = 2;                                      // 参与按钮icon
+}
+
+message FunctionalCard {
+  repeated TopicCapsule capsules = 1;                   // 跳转胶囊
+  TrafficCard traffic_card = 2;                        // 业务引流卡
+  GameCard game_card = 3;                               // 游戏下载卡
+  int64 start_time = 4;
+  int64 end_time = 5;
+}
+
+message GameCard {
+  int64 game_id = 1;            // 游戏唯一标识ID
+  string game_icon = 2;         // 游戏图标
+  string game_name = 3;         // 游戏名称
+  string score = 4;             // 游戏评分
+  string game_tags = 5;         // 游戏分类标签
+  string notice = 6;            // 公告
+  string game_link = 7;         // 游戏跳转链接
+}
+
+message TopicCapsule {
+  string name = 1;             // 名称
+  string jump_url = 2;         // 跳链
+  string icon_url = 3;         // 图标
+}
+
+message TrafficCard {
+  string name = 1;             // 标题名称
+  string jump_url = 2;         // 跳链
+  string icon_url = 3;         // 图标url
+  string base_pic = 4;         // 底图
+  string benefit_point = 5;    // 利益点
+  string card_desc = 6;       // 卡片描述字段
+  string jump_title = 7;       // 跳转文案
+}
+
+message DetailsTopInfo {
+  TopicInfo topic_info = 1;                            // 话题相关信息
+  User user = 2;                                       // 话题发起人信息
+  string stats_desc = 3;                               // 话题信息字段描述
+  bool has_create_jurisdiction = 4;                    // 发布者是否具备创建话题的权限
+  OperationContent operation_content = 5;              // 运营内容区
+  string head_img_url = 6;                             // 头图图片url
+  string head_img_backcolor = 7;                       // 头图的主题色蒙层
+  int32 word_color = 8;                                // 文字颜色(0.深色 1.浅色)
+  int32 mission_page_show_type = 9;                    // 绑定活动的页面类型(1.半屏na活动页 2.NA活动页 3.半屏h5 4.全屏h5)
+  string mission_url = 10;                             // 活动链接
+  string mission_text = 11;                            // 活动详情按钮文字
+  TopicSet topic_set = 12;                             // 话题集信息
+  string symbol = 13;                                  // 话题标志，详情页用 如:推广
+}
+
+message TopicSet {
+  int64 set_id = 1;                       //话题集ID
+  string set_name = 2;                    //话题集名称
+  string jump_url = 3;                    //跳转链接
+  string desc = 4;                        //话题集描述
+}
+
+message OperationContent {
+  OperationCard operation_card = 1;                    // 运营内容卡
+  int64 start_time = 2;
+  int64 end_time = 3;
+}
+
+message OperationCard {
+  oneof Card {
+    LargeCoverInline large_cover_inline = 1;         // 话题inline卡
+  }
+}
+
+message LargeCoverInline {
+  .bilibili.app.card.v1.Base base = 1;              // inline卡base结构
+  string cover_left_text_1 = 2;                     // 封面左下角文字位置1
+  int32 cover_left_icon_1 = 3;                      // 封面左下角图标位置1
+  string cover_left_text_2 = 4;                     // 封面左下角文字位置2
+  int32 cover_left_icon_2 = 5;                      // 封面左下角图标位置2
+  RightTopLiveBadge right_top_live_badge = 6;       // 右上角直播角标
+  string extra_uri = 7;                             // 额外跳转地址，当有该字段时点击卡片后跳转至该字段目标，不存在时依旧按照 uri 进行跳转
+  InlineProgressBar inline_progress_bar = 8;        // 小电视播放进度icon
+  TopicThreePoint topic_three_point = 9;            // [app话题详情页专用]三点结构
+  string cover_left_desc = 10;                      // [app话题详情页专用]封面左下角描述，直播inline卡为二级分区
+  bool hide_danmu_switch = 11;                      // 弹幕开关隐藏，15版本开始只看卡片级开关，不看config内弹幕开关
+  bool disable_danmu = 12;                          // 禁用弹幕，15版本开始只看卡片级开关，不看config内弹幕开关
+  int32 can_play = 13;                              // inline能否自动播放，0：不能自动播放 1：可以自动播放
+  string duration_text = 14;                        // 播放时长字符串保证双端一致
+  RelationData relation_data = 15;                  // [app话题详情页专用]inline用户关系数据
+}
+
+message RelationData {
+  bool is_fav = 1;       // 是否收藏
+  bool is_coin = 2;      // 是否投币
+  bool is_follow = 3;    // 是否关注
+  bool is_like = 4;      // 是否点赞
+  int64 like_count = 5;  // 点赞数
+}
+
+message TopicThreePoint {
+  repeated .bilibili.app.dynamic.v2.ThreePointItem dyn_three_point_items = 1;     // 动态三点元素
+}
+
+message ThreePointItem {
+  string title = 1;                                 // 标题
+  string jump_url = 2;                              // 跳链
+}
+
+message InlineProgressBar {
+  string icon_drag = 1;
+  string icon_drag_hash = 2;
+  string icon_stop = 3;
+  string icon_stop_hash = 4;
+}
+
+message RightTopLiveBadge {
+  int64 live_status = 1;                           // 1为直播中，卡片当前状态
+  LiveBadgeResource in_live = 2;                   // 直播角标资源
+  string live_stats_desc = 3;                      // 人气值
+}
+
+message LiveBadgeResource {
+  string text = 1;
+  string animation_url = 2;                       // 未下发该字段或下发内容为空，则使用端上兜底配置，其余字段保持一致
+  string animation_url_hash = 3;
+  string background_color_light = 4;
+  string background_color_night = 5;
+  int64 alpha_light = 6;
+  int64 alpha_night = 7;
+  string font_color = 8;
+}
+
+message User {
+  int64 uid = 1;        // 发起人uid
+  string face = 2;      // 发起人头像
+  string name = 3;      // 发起人昵称
+  string name_desc = 4; // 发起人昵称后描述
+}
+
+message TopicActivities {
+  repeated TopicActivity activity = 1; // 活动相关
+  string act_list_title = 2;           // 活动列表显示标题
+}
+
+message TopicCardList {
+  repeated TopicCardItem topic_card_items = 1;    // 话题卡信息
+  string offset = 2;                              // 分页用，页面传值id
+  bool has_more = 3;                              // 分页用，是否更多
+  TopicSortByConf topic_sort_by_conf = 4;         // 支持的排序方式和默认的排序方式
+  NoCardResultReply no_card_result_reply = 5;     // 无卡片结果返回
+}
+
+message NoCardResultReply {
+  string default_guide_text = 1;                  // 下发默认文案
+  ShowButton show_button = 2;                     // 无结果展示按钮
+}
+
+message ShowButton {
+  string show_text = 1;                           // 按钮文案,例如"参与话题"
+  string jump_url = 2;                            // 按钮跳链
+}
+
+message TopicCardItem {
+  TopicCardType type = 1;         //话题卡类型
+  .bilibili.app.dynamic.v2.DynamicItem dynamic_item = 2;  // 动态卡信息
+  FoldCardItem ford_card_item = 3; //折叠条信息
+  VideoSmallCardItem video_small_card_item = 4; //视频小卡信息
+}
+
+// TopicCardType 枚举-话题卡类型
+enum TopicCardType {
+  ILLEGAL_TYPE = 0;        // 非法值占位
+  DYNAMIC = 1;             // 动态卡
+  FOLD = 2;                // 折叠条
+  VIDEO_SMALL_CARD = 3;    // 视频小卡
+}
+
+message VideoSmallCardItem {
+  VideoCardBase video_card_base = 1;     // 视频基础信息
+  string cover_left_badge_text = 2;      // 封面左上角角标文字
+  int64 card_stat_icon_1 = 3;            // 卡片数据第一位展示信息icon资源枚举
+  string card_stat_text_1 = 4;           // 卡片数据第一位展示信息文字
+  int64 card_stat_icon_2 = 5;            // 卡片数据第二位展示信息icon资源枚举
+  string card_stat_text_2 = 6;           // 卡片数据第二位展示信息文字
+  string server_info = 7;                // 服务端透传数据
+}
+
+message VideoCardBase {
+  string cover = 1;          // 视频封面
+  string title = 2;          // 视频标题
+  string up_name = 3;        // up主昵称
+  int64 play = 4;            // 播放数量
+  string jump_link = 5;      // 跳转链接
+  int64 aid = 6;             // 视频id
+}
+
+message FoldCardItem {
+  int32  is_show_fold = 1;       //是否出折叠条
+  int64  fold_count = 2;         //折叠数
+  string card_show_desc = 3;     //折叠条上展示内容
+  string fold_desc = 4;          //折叠问号点击后显示文字
+}
+
+message TopicDetailsFoldReq {
+  int64 topic_id = 1;     // 话题id
+  string offset = 2;      // 分页用，页面传值id
+  int32 page_size = 3;    // 分页用，每页多少个
+  int32 local_time = 4;   // 客户端时区 兼容UTC-14和Etc/GMT+12,时区区间[-12,14] 东八区为8
+  .bilibili.app.archive.middleware.v1.PlayerArgs player_args = 5;   // 秒开用
+  int64 from_sort_by = 6; //折叠请求来着哪个序列页面（1.推荐 2.热门 3.最新）
+}
+
+message TopicDetailsFoldReply {
+  TopicCardList topic_card_list = 1;                   // 折叠话题卡
+  int64 fold_count = 2;                                // 折叠数
+}
+
+message TopicInfo {
+  int64 id = 1;                 //话题id
+  string name = 2;              //话题名称
+  int64 uid = 3;                //话题发起人
+  int64 view = 4;               //浏览量
+  int64 discuss = 5;            //讨论量
+  int64 fav = 6;                //收藏数
+  int64 dynamics = 7;           //动态数
+  int32 state = 8;              //话题状态(0:已经上线 1:审核中 -1:已驳回 -2:已下线)
+  string jump_url = 9;          //跳转链接
+  string backcolor = 10;        //背景色
+  bool is_fav = 11;             //请求用户是否收藏
+  string description = 12;      //话题描述
+  int32 create_source = 13;     //话题创建来源 0: 线上用户 1: 后台运营
+  string share_pic = 14;        //分享图
+  int64 share = 15;             //分享数
+  int64 like = 16;              //点赞数
+  string share_url = 17;        //分享链接
+  bool is_like = 18;            //请求用户是否点赞
+  int32 type = 19;              //话题类型 0-普通类型 1-视频类型(跟我拍)
+  string stats_desc = 20;       //话题信息字段描述
+  string fixed_topic_icon = 21; //话题前置标图案
+}
+
+message TopicActivity{
+  int64 activity_id = 1;
+  string activity_name = 2;
+  string jump_url = 3;
+  string icon_url = 4;
+}
+
+message TopicSortByConf {
+  int64 default_sort_by = 1; //默认的排序方式（1.推荐 2.热门 3.最新）
+  repeated SortContent all_sort_by = 2; //支持的所有排序方式
+  int64 show_sort_by = 3; //当前需要显示的排序方式（1.推荐 2.热门 3.最新）
+}
+
+message SortContent {
+  int64 sort_by = 1;
+  string sort_name = 2;
+}
+
+message TopicOnline {
+  int64 online_num = 1;
+  string online_text = 2;
+}
+
+// TopicTopCard 枚举-话题顶部卡类型
+enum TopicTopCardType {
+  Unknown_Type = 0; // 未知类型
+  Capsules_Type = 1; // 跳转胶囊
+  Traffic_Card_Type = 2;  // 业务引流卡
+  Game_Card_Type = 3;  // 游戏下载卡
+  Time_Line_Type = 4;  // 时间轴组件
+  Large_Cover_Inline_Type = 5; // 话题inline卡
+  Reservation_Card_Type = 6; // 预约卡
+  Esport_Card_Type = 7; // 赛事卡
+}
+
+message TopicTopCard {
+  TopicTopCardType type = 1;
+  oneof card_item {
+    TopicCapsuleInfo capsules = 2; // 跳转胶囊卡
+    TrafficCard traffic_card = 3; // 业务引流卡
+    GameCard game_card = 4; // 游戏下载卡
+    TimeLineResource time_line_resource = 5; // 时间轴组件
+    LargeCoverInline large_cover_inline = 6; // 话题inline卡
+    ReserveRelationInfo reservation_card = 7; // 预约卡
+    EsportInfo esport_card = 8; // 赛事卡
+  }
+  int64 start_time = 9; // 话题卡片生效时间
+  int64 end_time = 10;
+}
+
+message TopicCapsuleInfo {
+  repeated TopicCapsule capsules = 1; // 跳转胶囊
+}
+
+message ReserveRelationInfo {
+  int64 sid = 1;// 预约id
+  string title = 2;// 预约活动名称
+  int64 total = 3;// 预约总人数
+  int64 stime = 4;// 活动开始时间
+  int64 etime = 5; // 活动结束时间
+  int64 is_follow = 6; // 是否预约 0 => 未预约 1 => 已预约
+  int32 state = 7;
+  string oid = 8; // 资源id
+  int32 type = 9;
+  int64 upmid = 10; // up主or播主 mid 区分主态or客态
+  int64 reserve_record_ctime = 11; // 用户预约记录的创建时间
+  int64 live_plan_start_time = 12; // 主播预计开播时间
+  string time_desc_text = 13; // 预约时间文案
+  string number_desc_text = 14; // 预约人数文案
+  int64 start_time = 15; // 话题卡片生效时间
+  int64 end_time = 16;
+}
+
+// 赛事信息
+message EsportInfo {
+  int64 id = 1; //赛事卡id
+  repeated MatchInfo items = 2; // 赛程信息列表
+  int64 start_time = 3; // 话题卡片生效时间
+  int64 end_time = 4;
+}
+
+// 赛程信息
+message MatchInfo {
+  int64 id = 1;// 赛程ID
+  int32 status = 2;  // 比赛状态：1赛前；2赛中；3赛后
+  string match_stage = 3; // 比赛阶段
+  MatchTeamInfo home = 4; // 主队
+  MatchTeamInfo away = 5; // 客队
+  MatchCardDisplay match_label = 6; // 比赛状态文案。如："进行中"
+  MatchCardDisplay match_time = 7; // 比赛开始时间文案。
+  MatchCardDisplay match_button = 8; // 比赛引导按钮。如："观看直播"
+}
+
+// 队伍信息
+message MatchTeamInfo {
+  int64 id = 1; // id
+  string title = 2; // 队伍简称
+  string cover = 3; // LOGO
+  int64 score = 4; // 分数
+}
+
+// 卡片展示信息
+message MatchCardDisplay {
+  string text = 1; // 文案
+  string text_color = 2; // 文案颜色
+  string text_color_night = 3; // 文案颜色夜间
+  string uri = 4; // 跳转链接
+  string live_link = 5; // 直播间
+  Texts texts = 6;
+  int32 state = 7; // 按钮状态
+}
+
+message Texts {
+  string booking_text = 1;
+  string unbooking_text = 2;
+}
+
+enum ReserveButtonStatus {
+  RESERVE_BUTTON_STATUS_NONE = 0;  // 无效
+  RESERVE_BUTTON_STATUS_UNCHECK = 1;  // 未点
+  RESERVE_BUTTON_STATUS_CHECK = 2;  // 已点
+}
+
+message TopicReserveButtonClickReq {
+  int64 uid = 1;  // 用户uid
+  int64 reserve_id = 2;  // 预约id
+  int64 reserve_total = 3;  // 预约人数
+  ReserveButtonStatus cur_btn_status = 4;  // 当前按钮状态
+}
+
+enum ReserveButtonMode {
+  RESERVE_BUTTON_MODE_NONE = 0;  // 无效
+  RESERVE_BUTTON_MODE_RESERVE = 1;  // 预约/取消预约
+  RESERVE_BUTTON_MODE_UP_CANCEL = 2;  // up主取消预约
+}
+
+message TopicReserveButtonClickReply {
+  ReserveButtonStatus final_btn_status = 1;  // 当前按钮状态
+  ReserveButtonMode btn_mode = 2;  // 当前按钮模式
+  int64 reserve_update = 3;  // 更新后的预约人数
+  string desc_update = 4;  // 更新后的预约人数文案,空值表示不更新
+  bool has_activity = 5;  // 是否有活动
+  string activity_url = 6;  // 活动落地页
+  string toast = 7;  // 点击后返回给toast内容
+  ReserveCalendarInfo reserve_calendar_info = 8;  //用户预约的日历信息
+}
+
+message ReserveCalendarInfo {
+  string title = 1;  // 【哔哩哔哩】+你预约的 《@up主昵称：预约主标题》开播了
+  int64 startTs = 2;  //单位：s；utc-8
+  int64 endTs = 3;  //单位：s；utc-8
+  string description = 4;  // 预约内容的跳转链接+固定文本
+  string businessId = 5;  // 日历唯一id
+}

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package task;
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package                      = "task";
+
+
+message WorldResp {
+    string Content = 1;
+    int64 aid = 2;
+}

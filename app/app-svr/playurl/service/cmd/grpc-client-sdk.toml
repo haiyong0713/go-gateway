@@ -1,0 +1,10 @@
+[SDKBuilderConfig]
+[[SDKBuilderConfig.ClientSDK]]
+AppID="vipinfo.service"
+[[SDKBuilderConfig.ClientSDK.MethodOption]]
+Method = "Info"
+ClientInfo = {MaxRetries=1}
+[SDKBuilderConfig.ClientSDK.MethodOption.BackupRetryOption]
+Ratio=100
+BackupAction="retry_backup"
+BackupTarget="discovery://default/vipinfo.bck.service"

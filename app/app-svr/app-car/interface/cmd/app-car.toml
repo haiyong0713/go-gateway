@@ -1,0 +1,303 @@
+#[xlog]
+#dir = "/data/log/app-car"
+
+[httpClient]
+key = "6a29f8ed87407c11"
+secret = "d3c5a85f5b895a03735b5d20a273bc57"
+dial      = "150ms"
+timeout   = "700ms"
+keepAlive = "60s"
+timer     = 128
+
+[httpSearch]
+key = "6a29f8ed87407c11"
+secret = "d3c5a85f5b895a03735b5d20a273bc57"
+dial      = "150ms"
+timeout   = "700ms"
+keepAlive = "60s"
+timer     = 128
+
+[httpPGC]
+key = "6a29f8ed87407c11"
+secret = "d3c5a85f5b895a03735b5d20a273bc57"
+dial      = "150ms"
+timeout   = "700ms"
+keepAlive = "60s"
+timer     = 128
+
+[httpData]
+key = "6a29f8ed87407c11"
+secret = "d3c5a85f5b895a03735b5d20a273bc57"
+dial      = "80ms"
+timeout   = "200ms"
+keepAlive = "60s"
+
+[bm]
+[bm.outer]
+addr = "0.0.0.0:8301"
+timeout = "1s"
+
+[mogulDatabus]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "Mogul-MainAppSvr-P"
+    topic = "Mogul-T"
+    action = "pub"
+    name = "app-card/mogul"
+    active = 30
+    idle = 5
+    dialTimeout = "200ms"
+    readTimeout = "500ms"
+    writeTimeout = "800ms"
+    idleTimeout = "80s"
+
+[host]
+data     = "http://data.bilibili.co"
+search  = "http://uat-s.search.bilibili.co"
+apico = "http://api.bilibili.co"
+bangumi = "http://bangumi.bilibili.co"
+
+[redis]
+[redis.Entrance]
+    name   = "app-feed/feed"
+    proto  = "tcp"
+    addr   = "127.0.0.1:6379"
+    active = 50
+    idle   = 10
+    dialTimeout  = "80ms"
+    readTimeout  = "150ms"
+    writeTimeout = "150ms"
+    idleTimeout  = "80s"
+
+[custom]
+TabConfigs = [
+    {id = 1,name = "发现",uri = "bilithings://show?tab=show",tabID = "show",isdefault = true},
+    {id = 2,name = "我的",uri = "bilithings://show?tab=mine",tabID = "mine",isdefault = false}
+]
+tabConfigs2 = [
+    {id = 1,name = "发现",uri = "bilithings://show?tab=show",tabID = "show",isdefault = true,icon = "http://i0.hdslb.com/bfs/archive/ac38c953ebefb85b5368e71c530f5227b16dbdd2.png",iconSelected = "http://i0.hdslb.com/bfs/archive/85d919dca34f6723e7eb8d192d3f4c98844e9bfd.png"},
+    {id = 3,name = "番剧",uri = "bilithings://show?tab=bangumi",tabID = "bangumi",isdefault = false,icon = "http://i0.hdslb.com/bfs/archive/f59434d4a826d20aa0913e18239df9aaa61118ea.png",iconSelected = "http://i0.hdslb.com/bfs/archive/625ccc00f1640385974186056bc57e5e9ffe1ed4.png"},
+    {id = 4,name = "影视",uri = "bilithings://show?tab=movie",tabID = "movie",isdefault = false,icon = "http://i0.hdslb.com/bfs/archive/4061902f8a0d465feafcdec3c6aa2f38cc1c1243.png",iconSelected = "http://i0.hdslb.com/bfs/archive/0dba29edb351101710e3240aab8754899c6f3a42.png"},
+    {id = 2,name = "我的",uri = "bilithings://show?tab=mine",tabID = "mine",isdefault = false,icon = "http://i0.hdslb.com/bfs/archive/62f291286b7f49310fd97438b854022cec6a51c6.png",iconSelected = "http://i0.hdslb.com/bfs/archive/6c07906411768557c3304a70e4c50611db99bff3.png", hideChannel = {xiangdao = 1}}
+]
+fmTabConfigs = [
+    {fmType = "audio_history", title = "最近播放", cover = "http://i0.hdslb.com/bfs/tvcover/f37a416cca4ffcbc9ca60fd6ed0a326221d8efcd.png"},
+    {fmType = "audio_feed", title = "为你推荐", cover = "http://i0.hdslb.com/bfs/tvcover/68a290c3c5e5084e53dfd7f901c7f919cc1e103a.png"},
+    {fmType = "audio_vertical", fmId = 10009, title = "涨点知识", cover = "http://i0.hdslb.com/bfs/feed-admin/57b930727a83b7bf8b60586324675c515da3f945.png"},
+    {fmType = "audio_vertical", fmId = 499, title = "听点音乐", cover = "http://i0.hdslb.com/bfs/tvcover/664adab5d7f8d7c236548d434651ce8425c913cb.png"},
+]
+[custom.Banners]
+    default = [{id = 1,image = "http://i0.hdslb.com/bfs/archive/28b470ed5ab138ed97c0c950021adfbe253a743a.png", url = "https://www.bilibili.com/blackboard/TGA2020-h5.html"}]
+
+[VideoTabsV2Conf]
+    VideoTabs = [
+        {Type=1,Id=1,Name="推荐",IsDefault=true},
+        {Type=2,Id=2,Name="热门",IsDefault=false},
+        {Type=2,Id=3,Name="音乐",IsDefault=false},
+        {Type=2,Id=4,Name="舞蹈",IsDefault=false},
+        {Type=2,Id=5,Name="游戏",IsDefault=false},
+        {Type=2,Id=6,Name="知识",IsDefault=false},
+        {Type=2,Id=7,Name="生活",IsDefault=false},
+        {Type=2,Id=8,Name="咨询",IsDefault=false},
+        {Type=2,Id=9,Name="汽车",IsDefault=false},
+        {Type=3,Id=10,Name="我的追番",IsDefault=false},
+        {Type=3,Id=11,Name="番剧推荐",IsDefault=false},
+        {Type=3,Id=12,Name="国创推荐",IsDefault=false},
+        {Type=3,Id=13,Name="我的追剧",IsDefault=false},
+        {Type=3,Id=14,Name="电影热播",IsDefault=false},
+        {Type=3,Id=15,Name="纪录片热播",IsDefault=false}
+    ]
+    DefaultPs=50
+
+[HostDiscovery]
+    data = "http://data.bilibili.co"
+    PGCPlayer = "discovery://pgc.gateway.player"
+
+#项目自定义配置
+[CustomModule]
+    ChannelMakeups = 600
+    XiaoPengKeywordRegion = "小鹏美妆空间近期热门"
+    XiaoPengKeywordTab = "小鹏美妆空间(.*)教程"
+
+# 限制海外稿件
+[FlowControl]
+    BusinessID = 1
+    source = "app-car"
+    Secret = "9s8aljc4yo0s7tcbaenvldbpgehtf7jkilhoxvk6"
+
+[FmReportMq]
+    AppId = "main.app-svr.app-car"
+    Token = "60db9aaf928c7c1b732f8d520f17c4ef"
+    Topic = "ReportFmHistory-T"
+
+[mysql]
+	[mysql.show]
+	addr   = "172.22.34.101:3306"
+	dsn    = "bilibili_show:8bmwBDtgBLB5Cqg31h2FxiRJK3OK6VXq@tcp(172.22.34.101:3306)/bilibili_show?timeout=1s&readTimeout=1s&writeTimeout=1s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+	idle   = 1
+    idleTimeout ="4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+    [mysql.car]
+	addr   = "main-bilibili-car-shylf-5534-write.testdb.bilibili.co:5534"
+	dsn    = "root:@tcp(127.0.0.1:3306)/test?timeout=1s&readTimeout=1s&writeTimeout=1s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+	idle   = 1
+    idleTimeout ="4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+
+[Taishan]
+    [Taishan.ChannelTable]
+        Table = "car_fm_recommend_data"
+        Token = "swXkGDiekPeAW4Ml"
+
+
+#合集测试
+[[BannerPlaylist]]
+    Id = 1
+    PlayList = [896641198,214131735,341632659]
+    ShowId = 214131735
+    Title = "推荐-预发测试合集标题"
+    Cover = "https://i0.hdslb.com/bfs/activity-plat/static/20220512/704b55e9b972baf7a38c1412859ea03a/v9qxJqls1i.png"
+    MaterialType = "ugc"
+    StyleType = 2
+    TabId = 1
+#多稿件测试
+[[BannerPlaylist]]
+    Id = 2
+    PlayList = [214169522,384224682,214224763]
+    MaterialType = "ugc"
+    StyleType = 1
+    TabId = 2
+#合集+多稿件+合集测试
+#指定合集信息+未指定测试
+[[BannerPlaylist]]
+    Id = 3
+    PlayList = [896641198,214131735,341632659]
+    ShowId = 214131735
+    Title = "音乐-预发测试合集标题"
+    Cover = "https://i0.hdslb.com/bfs/activity-plat/static/20220512/704b55e9b972baf7a38c1412859ea03a/v9qxJqls1i.png"
+    MaterialType = "ugc"
+    StyleType = 2
+    TabId = 3
+[[BannerPlaylist]]
+    Id = 4
+    PlayList = [896641198,214131735,341632659]
+    MaterialType = "ugc"
+    StyleType = 1
+    TabId = 3
+[[BannerPlaylist]]
+    Id = 5
+    PlayList = [299038652,981585335,341632659]
+    ShowId = 299038652
+    MaterialType = "ugc"
+    StyleType = 2
+    TabId = 3
+#pgc合集测试
+#指定标题+不指定封面测试
+[[BannerPlaylist]]
+   Id = 6
+    PlayList = [39687,41375,39688]
+    ShowId = 39688
+    Title = "番剧-预发测试合集标题"
+    MaterialType = "ogv_season"
+    StyleType = 2
+    TabId = 11
+
+[CustomModule51]
+    EnableCustomModule=false
+    MinNumbers=20
+    [CustomModule51.ChannelAids]
+        aionM=[]
+        aionD=[]
+        byd=[]
+        # 以下为测试，上线前一定要删除
+        viomi=[]
+
+[CustomModule61Childhood]
+    EnableCustomModule=true
+    MinNumbers=15
+    [CustomModule61Childhood.ChannelAids]
+        lixiang=[]
+        dofun=[]
+        byd=[]
+        # 以下为测试，上线前一定要删除
+        viomi=[]
+
+[CustomModule61Eden]
+    EnableCustomModule=true
+    MinNumbers=15
+    [CustomModule61Eden.ChannelAids]
+        lixiang=[]
+        dofun=[]
+        byd=[]
+        # 以下为测试，上线前一定要删除
+        viomi=[]
+
+[CustomModuleDW]
+    EnableCustomModule=true
+    MinNumbers=15
+    [CustomModuleDW.ChannelAids]
+        lixiang=[]
+        dofun=[]
+        byd=[]
+        # 以下为测试，上线前一定要删除
+        viomi=[]
+
+[CustomTab61Childhood]
+    EnableCustomModule=true
+    MinNumbers=20
+    [CustomTab61Childhood.ChannelAids]
+        xiaopeng=[]
+        # 以下为测试，上线前一定要删除
+        viomi=[]
+
+[CustomTab61Eden]
+    EnableCustomModule=true
+    MinNumbers=20
+    [CustomTab61Eden.ChannelAids]
+        xiaopeng=[]
+        # 以下为测试，上线前一定要删除
+        viomi=[]
+
+[CustomTabDWRicePudding]
+    EnableCustomModule=true
+    MinNumbers=20
+    [CustomTabDWRicePudding.ChannelAids]
+        xiaopeng=[]
+        # 以下为测试，上线前一定要删除
+        viomi=[]
+
+[CustomTabDWEden]
+    EnableCustomModule=true
+    MinNumbers=20
+    [CustomTabDWEden.ChannelAids]
+        xiaopeng=[]
+        # 以下为测试，上线前一定要删除
+        viomi=[]
+
+[TabExchange]
+    Channels = ["byd"]
+
+[PinPageCfgAll]
+    [PinPageCfgAll.HasPin]
+        BlackChannel = ["tesla"]
+    [PinPageCfgAll.PinMore]
+        BlackChannel = ["tesla"]
+
+[V23Debug]
+    Switch = true
+
+[ExpIds]
+    [ExpIds.Season]
+        ExpId = 223
+        ExpGroupId = 533
+
+[FlowControlAll]
+    BusinessID = 1
+    Source = "bilibili_car"
+    Secret = "sfj992htcg4oomdrbn5y9fgetrrk1tfqekiobjyz"

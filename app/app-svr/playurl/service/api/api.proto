@@ -1,0 +1,255 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+package playurl.service;
+
+option go_package = "api";
+
+service PlayURL {
+    // 获取播放地址
+    rpc PlayURL(PlayURLReq) returns (PlayURLReply);
+    // SteinsPreview is interactive archive preview for up
+    rpc SteinsPreview(SteinsPreviewReq) returns (SteinsPreviewReply);
+}
+
+message PlayURLReq {
+    //稿件aid
+    int64 aid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    //稿件cid
+    int64 cid = 2 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    //清晰度
+    int64 qn = 3;
+    //是否是flv离线下载请求, npcybs=1有效,其他均无效
+    int32 npcybs = 4;
+    //平台
+    string platform = 5;
+    //默认0 播放器请求端使用的, 功能版本号
+    int32 fnver = 6;
+    //默认0 播放器请求端使用的, 功能标识
+    int32 fnval = 7;
+    //session未找到使用点
+    string session = 8;
+    //build版本号
+    int32 build = 9;
+    //返回url是否强制使用域名(非ip地址), force_host=1使用http域名，force_host=2使用https域名, 0为使用ip地址
+    int32 force_host = 10;
+    //客户端设备唯一标识
+    string buvid = 11;
+    //登录mid
+    int64 mid = 12;
+    //resolution未找到使用点
+    string resolution = 13;
+    //低版本引导升级aid
+    int64 upgrade_aid = 14;
+    //低版本引导升级cid
+    int64 upgrade_cid = 15;
+    // type
+    string type = 16;
+    //是否需要4K视频, fourk=true表示需要4K视频, 其他都是不需要
+    int32 fourk = 17;
+    //设备：phone、ipad
+    string device = 18;
+    //平台：iphone、white、ipad、android、android_i、android_G、iphone_i、ipad_i、android_tv（后面带 I 是表示海外版、android_G 安卓谷歌版）
+    string mobi_app = 19;
+    //下载那参数
+    int32 dl = 20;
+    //低版本需要（是否校验支持互动视频否 1:是）
+    int32 verify_steins = 21;
+}
+
+message PlayURLReply {
+    // 表示是否是B站只有视频, 目前固定为"local"
+    string from = 1 [(gogoproto.jsontag) = "from"];
+    // 返回结果, 正确为"suee", 错误为"error"
+    string result = 2 [(gogoproto.jsontag) = "result"];
+    //返回视频的清晰度
+    uint32 quality = 3 [(gogoproto.jsontag) = "quality"];
+    //返回视频的格式
+    string format = 4 [(gogoproto.jsontag) = "format"];
+    //返回视频的总时长, 单位为ms
+    uint64 timelength = 5 [(gogoproto.jsontag) = "timelength"];
+    //返回视频的拥有的清晰度格式的列表
+    string accept_format = 6 [(gogoproto.jsontag) = "accept_format"];
+    //返回视频的拥有的清晰度描述的列表
+    repeated string accept_description = 7;
+    //返回视频的拥有的清晰度列表
+    repeated uint32 accept_quality = 8 [(gogoproto.jsontag) = "accept_quality"];
+    //返回视频的编码号
+    uint32 video_codecid = 9 [(gogoproto.jsontag) = "video_codecid"];
+    //透传返回请求的fnver
+    uint32 fnver = 10 [(gogoproto.jsontag) = "fnver"];
+    //透传返回请求的fnval
+    uint32 fnval = 11 [(gogoproto.jsontag) = "fnval"];
+    //返回视频的是否支持投影
+    bool video_project = 12 [(gogoproto.jsontag) = "video_project"];
+    //返回视频的seek参数, 目前固定为"start"
+    string seek_param = 13 [(gogoproto.jsontag) = "seek_param"];
+    //返回视频的seek类型, mp4视频为"second", flv视频为"offset"
+    string seek_type = 14 [(gogoproto.jsontag) = "seek_type"];
+    //进行ab test时候命中测试范围返回的测试ID号, 不返回该字段如果不进行ab test
+    int32 abtid = 15;
+    //返回视频播放url的列表，有durl则没dash字段
+    repeated Durl durl = 16;
+    //返回DASH视频的MPD格式文件,有dash则没durl字段
+    Dash dash = 17;
+    //表示cid是否非全二压，1表示非全二压
+    int32 no_rexcode = 18;
+}
+
+message Dash {
+    //dash的信息
+    uint32 duration = 1;
+    //dash的信息
+    float minBufferTime = 2;
+    //dash视频信息
+    repeated DashItem video = 3 [(gogoproto.jsontag) = "video"];
+    //dash视频信息
+    repeated DashItem audio = 4 [(gogoproto.jsontag) = "audio"];
+}
+
+message DashSegmentBase {
+    //dash的信息
+    string Initialization = 1;
+    //dash的信息
+    string indexRange = 2;
+}
+
+message DashItem {
+    //dash的清晰度
+    uint32 id = 1 [(gogoproto.jsontag) = "id"];
+    //dash的url地址
+    string base_url = 2 [(gogoproto.jsontag) = "base_url"];
+    //dash的backup url地址
+    repeated string backup_url = 3;
+    //dash的信息
+    uint32 bandwidth = 4 [(gogoproto.jsontag) = "bandwidth"];
+    //dash的信息
+    string mimeType = 5;
+    //dash的信息
+    string codecs = 6;
+    //dash的信息
+    uint32 width = 7;
+    //dash的信息
+    uint32 height = 8;
+    //dash的信息
+    string frameRate = 9;
+    //dash的信息
+    string sar = 10;
+    //dash的信息
+    uint32 startWithSAP = 11;
+    //dash的信息
+    DashSegmentBase SegmentBase = 12;
+    uint32 codecid              = 13 [(gogoproto.jsontag) = "codecid"];
+    //视频分片的md5,只有dash离线下载才有值
+    string md5 = 14;
+    //视频分片的大小, 单位Byte,只有dash离线下载才有值
+    uint64 size = 15;
+}
+
+message Durl {
+    //视频的分片序列号
+    uint32 order = 1 [(gogoproto.jsontag) = "order"];
+    //视频分片的时长, 单位ms
+    uint64 length = 2 [(gogoproto.jsontag) = "length"];
+    //视频分片的大小, 单位Byte
+    uint64 size = 3 [(gogoproto.jsontag) = "size"];
+    //视频分片的音频头信息
+    string ahead = 4;
+    //视频分片的视频头信息
+    string vhead = 5;
+    //视频分片的url地址
+    string url = 6 [(gogoproto.jsontag) = "url"];
+    //视频分片的备用url地址列表
+    repeated string backup_url = 7;
+    //视频分片的md5,只有离线下载才有值
+    string md5 = 8;
+}
+
+enum NetworkType {
+    NT_UNKNOWN = 0;  // 未知
+    WIFI       = 1;  // WIFI
+    CELLULAR   = 2;  // 移动网络
+    OFFLINE    = 3;  // 未连接
+    OTHERNET   = 4;  // 其他网络
+    ETHERNET   = 5;  // 以太网
+}
+
+enum TFType {
+    TF_UNKNOWN = 0;  // 正常计费
+    U_CARD     = 1;  // 联通卡
+    U_PKG      = 2;  // 联通包
+    C_CARD     = 3;  // 移动卡
+    C_PKG      = 4;  // 移动包
+    T_CARD     = 5;  // 电信卡
+    T_PKG      = 6;  // 电信包
+}
+
+message SteinsPreviewReq {
+    //稿件aid
+    int64 aid = 1 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    //稿件cid
+    int64 cid = 2 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    //清晰度
+    int64 qn = 3;
+    //平台
+    string platform = 4;
+    //默认0 播放器请求端使用的, 功能版本号
+    int32 fnver = 5;
+    //默认0 播放器请求端使用的, 功能版本号
+    int32 fnval = 6;
+    //设备号
+    string buvid = 7;
+    //登录mid
+    int64 mid = 8 [(gogoproto.moretags) = 'validate:"gt=0,required"'];
+    //返回url是否强制使用域名(非ip地址), force_host=1使用http域名，force_host=2使用https域名, 0为使用ip地址
+    int32 force_host = 9;
+    // 网络类型
+    NetworkType net_type = 10;
+    // 免流类型
+    TFType tf_type = 11;
+}
+
+message SteinsPreviewReply {
+    //播放地址
+    PlayURLInfo playurl = 1;
+}
+
+message PlayURLInfo {
+    //表示是否是B站只有视频, 目前固定为"local"
+    string from = 1 [(gogoproto.jsontag) = "from"];
+    //返回结果, 正确为"suee", 错误为"error"
+    string result = 2 [(gogoproto.jsontag) = "result"];
+    //返回视频的清晰度
+    uint32 quality = 3 [(gogoproto.jsontag) = "quality"];
+    //返回视频的格式
+    string format = 4 [(gogoproto.jsontag) = "format"];
+    //返回视频的总时长, 单位为ms
+    uint64 timelength = 5 [(gogoproto.jsontag) = "timelength"];
+    //返回视频的拥有的清晰度格式的列表
+    string accept_format = 6 [(gogoproto.jsontag) = "accept_format"];
+    //返回视频的拥有的清晰度描述的列表
+    repeated string accept_description = 7;
+    //返回视频的拥有的清晰度列表
+    repeated uint32 accept_quality = 8 [(gogoproto.jsontag) = "accept_quality"];
+    //返回视频的编码号
+    uint32 video_codecid = 9 [(gogoproto.jsontag) = "video_codecid"];
+    //透传返回请求的fnver
+    uint32 fnver = 10 [(gogoproto.jsontag) = "fnver"];
+    //透传返回请求的fnval
+    uint32 fnval = 11 [(gogoproto.jsontag) = "fnval"];
+    //返回视频的是否支持投影
+    bool video_project = 12 [(gogoproto.jsontag) = "video_project"];
+    //返回视频的seek参数, 目前固定为"start"
+    string seek_param = 13 [(gogoproto.jsontag) = "seek_param"];
+    //返回视频的seek类型, mp4视频为"second", flv视频为"offset"
+    string seek_type = 14 [(gogoproto.jsontag) = "seek_type"];
+    //进行ab test时候命中测试范围返回的测试ID号, 不返回该字段如果不进行ab test
+    int32 abtid = 15;
+    //返回视频播放url的列表，有durl则没dash字段
+    repeated Durl durl = 16;
+    //返回DASH视频的MPD格式文件,有dash则没durl字段
+    Dash dash = 17;
+    //is_sp=1且有大会员清晰度且不是全二压，no_rexocde值为1，其他情况为0
+    int32 no_rexcode = 18;
+}

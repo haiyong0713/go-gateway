@@ -1,0 +1,20 @@
+[server]
+    addr = "0.0.0.0:8000"
+    timeout = "1s"
+
+[Xlog]
+    dir = "/data/log/ott-service/"
+    stdout = true
+
+[Cfg]
+    ArchiveHost = "http://uat-archive.api.bilibili.co"
+    PGCTypes = ["番剧","电视剧","电影","纪录片",]
+    PGCCron = "*/30 * * * * *"
+
+[httpClient]
+    key    = "7c7ac0db1aa05587"
+    secret = "9a6d62d93290c5f771ad381e9ca23f26"
+    dial = "80ms"
+    timeout = "500ms"
+    keepAlive = "60s"
+    timer = 1000

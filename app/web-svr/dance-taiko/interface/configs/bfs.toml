@@ -1,0 +1,5 @@
+ [bfs]
+ key    = "fed7d6b5948c614f"
+ secret = "280e9140721cff3879cd13f59fc28a"
+ host   = "http://bfs.bilibili.co"
+ timeout = 10000

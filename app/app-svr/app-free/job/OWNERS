@@ -1,0 +1,10 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+- liweijia
+- zhangxin
+- yujia
+- zhoujiahui
+labels:
+- area/app-svr
+- area/app-svr/app-free/job

@@ -1,0 +1,184 @@
+# curl 'http://uat-fawkes.bilibili.co/x/admin/fawkes/apm/event/samplerate/delete'
+#  -H 'Accept: */*'
+#  -H 'Accept-Language: zh-CN,zh;q=0.9'
+#  -H 'Cookie: username=liuyalan; _AJSESSIONID=d876a33d73873f158335dd77ff2470f9; mng-go=4e196ac58f7ff187ed9155e68f1d8ccc0b54dc73c8ed7dfc0b331f83daafb929'
+#  -H 'Origin: http://uat-fawkes.bilibili.co'
+#  -H 'Proxy-Connection: keep-alive'
+#  -H 'Referer: http://uat-fawkes.bilibili.co/'
+#  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36'
+#  -H 'content-type: application/json'
+#  -H 'x1-bilispy-user: fawkes_liuyalan'
+#  --data-raw '{"datacenter_app_id":0,"app_key":"android","event_id":"infra.statistics.custom"}'
+#  --compressed \
+POST {{baseUrl}}/apm/event/samplerate/delete
+Accept: */*
+Accept-Language: zh-CN,zh;q=0.9
+Cookie: username=liuyalan; _AJSESSIONID=d876a33d73873f158335dd77ff2470f9; mng-go=4e196ac58f7ff187ed9155e68f1d8ccc0b54dc73c8ed7dfc0b331f83daafb929
+Origin: http://uat-fawkes.bilibili.co
+Proxy-Connection: keep-alive
+Referer: http://uat-fawkes.bilibili.co/
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36
+x1-bilispy-user: fawkes_liuyalan
+Content-Type: application/json
+
+{"app_key":"android","event_id":"infra.statistics.custom"}
+
+###
+
+# curl 'http://uat-fawkes.bilibili.co/x/admin/fawkes/apm/event/samplerate/list?app_key=android&event_id=player'
+#  -H 'Accept: */*'
+#  -H 'Accept-Language: zh-CN,zh;q=0.9'
+#  -H 'Cookie: username=liuyalan; _AJSESSIONID=d876a33d73873f158335dd77ff2470f9; mng-go=eac21eddb9a780846a8f7bfb1ef15e7f17ac0a37ba8776f1ed0aeb69ae07be82'
+#  -H 'Proxy-Connection: keep-alive'
+#  -H 'Referer: http://uat-fawkes.bilibili.co/'
+#  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36'
+#  -H 'x1-bilispy-user: fawkes_liuyalan'
+#  --compressed \
+GET {{baseUrl}}/apm/event/samplerate/list?app_key=android&event_id=player.string
+Accept: */*
+Accept-Language: zh-CN,zh;q=0.9
+Cookie: username=liuyalan; _AJSESSIONID=d876a33d73873f158335dd77ff2470f9; mng-go=eac21eddb9a780846a8f7bfb1ef15e7f17ac0a37ba8776f1ed0aeb69ae07be82
+Proxy-Connection: keep-alive
+Referer: http://uat-fawkes.bilibili.co/
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36
+x1-bilispy-user: fawkes_liuyalan
+
+###
+
+GET  {{baseUrl}}/apm/event/samplerate/list?app_key=android&log_id=002312,001538&event_id=play
+Accept: */*
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7
+Connection: keep-alive
+Cookie: {{Cookie}}
+Referer: https://fawkes.bilibili.co/
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="101", "Google Chrome";v="101"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "macOS"
+x1-bilispy-user: fawkes_luweidan
+
+###
+
+GET  {{baseUrl}}/apm/event/samplerate/config?app_key=android
+Accept: */*
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7
+Connection: keep-alive
+Cookie: {{Cookie}}
+Referer: https://fawkes.bilibili.co/
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="101", "Google Chrome";v="101"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "macOS"
+x1-bilispy-user: fawkes_luweidan
+
+###
+
+# curl -X 'POST'
+#  /x/admin/fawkes/apm/event/samplerate/add
+#  -H 'accept: application/json'
+#  -H 'Content-Type: application/json'
+#  -d '{
+#  "datacenter_app_id": 0,
+#  "app_key": 0,
+#  "event_id": "string",
+#  "event_name": "string",
+#  "rate": 0,
+#  "log_id": "string"
+#}'
+POST {{baseUrl}}/apm/event/samplerate/add
+accept: application/json
+Content-Type: application/json
+Origin: https://fawkes.bilibili.co
+Referer: https://fawkes.bilibili.co/
+x1-bilispy-user: fawkes_luweidan
+Cookie: {{Cookie}}
+
+{
+  "datacenter_app_id": 1,
+  "event_id": "player.string",
+  "event_name": "测试事件",
+  "rate": 0.02,
+  "log_id": "001538"
+}
+
+###
+
+POST {{baseUrl}}/apm/event/samplerate/add
+accept: application/json
+Content-Type: application/json
+Origin: https://fawkes.bilibili.co
+Referer: https://fawkes.bilibili.co/
+x1-bilispy-user: fawkes_luweidan
+Cookie: {{Cookie}}
+
+{
+  "app_key": "w19e",
+  "event_id": "player.ugc-video-detail.111.customized-end1_l.click",
+  "event_name": "测试事件",
+  "rate": 0.02,
+  "log_id": "002312"
+}
+
+
+###
+
+GET {{baseUrl}}/apm/event/samplerate/list?app_key=android
+Accept: */*
+Origin: https://fawkes.bilibili.co
+Referer: https://fawkes.bilibili.co/
+x1-bilispy-user: fawkes_luweidan
+Cookie: {{Cookie}}
+
+###
+
+POST {{baseUrl}}/apm/event/samplerate/delete
+accept: application/json
+Content-Type: application/json
+Origin: https://fawkes.bilibili.co
+Referer: https://fawkes.bilibili.co/
+x1-bilispy-user: fawkes_luweidan
+Cookie: {{Cookie}}
+
+{
+  "items": [{
+    "datacenter_app_id": 1,
+    "app_key": "w19e",
+    "event_id": "public.string",
+    "log_id": "001538"
+  },{
+    "datacenter_app_id": 2,
+    "app_key": "w19e",
+    "event_id": "public.string",
+    "log_id": "001538"
+  }]
+}
+
+###
+
+POST {{baseUrl}}/apm/flowmap/route/alias/add
+Connection: keep-alive
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"
+x1-bilispy-user: fawkes_luweidan
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
+sec-ch-ua-platform: "macOS"
+Accept: */*
+Origin: https://fawkes.bilibili.co
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://fawkes.bilibili.co/
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7
+Cookie: {{Cookie}}
+Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+
+route_name=aaa&route_alias=ddd&bus_id=0&app_key=w19e
+
+###
+

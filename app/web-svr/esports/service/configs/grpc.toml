@@ -1,0 +1,19 @@
+[Server]
+addr = "0.0.0.0:9000"
+timeout = "1s"
+
+[rpcLimiter]
+disable = false
+Preflight = false
+[[rpcLimiter.Methods]]
+path = "/esports.service.v1.Esports/LiveContests"
+rule = "total"
+[[rpcLimiter.Methods]]
+path = "/esports.service.v1.Esports/ContestList"
+rule = "total"
+
+[TunnelV2Client]
+timeout = "500ms"
+
+[BGroupClient]
+timeout = "500ms"

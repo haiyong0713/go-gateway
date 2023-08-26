@@ -1,0 +1,558 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+
+package app.tribe.v1;
+
+option go_package = "tribe";
+option (gogoproto.goproto_getters_all) = false;
+
+service Tribe {
+  /* 组件 */
+
+  rpc AddTribeInfo(AddTribeInfoReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/tribe/add"
+    };
+  }
+  rpc GetTribeInfo(GetTribeInfoReq) returns (GetTribeInfoResp){
+    option (google.api.http) = {
+      get: "/x/admin/fawkes/app/tribe/info"
+    };
+  }
+  rpc ListTribeInfo(ListTribeInfoReq) returns (ListTribeInfoResp){
+    option (google.api.http) = {
+      get: "/x/admin/fawkes/app/tribe/list"
+    };
+  }
+  rpc DeleteTribeInfo(DeleteTribeInfoReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/tribe/delete"
+    };
+  }
+  rpc UpdateTribeInfo(UpdateTribeInfoReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/tribe/update"
+    };
+  }
+
+  /* CI 相关 */
+
+  rpc AddTribeBuildPack(AddTribeBuildPackReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/tribe/ci/add"
+    };
+  }
+  rpc ListTribeBuildPack(ListTribeBuildPackReq) returns (ListTribeBuildPackResp){
+    option (google.api.http) = {
+      get: "/x/admin/fawkes/app/tribe/ci/list"
+    };
+  }
+  rpc UpdateTribeBuildPackGitInfo(UpdateTribeBuildPackGitInfoReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/business/tribe/ci/git/update"
+    };
+  }
+  rpc UpdateTribeBuildPackPkgInfo(UpdateTribeBuildPackPkgInfoReq) returns (UpdateTribeBuildPackPkgInfoResp){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/business/tribe/ci/pkg/update"
+    };
+  }
+  rpc GetTribeBuildPackInfo(GetTribeBuildPackInfoReq) returns (GetTribeBuildPackInfoResp){
+    option (google.api.http) = {
+      get: "/x/admin/fawkes/app/tribe/ci/get"
+    };
+  }
+  rpc CancelTribeBuildPack(CancelTribeBuildPackReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      get: "/x/admin/fawkes/app/tribe/ci/cancel"
+    };
+  }
+  rpc PushTribeBuildPackToCD(PushTribeBuildPackToCDReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/tribe/ci/push/to/cd"
+    };
+  }
+
+  /* CD 相关 */
+
+  rpc ListTribePack(ListTribePackReq) returns (ListTribePackResp){
+    option (google.api.http) = {
+      get: "/x/admin/fawkes/app/tribe/cd/list"
+    };
+  }
+  rpc EvolutionTribePack(EvolutionTribeReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/tribe/cd/evolution"
+    };
+  }
+
+  /* config 相关 */
+
+  rpc ActiveVersion(ActiveVersionReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/tribe/cd/config/version/active"
+    };
+  }
+  rpc ConfigVersionFlow(ConfigVersionFlowReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/tribe/cd/config/version/flow/set"
+    };
+  }
+  rpc GetVersionFlow(GetVersionFlowReq) returns (GetVersionFlowResp){
+    option (google.api.http) = {
+      get: "/x/admin/fawkes/app/tribe/cd/config/version/flow"
+    };
+  }
+  rpc ConfigVersionUpgrade(ConfigVersionUpgradeReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/tribe/cd/config/version/upgrade/set"
+    };
+  }
+  rpc GetConfigVersionUpgrade(GetConfigVersionUpgradeReq) returns (GetConfigVersionUpgradeResp){
+    option (google.api.http) = {
+      get: "/x/admin/fawkes/app/tribe/cd/config/version/upgrade"
+    };
+  }
+  rpc ConfigPackUpgradeFilter(ConfigPackUpgradeFilterReq) returns (.google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/x/admin/fawkes/app/tribe/cd/config/pack/upgrade/set"
+    };
+  }
+  rpc GetConfigPackUpgradeFilter(GetConfigPackUpgradeFilterReq) returns (GetConfigPackUpgradeFilterResp){
+    option (google.api.http) = {
+      get: "/x/admin/fawkes/app/tribe/cd/config/pack/upgrade"
+    };
+  }
+
+  /* 拉取关系表 */
+  rpc GetPackRelations(GetPackRelationsReq) returns (GetPackRelationsResp){
+    option (google.api.http) = {
+      get: "/x/admin/fawkes/app/tribe/cd/pack/relations"
+    };
+  }
+}
+
+message GetPackRelationsReq{
+  string app_key = 1 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key" validate:"required"'];
+  string feature = 2 [(gogoproto.jsontag) = "feature", (gogoproto.moretags) = 'form:"feature"'];
+}
+
+message GetPackRelationsResp{
+  repeated Relation relations = 1 [(gogoproto.jsontag) = "items", (gogoproto.moretags) = 'form:"items"'];
+}
+
+message Relation{
+  int64 id = 1 [(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id"'];
+  int64 current_build_id = 2 [(gogoproto.jsontag) = "current_build_id", (gogoproto.moretags) = 'form:"current_build_id"'];
+  int64 parent_build_id = 3 [(gogoproto.jsontag) = "parent_build_id", (gogoproto.moretags) = 'form:"parent_build_id"'];
+  string feature = 4  [(gogoproto.jsontag) = "feature", (gogoproto.moretags) = 'form:"feature"'];
+}
+
+
+message GetTribeBuildPackReq{
+  string app_key = 1 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key" validate:"required"'];
+  int64 id_type = 2 [(gogoproto.jsontag) = "id_type", (gogoproto.moretags) = 'form:"id_type"'];
+  int64 gitlab_job_id = 3 [(gogoproto.jsontag) = "gl_job_id", (gogoproto.moretags) = 'form:"gl_job_id"'];
+  int64 pkg_type = 4 [(gogoproto.jsontag) = "pkg_type", (gogoproto.moretags) = 'form:"pkg_type"'];
+  int64 status = 5 [(gogoproto.jsontag) = "status", (gogoproto.moretags) = 'form:"status"'];
+  int64 git_type = 6 [(gogoproto.jsontag) = "git_type", (gogoproto.moretags) = 'form:"git_type"'];
+  string git_keyword = 7 [(gogoproto.jsontag) = "git_keyword", (gogoproto.moretags) = 'form:"git_keyword"'];
+  string operator = 8 [(gogoproto.jsontag) = "operator", (gogoproto.moretags) = 'form:"operator"'];
+  Sort order = 9 [(gogoproto.jsontag) = "order", (gogoproto.moretags) = 'form:"order"'];
+  int64 pn = 10 [(gogoproto.jsontag) = "pn", (gogoproto.moretags) = 'form:"pn"'];
+  int64 ps = 11 [(gogoproto.jsontag) = "ps", (gogoproto.moretags) = 'form:"ps"'];
+}
+
+message GetTribeBuildPackResp{
+  PageInfo page = 1 [(gogoproto.jsontag) = "page", (gogoproto.moretags) = 'form:"page"'];
+  repeated TribeBuildPackInfo items = 2 [(gogoproto.jsontag) = "items", (gogoproto.moretags) = 'form:"items"'];
+}
+
+message TribeInfo{
+  int64 id = 1 [(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id"'];
+  string app_key = 2 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];
+  string name = 3 [(gogoproto.jsontag) = "name", (gogoproto.moretags) = 'form:"name"'];
+  string c_name = 4 [(gogoproto.jsontag) = "c_name", (gogoproto.moretags) = 'form:"c_name"'];
+  string owners = 5 [(gogoproto.jsontag) = "owners", (gogoproto.moretags) = 'form:"owners"'];
+  string description = 6 [(gogoproto.jsontag) = "description", (gogoproto.moretags) = 'form:"description"'];
+  bool no_host = 7 [(gogoproto.jsontag) = "no_host", (gogoproto.moretags) = 'form:"no_host"'];
+  int64 priority = 8 [(gogoproto.jsontag) = "priority", (gogoproto.moretags) = 'form:"priority"'];
+  bool is_build_in = 9 [(gogoproto.jsontag) = "is_build_in", (gogoproto.moretags) = 'form:"is_build_in"'];
+}
+
+message PageInfo{
+  int64 total = 1 [(gogoproto.jsontag) = "total"];
+  int64 pn = 2 [(gogoproto.jsontag) = "pn"];
+  int64 ps = 3 [(gogoproto.jsontag) = "ps"];
+}
+
+message GetTribeInfoReq{
+  int64 id = 1 [(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id" validate:"required"'];
+}
+
+message GetTribeInfoResp{
+  TribeInfo tribe_info = 1 [(gogoproto.jsontag) = "tribe_info", (gogoproto.moretags) = 'form:"tribe_info"'];
+}
+
+message ListTribeInfoReq{
+  string app_key = 1 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];
+  string name = 2 [(gogoproto.jsontag) = "name", (gogoproto.moretags) = 'form:"name"'];
+  string c_name = 3 [(gogoproto.jsontag) = "c_name", (gogoproto.moretags) = 'form:"c_name"'];
+  int64  ps = 4 [(gogoproto.jsontag) = "ps", (gogoproto.moretags) = 'form:"ps"'];
+  int64  pn = 5 [(gogoproto.jsontag) = "pn", (gogoproto.moretags) = 'form:"pn"'];
+}
+
+message ListTribeInfoResp{
+  PageInfo page_info = 1  [(gogoproto.jsontag) = "page", (gogoproto.moretags) = 'form:"page"'];
+  repeated TribeInfo tribe_info = 2 [(gogoproto.jsontag) = "items", (gogoproto.moretags) = 'form:"items"'];
+}
+
+message DeleteTribeInfoReq{
+  int64 id = 1 [(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id" validate:"required"'];
+}
+
+message UpdateTribeInfoReq{
+  int64 id = 1 [(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id"'];
+  string app_key = 2 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];
+  string name = 3 [(gogoproto.jsontag) = "name", (gogoproto.moretags) = 'form:"name"'];
+  string c_name = 4 [(gogoproto.jsontag) = "c_name", (gogoproto.moretags) = 'form:"c_name"'];
+  string owners = 5 [(gogoproto.jsontag) = "owners", (gogoproto.moretags) = 'form:"owners"'];
+  string description = 6 [(gogoproto.jsontag) = "description", (gogoproto.moretags) = 'form:"description"'];
+  bool no_host = 7 [(gogoproto.jsontag) = "no_host", (gogoproto.moretags) = 'form:"no_host"'];
+  int64 priority = 8 [(gogoproto.jsontag) = "priority", (gogoproto.moretags) = 'form:"priority"'];
+  bool is_build_in = 9 [(gogoproto.jsontag) = "is_build_in", (gogoproto.moretags) = 'form:"is_build_in"'];
+}
+
+message AddTribeInfoReq{
+  string app_key = 1 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key" validate:"required"'];
+  string name = 2 [(gogoproto.jsontag) = "name", (gogoproto.moretags) = 'form:"name" validate:"required"'];
+  string c_name = 3 [(gogoproto.jsontag) = "c_name", (gogoproto.moretags) = 'form:"c_name"'];
+  string owners = 4 [(gogoproto.jsontag) = "owners", (gogoproto.moretags) = 'form:"owners"'];
+  string description = 5 [(gogoproto.jsontag) = "description", (gogoproto.moretags) = 'form:"description"'];
+  bool no_host = 6 [(gogoproto.jsontag) = "no_host", (gogoproto.moretags) = 'form:"no_host"'];
+  int64 priority = 7 [(gogoproto.jsontag) = "priority", (gogoproto.moretags) = 'form:"priority"'];
+  bool is_build_in = 8 [(gogoproto.jsontag) = "is_build_in", (gogoproto.moretags) = 'form:"is_build_in"'];
+}
+
+message AddTribeBuildPackReq{
+  int64 tribe_id = 1 [(gogoproto.jsontag) = "tribe_id", (gogoproto.moretags) = 'form:"tribe_id" validate:"required"'];
+  int64 pkg_type = 2 [(gogoproto.jsontag) = "pkg_type", (gogoproto.moretags) = 'form:"pkg_type"'];
+  int64 git_type = 3 [(gogoproto.jsontag) = "git_type", (gogoproto.moretags) = 'form:"git_type"'];
+  string git_name = 4 [(gogoproto.jsontag) = "git_name", (gogoproto.moretags) = 'form:"git_name" validate:"required"'];
+  string ci_env_var = 5 [(gogoproto.jsontag) = "ci_env_var", (gogoproto.moretags) = 'form:"ci_env_var"'];
+  string description = 6 [(gogoproto.jsontag) = "description", (gogoproto.moretags) = 'form:"description"'];
+  bool should_notify = 7 [(gogoproto.jsontag) = "should_notify", (gogoproto.moretags) = 'form:"should_notify"'];
+  int64 dep_gl_job_id = 8 [(gogoproto.jsontag) = "dep_gl_job_id", (gogoproto.moretags) = 'form:"dep_gl_job_id"'];
+}
+
+
+message ListTribeBuildPackReq{
+  int64 gl_job_id = 1 [(gogoproto.jsontag) = "gl_job_id", (gogoproto.moretags) = 'form:"gl_job_id"'];
+  int64 dep_gl_job_id = 12 [(gogoproto.jsontag) = "dep_gl_job_id", (gogoproto.moretags) = 'form:"dep_gl_job_id"'];
+  int32 pkg_type = 2 [(gogoproto.jsontag) = "pkg_type", (gogoproto.moretags) = 'form:"pkg_type"'];
+  int32 status = 3 [(gogoproto.jsontag) = "status", (gogoproto.moretags) = 'form:"status"'];
+  int32 state = 14 [(gogoproto.jsontag) = "state", (gogoproto.moretags) = 'form:"state"'];
+  enum GitType{
+    BRANCH = 0;
+    TAG = 1;
+    COMMIT = 2;
+  }
+  GitType git_type = 4 [(gogoproto.jsontag) = "git_type", (gogoproto.moretags) = 'form:"git_type"'];
+  string commit = 13 [(gogoproto.jsontag) = "commit", (gogoproto.moretags) = 'form:"commit"'];
+  string git_name = 5 [(gogoproto.jsontag) = "git_name", (gogoproto.moretags) = 'form:"git_name"'];
+  string operator = 6 [(gogoproto.jsontag) = "operator", (gogoproto.moretags) = 'form:"operator"'];
+  int64 tribe_id = 7 [(gogoproto.jsontag) = "tribe_id", (gogoproto.moretags) = 'form:"tribe_id"'];
+  enum OrderBy{
+    CTIME = 0;
+    ID = 1;
+  }
+  OrderBy order_by = 8 [(gogoproto.jsontag) = "order_by", (gogoproto.moretags) = 'form:"order_by"'];
+  Sort sort = 9 [(gogoproto.jsontag) = "sort", (gogoproto.moretags) = 'form:"sort"'];
+  int64 pn = 10 [(gogoproto.jsontag) = "pn", (gogoproto.moretags) = 'form:"pn"'];
+  int64 ps = 11 [(gogoproto.jsontag) = "ps", (gogoproto.moretags) = 'form:"ps"'];
+  string app_key = 15 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];
+  string push_cd = 16 [(gogoproto.jsontag) = "push_cd", (gogoproto.moretags) = 'form:"push_cd"'];
+}
+
+message ListTribeBuildPackResp{
+  repeated TribeBuildPackInfo tribe_build_pack_infos = 1 [(gogoproto.jsontag) = "items", (gogoproto.moretags) = 'form:"items"'];
+  PageInfo page_info = 2 [(gogoproto.jsontag) = "page", (gogoproto.moretags) = 'form:"page"'];
+}
+
+message TribeBuildPackInfo{
+  int64 id = 1 [(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id"'];
+  int64 tribe_id = 2 [(gogoproto.jsontag) = "tribe_id", (gogoproto.moretags) = 'form:"tribe_id"'];
+  int64 gl_job_id = 3 [(gogoproto.jsontag) = "gl_job_id", (gogoproto.moretags) = 'form:"gl_job_id"'];
+  int64 dep_gl_job_id = 4 [(gogoproto.jsontag) = "dep_gl_job_id", (gogoproto.moretags) = 'form:"dep_gl_job_id"']; // 宿主包gitlab job id
+  string app_id = 5 [(gogoproto.jsontag) = "app_id", (gogoproto.moretags) = 'form:"app_id"'];
+  string app_key = 6 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];
+  string git_path = 7 [(gogoproto.jsontag) = "git_path", (gogoproto.moretags) = 'form:"git_path"'];
+  int32 git_type = 8 [(gogoproto.jsontag) = "git_type", (gogoproto.moretags) = 'form:"git_type"'];
+  string git_name = 9 [(gogoproto.jsontag) = "git_name", (gogoproto.moretags) = 'form:"git_name"'];
+  string commit = 10 [(gogoproto.jsontag) = "commit", (gogoproto.moretags) = 'form:"commit"'];
+  int32 pkg_type = 11 [(gogoproto.jsontag) = "pkg_type", (gogoproto.moretags) = 'form:"pkg_type"'];
+  string operator = 12 [(gogoproto.jsontag) = "operator", (gogoproto.moretags) = 'form:"operator"'];
+  int64 size = 13 [(gogoproto.jsontag) = "size", (gogoproto.moretags) = 'form:"size"'];
+  string md5 = 14 [(gogoproto.jsontag) = "md5", (gogoproto.moretags) = 'form:"md5"'];
+  string pkg_path = 15 [(gogoproto.jsontag) = "pkg_path", (gogoproto.moretags) = 'form:"pkg_path"'];
+  string pkg_url = 16 [(gogoproto.jsontag) = "pkg_url", (gogoproto.moretags) = 'form:"pkg_url"'];
+  string mapping_url = 17 [(gogoproto.jsontag) = "mapping_url", (gogoproto.moretags) = 'form:"mapping_url"'];
+  string bbr_url = 18 [(gogoproto.jsontag) = "bbr_url", (gogoproto.moretags) = 'form:"bbr_url"'];
+  int32 state = 19 [(gogoproto.jsontag) = "state", (gogoproto.moretags) = 'form:"state"'];
+  int32 status = 20 [(gogoproto.jsontag) = "status", (gogoproto.moretags) = 'form:"status"'];
+  int32 did_push = 21 [(gogoproto.jsontag) = "did_push", (gogoproto.moretags) = 'form:"did_push"'];
+  string change_log = 22 [(gogoproto.jsontag) = "change_log", (gogoproto.moretags) = 'form:"change_log"'];
+  bool notify_group = 23 [(gogoproto.jsontag) = "notify_group", (gogoproto.moretags) = 'form:"notify_group"'];
+  string ci_env_vars = 24 [(gogoproto.jsontag) = "ci_env_vars", (gogoproto.moretags) = 'form:"ci_env_vars"'];
+  int64 build_start_time = 25 [(gogoproto.jsontag) = "build_start_time", (gogoproto.moretags) = 'form:"build_start_time"'];
+  int64 build_end_time = 26 [(gogoproto.jsontag) = "build_end_time", (gogoproto.moretags) = 'form:"build_end_time"'];
+  string description = 27 [(gogoproto.jsontag) = "description", (gogoproto.moretags) = 'form:"description"'];
+  int64 ctime = 28 [(gogoproto.jsontag) = "ctime", (gogoproto.moretags) = 'form:"ctime"'];
+  int64 mtime = 29 [(gogoproto.jsontag) = "mtime", (gogoproto.moretags) = 'form:"mtime"'];
+  string err_msg = 30 [(gogoproto.jsontag) = "err_msg", (gogoproto.moretags) = 'form:"err_msg"'];
+  string job_url = 31 [(gogoproto.jsontag) = "job_url", (gogoproto.moretags) = 'form:"job_url"'];
+  int64 version_code = 32 [(gogoproto.jsontag) = "version_code", (gogoproto.moretags) = 'form:"version_code"'];
+  string version_name = 33 [(gogoproto.jsontag) = "version_name", (gogoproto.moretags) = 'form:"version_name"'];
+  string dep_feature = 34 [(gogoproto.jsontag) = "dep_feature", (gogoproto.moretags) = 'form:"dep_feature"'];
+}
+
+message GetTribeBuildPackInfoReq{
+  int64 id = 1 [(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id" validate:"required"'];
+}
+
+message GetTribeBuildPackInfoResp{
+  TribeBuildPackInfo tribe_build_pack_info = 1 [(gogoproto.jsontag) = "tribe_build_pack_info", (gogoproto.moretags) = 'form:"tribe_build_pack_info"'];
+}
+
+message PushTribeBuildPackToCDReq{
+  int64 tribe_build_pack_id = 1 [(gogoproto.jsontag) = "tribe_build_pack_id", (gogoproto.moretags) = 'form:"tribe_build_pack_id" validate:"required"'];
+  string description = 2 [(gogoproto.jsontag) = "description", (gogoproto.moretags) = 'form:"description" '];
+}
+
+message UpdateTribeBuildPackGitInfoReq{
+  int64 tribe_build_pack_id = 1 [(gogoproto.jsontag) = "tribe_build_pack_id", (gogoproto.moretags) = 'form:"tribe_build_pack_id" validate:"required"'];
+  CallbackStatus status = 2 [(gogoproto.jsontag) = "status", (gogoproto.moretags) = 'form:"status"'];
+  int64 gitlab_job_id = 3 [(gogoproto.jsontag) = "gitlab_job_id", (gogoproto.moretags) = 'form:"gitlab_job_id"'];
+  string git_path = 4 [(gogoproto.jsontag) = "git_path", (gogoproto.moretags) = 'form:"git_path"'];
+  string commit = 5 [(gogoproto.jsontag) = "commit", (gogoproto.moretags) = 'form:"commit"'];
+  int64 build_start_time = 6 [(gogoproto.jsontag) = "build_start_time", (gogoproto.moretags) = 'form:"build_start_time"'];
+  int64 dep_gitlab_job_id = 7 [(gogoproto.jsontag) = "dep_gitlab_job_id", (gogoproto.moretags) = 'form:"dep_gitlab_job_id"'];
+}
+
+message UpdateTribeBuildPackPkgInfoReq{
+  int64 tribe_build_pack_id = 1 [(gogoproto.jsontag) = "tribe_build_pack_id", (gogoproto.moretags) = 'form:"tribe_build_pack_id" validate:"required"'];
+  CallbackStatus status = 2 [(gogoproto.jsontag) = "status", (gogoproto.moretags) = 'form:"status"'];
+  bytes file = 3 [(gogoproto.jsontag) = "file", (gogoproto.moretags) = 'form:"file"'];
+  string change_log = 4 [(gogoproto.jsontag) = "change_log", (gogoproto.moretags) = 'form:"change_log"'];
+  string pkg_path = 5 [(gogoproto.jsontag) = "apk_path", (gogoproto.moretags) = 'form:"apk_path"'];
+  string mapping_path = 6 [(gogoproto.jsontag) = "mapping_path", (gogoproto.moretags) = 'form:"mapping_path"'];
+  string bbr_path = 7 [(gogoproto.jsontag) = "bbr_path", (gogoproto.moretags) = 'form:"bbr_path"'];
+  int64 build_end_time = 8 [(gogoproto.jsontag) = "build_end_time", (gogoproto.moretags) = 'form:"build_end_time"'];
+  int64 version_code = 9 [(gogoproto.jsontag) = "version_code", (gogoproto.moretags) = 'form:"version_code"'];
+  string version_name = 12 [(gogoproto.jsontag) = "version_name", (gogoproto.moretags) = 'form:"version_name"'];
+  bool unzip = 10 [(gogoproto.jsontag) = "unzip", (gogoproto.moretags) = 'form:"unzip"'];
+  string md5 = 11 [(gogoproto.jsontag) = "md5", (gogoproto.moretags) = 'form:"md5"'];
+}
+
+message UpdateTribeBuildPackPkgInfoResp{
+  string main_apk_url = 1 [(gogoproto.jsontag) = "main_apk_url", (gogoproto.moretags) = 'form:"main_apk_url"'];
+  string main_bbr_url = 2 [(gogoproto.jsontag) = "main_bbr_url", (gogoproto.moretags) = 'form:"main_bbr_url"'];
+  string mapping_url = 3 [(gogoproto.jsontag) = "mapping_url", (gogoproto.moretags) = 'form:"mapping_url"'];
+}
+
+message CancelTribeBuildPackReq{
+  int64 tribe_build_pack_id = 2 [(gogoproto.jsontag) = "tribe_build_pack_id", (gogoproto.moretags) = 'form:"tribe_build_pack_id" validate:"required"'];
+}
+
+message ListTribePackReq{
+  int64 tribe_id = 1 [(gogoproto.jsontag) = "tribe_id", (gogoproto.moretags) = 'form:"tribe_id" validate:"required"'];
+  string env = 2 [(gogoproto.jsontag) = "env", (gogoproto.moretags) = 'form:"env" validate:"required"'];
+  int32 state = 3 [(gogoproto.jsontag) = "state", (gogoproto.moretags) = 'form:"state"'];
+  int64 ps = 4 [(gogoproto.jsontag) = "ps", (gogoproto.moretags) = 'form:"ps" validate:"required"'];
+  int64 pn = 5 [(gogoproto.jsontag) = "pn", (gogoproto.moretags) = 'form:"pn" validate:"required"'];
+  string app_key = 6 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key" validate:"required"'];
+}
+
+message ListTribePackResp{
+  PageInfo page_info = 1 [(gogoproto.jsontag) = "page", (gogoproto.moretags) = 'form:"page"'];
+  repeated VersionPack version_pack_info = 2 [(gogoproto.jsontag) = "items", (gogoproto.moretags) = 'form:"items"'];
+}
+
+message VersionPack{
+  string version_name = 1 [(gogoproto.jsontag) = "version_name", (gogoproto.moretags) = 'form:"version_name"'];
+  repeated PackInfo pack_info = 2 [(gogoproto.jsontag) = "items", (gogoproto.moretags) = 'form:"items"'];
+}
+
+message ConfigVersionFlowReq{
+  int64 tribe_id = 1 [(gogoproto.jsontag) = "tribe_id", (gogoproto.moretags) = 'form:"tribe_id"'];
+  string env = 2 [(gogoproto.jsontag) = "env", (gogoproto.moretags) = 'form:"env"'];
+  int64 version_id = 3 [(gogoproto.jsontag) = "version_id", (gogoproto.moretags) = 'form:"version_id"'];
+  string app_key = 4 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];
+  repeated Flow flow = 5 [(gogoproto.jsontag) = "flow", (gogoproto.moretags) = 'form:"flow"'];
+}
+
+message Flow{
+  int64 from = 1 [(gogoproto.jsontag) = "from", (gogoproto.moretags) = 'form:"from"'];
+  int64 to = 2 [(gogoproto.jsontag) = "to", (gogoproto.moretags) = 'form:"to"'];
+  int64 git_job_id = 3 [(gogoproto.jsontag) = "gl_job_id", (gogoproto.moretags) = 'form:"gl_job_id"'];
+  int64 ctime = 4 [(gogoproto.jsontag) = "ctime", (gogoproto.moretags) = 'form:"ctime"'];
+  int64 mtime = 5 [(gogoproto.jsontag) = "mtime", (gogoproto.moretags) = 'form:"mtime"'];
+  string operator = 6 [(gogoproto.jsontag) = "operator", (gogoproto.moretags) = 'form:"operator"'];
+}
+
+message ConfigVersionUpgradeReq{
+  string app_key = 1 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];
+  int64 tribe_id = 6 [(gogoproto.jsontag) = "tribe_id", (gogoproto.moretags) = 'form:"tribe_id" validate:"required"'];
+  string env = 2 [(gogoproto.jsontag) = "env", (gogoproto.moretags) = 'form:"env" validate:"required"'];
+  int64 tribe_pack_id = 3[(gogoproto.jsontag) = "tribe_pack_id", (gogoproto.moretags) = 'form:"tribe_pack_id" validate:"required"'];
+  repeated string chosen_version_code = 4 [(gogoproto.jsontag) = "chosen_version_code", (gogoproto.moretags) = 'form:"chosen_version_code"'];
+  repeated string starting_version_code = 5 [(gogoproto.jsontag) = "starting_version_code", (gogoproto.moretags) = 'form:"starting_version_code"'];
+}
+
+message VersionRange{
+  string min = 1;
+  string max = 2;
+}
+
+message BuildVersion{
+  int64 version_id = 1 [(gogoproto.jsontag) = "version_id", (gogoproto.moretags) = 'form:"version_id"'];
+  repeated int64 build_id = 2 [(gogoproto.jsontag) = "build_id", (gogoproto.moretags) = 'form:"build_id"'];
+}
+
+message PackInfo{
+  int64 id = 1 [(gogoproto.jsontag) = "id", (gogoproto.moretags) = 'form:"id"'];
+  string app_id = 2 [(gogoproto.jsontag) = "app_id", (gogoproto.moretags) = 'form:"app_id"'];
+  string app_key = 3 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];
+  string env = 4 [(gogoproto.jsontag) = "env", (gogoproto.moretags) = 'form:"env"'];
+  int64 tribe_id = 5 [(gogoproto.jsontag) = "tribe_id", (gogoproto.moretags) = 'form:"tribe_id"'];
+  int64 gl_job_id = 6 [(gogoproto.jsontag) = "gl_job_id", (gogoproto.moretags) = 'form:"gl_job_id"'];
+  int64 dep_gl_job_id = 7 [(gogoproto.jsontag) = "dep_gl_job_id", (gogoproto.moretags) = 'form:"dep_gl_job_id"'];
+  int64 version_id = 8 [(gogoproto.jsontag) = "version_id", (gogoproto.moretags) = 'form:"version_id"'];
+  int32 git_type = 9 [(gogoproto.jsontag) = "git_type", (gogoproto.moretags) = 'form:"git_type"'];
+  string git_name = 10 [(gogoproto.jsontag) = "git_name", (gogoproto.moretags) = 'form:"git_name"'];
+  string commit = 11 [(gogoproto.jsontag) = "commit", (gogoproto.moretags) = 'form:"commit"'];
+  int32 pack_type = 12 [(gogoproto.jsontag) = "pack_type", (gogoproto.moretags) = 'form:"pack_type"'];
+  string change_log = 13 [(gogoproto.jsontag) = "change_log", (gogoproto.moretags) = 'form:"change_log"'];
+  string operator = 14 [(gogoproto.jsontag) = "operator", (gogoproto.moretags) = 'form:"operator"'];
+  int64 size = 15 [(gogoproto.jsontag) = "size", (gogoproto.moretags) = 'form:"size"'];
+  string md5 = 16 [(gogoproto.jsontag) = "md5", (gogoproto.moretags) = 'form:"md5"'];
+  string pack_path = 17 [(gogoproto.jsontag) = "pack_path", (gogoproto.moretags) = 'form:"pack_path"'];
+  string pack_url = 18 [(gogoproto.jsontag) = "pack_url", (gogoproto.moretags) = 'form:"pack_url"'];
+  string mapping_url = 19 [(gogoproto.jsontag) = "mapping_url", (gogoproto.moretags) = 'form:"mapping_url"'];
+  string bbr_url = 20 [(gogoproto.jsontag) = "bbr_url", (gogoproto.moretags) = 'form:"bbr_url"'];
+  string cdn_url = 21 [(gogoproto.jsontag) = "cdn_url", (gogoproto.moretags) = 'form:"cdn_url"'];
+  string description = 22 [(gogoproto.jsontag) = "description", (gogoproto.moretags) = 'form:"description"'];
+  int64 mtime = 24 [(gogoproto.jsontag) = "mtime", (gogoproto.moretags) = 'form:"mtime"'];
+  int64 ctime = 25 [(gogoproto.jsontag) = "ctime", (gogoproto.moretags) = 'form:"ctime"'];
+  Flow flow = 26 [(gogoproto.jsontag) = "flow", (gogoproto.moretags) = 'form:"flow"'];//流量配置
+  GetConfigPackUpgradeFilterResp pack_upgrade = 23 [(gogoproto.jsontag) = "pack_upgrade", (gogoproto.moretags) = 'form:"pack_upgrade"'];//包配置
+  string job_url = 27 [(gogoproto.jsontag) = "job_url", (gogoproto.moretags) = 'form:"job_url"'];
+  VersionInfo version_info = 28 [(gogoproto.jsontag) = "version", (gogoproto.moretags) = 'form:"version"'];
+  string last_operator = 29 [(gogoproto.jsontag) = "last_operator", (gogoproto.moretags) = 'form:"last_operator"'];
+  int64 last_mtime = 30 [(gogoproto.jsontag) = "last_mtime", (gogoproto.moretags) = 'form:"last_mtime"'];
+  string dep_feature = 31 [(gogoproto.jsontag) = "dep_feature", (gogoproto.moretags) = 'form:"dep_feature"'];
+}
+
+message VersionInfo{
+  string env = 1 [(gogoproto.jsontag) = "env", (gogoproto.moretags) = 'form:"env"'];
+  bool is_active = 2 [(gogoproto.jsontag) = "is_active", (gogoproto.moretags) = 'form:"is_active"'];
+  string version_code = 3 [(gogoproto.jsontag) = "version_code", (gogoproto.moretags) = 'form:"version_code"'];
+  int64 version_id = 4 [(gogoproto.jsontag) = "version_id", (gogoproto.moretags) = 'form:"version_id"'];
+  int64 ctime = 5 [(gogoproto.jsontag) = "ctime", (gogoproto.moretags) = 'form:"ctime"'];
+  int64 mtime = 6 [(gogoproto.jsontag) = "mtime", (gogoproto.moretags) = 'form:"mtime"'];
+  string operator = 7 [(gogoproto.jsontag) = "operator", (gogoproto.moretags) = 'form:"operator"'];
+}
+
+message ActiveVersionReq{
+  string app_key = 1 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];
+  string env = 2 [(gogoproto.jsontag) = "env", (gogoproto.moretags) = 'form:"env"'];
+  int64 version_id = 4 [(gogoproto.jsontag) = "version_id", (gogoproto.moretags) = 'form:"version_id"'];
+  bool active = 5 [(gogoproto.jsontag) = "active", (gogoproto.moretags) = 'form:"active"'];
+}
+
+message GetVersionFlowReq{
+  string app_key = 1 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key"'];
+  int64 tribe_id = 2 [(gogoproto.jsontag) = "tribe_id", (gogoproto.moretags) = 'form:"tribe_id"'];
+  string env = 3 [(gogoproto.jsontag) = "env", (gogoproto.moretags) = 'form:"env"'];
+  int64 version_id = 4 [(gogoproto.jsontag) = "version_id", (gogoproto.moretags) = 'form:"version_id"'];
+}
+
+message GetVersionFlowResp{
+  repeated Flow flows = 1 [(gogoproto.jsontag) = "items", (gogoproto.moretags) = 'form:"items"'];
+}
+
+message GetConfigVersionUpgradeReq{
+  int64 tribe_id = 1 [(gogoproto.jsontag) = "tribe_id", (gogoproto.moretags) = 'form:"tribe_id"'];
+  string env = 2 [(gogoproto.jsontag) = "env", (gogoproto.moretags) = 'form:"env"'];
+  int64 tribe_pack_id = 3 [(gogoproto.jsontag) = "tribe_pack_id", (gogoproto.moretags) = 'form:"tribe_pack_id"'];
+}
+
+
+message GetConfigVersionUpgradeResp{
+  repeated string chosen_version_code = 1 [(gogoproto.jsontag) = "chosen_version_code", (gogoproto.moretags) = 'form:"chosen_version_code"'];
+  repeated string starting_version_code = 2 [(gogoproto.jsontag) = "starting_version_code", (gogoproto.moretags) = 'form:"starting_version_code"'];
+}
+
+message ConfigPackUpgradeFilterReq{
+  int64 tribe_id = 1 [(gogoproto.jsontag) = "tribe_id", (gogoproto.moretags) = 'form:"tribe_id" validate:"required"'];
+  string env = 2 [(gogoproto.jsontag) = "env", (gogoproto.moretags) = 'form:"env" validate:"required"'];
+  int64 tribe_pack_id = 3 [(gogoproto.jsontag) = "tribe_pack_id", (gogoproto.moretags) = 'form:"tribe_pack_id" validate:"required"'];
+  string network = 4 [(gogoproto.jsontag) = "network", (gogoproto.moretags) = 'form:"network"'];
+  string isp = 5 [(gogoproto.jsontag) = "isp", (gogoproto.moretags) = 'form:"isp"'];
+  string channel = 6 [(gogoproto.jsontag) = "channel", (gogoproto.moretags) = 'form:"channel"'];
+  string city = 7 [(gogoproto.jsontag) = "city", (gogoproto.moretags) = 'form:"city"'];
+  UpgradeType type = 8 [(gogoproto.jsontag) = "type", (gogoproto.moretags) = 'form:"type"'];
+  string app_key = 10 [(gogoproto.jsontag) = "app_key", (gogoproto.moretags) = 'form:"app_key" validate:"required"'];
+  int64 percent = 11 [(gogoproto.jsontag) = "percent", (gogoproto.moretags) = 'form:"percent"'];
+  string device_id = 9 [(gogoproto.jsontag) = "device", (gogoproto.moretags) = 'form:"device"'];
+  string excludes_system = 12 [(gogoproto.jsontag) = "excludes_system", (gogoproto.moretags) = 'form:"excludes_system"'];
+}
+
+message GetConfigPackUpgradeFilterResp{
+  int64 tribe_id = 1 [(gogoproto.jsontag) = "tribe_id", (gogoproto.moretags) = 'form:"tribe_id" validate:"required"'];
+  string env = 2 [(gogoproto.jsontag) = "env", (gogoproto.moretags) = 'form:"env" validate:"required"'];
+  int64 build_id = 3 [(gogoproto.jsontag) = "build_id", (gogoproto.moretags) = 'form:"build_id" validate:"required"'];
+  string network = 4 [(gogoproto.jsontag) = "network", (gogoproto.moretags) = 'form:"network"'];
+  string isp = 5 [(gogoproto.jsontag) = "isp", (gogoproto.moretags) = 'form:"isp"'];
+  string channel = 6 [(gogoproto.jsontag) = "channel", (gogoproto.moretags) = 'form:"channel"'];
+  string city = 7 [(gogoproto.jsontag) = "city", (gogoproto.moretags) = 'form:"city"'];
+  UpgradeType type = 8 [(gogoproto.jsontag) = "type", (gogoproto.moretags) = 'form:"type"'];
+  int64 percent = 11 [(gogoproto.jsontag) = "percent", (gogoproto.moretags) = 'form:"percent"'];
+  string device_id = 9 [(gogoproto.jsontag) = "device", (gogoproto.moretags) = 'form:"device"'];
+  string salt = 12 [(gogoproto.jsontag) = "salt", (gogoproto.moretags) = 'form:"salt"'];
+  string excludes_system = 13 [(gogoproto.jsontag) = "excludes_system", (gogoproto.moretags) = 'form:"excludes_system"'];
+  string operator = 14 [(gogoproto.jsontag) = "operator", (gogoproto.moretags) = 'form:"operator"'];
+  int64 ctime = 15 [(gogoproto.jsontag) = "ctime", (gogoproto.moretags) = 'form:"ctime"'];
+  int64 mtime = 16 [(gogoproto.jsontag) = "mtime", (gogoproto.moretags) = 'form:"mtime"'];
+}
+
+message EvolutionTribeReq{
+  int64 tribe_pack_id = 1 [(gogoproto.jsontag) = "tribe_pack_id", (gogoproto.moretags) = 'form:"tribe_pack_id" validate:"required"'];
+  string description = 2 [(gogoproto.jsontag) = "description", (gogoproto.moretags) = 'form:"description"'];
+}
+
+message GetConfigPackUpgradeFilterReq{
+  int64 tribe_id = 1 [(gogoproto.jsontag) = "tribe_id", (gogoproto.moretags) = 'form:"tribe_id"'];
+  string env = 2 [(gogoproto.jsontag) = "env", (gogoproto.moretags) = 'form:"env"'];
+  int64 tribe_pack_id = 3 [(gogoproto.jsontag) = "tribe_pack_id", (gogoproto.moretags) = 'form:"tribe_pack_id"'];
+}
+
+enum Sort{
+  DESC = 0;
+  ASC = 1;
+}
+
+enum CallbackStatus{
+  Success = 0;
+  Failed = -1;
+}
+
+enum UpgradeType{
+  Custom = 0;
+  All = 1;
+  Test = 2;
+}

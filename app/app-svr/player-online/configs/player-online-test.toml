@@ -1,0 +1,34 @@
+tick = "1m"
+
+[redis]
+[redis.online]
+    name   = "player-online/online"
+    proto  = "tcp"
+    addr   = "127.0.0.1:26984"
+    active = 20
+    idle   = 10
+    dialTimeout  = "50ms"
+    readTimeout  = "100ms"
+    writeTimeout = "100ms"
+    idleTimeout  = "80s"
+
+[Online]
+    Text = "%s人在看"
+    SecNext = 30
+    SwitchOn = true
+
+[OnlineBottom]
+    SwitchOn = true
+    Gray = 100
+    [OnlineBottom.Mid]
+        "5059976" = 1
+
+[OnlineSpecialDM]
+    SwitchOn = true
+    Gray = 100
+    DmCount = 1
+    ShowCount = 10
+    Text = "%s人同时在看~"
+    [OnlineSpecialDM.Mid]
+        "5059976" = 1
+

@@ -1,0 +1,242 @@
+POST {{baseUrl}}/auth/group/add
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+{
+  "group_name": "cd"
+}
+
+###
+
+POST {{baseUrl}}/auth/group/update
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+{
+  "group_id": 2,
+  "group_name": "cd1"
+}
+###
+
+POST {{baseUrl}}/auth/item/add
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+{
+  "group_id": 4,
+  "item_name": "CI列表页面",
+  "fe_key": "ci.list",
+  "be_url": "/app/ci/list",
+  "url_param": ""
+}
+
+###
+
+POST {{baseUrl}}/auth/item/switch
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+{
+  "item_id": 1,
+  "is_active": false
+}
+
+###
+
+
+POST {{baseUrl}}/auth/item/update
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+{
+  "item_id": 5,
+  "item_name": "CI列表页面",
+  "fe_key": "ci.list.page",
+  "be_url": "/app/ci/list",
+  "url_param": ""
+}
+
+###
+
+POST {{baseUrl}}/auth/item/delete
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+{
+  "item_id": 5
+}
+
+###
+
+
+
+POST {{baseUrl}}/auth/grant
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+{
+  "item": [
+    {
+      "item_id": 1,
+      "role_id": 1,
+      "is_granted": true
+    },
+    {
+      "item_id": 1,
+      "role_id": 2,
+      "is_granted": true
+    }
+  ]
+}
+
+###
+
+
+
+GET {{baseUrl}}/auth/list
+Cookie: {{Cookie}}
+
+###
+
+
+GET {{baseUrl}}/app/tribe/info?id=156
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+###
+POST {{baseUrl}}/business/tribe/ci/pkg/update
+Cookie: username=luweidan; X-CSRF=$2b$10$r0A2aQBzqBEuFXw51Aen7OLjFUCiZreddFJ1.WZ5prGFDFT2saeZ.; _AJSESSIONID=cbda041bf98c354cb679c6e48b702147; _gitlab_token=ZmQyMzI1MWI4YTEyNGY0YzM4ODM3OWQxNjZkYmMzYzI4MzZjMDRkNThiMjQxYjg0MzUxOGRmNjg2Zjc4N2EwNQ==; mng-go=6a9e4d6503cd77d3b0189fcb1c90530c43af7839eb44e86d107512b515399296
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="tribe_build_pack_id"
+
+3
+--WebAppBoundary
+Content-Disposition: form-data; name="status"
+
+0
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="6745003.zip""
+
+< /Users/wdlu/Documents/6745003.zip
+
+--WebAppBoundary
+Content-Disposition: form-data; name="change_log"
+
+"officia Duis e"
+--WebAppBoundary
+Content-Disposition: form-data; name="apk_path"
+
+"main.apk"
+--WebAppBoundary
+Content-Disposition: form-data; name="mapping_path"
+
+"mapping.txt"
+--WebAppBoundary
+Content-Disposition: form-data; name="bbr_path"
+
+"main.bbr"
+--WebAppBoundary
+Content-Disposition: form-data; name="build_end_time"
+
+11111111111111
+--WebAppBoundary
+Content-Disposition: form-data; name="version_code"
+
+44745661
+--WebAppBoundary
+Content-Disposition: form-data; name="unzip"
+
+"true"
+--WebAppBoundary
+Content-Disposition: form-data; name="md5"
+
+""
+--WebAppBoundary--
+
+###
+
+POST {{baseUrl}}/app/tribe/cd/config/version/upgrade/set
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-cn
+Host: fawkes.bilibili.co
+Origin: https://fawkes.bilibili.co
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15
+Connection: keep-alive
+Referer: https://fawkes.bilibili.co/?api=v2
+Cookie: {{Cookie}}
+x1-bilispy-user: fawkes_luweidan
+Content-Type: application/json
+
+{
+  "starting_version_code": [
+    "6501667"
+  ],
+  "chosen_version_code": [
+    "6501667"
+  ],
+  "tribe_id": 152,
+  "env": "test",
+  "tribe_pack_id": 117,
+  "app_key": "w19e"
+}
+
+###
+
+POST {{baseUrl}}/app/tribe/cd/config/version/active
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-cn
+Host: fawkes.bilibili.co
+Origin: https://fawkes.bilibili.co
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15
+Connection: keep-alive
+Referer: https://fawkes.bilibili.co/?api=v2
+Cookie: {{Cookie}}
+x1-bilispy-user: fawkes_luweidan
+Content-Type: application/json
+
+{
+  "app_key": "w19e",
+  "env": "test",
+  "version_id": 7,
+  "active": false
+}
+
+###
+
+###
+GET {{baseUrl}}/app/tribe/info?id=150
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+###
+
+GET {{baseUrl}}/app/tribe/cd/list?app_key=w19e&tribe_id=129&env=test&ps=10&pn=1
+Accept: application/json
+Cookie: {{Cookie}}
+
+###
+
+POST {{baseUrl}}/app/tribe/ci/add
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+{
+  "tribe_id": 150,
+  "pkg_type": 0,
+  "git_type": 2,
+  "git_name": "suibian"
+}
+
+###
+

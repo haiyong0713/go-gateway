@@ -1,0 +1,10 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+- zhoujiahui
+- zhagnxin
+- xialinjuan01
+labels:
+- area/web-svr
+- area/web-svr/space/service
+options: {}

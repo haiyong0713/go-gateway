@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+package ott.service.v1;
+
+option go_package = "git.bilibili.co/bapis/bapis-go/ott/service;api";
+option java_package = "com.bapis.ott.service";
+option java_multiple_files = true;
+
+service OTTService {
+  // 必连入口展示开关
+  rpc BiliLinkEntry(BiliLinkEntryReq) returns (BiliLinkEntryReply);
+  // 必连活动事件上报
+  rpc BiliLinkReport(BiliLinkReportReq) returns (BiliLinkReportReply);
+}
+
+message BiliLinkEntryReq {
+  int64 mid = 1;
+  string platform = 2;
+  string mobi_app = 3;
+  int64 build = 4;
+  string channel = 5;
+  int64 bili_link_new = 6;
+}
+
+message BiliLinkEntryReply {
+  // true:展示  false:不展示
+  bool show = 1;
+  BiliLinkBubble bili_link_bubble = 2;
+}
+
+message BiliLinkBubble {
+  int64 id = 1;
+  string title = 2;
+  string pic = 3;
+  string desc = 4;
+}
+
+message BiliLinkReportReq {
+  int64 act_type = 1;
+  int64 id = 2;
+  int64 mid = 3;
+}
+
+message BiliLinkReportReply {
+  bool result = 1;
+}

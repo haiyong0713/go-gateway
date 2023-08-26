@@ -1,0 +1,58 @@
+[Node]
+taskID = "002298"
+proto   = "tcp"
+addr    = "dataflow.bilibili.co:5402"
+chanSize = 10240
+
+[SteinsGate]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "SteinsGate-MainAppSvr-P"
+    topic = "SteinsGate-T"
+    action = "pub"
+    proto = "tcp"
+    addr = "172.18.33.50:6205"
+    idle = 100
+    active = 100
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+
+[ArcInteractivePub]
+    key = "9765cdac5894f2ba"
+    secret = "f4237d712c3ed1e7fab0137b81418b14"
+    group = "Archive-Interactive-MainWebSvr-P"
+    topic = "Archive-Interactive-T"
+    action = "pub"
+    proto = "tcp"
+    addr = "172.18.33.50:6205"
+    idle = 100
+    active = 100
+    dialTimeout = "1s"
+    readTimeout = "1s"
+    writeTimeout = "1s"
+
+[Redis]
+    name   = "app-job/graph"
+    proto  = "tcp"
+    addr   = "0.0.0.0:6379"
+    active = 1024
+    idle   = 64
+    dialTimeout  = "30ms"
+    readTimeout  = "800ms"
+    writeTimeout = "800ms"
+    idleTimeout  = "80s"
+
+[wechat]
+    wxkey = "9c178e51a7d4dc8aa1dbef0c790b06e7574c4d0etracehubtuhui@bilibili.com"
+    wxTitle = "互动视频新剧情树消息"
+    wxUser = "qiujianwen,hongmei,xueye,xuqiujie,liuqianghua,zhuyanhua,dongyuchun,huangsenmiao,zhangwenhong,zhaoxiping,chenyidong,liuheyi,wuwenlong,yangfan01,liudongfang,zhanghailong,wuheng,zhengfei,menglinghe,zhaogang,balingyan,jinyejun,dogchenglong,duziwei,chenyuanrui,wangxu04,luomengyan,liweijia"
+
+
+[bvc]
+    key = "d5487ea02b97"
+
+[rule]
+    allowCommitTime = "2017-10-17T00:00:00+08:00"
+    GraphMids = [908085,48155,1684013,98656092,35053212,3479095]

@@ -1,0 +1,50 @@
+syntax = "proto3";
+package activity.service;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "task";
+
+message Task {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    string Name = 2 [(gogoproto.jsontag) = "name"];
+    int64 BusinessID = 3 [(gogoproto.jsontag) = "business_id"];
+    int64 ForeignID = 4 [(gogoproto.jsontag) = "foreign_id"];
+    int64 Rank = 5 [(gogoproto.jsontag) = "rank"];
+    int64 FinishCount = 6 [(gogoproto.jsontag) = "finish_count"];
+    int64 Attribute = 7 [(gogoproto.jsontag) = "attribute"];
+    int64 CycleDuration = 8 [(gogoproto.jsontag) = "cycle_duration"];
+    int64 Stime = 9 [(gogoproto.jsontag) = "stime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Etime = 10 [(gogoproto.jsontag) = "etime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 AwardType = 11 [(gogoproto.jsontag) = "award_type"];
+    int64 AwardID = 12 [(gogoproto.jsontag) = "award_id"];
+    int64 AwardCount = 13 [(gogoproto.jsontag) = "award_count"];
+    string PreTask = 14 [(gogoproto.jsontag) = "pre_task"];
+    int64 Level = 15 [(gogoproto.jsontag) = "level"];
+    int64 AwardExpire = 16 [(gogoproto.jsontag) = "award_expire"];
+}
+
+message UserTask {
+    int64 ID = 1 [(gogoproto.jsontag) = "-"];
+    int64 Mid = 2 [(gogoproto.jsontag) = "mid"];
+    int64 BusinessID = 3 [(gogoproto.jsontag) = "business_id"];
+    int64 ForeignID = 4 [(gogoproto.jsontag) = "foreign_id"];
+    int64 TaskID = 5 [(gogoproto.jsontag) = "task_id"];
+    int64 Round = 6 [(gogoproto.jsontag) = "round"];
+    int64 Count = 7 [(gogoproto.jsontag) = "count"];
+    int64 Finish = 8 [(gogoproto.jsontag) = "finish"];
+    int64 Award = 9 [(gogoproto.jsontag) = "award"];
+    int64 Ctime = 10 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 Mtime = 11 [(gogoproto.jsontag) = "mtime", (gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 RoundCount = 12 [(gogoproto.jsontag) = "round_count"];
+}
+
+message UserTaskLog {
+    int64 ID = 1 [(gogoproto.jsontag) = "id"];
+    int64 Mid = 2 [(gogoproto.jsontag) = "mid"];
+    int64 BusinessID = 3 [(gogoproto.jsontag) = "business_id"];
+    int64 ForeignID = 4 [(gogoproto.jsontag) = "foreign_id"];
+    int64 TaskID = 5 [(gogoproto.jsontag) = "task_id"];
+    int64 Round = 6 [(gogoproto.jsontag) = "round"];
+    int64 Ctime = 7 [(gogoproto.jsontag) = "ctime", (gogoproto.casttype) = "go-common/library/time.Time"];
+}

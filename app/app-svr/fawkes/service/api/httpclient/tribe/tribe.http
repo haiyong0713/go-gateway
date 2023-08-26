@@ -1,0 +1,207 @@
+# curl 'https://fawkes.bilibili.co/x/admin/fawkes/v2/app/tribe/cd/pack/relations?app_key=android&feature='
+#  -H 'Connection: keep-alive'
+#  -H 'sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"'
+#  -H 'x1-bilispy-user: fawkes_luweidan'
+#  -H 'sec-ch-ua-mobile: ?0'
+#  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'
+#  -H 'sec-ch-ua-platform: "macOS"'
+#  -H 'Accept: */*'
+#  -H 'Sec-Fetch-Site: same-origin'
+#  -H 'Sec-Fetch-Mode: cors'
+#  -H 'Sec-Fetch-Dest: empty'
+#  -H 'Referer: https://fawkes.bilibili.co/?api=v2/'
+#  -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7'
+#  -H 'Cookie: b_nut=1637226994; buvid_fp=5840E8B1-0678-4EEC-8261-148F75053A9819300infoc; username=luweidan; b_lsid=5743DF82_17E0FD10A07; b_nut=1640942865; buvid3=2D1471A9-6A80-621A-30E4-99B6A39E73B865087infoc; _AJSESSIONID=e101512193f43229b7a0567ef0e82abb; mng-go=d835acfff6f0b179fc8e62f5a6b0aa80d35aa2a7b837b50ab86eb4a493871f85'
+#  --compressed
+GET {{baseUrl}}/app/tribe/cd/pack/relations?app_key=android&feature=infra
+Connection: keep-alive
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"
+x1-bilispy-user: fawkes_luweidan
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
+sec-ch-ua-platform: "macOS"
+Accept: */*
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://fawkes.bilibili.co/
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7
+Cookie:{{Cookie}}
+
+###
+
+GET {{baseUrl}}/app/tribe/list?app_key=w19e&pn=1&ps=999
+Connection: keep-alive
+sec-ch-ua: "Google Chrome";v="95", "Chromium";v="95", ";Not A Brand";v="99"
+x1-bilispy-user: fawkes_luweidan
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36
+sec-ch-ua-platform: "macOS"
+Accept: */*
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://fawkes.bilibili.co/?api=v2/
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7
+Cookie: {{Cookie}}
+
+###
+
+POST {{baseUrl}}/app/tribe/add
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+{
+  "app_key": "w19e",
+  "name": "livestreamtest",
+  "c_name": "饭",
+  "owners": "luweidan",
+  "description": "哈哈哈",
+  "no_host": true,
+  "priority": 100,
+  "is_build_in": true
+}
+
+###
+
+
+GET {{baseUrl}}/app/tribe/info?id=156
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+###
+POST {{baseUrl}}/business/tribe/ci/pkg/update
+Cookie: username=luweidan; X-CSRF=$2b$10$r0A2aQBzqBEuFXw51Aen7OLjFUCiZreddFJ1.WZ5prGFDFT2saeZ.; _AJSESSIONID=cbda041bf98c354cb679c6e48b702147; _gitlab_token=ZmQyMzI1MWI4YTEyNGY0YzM4ODM3OWQxNjZkYmMzYzI4MzZjMDRkNThiMjQxYjg0MzUxOGRmNjg2Zjc4N2EwNQ==; mng-go=6a9e4d6503cd77d3b0189fcb1c90530c43af7839eb44e86d107512b515399296
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="tribe_build_pack_id"
+
+3
+--WebAppBoundary
+Content-Disposition: form-data; name="status"
+
+0
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="6745003.zip""
+
+< /Users/wdlu/Documents/6745003.zip
+
+--WebAppBoundary
+Content-Disposition: form-data; name="change_log"
+
+"officia Duis e"
+--WebAppBoundary
+Content-Disposition: form-data; name="apk_path"
+
+"main.apk"
+--WebAppBoundary
+Content-Disposition: form-data; name="mapping_path"
+
+"mapping.txt"
+--WebAppBoundary
+Content-Disposition: form-data; name="bbr_path"
+
+"main.bbr"
+--WebAppBoundary
+Content-Disposition: form-data; name="build_end_time"
+
+11111111111111
+--WebAppBoundary
+Content-Disposition: form-data; name="version_code"
+
+44745661
+--WebAppBoundary
+Content-Disposition: form-data; name="unzip"
+
+"true"
+--WebAppBoundary
+Content-Disposition: form-data; name="md5"
+
+""
+--WebAppBoundary--
+
+###
+
+POST {{baseUrl}}/app/tribe/cd/config/version/upgrade/set
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-cn
+Host: fawkes.bilibili.co
+Origin: https://fawkes.bilibili.co
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15
+Connection: keep-alive
+Referer: https://fawkes.bilibili.co/?api=v2
+Cookie: {{Cookie}}
+x1-bilispy-user: fawkes_luweidan
+Content-Type: application/json
+
+{
+  "starting_version_code": [
+    "6501667"
+  ],
+  "chosen_version_code": [
+    "6501667"
+  ],
+  "tribe_id": 152,
+  "env": "test",
+  "tribe_pack_id": 117,
+  "app_key": "w19e"
+}
+
+###
+
+POST {{baseUrl}}/app/tribe/cd/config/version/active
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-cn
+Host: fawkes.bilibili.co
+Origin: https://fawkes.bilibili.co
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15
+Connection: keep-alive
+Referer: https://fawkes.bilibili.co/?api=v2
+Cookie: {{Cookie}}
+x1-bilispy-user: fawkes_luweidan
+Content-Type: application/json
+
+{
+  "app_key": "w19e",
+  "env": "test",
+  "version_id": 7,
+  "active": false
+}
+
+###
+
+###
+GET {{baseUrl}}/app/tribe/info?id=150
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+###
+
+GET {{baseUrl}}/app/tribe/cd/list?app_key=w19e&tribe_id=129&env=test&ps=10&pn=1
+Accept: application/json
+Cookie: {{Cookie}}
+
+###
+
+POST {{baseUrl}}/app/tribe/ci/add
+Content-Type: application/json
+Cookie: {{Cookie}}
+
+{
+  "tribe_id": 150,
+  "pkg_type": 0,
+  "git_type": 2,
+  "git_name": "suibian"
+}
+
+###
+

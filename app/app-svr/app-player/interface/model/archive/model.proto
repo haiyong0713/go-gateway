@@ -1,0 +1,14 @@
+syntax = "proto3";
+package archive;
+
+message Info { 
+    int64 aid = 1;
+    repeated int64 cids = 2;
+    int32 state = 3;
+    int64 mid = 4;
+    int32 attribute = 5;
+    int64 attributeV2 = 6;
+    int64 SeasonID = 7;
+    int32 TypeID = 8;
+    int32 Copyright = 9;
+}

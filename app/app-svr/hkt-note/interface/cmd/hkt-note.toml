@@ -1,0 +1,113 @@
+[httpClients]
+    [httpClients.inner]
+        key    = "cadf599ba8b3796a"
+        secret = "42fbb979aa742013d713a088f912673b"
+        dial      = "500ms"
+        timeout   = "2s"
+        keepAlive = "60s"
+        timer = 10
+[HTTPServer]
+    addr = "0.0.0.0:8179"
+    timeout = "1s"
+
+[db]
+    [db.note]
+    addr = "172.22.34.101:3318"
+    dsn = "bilibili_note:w9LljXzcDOKfBG8HrJ5f5PjKtDrIBMcH@tcp(172.16.33.101:3318)/bilibili_note?timeout=5s&readTimeout=5s&writeTimeout=5s&parseTime=true&loc=Local&charset=utf8,utf8mb4"
+    active = 5
+    idle = 2
+    idleTimeout ="4h"
+    queryTimeout = "1s"
+    execTimeout = "1s"
+    tranTimeout = "1s"
+    [db.note.breaker]
+    window = "3s"
+    sleep = "100ms"
+    bucket = 10
+    ratio = 0.5
+    request = 100
+[redis]
+	name   = "hkt-note"
+	proto  = "tcp"
+	addr   = "localhost:6379"
+	active = 20
+	idle   = 10
+	dialTimeout  = "50ms"
+	readTimeout  = "100ms"
+	writeTimeout = "100ms"
+	idleTimeout  = "80s"
+	noteExpire = "60s"
+    artExpire = "30m"
+[noteCfg]
+    maxSize = 10485760
+    maxContSize = 20000
+    imageHost = "app.bilibili.com"
+    broadcastToken = "uat-note"
+    [noteCfg.seq]
+        businessId = 123
+        token = "hkt-note"
+    [noteCfg.Messages]
+        UpSwitchMsg = "当前视频下公开笔记功能已关闭"
+        ListNoneMsg = "还没有人发布笔记哦，快去发布一篇吧～"
+[NotePub]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "NoteNotify-MainAppSvr-P"
+    topic = "NoteNotify-T"
+    action = "pub"
+    name = "hkt-note/interface"
+    proto = "tcp"
+    addr = "172.18.21.41:6205"
+    idle = 1
+    active = 10
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+    [NotePub.Degrade]
+                Policy = "err"
+            [[NotePub.Degrade.Targets]]
+                Addr = "discovery://main.app-svr.hkt-note-job/railgun/note_add"
+                Timeout = "500ms"
+            [NotePub.Degrade.HTTPClient]
+                key = "cadf599ba8b3796a"
+                secret = "42fbb979aa742013d713a088f912673b"
+                dial = "400ms"
+                timeout = "400ms"
+[NoteAuditPub]
+    key = "8e27ab7e39270b59"
+    secret = "477df6a068d7332a163f95abbad2079c"
+    group = "NoteAuditNotify-MainAppSvr-P"
+    topic = "NoteAuditNotify-T"
+    action = "pub"
+    name = "hkt-note/interface"
+    proto = "tcp"
+    addr = "172.18.21.41:6205"
+    idle = 1
+    active = 10
+    dialTimeout = "1s"
+    readTimeout = "60s"
+    writeTimeout = "1s"
+    idleTimeout = "10s"
+    [NoteAuditPub.Degrade]
+            Policy = "err"
+        [[NoteAuditPub.Degrade.Targets]]
+            Addr = "discovery://main.app-svr.hkt-note-job/railgun/note_audit"
+            Timeout = "500ms"
+        [NoteAuditPub.Degrade.HTTPClient]
+            key = "cadf599ba8b3796a"
+            secret = "42fbb979aa742013d713a088f912673b"
+            dial = "400ms"
+            timeout = "400ms"
+[bfs]
+    key = "4kj07er9pbg8qacd"
+    bucket = "note"
+    secret = "ixapejcb3qso8571uym90vltfd4zwk"
+    maxSize = 10485760
+    host = "api.bilibili.com/x/note/image"
+    publicToken = "auditTest"
+    publicUrl = "api.bilibili.com/x/note/image/public"
+[gray]
+    noteWebGray = 90
+[hosts]
+    bfsHost = "http://bfs.bilibili.co"

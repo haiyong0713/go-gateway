@@ -1,0 +1,13 @@
+package task
+
+import (
+    "context"
+)
+
+func __getMid(ctx context.Context) (int64){
+    mid, ok := ctx.Value("mid").(int64)
+    if !ok {
+        return 0
+    }
+    return mid
+}

@@ -1,0 +1,26 @@
+[S3]
+Endpoint="http://uat-boss.bilibili.co"
+Region="us-gov-east-1"
+Bucket="tm_appcard"
+CredID="8a12b0544ba01374"
+CredSecret="5ecaa8b82b5dea318528ca062faa591c"
+CredToken="faketoken"
+
+[SessionDatabus]
+key = "8e27ab7e39270b59"
+secret = "477df6a068d7332a163f95abbad2079c"
+group = "AppFeedClarifyData-MainAppSvr-S"
+topic = "AppFeedClarifyData-T"
+action = "sub"
+buffer = 2048
+proto = "tcp"
+addr = "172.18.33.50:6205"
+idle = 2
+active = 10
+dialTimeout = "1s"
+readTimeout = "60s"
+writeTimeout = "1s"
+idleTimeout = "10s"
+
+[SessionRecorder]
+MaxBufferSize=1024_000

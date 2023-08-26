@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+// use {app_id}.{version} as package name
+package resource.service.v1;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+// specify golang package name
+option go_package = "v1";
+
+message Menu {
+    int64 tabId = 1;
+    int32 plat = 2;
+    string name = 3;
+    int32 cType = 4 ;
+    string cValue = 5;
+    bytes platVersion = 6 ;
+    int64 sTime = 7 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int64 eTime = 8 [(gogoproto.casttype) = "go-common/library/time.Time"];
+    int32 status = 9;
+    string color = 10;
+    string badge = 11;
+}
+
+message MenuReply {
+    repeated Menu list = 1;
+}
+
+message Active {
+    int64 id = 1;
+    int64 parentID = 2;
+    string name = 3;
+    string background = 4;
+    string type = 5;
+    bytes content = 6;
+}
+
+message ActiveReply {
+    repeated Active list = 1;
+}
+
+message AppActiveReply {
+    repeated Active list = 1;
+    string cover = 2;
+}
+
+message AppActiveRequest {
+    int64 id = 1;
+}
+
+message AppMenusRequest {
+    int32 plat = 1;
+    int32 build = 2;
+}
+
+message AppMenu {
+    int64 id = 1;
+    int64 tabId = 2;
+    string name = 3;
+    string img = 4;
+    string icon = 5;
+    string color = 6;
+}
+
+message AppMenuReply {
+    repeated AppMenu list = 1;
+}
